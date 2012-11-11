@@ -40,7 +40,7 @@ $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute(array($package->packageID, "wcf".WCF_N."_user", $columnName));
 
 // dashboard
-//DashboardHandler::setDefaultValues('com.woltnet.wdb.IndexPage', array('latestArticles' => 1, 'updatedArticles' => 2));
+//DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('latestArticles' => 1, 'updatedArticles' => 2));
 
 // try to delete this file
 @unlink(__FILE__);
