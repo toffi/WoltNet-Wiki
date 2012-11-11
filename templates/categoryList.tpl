@@ -1,5 +1,5 @@
 {foreach from=$categoryList item=categoryItem}
-	<div class="wikiCategory container marginTop shadow{*if $categoryItem->getUnreadArticles()} new{/if*}">
+	<div class="wikiCategoryListIndex container marginTop shadow{*if $categoryItem->getUnreadArticles()} new{/if*}">
 		<ul class="containerList">
 			<li class="box48" data-category-id="{@$categoryItem->categoryID}">
 				<img src="{icon}folder{*if $categoryItem->getUnreadArticles()}New{/if*}Colored{/icon}" alt="" class="icon48 {*if $categoryItem->getUnreadArticles()} markAsRead{/if*}" />

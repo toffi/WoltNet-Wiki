@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/userGroupOption.xsd">
+	<import>
+		<categories>
+			<!-- User -->
+			<category name="user.wiki">
+				<parent>user</parent>
+			</category>
+			
+			<category name="user.wiki.article">
+				<parent>user.wiki</parent>
+			</category>
+			
+			<category name="user.wiki.category">
+				<parent>user.wiki</parent>
+			</category>
+			
+			<category name="user.wiki.category.read">
+				<parent>user.wiki.category</parent>
+			</category>
+			
+			<category name="user.wiki.article.read">
+				<parent>user.wiki.article</parent>
+			</category>
+			
+			<category name="user.wiki.article.write">
+				<parent>user.wiki.article</parent>
+			</category>
+			
+			<!-- Moderation -->
+			<category name="mod.wiki">
+				<parent>mod</parent>
+			</category>
+			
+			<category name="mod.wiki.article">
+				<parent>mod.wiki</parent>
+			</category>
+			
+			<category name="mod.wiki.category">
+				<parent>mod.wiki</parent>
+			</category>
+			
+			<!-- Administration -->
+			<category name="admin.category">
+				<parent>admin.content</parent>
+				<showorder>1</showorder>
+			</category>
+			
+			<category name="admin.article">
+				<parent>admin.content</parent>
+				<showorder>2</showorder>
+			</category>
+		</categories>
+		
+		<options>
+			<!-- User -->
+			<option name="user.wiki.article.read.canViewArticle">
+				<categoryname>user.wiki.article.read</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="user.wiki.article.read.canReadArticle">
+				<categoryname>user.wiki.article.read</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="user.wiki.article.write.canAddArticle">
+				<categoryname>user.wiki.article.write</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="user.wiki.article.write.canEditOwnArticle">
+				<categoryname>user.wiki.article.write</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="user.wiki.category.read.canViewCategory">
+				<categoryname>user.wiki.category.read</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="user.wiki.category.read.canEnterCategory">
+				<categoryname>user.wiki.category.read</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			
+			<!-- Moderation -->
+			<option name="mod.wiki.article.canManagePermissions">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canTrashArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canRestoreArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canDeleteArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canEditArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canActivateArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canReadDeactivatedArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canModerateArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.article.canReadTrashedArticle">
+				<categoryname>mod.wiki.article</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			
+			<option name="user.wiki.category.canAddCategory">
+				<categoryname>user.wiki.category</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.category.canDeleteCategory">
+				<categoryname>mod.wiki.category</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.category.canEditCategory">
+				<categoryname>mod.wiki.category</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+		</options>
+	</import>
+</data>
