@@ -92,6 +92,12 @@ class Category extends WIKIDatabaseObject implements IBreadcrumbProvider, IRoute
 		}
 		return $array;
 	}
+	
+	public function getDepth() {
+		if($this->getParentCategory() == $this) return 1;
+		
+		return $this->getParentCategory()->getDepth() + 1;
+	}
 		
 	/**
 	 * Returns the top category of this category.
