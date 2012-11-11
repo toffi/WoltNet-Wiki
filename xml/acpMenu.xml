@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/pagemnu.xsd">
+	<import>
+		<acpmenuitem name="wiki.acp.menu.link.wiki.category">
+			<parent>wcf.acp.menu.link.content</parent>
+			<showorder>1</showorder>
+		</acpmenuitem>
+		<acpmenuitem name="wiki.acp.menu.link.wiki.category.list">
+			<link>index.php/CategoryList/</link>
+			<parent>wiki.acp.menu.link.wiki.category</parent>
+			<showorder>1</showorder>
+		</acpmenuitem>
+		<acpmenuitem name="wiki.acp.menu.link.wiki.category.add">
+			<link>index.php/CategoryAdd/</link>
+			<parent>wiki.acp.menu.link.wiki.category</parent>
+			<showorder>2</showorder>
+		</acpmenuitem>
+	</import>
+</data>

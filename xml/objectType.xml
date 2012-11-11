@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/object-type.xsd">
+	<import>
+		<!-- acl -->
+		<type>
+			<name>com.woltnet.wiki.category</name>
+			<definitionname>com.woltlab.wcf.acl</definitionname>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.acl</definitionname>
+		</type>
+		
+		<!-- visit tracker -->
+		<type>
+			<name>com.woltnet.wiki.category</name>
+			<definitionname>com.woltlab.wcf.visitTracker.objectType</definitionname>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.visitTracker.objectType</definitionname>
+		</type>
+		
+		<!-- comment -->
+		<type>
+			<name>com.woltnet.wiki.articleComment</name>
+			<definitionname>com.woltlab.wcf.comment.commentableContent</definitionname>
+			<classname>wiki\system\comment\manager\ArticleCommentManager</classname>
+		</type>
+		
+		<!-- search -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.searchableObjectType</definitionname>
+			<classname>wiki\system\search\ArticleSearch</classname>
+		</type>
+		
+		<!-- object watch
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
+			<classname>wiki\system\user\object\watch\ArticleUserObjectWatch</classname>
+		</type>
+		-->
+		
+		<!-- clipboard -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.clipboardItem</definitionname>
+			<listclassname>wiki\data\article\ArticleList</listclassname>
+		</type>
+		
+		<!-- dashboard container -->
+		<type>
+			<name>com.woltnet.wiki.IndexPage</name>
+			<definitionname>com.woltlab.wcf.user.dashboardContainer</definitionname>
+			<allowcontent>1</allowcontent>
+			<allowsidebar>1</allowsidebar>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.CategoryPage</name>
+			<definitionname>com.woltlab.wcf.user.dashboardContainer</definitionname>
+			<allowcontent>0</allowcontent>
+			<allowsidebar>1</allowsidebar>
+		</type>
+		
+		<!-- moderation -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.moderation.report</definitionname>
+			<classname>wiki\system\moderation\queue\report\ArticleModerationQueueReportHandler</classname>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.moderation.activation</definitionname>
+			<classname>wiki\system\moderation\queue\activation\ArticleModerationQueueActivationHandler</classname>
+		</type>
+		
+		<!-- user online locations -->
+		<type>
+			<name>com.woltnet.wiki.indexPage</name>
+			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
+			<controller>wiki\page\IndexPage</controller>
+			<languagevariable>wcf.user.usersOnline.location.indexPage</languagevariable>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.categoryPage</name>
+			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
+			<classname>wiki\system\user\online\location\CategoryLocation</classname>
+			<controller>wiki\page\CategoryPage</controller>
+			<languagevariable>wcf.user.usersOnline.location.categoryPage</languagevariable>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.articlePage</name>
+			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
+			<classname>wiki\system\user\online\location\ArticleLocation</classname>
+			<controller>wiki\page\ArticlePage</controller>
+			<languagevariable>wcf.user.usersOnline.location.articlePage</languagevariable>
+		</type>
+		
+		<!-- recent activity event -->
+		<type>
+			<name>com.woltnet.wiki.articleComment.recentActivityEvent</name>
+			<definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
+			<classname>wiki\system\user\activity\event\ArticleCommentUserActivityEvent</classname>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.articleComment.response.recentActivityEvent</name>
+			<definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
+			<classname>wiki\system\user\activity\event\ArticleCommentResponseUserActivityEvent</classname>
+		</type>
+		
+		<!-- notification
+		<type>
+			<name>com.woltnet.wiki.articleComment.notification</name>
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+			<classname>wiki\system\user\notification\object\type\ArticleCommentUserNotificationObjectType</classname>
+		</type>
+		
+		<type>
+			<name>com.woltnet.wiki.articleComment.response.notification</name>
+			<definitionname>com.woltlab.wcf.notification.objectType</definitionname>
+			<classname>wiki\system\user\notification\object\type\ArticleCommentResponseUserNotificationObjectType</classname>
+		</type>
+		-->
+	</import>
+</data>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/userProfileMenu.xsd">
+	<import>
+		<articlemenuitem name="overview">
+			<classname>wiki\system\menu\article\content\OverviewArticleMenuContent</classname>
+			<showorder>1</showorder>
+		</articlemenuitem>
+
+		<articlemenuitem name="discuss">
+			<classname>wiki\system\menu\article\content\DiscussArticleMenuContent</classname>
+			<showorder>2</showorder>
+		</articlemenuitem>
+
+		<articlemenuitem name="version">
+			<classname>wiki\system\menu\article\content\VersionArticleMenuContent</classname>
+			<showorder>3</showorder>
+		</articlemenuitem>
+	</import>
+</data>

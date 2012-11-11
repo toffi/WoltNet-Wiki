@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/options.xsd">
+	<import>	
+		<categories>
+			<category name="category"></category>
+			
+			<category name="category.article">
+				<parent>category</parent>
+			</category>
+			<category name="category.index">
+				<parent>category</parent>
+			</category>
+			<category name="category.index.general">
+				<parent>category.index</parent>
+			</category>
+			<category name="category.index.categories">
+				<parent>category.index</parent>
+			</category>
+		</categories>
+		
+		<options>
+			<!-- general -->
+			<option name="install_date">
+				<categoryname>general</categoryname>
+				<optiontype>integer</optiontype>
+				<hidden>1</hidden>
+			</option>
+			<!-- /general -->
+			
+			<!-- index.general -->
+			<option name="index_enable_stats">
+				<categoryname>category.index.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<!-- /index.general -->
+			
+			<!-- index.categories-->
+			<option name="category_list_depth">
+				<categoryname>category.index.categories</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<!-- /index.categories -->
+			
+			<!-- category.articles -->
+			<option name="category_articles_per_page">
+				<categoryname>category.article</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>20</defaultvalue>
+			</option>
+			<option name="category_default_sort_field">
+				<categoryname>category.article</categoryname>
+				<optiontype>select</optiontype>
+				<defaultvalue>time</defaultvalue>
+				<selectoptions><![CDATA[subject:wiki.category.sortBy.subject
+username:wiki.category.sortBy.username
+time:wiki.category.sortBy.time]]></selectoptions>
+			</option>
+			<option name="category_default_sort_order">
+				<categoryname>category.article</categoryname>
+				<optiontype>select</optiontype>
+				<defaultvalue>DESC</defaultvalue>
+				<selectoptions><![CDATA[ASC:wcf.global.sortOrder.ascending
+DESC:wcf.global.sortOrder.descending]]></selectoptions>
+			</option>
+			<!-- /category.projects -->
+		</options>
+	</import>
+</data>

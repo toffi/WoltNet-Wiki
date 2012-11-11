@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="com.woltnet.wiki" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
+	<packageinformation>
+		<packagename><![CDATA[WoltNet - Wiki]]></packagename>
+		<packagedescription><![CDATA[Wiki Version for WCF 2.0]]></packagedescription>
+		<isapplication>1</isapplication>
+		<isunique>0</isunique>
+		<version>1.0.0 Alpha 1</version>
+		<date>2012-11-10</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author><![CDATA[WoltNet]]></author>
+		<authorurl><![CDATA[http://woltnet.com]]></authorurl>
+	</authorinformation>
+
+	<requiredpackages>
+		<requiredpackage file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.acl.tar">com.woltlab.wcf.acl</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.acp.language.tar">com.woltlab.wcf.acp.language</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.attachment.tar">com.woltlab.wcf.attachment</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.label.tar">com.woltlab.wcf.label</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.bbcode.tar">com.woltlab.wcf.bbcode</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.visitTracker.tar">com.woltlab.wcf.visitTracker</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.ckeditor.tar">com.woltlab.wcf.ckeditor</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.recaptcha.tar">com.woltlab.wcf.recaptcha</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.message.tar">com.woltlab.wcf.message</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.user.tar">com.woltlab.wcf.user</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.like.tar">com.woltlab.wcf.like</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.message.sidebar.tar">com.woltlab.wcf.message.sidebar</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.search.tar">com.woltlab.wcf.search</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.comment.tar">com.woltlab.wcf.comment</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.moderation.tar">com.woltlab.wcf.moderation</requiredpackage>
+		<requiredpackage file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
+	</requiredpackages>
+
+	<instructions type="install">
+		<!-- languages -->
+		<instruction type="language">language/*.xml</instruction>
+		
+		<!-- files -->
+		<instruction type="file">files.tar</instruction>
+		<instruction type="template">templates.tar</instruction>
+		<instruction type="acpTemplate">acptemplates.tar</instruction>
+		
+		<!-- sql -->
+		<instruction type="sql">sql/install.sql</instruction>
+		
+		<!-- config -->
+		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
+		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
+		<instruction type="articleMenu">xml/pagemenu.xml</instruction>
+		<instruction type="option">xml/option.xml</instruction>
+		<instruction type="objectType">xml/objectType.xml</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="1.0.0 Alpha *">
+		<!-- languages -->
+		<instruction type="language">language/*.xml</instruction>
+		
+		<!-- files -->
+		<instruction type="file">files.tar</instruction>
+		<instruction type="template">templates.tar</instruction>
+		<instruction type="acpTemplate">acptemplates.tar</instruction>
+		
+		<!-- sql -->
+		<instruction type="sql">sql/install.sql</instruction>
+		
+		<!-- config -->
+		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
+		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
+		<instruction type="articleMenu">xml/pagemenu.xml</instruction>
+		<instruction type="option">xml/option.xml</instruction>
+		<instruction type="objectType">xml/objectType.xml</instruction>
+	</instructions>
+</package>

@@ -1,0 +1,38 @@
+/* ### -- -- -- -- -- category -- -- -- -- -- ### */
+.wikiCategoryListIndex {
+	.wikiCategory {
+		&:hover {
+			background-color: @wcfContainerHoverBackgroundColor;
+		}
+	}
+
+	.subCategory > li{
+		display: inline-block;
+	}
+}
+
+.overflow {
+	overflow: auto !important;
+}
+
+
+/* ### -- -- -- -- -- category article list -- -- -- -- -- ### */
+.wikiArticleList {
+	.wikiArticle1 {
+		background-color: @wcfContainerBackgroundColor;
+	}
+
+	.wikiArticle2 {
+		background-color: @wcfContainerAccentBackgroundColor;
+	}
+
+	.wikiArticle {
+		&:hover {
+			background-color: @wcfContainerHoverBackgroundColor;
+		}
+	}
+
+	.wikiArticleDeleted {
+		.boxShadow(0, 0, @wcfErrorBackgroundColor, 10px);
+	}
+}
