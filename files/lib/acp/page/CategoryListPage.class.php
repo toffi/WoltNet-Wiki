@@ -1,6 +1,6 @@
 <?php
 namespace wiki\acp\page;
-use wiki\data\category\CategoryCache;
+use wiki\data\category\CategoryTree;
 
 use wcf\page\AbstractPage;
 use wcf\system\menu\acp\ACPMenu;
@@ -22,7 +22,7 @@ class CategoryListPage extends AbstractPage {
 	 * 
 	 * @var	array<wiki\data\category\Caegory>
 	 */
-	public $categoryList = null;
+	public $categoryTree = null;
 	
 	/**
 	 * @see wcf\page\IPage::readData()
@@ -30,7 +30,8 @@ class CategoryListPage extends AbstractPage {
 	public function readData() {
 		parent::readData();
 		
-		$this->categoryList = CategoryCache::getInstance()->getTopCategories();
+		$this->categoryTree = CategoryTree::getInstance();
+		$this->categoryTree->readTree();
 	}
 	
 	/**
@@ -40,7 +41,7 @@ class CategoryListPage extends AbstractPage {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'categoryList' => $this->categoryList
+			'categoryTree' => $this->categoryTree->getTree()
 		));
 	}
 	
