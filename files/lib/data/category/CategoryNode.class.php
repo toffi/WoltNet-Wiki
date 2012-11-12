@@ -40,6 +40,7 @@ class CategoryNode {
 				$children->getAllChildren();
 			}
 		}
+		if(CategoryTree::$maxDepth < $this->getCategory()->getDepth()) CategoryTree::$maxDepth = $this->getCategory()->getDepth();
 		return $this;
 	}
 	

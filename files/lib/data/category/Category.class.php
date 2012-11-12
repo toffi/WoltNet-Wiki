@@ -75,6 +75,11 @@ class Category extends WIKIDatabaseObject implements IBreadcrumbProvider, IRoute
 		
 	}
 	
+	public function hasChildren() {
+		if(is_array($this->getChildren())) return true;
+		return false;
+	}
+	
 	/**
 	 * Returns all sub categories of this category.
 	 *

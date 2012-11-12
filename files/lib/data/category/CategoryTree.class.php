@@ -21,6 +21,8 @@ class CategoryTree extends SingletonFactory {
 	 */
 	public $categories = null;
 	
+	public static $maxDepth = 0;
+	
 	/**
 	 * @see wcf\system.SingletonFactory::init()
 	 */
@@ -29,6 +31,10 @@ class CategoryTree extends SingletonFactory {
 		foreach($this->categories AS $index=>$category) {
 			$this->categories[$index] = new CategoryNode($category->categoryID);
 		}
+	}
+	
+	public function getMaxDepth() {
+		return static::$maxDepth;
 	}
 	
 	/**

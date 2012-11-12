@@ -41,7 +41,7 @@ class CategoryListPage extends AbstractPage {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'categoryTree' => $this->categoryTree->getTree()
+			'categoryTree' => $this->categoryTree
 		));
 	}
 	
