@@ -43,9 +43,9 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	 * 
 	 * @return wiki\data\category\WikiCategorynodeList
 	 */
-	public function getChildCategories() {
+	public function getChildCategories($depth = 0) {
 		$childList = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
-		$childList->setMaxDepth(WIKI_CATEGORY_LIST_DEPTH - 1);
+		$childList->setMaxDepth($depth);
 		
 		return $childList;
 	}

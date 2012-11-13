@@ -12,7 +12,7 @@
 						{* Subcategorys *}
 						{if $categoryItem->hasChildren()}
 							<ul class="subCategory">
-								{implode from=$categoryItem->getChildCategories() item=subCategoryItem}
+								{implode from=$categoryItem->getChildCategories(WIKI_CATEGORY_LIST_DEPTH - 1) item=subCategoryItem}
 									<li data-category-id="{@$subCategoryItem->categoryID}"{if $subCategoryItem->getUnreadArticles()} class="new"{/if}>
 										<img src="{icon}folder{if $subCategoryItem->getUnreadArticles()}New{/if}Colored{/icon}" alt="" class="icon16{if $subCategoryItem->getUnreadArticles()} markAsRead{/if}" /> 
 										<a href="{link application='wiki' controller='Category' object=$subCategoryItem}{/link}">{$subCategoryItem->title|language}</a> ({#$subCategoryItem->getArticles()})
