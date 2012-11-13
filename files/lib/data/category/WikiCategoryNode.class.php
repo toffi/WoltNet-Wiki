@@ -55,7 +55,7 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	 * Returns count of articles
 	 */
 	public function getArticles() {
-		return 0;
+		return $this->articles;;
 	}
 	
 	//TODO: implement this

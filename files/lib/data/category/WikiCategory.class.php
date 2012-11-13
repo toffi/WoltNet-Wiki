@@ -3,6 +3,7 @@ namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategory;
 use wcf\data\user\User;
+use wcf\system\WCF;
 
 /**
  * Represents a wiki category.
@@ -22,7 +23,10 @@ class WikiCategory extends ViewableCategory {
 	 * @param    wcf\data\user\User        $user
 	 * @return    boolean
 	 */
-	public function isAccessible(User $user = null) {
-		return true;
+public function isAccessible(User $user = null) {
+		if($user === null) {
+			$groupOption = WCF::getSession()->getPermission('user.wiki.category.read.canViewCategory') || WCF::getSession()->getPermission('user.wiki.category.read.canEnterCategory');
+		}
+		return $groupOption || ($this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory'));
 	}
 }
