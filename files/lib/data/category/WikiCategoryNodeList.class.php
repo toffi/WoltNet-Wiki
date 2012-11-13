@@ -14,8 +14,5 @@ use wcf\data\category\ViewableCategoryNodeList;
  * @category	WoltNet Wiki
  */
 class WikiCategoryNodeList extends ViewableCategoryNodeList {
-	/**
-	 * @see	wcf\data\category\CategoryNodeList::$nodeClassName
-	 */
-	protected $nodeClassName = 'wiki\data\category\WikiCategoryNode';
+
 }

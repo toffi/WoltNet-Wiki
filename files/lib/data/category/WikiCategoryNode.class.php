@@ -27,4 +27,12 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	
 		return false;
 	}
+	
+	//TODO: implement this
+	/**
+	 * Returns count of articles
+	 */
+	public function getArticles() {
+		return 0;
+	}
 }

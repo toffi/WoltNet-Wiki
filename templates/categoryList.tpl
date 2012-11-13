@@ -10,17 +10,7 @@
 					
 					
 						{* Subcategorys *}
-						{if $categoryItem->getSubCategories(WIKI_CATEGORY_LIST_DEPTH)|count}
-							<ul class="subCategory">
-								{implode from=$categoryItem->getSubCategories(WIKI_CATEGORY_LIST_DEPTH) item=subCategoryItem}
-									<li data-category-id="{@$subCategoryItem->categoryID}"{*if $subCategoryItem->getUnreadArticles()} class="new"{/if*}>
-										<img src="{icon}folder{*if $subCategoryItem->getUnreadArticles()}New{/if*}Colored{/icon}" alt="" class="icon16{*if $subCategoryItem->getUnreadArticles()} markAsRead{/if*}" /> 
-										<a href="{link application='wiki' controller='Category' object=$subCategoryItem}{/link}">{$subCategoryItem->getTitle()}</a> ({#$subCategoryItem->getArticles()})
-										{*if $subCategoryItem->getUnreadArticles()}<span class="badge badgeUpdate">{$subCategoryItem->getUnreadArticles()}</span>{/if*}
-									</li>
-								{/implode}
-							</ul>
-						{/if}
+						
 					</hgroup>
 				</div>
 			</li>

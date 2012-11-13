@@ -38,10 +38,6 @@ class IndexPage extends AbstractPage {
 		parent::readData();
 		
 		$this->categoryList = new WikiCategoryNodeList($this->objectTypeName);
-		
-		print '<pre>';
-		print_r($this->categoryList);
-		print '</pre>';
 	}
 	
 	/**
