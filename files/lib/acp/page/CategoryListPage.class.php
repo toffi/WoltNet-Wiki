@@ -1,10 +1,7 @@
 <?php
 namespace wiki\acp\page;
-use wiki\data\category\CategoryTree;
 
-use wcf\page\AbstractPage;
-use wcf\system\menu\acp\ACPMenu;
-use wcf\system\WCF;
+use wcf\acp\page\AbstractCategoryListPage;
 
 /**
  * Shows the category list.
@@ -16,42 +13,9 @@ use wcf\system\WCF;
  * @subpackage	acp.page
  * @category 	WoltNet - Wiki
  */
-class CategoryListPage extends AbstractPage {
-	/**
-	 * List of all Top Categories
-	 * 
-	 * @var	array<wiki\data\category\Caegory>
-	 */
-	public $categoryTree = null;
+class CategoryListPage extends AbstractCategoryListPage {
 	
-	/**
-	 * @see wcf\page\IPage::readData()
-	 */
-	public function readData() {
-		parent::readData();
-		
-		$this->categoryTree = CategoryTree::getInstance();
-		$this->categoryTree->readTree();
-	}
+	public $activeMenuItem = 'wiki.acp.menu.link.wiki.category.list';
 	
-	/**
-	 * @see wcf\page\IPage::assignVariables()
-	 */
-	public function assignVariables() {
-		parent::assignVariables();
-		
-		WCF::getTPL()->assign(array(
-			'categoryTree' => $this->categoryTree
-		));
-	}
-	
-	/**
-	 * @see	wcf\page\IPage::show()
-	 */
-	public function show() {
-		// enable menu item
-		ACPMenu::getInstance()->setActiveMenuItem('wiki.acp.menu.link.wiki.category.list');
-		
-		parent::show();
-	}
+	public $objectTypeName = 'com.woltnet.wiki.category';
 }

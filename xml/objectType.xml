@@ -12,6 +12,12 @@
 			<definitionname>com.woltlab.wcf.acl</definitionname>
 		</type>
 		
+		<type>
+			<name>com.woltnet.wiki.category</name>
+			<definitionname>com.woltlab.wcf.category</definitionname>
+			<classname>wiki\system\category\WikiCategoryType</classname>
+		</type>
+		
 		<!-- visit tracker -->
 		<type>
 			<name>com.woltnet.wiki.category</name>

@@ -1,9 +1,10 @@
 <?php
 namespace wiki\page;
-use wiki\data\category\CategoryCache;
+use wiki\data\category\WikiCategoryNodeList;
 
 use wcf\page\AbstractPage;
 use wcf\system\dashboard\DashboardHandler;
+use wcf\data\category\CategoryNodeList;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
 
@@ -28,13 +29,19 @@ class IndexPage extends AbstractPage {
 	 */
 	public $categoryList = null;
 	
+	public $objectTypeName = 'com.woltnet.wiki.category';
+	
 	/**
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
 		parent::readData();
 		
-		$this->categoryList = CategoryCache::getInstance()->getTopCategories();
+		$this->categoryList = new WikiCategoryNodeList($this->objectTypeName);
+		
+		print '<pre>';
+		print_r($this->categoryList);
+		print '</pre>';
 	}
 	
 	/**
