@@ -14,6 +14,7 @@
 			<link>index.php/CategoryAdd/</link>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>2</showorder>
+			<permissions>admin.category.canAddCategory</permssions>
 		</acpmenuitem>
 	</import>
 </data>
