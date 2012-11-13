@@ -29,6 +29,12 @@ class IndexPage extends AbstractPage {
 	 */
 	public $categoryList = null;
 	
+	
+	/**
+	 * objectTypeName for Wiki Categoires
+	 * 
+	 * @var string
+	 */
 	public $objectTypeName = 'com.woltnet.wiki.category';
 	
 	/**
@@ -38,6 +44,7 @@ class IndexPage extends AbstractPage {
 		parent::readData();
 		
 		$this->categoryList = new WikiCategoryNodeList($this->objectTypeName);
+		$this->categoryList->setMaxDepth(0);
 	}
 	
 	/**

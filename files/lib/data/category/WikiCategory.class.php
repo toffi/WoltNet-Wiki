@@ -2,6 +2,7 @@
 namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategory;
+use wcf\data\user\User;
 
 /**
  * Represents a wiki category.
@@ -21,7 +22,7 @@ class WikiCategory extends ViewableCategory {
 	 * @param    wcf\data\user\User        $user
 	 * @return    boolean
 	 */
-	public function isAccessible() {
+	public function isAccessible(User $user = null) {
 		return true;
 	}
 }

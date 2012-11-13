@@ -1,7 +1,10 @@
 <?php
 namespace wiki\data\category;
 
+use wiki\system\category\WikiCategoryType;
+
 use wcf\data\category\ViewableCategoryNode;
+use wcf\system\category\CategoryHandler;
 use wcf\data\DatabaseObject;
 
 /**
@@ -14,7 +17,14 @@ use wcf\data\DatabaseObject;
  * @subpackage	data.category
  * @category	WoltNet Wiki
  */
-class WikiCategoryNode extends ViewableCategoryNode {	
+class WikiCategoryNode extends ViewableCategoryNode {
+	/**
+	 * objectTypeName for Wiki Categoires
+	 *
+	 * @var string
+	 */
+	public $objectTypeName = 'com.woltnet.wiki.category';
+	
 	/**
 	 * @see    wcf\data\category\CategoryNode::fulfillsConditions()
 	 */
@@ -28,11 +38,31 @@ class WikiCategoryNode extends ViewableCategoryNode {
 		return false;
 	}
 	
+	/**
+	 * Returns all children of this category
+	 * 
+	 * @return wiki\data\category\WikiCategorynodeList
+	 */
+	public function getChildCategories() {
+		$childList = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
+		$childList->setMaxDepth(WIKI_CATEGORY_LIST_DEPTH - 1);
+		
+		return $childList;
+	}
+	
 	//TODO: implement this
 	/**
 	 * Returns count of articles
 	 */
 	public function getArticles() {
+		return 0;
+	}
+	
+	//TODO: implement this
+	/**
+	 * Returns count of unread articles
+	 */
+	public function getUnreadArticles() {
 		return 0;
 	}
 }
