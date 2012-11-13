@@ -53,6 +53,7 @@
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
+		<instruction type="aclOption">xml/aclOption.xml</instruction>
 		<instruction type="script">acp/install_com.woltnet.wiki_1.0.0.php</instruction>
 	</instructions>
 
@@ -75,5 +76,6 @@
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
+		<instruction type="aclOption">xml/aclOption.xml</instruction>
 	</instructions>
 </package>

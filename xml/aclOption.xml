@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/aclOption.xsd">
+	<import>
+		<categories>
+			<category name="user.category">
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</category>
+			<category name="user.article">
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</category>
+			<category name="mod.category">
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</category>
+			<category name="mod.article">
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</category>
+		</categories>
+		
+		<options>
+			<!-- user.category (com.woltnet.wiki.category) -->
+			<option name="canViewCategory">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canEnterCategory">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canViewArticle">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canReadArticle">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canAddArticle">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canEditOwnArticle">
+				<categoryname>user.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<!-- /user.category (com.woltnet.wiki.category) -->
+			
+			<!-- mod.category (com.woltnet.wiki.category) -->
+			<option name="canReadDeactivatedArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canEditArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canTrashArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canReadTrashedArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canRestoreArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canDeleteArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canActivateArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canModerateArticle">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<option name="canManagePermissions">
+				<categoryname>mod.category</categoryname>
+				<objecttype>com.woltnet.wiki.category</objecttype>
+			</option>
+			<!-- /mod.category (com.woltnet.wiki.category) -->
+			
+			<!-- user.article (com.woltnet.wiki.article) -->
+			<option name="canViewArticle">
+				<categoryname>user.article</categoryname>
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</option>
+			<option name="canReadArticle">
+				<categoryname>user.article</categoryname>
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</option>
+			<option name="canEditArticle">
+				<categoryname>user.article</categoryname>
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</option>
+			<!-- /user.article (com.woltnet.wiki.article) -->
+		</options>
+	</import>
+</data>
