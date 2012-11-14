@@ -1,0 +1,61 @@
+<?php
+namespace wiki\data\article;
+use wiki\data\category\WikiCategory;
+
+use wcf\system\language\LanguageFactory;
+use wcf\system\WCF;
+
+/**
+ * Provides extended functions for displaying a list of articles.
+ *
+ * @author	Rene Gessinger (NurPech)
+ * @copyright	2012 woltnet
+ * @package	com.woltnet.wiki
+ * @subpackage	data.project
+ * @category 	WoltNet Wiki
+ */
+class CategoryArticleList extends ViewableArticleList {
+
+	/**
+	 * category object
+	 * @var wiki\data\category\Category
+	 */
+	public $category = null;
+
+	/**
+	 * @var integer
+	 */
+	public $categoryIDs = '';
+
+	/**
+	 * language
+	 * @var integer
+	 */
+	public $languageID = 0;
+
+	/**
+	 * Creates a new CategoryProjectList object.
+	 *
+	 * @param	wiki\data\category\WikiCategory	$category
+	 * @param	string				$categoryIDs
+	 * @param	integer				$languageID
+	 */
+	public function __construct(WikiCategory $category, $categoryIDs = '', $languageID = 0) {
+		$this->category = $category;
+		$this->categoryIDs = $categoryIDs;
+		$this->languageID = $languageID;
+
+		parent::__construct();
+
+		// add conditions
+		$this->getConditionBuilder()->add('article.categoryID IN (?)', array($this->categoryIDs));
+
+		// article language
+		if ($this->languageID) {
+			$this->getConditionBuilder()->add('article.languageID = ?', array($this->languageID));
+		}
+		else if (count(LanguageFactory::getInstance()->getContentLanguages()) > 0 && count(WCF::getUser()->getLanguageIDs())) {
+			$this->getConditionBuilder()->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
+		}
+	}
+}

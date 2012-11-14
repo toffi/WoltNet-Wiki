@@ -23,7 +23,7 @@ class WikiCategory extends ViewableCategory {
 	 * @param    wcf\data\user\User        $user
 	 * @return    boolean
 	 */
-public function isAccessible(User $user = null) {
+	public function isAccessible(User $user = null) {
 		if($user === null) {
 			$groupOption = WCF::getSession()->getPermission('user.wiki.category.read.canViewCategory') || WCF::getSession()->getPermission('user.wiki.category.read.canEnterCategory');
 		}

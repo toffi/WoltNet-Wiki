@@ -4,11 +4,12 @@ use wiki\data\category\WikiCategoryNodeList;
 
 use wcf\page\AbstractPage;
 use wcf\system\dashboard\DashboardHandler;
-use wcf\data\category\CategoryNodeList;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
 
 /**
+ * Displays index page
+ * 
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>

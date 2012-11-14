@@ -1,0 +1,50 @@
+{hascontent}
+	<div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList>
+		<hgroup>
+			<h1>{lang}wiki.article.articles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
+		</hgroup>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="2" class="columnTitle columnSubject{if $sortField == 'subject'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=subject&sortOrder={if $sortField == 'subject' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.articleName{/lang}{if $sortField == 'subject'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
+					<th class="columnDigits columnComments{if $sortField == 'comments'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=comments&sortOrder={if $sortField == 'comments' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.comments{/lang}{if $sortField == 'comments'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
+					<th class="columnDigits columnAuthor{if $sortField == 'username'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=username&sortOrder={if $sortField == 'username' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.author{/lang}{if $sortField == 'username'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
+					<th class="columnText columnLastPost{if $sortField == 'time'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=time&sortOrder={if $sortField == 'time' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.time{/lang}{if $sortField == 'time'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{content}
+				{foreach from=$objects item=article}
+					<tr class="article{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}">
+						<td class="columnIcon columnAvatar">
+							{if $article->getUserProfile()->getAvatar()}
+								<div>
+									<p class="framed"><img src="{icon}documentColored{/icon}" class="icon32"></p>
+								</div>
+							{/if}
+						</td>
+						<td class="columnText columnSubject">
+							<h1>
+								<a href="{link controller='Article' object=$article}{/link}" class="articleLink messageGroupLink" data-article-id="{@$article->articleID}">{$article->getTitle()}</a>
+							</h1>
+
+							<small>
+								<a href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a>
+								- {@$article->time|time}
+								- <a class="jsArticleInlineEditor">{lang}wcf.global.button.edit{/lang}</a>
+							</small>
+						</td>
+						<td class="columnDigits columnComments"><p>{#$article->comments}</p></td>
+						<td class="columnDigits columnUsername"><p>{$article->username}</p></td>
+						<td class="columnText columnLastPost">{@$article->time|time}</td>
+					</tr>
+				{/foreach}
+				{/content}
+			</tbody>
+		</table>
+	</div>
+{hascontentelse}
+	<div class="container marginTop containerPadding">{lang}wiki.category.noArticle{/lang}</div>
+{/hascontent}
