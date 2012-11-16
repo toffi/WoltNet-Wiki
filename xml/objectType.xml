@@ -12,6 +12,7 @@
 			<definitionname>com.woltlab.wcf.acl</definitionname>
 		</type>
 		
+		<!-- category -->
 		<type>
 			<name>com.woltnet.wiki.category</name>
 			<definitionname>com.woltlab.wcf.category</definitionname>

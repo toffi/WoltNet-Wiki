@@ -91,7 +91,7 @@ class CategoryPage extends SortablePage {
 	
 		$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
 		
-		$this->category = new WikiCategory($category);
+		if($category !== null) $this->category = new WikiCategory($category);
 	
 		if($this->category === null || !$this->category->categoryID) {
 			throw new IllegalLinkException();
