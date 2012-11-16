@@ -19,6 +19,13 @@ use wcf\data\DatabaseObject;
  */
 class WikiCategoryNode extends ViewableCategoryNode {
 	/**
+	 * child category nodelist
+	 * 
+	 * @var wiki\data\category\WikiCategorynodeList
+	 */
+	protected $subCategories = null;
+	
+	/**
 	 * objectTypeName for Wiki Categoires
 	 *
 	 * @var string
@@ -44,10 +51,12 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	 * @return wiki\data\category\WikiCategorynodeList
 	 */
 	public function getChildCategories($depth = 0) {
-		$childList = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
-		$childList->setMaxDepth($depth);
+		if($this->subCategories === null) {
+			$this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
+			$this->subCategories->setMaxDepth($depth);
+		}
 		
-		return $childList;
+		return $this->subCategories;
 	}
 	
 	//TODO: implement this

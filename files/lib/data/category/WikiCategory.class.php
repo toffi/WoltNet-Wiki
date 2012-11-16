@@ -2,6 +2,7 @@
 namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategory;
+use wcf\system\category\CategoryPermissionHandler;
 use wcf\data\user\User;
 use wcf\system\WCF;
 
@@ -16,17 +17,29 @@ use wcf\system\WCF;
  * @category	WoltNet Wiki
  */
 class WikiCategory extends ViewableCategory {
+	
+	/**
+	 * @see wcf\data\category\ViewableCategory::getPermission()
+	 */
+	public function getPermission($permission) {
+		if ($this->permissions === null) {
+			$this->permissions = CategoryPermissionHandler::getInstance()->getPermissions($this->getDecoratedObject());
+		}
+		
+		if (isset($this->permissions[$permission])) {
+			return $this->permissions[$permission];
+		}
+		
+		return WCF::getSession()->getPermission('user.wiki.category.read.'.$permission);
+	}
+	
 	/**
 	 * Returns true if the category is accessible for the given user. If no
 	 * user is given, the active user is used.
 	 *
-	 * @param    wcf\data\user\User        $user
 	 * @return    boolean
 	 */
-	public function isAccessible(User $user = null) {
-		if($user === null) {
-			$groupOption = WCF::getSession()->getPermission('user.wiki.category.read.canViewCategory') || WCF::getSession()->getPermission('user.wiki.category.read.canEnterCategory');
-		}
-		return $groupOption || ($this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory'));
+	public function isAccessible() {
+		return $this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory');
 	}
 }
