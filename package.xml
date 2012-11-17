@@ -47,6 +47,7 @@
 		<instruction type="sql">sql/install.sql</instruction>
 		
 		<!-- config -->
+		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 		<instruction type="articleMenu">xml/pagemenu.xml</instruction>
@@ -70,6 +71,7 @@
 		<instruction type="sql">sql/install.sql</instruction>
 		
 		<!-- config -->
+		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 		<instruction type="articleMenu">xml/pagemenu.xml</instruction>

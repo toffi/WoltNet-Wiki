@@ -32,14 +32,20 @@
 	{if $__boxContent|isset}{@$__boxContent}{/if}
 </section>
 
+{hascontent}
 <div class="contentNavigation">
 	<nav>
 		<ul>
-			<li><a href="{link application='wiki' controller='ArticleAdd'}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><img src="{icon size='M'}asterisk{/icon}" alt="" class="icon24" /> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
+		{content}
+			{if $categoryList|count > 0 && $__wcf->session->getPermission('user.wiki.article.write.canAddArticle')}
+				<li><a href="{link application='wiki' controller='ArticleAdd'}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><img src="{icon size='M'}asterisk{/icon}" alt="" class="icon24" /> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
+			{/if}
 			{event name='largeButtonsTop'}
+		{/content}
 		</ul>
 	</nav>
 </div>
+{/hascontent}
 
 {include file='categoryList'}
 
