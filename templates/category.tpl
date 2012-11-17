@@ -45,9 +45,12 @@
 	</nav>
 </div>
 
+{hascontent}
 <div class="wikiCategoryListIndex marginTop">
-	{include file='categoryList'}
+	{content}{include file='categoryNodeList'}{/content}
 </div>
+{/hascontent}
+
 {include file='categoryArticleList'}
 
 <div class="contentNavigation">
