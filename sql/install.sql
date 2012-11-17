@@ -32,7 +32,7 @@ CREATE TABLE wiki1_1_article_label_to_object (
 	labelID INT(10) NOT NULL,
 	articleID INT(10) NOT NULL,
 
-UNIQUE KEY (labelID, conversationID)
+UNIQUE KEY (labelID, articleID)
 );
 
 -- foreign keys
