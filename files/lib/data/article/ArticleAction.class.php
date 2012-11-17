@@ -3,6 +3,7 @@ namespace wiki\data\article;
 use wiki\data\category\CategoryList;
 use wiki\data\category\CategoryEditor;
 use wiki\util\ArticleUtil;
+use wiki\data\article\label\ArticleLabel;
 
 use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
@@ -79,15 +80,35 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 					'isDeleted' 	=> '1',
 					'deleteTime'	=> TIME_NOW
 			));
-
-			// update counters
-			$categoryEditor = new CategoryEditor($article->getCategory());
-			$categoryEditor->updateCounters(array(
-					'articles' => -1,
-			));
 		}
 
 		$this->unmarkItems();
+	}
+	
+	/**
+	 * Validates user access for label management.
+	 */
+	public function validateGetLabelmanagement() {
+		if (!WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle')) {
+			throw new PermissionDeniedException();
+		}
+	}
+	
+	/**
+	 * Returns the article label management.
+	 *
+	 * @return	array
+	 */
+	public function getLabelManagement() {
+		WCF::getTPL()->assign(array(
+				'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
+				'labelList' => ArticleLabel::getLabelsByUser()
+		));
+	
+		return array(
+				'actionName' => 'getLabelManagement',
+				'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki')
+		);
 	}
 
 	/**

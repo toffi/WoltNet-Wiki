@@ -4,6 +4,7 @@
 	<title>{$category->getTitle()} - {PAGE_TITLE|language}</title>
 
 	{include file='headInclude'}
+	<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.js"></script>
 	<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.Article.js"></script>
 	<script type="text/javascript">
 		//<![CDATA[
@@ -24,7 +25,7 @@
 			$inlineEditor.setEditorHandler($editorHandler, 'list');
 			
 			new WIKI.Article.Clipboard($editorHandler);
-			new WIKI.Article.Label.Manager('{link controller='CategoryPage'}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
+			new WIKI.Article.Label.Manager('{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
 			
 			WCF.Icon.addObject({
 				'wcf.icon.closed': '{icon}arrowRightColored{/icon}',
@@ -39,7 +40,7 @@
 
 <body id="tpl{$templateName|ucfirst}">
 
-{include file='sidebar'}
+{include file='categorySidebar'}
 
 {include file='header' sidebarOrientation='right'}
 

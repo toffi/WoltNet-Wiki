@@ -3,6 +3,7 @@ namespace wiki\page;
 use wiki\data\category\WikiCategoryNodeList;
 use wiki\data\category\WikiCategory;
 use wiki\data\article\CategoryArticleList;
+use wiki\data\article\label\ArticleLabel;
 
 use wcf\page\SortablePage;
 use wcf\system\category\CategoryHandler;
@@ -66,6 +67,27 @@ class CategoryPage extends SortablePage {
 	public $validSortFields = array('subject', 'username', 'time');
 	
 	/**
+	 * label id
+	 * 
+	 * @var	integer
+	 */
+	public $labelID = 0;
+	
+	/**
+	 * label list object
+	 * 
+	 * @var	wiki\data\article\label\ArticleLabelList
+	 */
+	public $labelList = null;
+	
+	/**
+	 * list filter
+	 * 
+	 * @var	string
+	 */
+	public $filter = '';
+	
+	/**
 	 * @see wcf\page\AbstractPage::$enableTracking
 	 */
 	public $enableTracking = true;
@@ -97,6 +119,23 @@ class CategoryPage extends SortablePage {
 		if($this->category === null || !$this->category->categoryID) {
 			throw new IllegalLinkException();
 		}
+		
+		$this->labelList = ArticleLabel::getLabelsByUser();
+		if (isset($_REQUEST['labelID'])) {
+			$this->labelID = intval($_REQUEST['labelID']);
+				
+			$validLabel = false;
+			foreach ($this->labelList as $label) {
+				if ($label->labelID == $this->labelID) {
+					$validLabel = true;
+					break;
+				}
+			}
+				
+			if (!$validLabel) {
+				throw new IllegalLinkException();
+			}
+		}
 	
 		// check permissions
 		if (!$this->category->isAccessible()) {
@@ -127,9 +166,12 @@ class CategoryPage extends SortablePage {
 		WCF::getTPL()->assign(array(
 				'categoryList' => $this->categoryNodeList,
 				'category'	=> $this->category,
+				'filter' => $this->filter,
 				'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
 				'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
-				'sidebarName' => 'com.woltnet.wiki.category'
+				'sidebarName' => 'com.woltnet.wiki.category',
+				'labelID' => $this->labelID,
+				'labelList' => $this->labelList
 		));
 	}
 	
