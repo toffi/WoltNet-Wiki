@@ -208,8 +208,10 @@ class ArticleAddForm extends MessageForm {
 	 * Validates the selected CategoryID
 	 */
 	protected function validateCategory() {
-		$category = CategoryCache::getInstance()->getCategory($this->categoryID);
-	
+		$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
+		
+		if($category !== null) $category = new WikiCategory($category);
+		
 		$category->checkPermission(array('canAddArticle'));
 	}
 	

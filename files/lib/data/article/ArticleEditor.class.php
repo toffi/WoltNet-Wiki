@@ -1,7 +1,6 @@
 <?php
 namespace wiki\data\article;
 use wiki\util\ArticleUtil;
-use wiki\data\category\CategoryEditor;
 
 use wcf\data\DatabaseObjectEditor;
 use wcf\system\cache\CacheHandler;
@@ -44,9 +43,6 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 				WHERE articleID = ".$this->articleID;
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
-
-		$categoryEditor = new CategoryEditor($this->getCategory());
-		$categoryEditor->refreshCategory();
 
 		if(MODULE_CONVERSATION && $this->userID != 0 && $this->userID != WCF::getUser()->userID) {
 			$data = array(
