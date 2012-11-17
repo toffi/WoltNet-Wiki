@@ -8,6 +8,7 @@ use wcf\page\SortablePage;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\clipboard\ClipboardHandler;
 use wcf\system\dashboard\DashboardHandler;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
@@ -126,6 +127,7 @@ class CategoryPage extends SortablePage {
 		WCF::getTPL()->assign(array(
 				'categoryList' => $this->categoryNodeList,
 				'category'	=> $this->category,
+				'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
 				'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
 				'sidebarName' => 'com.woltnet.wiki.category'
 		));
