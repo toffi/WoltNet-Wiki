@@ -46,5 +46,5 @@
 		</table>
 	</div>
 {hascontentelse}
-	<div class="container marginTop containerPadding">{lang}wiki.category.noArticle{/lang}</div>
+	<div class="container marginTop containerPadding">{lang}wiki.article.noneAvailable{/lang}</div>
 {/hascontent}
