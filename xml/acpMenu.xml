@@ -9,12 +9,13 @@
 			<link>index.php/CategoryList/</link>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>1</showorder>
+			<permissions>admin.category.canListCategory</permissions>
 		</acpmenuitem>
 		<acpmenuitem name="wiki.acp.menu.link.wiki.category.add">
 			<link>index.php/CategoryAdd/</link>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>2</showorder>
-			<permissions>admin.category.canAddCategory</permssions>
+			<permissions>admin.category.canAddCategory</permissions>
 		</acpmenuitem>
 	</import>
 </data>
