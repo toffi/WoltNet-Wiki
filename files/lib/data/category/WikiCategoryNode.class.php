@@ -53,7 +53,7 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	public function getChildCategories($depth = 0) {
 		if($this->subCategories === null) {
 			$this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
-			$this->subCategories->setMaxDepth($depth);
+			if($depth > 0) $this->subCategories->setMaxDepth($depth);
 		}
 		
 		return $this->subCategories;

@@ -3,6 +3,7 @@ namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategory;
 use wcf\system\category\CategoryPermissionHandler;
+use wcf\system\exception\PermissionDeniedException;
 use wcf\data\user\User;
 use wcf\system\WCF;
 
@@ -19,6 +20,20 @@ use wcf\system\WCF;
 class WikiCategory extends ViewableCategory {
 	
 	/**
+	 * Checks the given category permissions.
+	 * Throws a PermissionDeniedException if the active user doesn't have one of the given permissions.
+	 *
+	 * @param	array<string>		$permissions
+	 */
+	public function checkPermission(array $permissions = array('canViewCategory')) {
+		foreach ($permissions as $permission) {
+			if (!$this->getPermission($permission)) {
+				throw new PermissionDeniedException();
+			}
+		}
+	}
+	
+	/**
 	 * @see wcf\data\category\ViewableCategory::getPermission()
 	 */
 	public function getPermission($permission) {
@@ -30,7 +45,7 @@ class WikiCategory extends ViewableCategory {
 			return $this->permissions[$permission];
 		}
 		
-		return WCF::getSession()->getPermission('user.wiki.category.read.'.$permission);
+		return WCF::getSession()->getPermission('user.wiki.category.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.category.write.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.write.'.$permission);
 	}
 	
 	/**
