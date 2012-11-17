@@ -5,6 +5,8 @@ use wiki\util\ArticleUtil;
 use wcf\data\DatabaseObjectEditor;
 use wcf\system\cache\CacheHandler;
 use wcf\data\conversation\ConversationAction;
+use wcf\data\category\Category;
+use wcf\data\category\CategoryEditor;
 use wcf\system\WCF;
 use wcf\data\IEditableCachedObject;
 
@@ -57,11 +59,11 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 					'participants' => array($this->userID),
 					'messageData' => array(
 							'message' => WCF::getLanguage()->getDynamicVariable('wiki.article.conversation.message.active', array(
-										'username' 		=> $this->username,
+										'username' 	=> $this->username,
 										'inspectorID'	=> WCF::getUser()->userID,
 										'inspector'	=> WCF::getUser()->username,
-										'articleID'		=> $this->articleID,
-										'topic'			=> $this->getTitle(),
+										'articleID'	=> $this->articleID,
+										'topic'		=> $this->getTitle(),
 										'createTime'	=> $this->time))
 					)
 			);
