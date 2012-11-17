@@ -8,6 +8,24 @@
 	<script type="text/javascript">
 		//<![CDATA[
 		$(function() {
+			WCF.Language.addObject({
+				'wiki.article.edit.assignLabel': '{lang}wiki.article.edit.assignLabel{/lang}',
+				'wiki.article.label.management': '{lang}wiki.article.label.management{/lang}',
+				'wiki.article.label.management.addLabel.success': '{lang}wiki.article.label.management.addLabel.success{/lang}',
+				'wiki.article.label.management.deleteLabel.confirmMessage': '{lang}wiki.article.label.management.deleteLabel.confirmMessage{/lang}',
+				'wiki.article.label.management.editLabel': '{lang}wiki.article.label.management.editLabel{/lang}',
+				'wiki.article.label.placeholder': '{lang}wiki.article.label.placeholder{/lang}',
+			});
+			
+			WCF.Clipboard.init('wiki\\page\\CategoryPage', {@$hasMarkedItems}, { });
+						
+			var $editorHandler = new WIKI.Article.EditorHandler();
+			var $inlineEditor = new WIKI.Article.InlineEditor('.article');
+			$inlineEditor.setEditorHandler($editorHandler, 'list');
+			
+			new WIKI.Article.Clipboard($editorHandler);
+			new WIKI.Article.Label.Manager('{link controller='CategoryPage'}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
+			
 			WCF.Icon.addObject({
 				'wcf.icon.closed': '{icon}arrowRightColored{/icon}',
 				'wcf.icon.opened': '{icon}arrowDownColored{/icon}'
@@ -55,6 +73,8 @@
 
 <div class="contentNavigation">
 	{@$pagesLinks}
+	
+	<div class="jsClipboardEditor" data-types="[ 'com.woltnet.wiki.article' ]"></div>
 </div>
 
 {include file='footer'}

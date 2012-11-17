@@ -1,5 +1,5 @@
 {hascontent}
-	<div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList>
+	<div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList articleList jsClipboardContainer" data-type="com.woltlab.wiki.article">
 		<hgroup>
 			<h1>{lang}wiki.article.articles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
 		</hgroup>
@@ -7,6 +7,7 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th class="columnMark"><label><input type="checkbox" class="jsClipboardMarkAll" /></label></th>
 					<th colspan="2" class="columnTitle columnSubject{if $sortField == 'subject'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=subject&sortOrder={if $sortField == 'subject' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.articleName{/lang}{if $sortField == 'subject'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
 					<th class="columnDigits columnComments{if $sortField == 'comments'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=comments&sortOrder={if $sortField == 'comments' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.comments{/lang}{if $sortField == 'comments'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
 					<th class="columnDigits columnAuthor{if $sortField == 'username'} active{/if}"><a href="{link controller='Category' object=$category}pageNo={@$pageNo}&sortField=username&sortOrder={if $sortField == 'username' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.author{/lang}{if $sortField == 'username'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
@@ -18,6 +19,9 @@
 				{content}
 				{foreach from=$objects item=article}
 					<tr class="article{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}">
+						<td class="columnMark">
+							<label><input type="checkbox" class="jsClipboardItem" data-object-id="{@$article->articleID}" /></label>
+						</td>
 						<td class="columnIcon columnAvatar">
 							{if $article->getUserProfile()->getAvatar()}
 								<div>

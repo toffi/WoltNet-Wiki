@@ -19,6 +19,13 @@
 			<classname>wiki\system\category\WikiCategoryType</classname>
 		</type>
 		
+		<!-- clipboard -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.clipboardItem</definitionname>
+			<listclassname>wiki\data\article\ArticleList</listclassname>
+		</type>
+		
 		<!-- visit tracker -->
 		<type>
 			<name>com.woltnet.wiki.category</name>
