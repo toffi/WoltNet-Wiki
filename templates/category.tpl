@@ -4,7 +4,6 @@
 	<title>{$category->getTitle()} - {PAGE_TITLE|language}</title>
 
 	{include file='headInclude'}
-	<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.js"></script>
 	<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.Article.js"></script>
 	<script type="text/javascript">
 		//<![CDATA[

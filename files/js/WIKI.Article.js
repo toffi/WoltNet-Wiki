@@ -256,7 +256,7 @@ WIKI.Article.EditorHandler = Class.extend({
  * @see	WIKI.Article.EditorHandler
  * @param	array<object>	availableLabels
  */
-WIKI.Article.EditorHandlerConversation = WIKI.Article.EditorHandler.extend({
+WIKI.Article.EditorHandlerArticle = WIKI.Article.EditorHandler.extend({
 	/**
 	 * list of available labels
 	 * @var	array<object>

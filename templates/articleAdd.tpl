@@ -68,7 +68,7 @@
 					<select id="category" name="category" class="medium">
 						{foreach from=$categoryNodeList item=category}
 							{*if $category->getPermission('canAddArticle')*}
-								<option value="{$category->categoryID}"{if $categoryID|isset && $categoryID == $category->categoryID} selected="selected"{/if}>{section name=i loop=$categoryNodeList->getDepth()}&nbsp;&nbsp;&nbsp;&nbsp;{/section}{$category->getTitle()}</option>
+								<option value="{$category->categoryID}"{if $categoryID|isset && $categoryID == $category->categoryID} selected="selected"{/if}>{section name=i loop=$categoryNodeList->getDepth()}&nbsp;&raquo;&raquo;&nbsp;{/section}{$category->getTitle()}</option>
 							{*/if*}
 						{/foreach}
 					</select>

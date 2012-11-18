@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/templatelistener.xsd">
+	<import>
+		<templatelistener name="wikiCopyright">
+			<environment>user</environment>
+			<templatename>footer</templatename>
+			<eventname>copyright</eventname>
+			<templatecode><![CDATA[<address class="copyright marginTop"><a href="http://woltnet.com" title="">Software: <strong>Community Wiki {@PACKAGE_VERSION}</strong>, entwickelt von <strong>WoltNet.com</strong></a></address>]]></templatecode>
+		</templatelistener>
+		<templatelistener name="wikiJavascript">
+			<environment>user</environment>
+			<templatename>headInclude</templatename>
+			<eventname>javascriptInclude</eventname>
+			<templatecode><![CDATA[<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.js"></script>]]></templatecode>
+		</templatelistener>
+		<templatelistener name="wikiArticlePermissionTab">
+			<environment>user</environment>
+			<templatename>messageFormTabs</templatename>
+			<eventname>tabMenuItems</eventname>
+			<templatecode><![CDATA[{if $templateName == 'articleAdd'&& $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}<li><a href="#permissions" title="{lang}wiki.article.permissions{/lang}">{lang}wiki.article.permissions{/lang}</a></li>{/if}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="wikiArticlePermissionFields">
+			<environment>user</environment>
+			<templatename>messageFormTabs</templatename>
+			<eventname>tabMenuContent</eventname>
+			<templatecode><![CDATA[{if $templateName == 'articleAdd'}{include file='articlePermissions'}{/if}]]></templatecode>
+		</templatelistener>
+	</import>
+</data>
