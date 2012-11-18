@@ -51,13 +51,12 @@
 			<classname>wiki\system\search\ArticleSearch</classname>
 		</type>
 		
-		<!-- object watch
+		<!-- object watch -->
 		<type>
 			<name>com.woltnet.wiki.article</name>
 			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
 			<classname>wiki\system\user\object\watch\ArticleUserObjectWatch</classname>
 		</type>
-		-->
 		
 		<!-- clipboard -->
 		<type>
