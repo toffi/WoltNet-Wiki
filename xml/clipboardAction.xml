@@ -10,7 +10,7 @@
 				<page><![CDATA[wiki\page\ArticlePage]]></page>
 			</pages>
 		</action>
-		<action name="trash">
+		<action name="enable">
 			<actionclassname><![CDATA[wiki\system\clipboard\action\ArticleClipboardAction]]></actionclassname>
 			<showorder>2</showorder>
 			<pages>
@@ -18,7 +18,7 @@
 				<page><![CDATA[wiki\page\ArticlePage]]></page>
 			</pages>
 		</action>
-		<action name="delete">
+		<action name="trash">
 			<actionclassname><![CDATA[wiki\system\clipboard\action\ArticleClipboardAction]]></actionclassname>
 			<showorder>3</showorder>
 			<pages>
@@ -26,9 +26,17 @@
 				<page><![CDATA[wiki\page\ArticlePage]]></page>
 			</pages>
 		</action>
-		<action name="restore">
+		<action name="delete">
 			<actionclassname><![CDATA[wiki\system\clipboard\action\ArticleClipboardAction]]></actionclassname>
 			<showorder>4</showorder>
+			<pages>
+				<page><![CDATA[wiki\page\CategoryPage]]></page>
+				<page><![CDATA[wiki\page\ArticlePage]]></page>
+			</pages>
+		</action>
+		<action name="restore">
+			<actionclassname><![CDATA[wiki\system\clipboard\action\ArticleClipboardAction]]></actionclassname>
+			<showorder>5</showorder>
 			<pages>
 				<page><![CDATA[wiki\page\CategoryPage]]></page>
 				<page><![CDATA[wiki\page\ArticlePage]]></page>

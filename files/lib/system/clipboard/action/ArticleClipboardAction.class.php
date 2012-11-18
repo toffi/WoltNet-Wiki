@@ -1,16 +1,14 @@
 <?php
 namespace wiki\system\clipboard\action;
-
 use wcf\system\clipboard\ClipboardEditorItem;
 use wcf\system\clipboard\action\IClipboardAction;
-use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\exception\SystemException;
 use wcf\system\WCF;
 
 /**
  * Prepares clipboard editor items for articles.
  * 
- * @author	Rene Gessinger (NurPech)
+ * @author	Rene Gessinger (NurPech), Jean-Marc Licht
  * @copyright	2012 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
@@ -33,12 +31,19 @@ class ArticleClipboardAction implements IClipboardAction {
 	}
 	
 	/**
+	 * @see	wcf\system\clipboard\action\IClipboardAction::getClassName()
+	 */
+	public function getClassName() {
+		return 'wiki\data\article\ArticleAction';
+	}
+	
+	/**
 	 * @see	wcf\system\clipboard\action\IClipboardAction::execute()
 	 */
 	public function execute(array $objects, $actionName, array $typeData = array()) {
-		// check if no conversation was accessible
+		// check if no article was accessible
 		if (empty($this->articles)) {
-			return null;
+			$this->articles = $this->loadCategories($objects);
 		}
 		
 		$item = new ClipboardEditorItem();
@@ -56,8 +61,20 @@ class ArticleClipboardAction implements IClipboardAction {
 					return null;
 				}
 				
-				$item->addParameter('objectIDs', array_keys($this->conversations));
+				$item->addParameter('objectIDs', array_keys($this->articles));
 				$item->setName('article.assignLabel');
+			break;
+			
+			case 'enable':
+				$articleIDs = $this->validateEnable();
+				if (empty($articleIDs)) {
+					return null;
+				}
+				
+				$item->addParameter('objectIDs', $articleIDs);
+				$item->addParameter('actionName', 'enable');
+				$item->addParameter('className', 'wiki\data\article\ArticleAction');
+				$item->setName('article.enable');
 			break;
 			
 			default:
@@ -69,10 +86,33 @@ class ArticleClipboardAction implements IClipboardAction {
 	}
 	
 	/**
-	 * @see	wcf\system\clipboard\action\IClipboardAction::getClassName()
+	 * validates articles for enabling and returns ids.
+	 *
+	 * @TODO: implement permission check
+	 * @return	array<integer>
 	 */
-	public function getClassName() {
-		return 'wiki\data\article\ArticleAction';
+	public function validateEnable() {
+		$articleIDs = array();
+		
+		foreach ($this->articles as $article) {
+			if ($article->isActive) {
+				$articleIDs[] = $article->articleID;
+			}
+		}
+		
+		return $articleIDs;
+	}
+	
+	/**
+	 * load categories for given articles
+	 * 
+	 * @param	array<wiki\data\article\Article>	$articles
+	 * @return	array<wiki\data\article\Article>
+	 */
+	protected function loadCategories(array $articles) {
+		// TODO: get categories to article
+		
+		return $articles;
 	}
 	
 	/**

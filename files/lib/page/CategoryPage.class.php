@@ -164,14 +164,14 @@ class CategoryPage extends SortablePage {
 		DashboardHandler::getInstance()->loadBoxes('com.woltnet.wiki.CategoryPage', $this);
 	
 		WCF::getTPL()->assign(array(
-				'categoryList' => $this->categoryNodeList,
-				'category'	=> $this->category,
-				'filter' => $this->filter,
-				'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
-				'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
-				'sidebarName' => 'com.woltnet.wiki.category',
-				'labelID' => $this->labelID,
-				'labelList' => $this->labelList
+			'categoryList' => $this->categoryNodeList,
+			'category'	=> $this->category,
+			'filter' => $this->filter,
+			'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
+			'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
+			'sidebarName' => 'com.woltnet.wiki.category',
+			'labelID' => $this->labelID,
+			'labelList' => $this->labelList
 		));
 	}
 	

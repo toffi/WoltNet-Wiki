@@ -25,7 +25,6 @@ use wcf\page\AbstractPage;
  * @category 	WoltNet - Wiki
  */
 class ArticlePage extends AbstractPage {
-
 	/**
 	 * @see wcf\page\AbstractPage::$enableTracking
 	 */
@@ -108,7 +107,7 @@ class ArticlePage extends AbstractPage {
 		}
 
 		WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
-				'object' 	=> $this->article->getCategory()
+			'object' => $this->article->getCategory()
 		))));
 
 		$activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
@@ -132,6 +131,13 @@ class ArticlePage extends AbstractPage {
 			'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
 			'contentLanguages'			=> WCF::getUser()->getLanguageIDs()
 		));
+	}
+	
+	/**
+	 * @see wcf\page\ITrackablePage::getObjectType()
+	 */
+	public function getObjectType() {
+		return 'com.woltlab.wiki.article';
 	}
 
 	/**
