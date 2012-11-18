@@ -30,7 +30,7 @@
 							{lang}wiki.category.article.postBy{/lang} <a class="userLink" data-user-id="{@$article->userID}" href="{* link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link *}">{$article->username}</a> - {@$article->time|time}
 						</small>
 					</td>
-					<td class="columnComments columnIcon" style="text-align: center;">{* #$article->comments *}</td>
+					<td class="columnComments columnIcon" style="text-align: center;">{#$article->comments}</td>
 					<td class="columnLastPostTime columnText">
 						{@$article->time|time}
 					</td>

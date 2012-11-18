@@ -4,8 +4,9 @@ namespace wiki\data\article;
 /**
  * Represents a list of search results.
  *
- * @author	René Gessinger (NurPech)
+ * @author	Rene Gessinger (NurPech)
  * @copyright	2012 WoltNet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
@@ -24,7 +25,7 @@ class SearchResultArticleList extends ArticleList {
 		parent::__construct();
 
 		if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
-		$this->sqlSelects .= 'category.categoryID, category.categoryName';
-		$this->sqlJoins .= " LEFT JOIN wiki".WIKI_N."_category category ON (category.categoryID = article.categoryID)";
+		$this->sqlSelects .= 'category.categoryID, category.title';
+		$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_category category ON (category.categoryID = article.categoryID)";
 	}
 }

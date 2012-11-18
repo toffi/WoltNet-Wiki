@@ -18,8 +18,9 @@ use wcf\system\request\LinkHandler;
 use wcf\system\cache\CacheHandler;
 
 /**
- * @author	Ren� Gessinger (NurPech)
+ * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	data.article
  * @category 	WoltNet - Wiki

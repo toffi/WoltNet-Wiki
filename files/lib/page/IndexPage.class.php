@@ -32,7 +32,7 @@ class IndexPage extends AbstractPage {
 	
 	
 	/**
-	 * objectTypeName for Wiki Categoires
+	 * objectTypeName for Wiki Categories
 	 * 
 	 * @var string
 	 */

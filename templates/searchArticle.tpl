@@ -6,10 +6,9 @@
 			<option value="-">--------------------</option>
 
 
-			{include file='categorySelect' categories=$categoryList}
-			{*foreach from=$categoryList item=categoryItem}
-				<option value="{@$categoryItem->categoryID}">{$categoryItem->categoryName|language}</option>
-			{/foreach*}
+			{foreach from=$categoryList item=categoryItem}
+				<option value="{@$categoryItem->categoryID}">{$categoryItem->title|language}</option>
+			{/foreach}
 		</select>
 		<small>{lang}wcf.global.multiSelect{/lang}</small>
 	</dd>

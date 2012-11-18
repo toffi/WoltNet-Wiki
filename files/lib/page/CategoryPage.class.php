@@ -98,8 +98,8 @@ class CategoryPage extends SortablePage {
 	public $objectListClassName = 'wiki\data\article\CategoryArticleList';
 	
 	/**
-	 * objectTypeName for Wiki Categoires
-	 *
+	 * objectTypeName for Wiki Categories
+	 * 
 	 * @var string
 	 */
 	public $objectTypeName = 'com.woltnet.wiki.category';

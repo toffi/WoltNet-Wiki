@@ -3,7 +3,7 @@
 		<legend>{lang}wiki.article.label.management.existingLabels{/lang}</legend>
 	</fieldset>
 	
-	<ul class="conversationLabelList">
+	<ul class="articleLabelList">
 		{content}
 			{foreach from=$labelList item=label}
 				<li><a class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}" data-label-id="{@$label->labelID}" data-css-class-name="{if $label->cssClassName}{@$label->cssClassName}{else}none{/if}">{$label->label}</a></li>
