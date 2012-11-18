@@ -3,7 +3,6 @@ namespace wiki\system\article;
 use wiki\data\article\Article;
 use wiki\data\article\ArticleCache;
 
-use wcf\system\category\CategoryPermissionHandler;
 use wcf\system\acl\ACLHandler;
 use wcf\system\cache\CacheHandler;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
@@ -96,7 +95,7 @@ class ArticlePermissionHandler extends SingletonFactory {
 		$categoryID = ArticleCache::getInstance()->getArticle($articleID)->categoryID;
 		//if (CategoryPermissionHandler::getInstance()->getPermission($categoryID, $permission)) return CategoryPermissionHandler::getInstance()->getPermission($categoryID, $permission);
 
-		return WCF::getSession()->getPermission('user.wiki.article.'.$permission);
+		return WCF::getSession()->getPermission('user.wiki.article.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.write.'.$permission);
 	}
 
 	/**

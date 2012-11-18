@@ -4,9 +4,9 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th colspan="2" class="columnTitle columnTopic">{lang}wiki.category.article.subject{/lang}</th>
-						<th class="columnDigits columnComments">{lang}wiki.category.articles.comments{/lang}</th>
-						<th class="columnText columnLastPostTime">{lang}wiki.category.articles.lastPostTime{/lang}</th>
+						<th colspan="2" class="columnTitle columnTopic">{lang}wiki.article.subject{/lang}</th>
+						<th class="columnDigits columnComments">{lang}wiki.article.comments{/lang}</th>
+						<th class="columnText columnLastPostTime">{lang}wiki.article.lastPostTime{/lang}</th>
 					</tr>
 				</thead>
 
@@ -30,7 +30,9 @@
 							{lang}wiki.category.article.postBy{/lang} <a class="userLink" data-user-id="{@$article->userID}" href="{* link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link *}">{$article->username}</a> - {@$article->time|time}
 						</small>
 					</td>
-					<td class="columnComments columnIcon" style="text-align: center;">{#$article->comments}</td>
+					<td class="columnComments columnIcon" style="text-align: center;">
+						{#$article->comments}
+					</td>
 					<td class="columnLastPostTime columnText">
 						{@$article->time|time}
 					</td>
