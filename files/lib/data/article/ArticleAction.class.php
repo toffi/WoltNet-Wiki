@@ -1,13 +1,12 @@
 <?php
 namespace wiki\data\article;
-use wiki\data\category\CategoryList;
-use wiki\data\category\CategoryEditor;
 use wiki\util\ArticleUtil;
 use wiki\data\article\label\ArticleLabel;
 
 use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\visitTracker\VisitTracker;
+use wcf\data\category\CategoryList;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\data\IClipboardAction;
 use wcf\system\package\PackageDependencyHandler;
