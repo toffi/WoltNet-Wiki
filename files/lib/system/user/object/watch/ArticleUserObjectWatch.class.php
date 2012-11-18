@@ -2,7 +2,7 @@
 namespace wiki\system\user\object\watch;
 use wiki\data\article\Article;
 use wiki\data\article\WatchedArticleList;
-use wiki\data\category\Category;
+use wiki\data\category\WikiCategory;
 
 use wcf\data\object\type\AbstractObjectTypeProcessor;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
@@ -14,17 +14,17 @@ use wcf\system\visitTracker\VisitTracker;
  *
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	system.user.object.watch
  * @category 	WoltNet Wiki
  */
 class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch {
-
 	/**
 	 * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadCount()
 	 */
 	public function getUnreadCount($userID) {
-		$categoryIDs = Category::getAccessibleCategoryIDs();
+		$categoryIDs = WikiCategory::getAccessibleCategoryIDs();
 		if (empty($categoryIDs)) return null;
 
 		$conditionBuilder = new PreparedStatementConditionBuilder();
@@ -55,7 +55,7 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 	 * @see wcf\system\user\object\watch\IUserObjectWatch::getObjectIDs()
 	 */
 	public function getObjectIDs($userID) {
-		$categoryIDs = Category::getAccessibleCategoryIDs();
+		$categoryIDs = WikiCategory::getAccessibleCategoryIDs();
 		if (empty($categoryIDs)) return null;
 
 		$conditionBuilder = new PreparedStatementConditionBuilder();

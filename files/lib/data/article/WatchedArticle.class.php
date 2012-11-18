@@ -21,4 +21,8 @@ class WatchedArticle extends ViewableArticle {
 	public function getTemplateName() {
 		return 'watchedArticle';
 	}
+	
+	public function getApplication() {
+		return 'wiki';
+	}
 }

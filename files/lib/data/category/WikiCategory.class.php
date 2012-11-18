@@ -3,6 +3,7 @@ namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategory;
 use wcf\system\category\CategoryPermissionHandler;
+use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\data\user\User;
 use wcf\system\WCF;
@@ -18,6 +19,12 @@ use wcf\system\WCF;
  * @category	WoltNet Wiki
  */
 class WikiCategory extends ViewableCategory {
+	/**
+	 * objectTypeName for Wiki Categories
+	 *
+	 * @var string
+	 */
+	public static $objectTypeName = 'com.woltnet.wiki.category';
 	
 	/**
 	 * Checks the given category permissions.
@@ -46,6 +53,29 @@ class WikiCategory extends ViewableCategory {
 		}
 		
 		return WCF::getSession()->getPermission('user.wiki.category.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.category.write.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.write.'.$permission);
+	}
+	
+	/**
+	 * Returns a list of accessible categories.
+	 *
+	 * @param	array		$permissions		filters categories by given permissions
+	 * @return	array<integer>				comma separated category ids
+	 */
+	public static function getAccessibleCategoryIDs($permissions = array('canViewCategory', 'canEnterCategory')) {
+		$categoryIDs = array();
+		foreach (CategoryHandler::getInstance()->getCategories(static::$objectTypeName) as $category) {
+			$result = true;
+			$category = new WikiCategory($category);
+			foreach ($permissions as $permission) {
+				$result = $result && $category->getPermission($permission);
+			}
+		
+			if ($result) {
+				$categoryIDs[] = $category->categoryID;
+			}
+		}
+		
+		return $categoryIDs;
 	}
 	
 	/**

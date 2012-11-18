@@ -19,6 +19,7 @@ use wcf\page\AbstractPage;
 /**
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	page
  * @category 	WoltNet - Wiki
