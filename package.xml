@@ -51,6 +51,7 @@
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
+		<instruction type="templateListener">xml/templateListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
@@ -75,7 +76,7 @@
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
-		<instruction type="articleMenu">xml/pagemenu.xml</instruction>
+		<instruction type="templateListener">xml/templateListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
