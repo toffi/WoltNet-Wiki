@@ -20,7 +20,7 @@ Thumbs.db
 *.cache
 
 # Netbeans
-nbproject/
+/nbproject
 nbactions.xml
 
 # Eclipse
@@ -42,4 +42,3 @@ nbactions.xml
 .xmlvcs.xml
 *.imlworkspace
 .xml
-/com.woltnet.wdb/requirements
