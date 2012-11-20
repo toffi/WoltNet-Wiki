@@ -86,6 +86,40 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	}
 	
 	/**
+	 * Validating parameters for restoring articles.
+	 */
+	public function validateRestore() {
+		$this->loadArticles();
+		
+		foreach ($this->articles as $article) {
+			if (!$article->isDeleted) {
+				throw new ValidateActionException("Action is not applicable for article ".$article->articleID);
+			}
+		
+			if (!$article->isRestorable()) {
+				throw new PermissionDeniedException();
+			}
+		}
+	}
+	
+	/**
+	 * Restores given articles.
+	 *
+	 * @return	array<array>
+	 */
+	public function restore() {
+		foreach ($this->articles as $article) {
+			$articleEditor = new ArticleEditor($article);
+			$articleEditor->update(array(
+					'isDeleted' 	=> '0',
+					'deleteTime'	=> 0
+			));
+		}
+		
+		$this->unmarkItems();
+	}
+	
+	/**
 	 * Validating for enabling articles.
 	 */
 	public function validateEnable() {
