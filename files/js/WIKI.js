@@ -238,14 +238,14 @@ WIKI.Article.EditorHandler = Class.extend({
 					};
 				});
 				
-				var $labelList = $article.find('.columnTopic > h1 > .labelList');
+				var $labelList = $article.find('.columnSubject > h1 > .labelList');
 				if (!data.length) {
 					if ($labelList.length) $labelList.remove();
 				}
 				else {
 					// create label list if missing
 					if (!$labelList.length) {
-						$labelList = $('<ul class="labelList" />').prependTo($article.find('.columnTopic > h1'));
+						$labelList = $('<ul class="labelList" />').prependTo($article.find('.columnSubject > h1'));
 					}
 					
 					// remove all existing labels
