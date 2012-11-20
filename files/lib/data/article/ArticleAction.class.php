@@ -77,11 +77,38 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		foreach ($this->articles as $article) {
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->update(array(
-					'isDeleted' 	=> '1',
-					'deleteTime'	=> TIME_NOW
+				'isDeleted' 	=> '1',
+				'deleteTime'	=> TIME_NOW
 			));
 		}
 
+		$this->unmarkItems();
+	}
+	
+	/**
+	 * Validating for enabling articles.
+	 */
+	public function validateEnable() {
+		$this->loadArticles();
+		
+		foreach ($this->articles as $article) {
+			if (!$article->isActive) {
+				throw new ValidateActionException("Action is not applicable for article ".$article->articleID);
+			}
+		}
+	}
+	
+	/**
+	 * Enables given articles.
+	 * 
+	 * @return	array<array>
+	 */
+	public function enable() {
+		foreach ($this->articles as $article) {
+			$articleEditor = new ArticleEditor($article);
+			$articleEditor->setActive();
+		}
+		
 		$this->unmarkItems();
 	}
 	
@@ -101,13 +128,13 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 */
 	public function getLabelManagement() {
 		WCF::getTPL()->assign(array(
-				'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
-				'labelList' => ArticleLabel::getLabelsByUser()
+			'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
+			'labelList' => ArticleLabel::getLabelsByUser()
 		));
 	
 		return array(
-				'actionName' => 'getLabelManagement',
-				'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki')
+			'actionName' => 'getLabelManagement',
+			'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki')
 		);
 	}
 
@@ -125,26 +152,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		$articleList->sqlLimit = 0;
 		$articleList->readObjects();
 
-		$categoryIDs = array();
 		foreach ($articleList as $article) {
-			$categoryIDs[] = $article->categoryID;
-		}
-
-		$this->articles = array();
-		if (!empty($categoryIDs)) {
-			$categoryList = new CategoryList();
-			$categoryList->getConditionBuilder()->add("category.categoryID IN (?)", array($categoryIDs));
-			$categoryList->sqlLimit = 0;
-			$categoryList->readObjects();
-
-			foreach ($articleList as $article) {
-				foreach ($categoryList as $category) {
-					if ($article->categoryID == $category->categoryID) {
-						$article->setCategory($category);
-						$this->articles[$article->articleID] = $article;
-					}
-				}
-			}
+			$this->articles[$article->articleID] = $article;
 		}
 
 		if (empty($this->articles)) {

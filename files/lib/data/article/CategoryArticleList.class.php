@@ -33,7 +33,7 @@ class CategoryArticleList extends ViewableArticleList {
 	 * @var integer
 	 */
 	public $languageID = 0;
-
+	
 	/**
 	 * Creates a new CategoryProjectList object.
 	 *
@@ -41,7 +41,7 @@ class CategoryArticleList extends ViewableArticleList {
 	 * @param	string				$categoryIDs
 	 * @param	integer				$languageID
 	 */
-	public function __construct(WikiCategory $category, $categoryIDs = '', $languageID = 0) {
+	public function __construct(WikiCategory $category, $categoryIDs = '', $labelID = 0, $languageID = 0) {
 		$this->category = $category;
 		$this->categoryIDs = $categoryIDs;
 		$this->languageID = $languageID;
@@ -50,6 +50,15 @@ class CategoryArticleList extends ViewableArticleList {
 
 		// add conditions
 		$this->getConditionBuilder()->add('article.categoryID IN (?)', array($this->categoryIDs));
+		
+		// filter by label id
+		if ($labelID) {
+			$this->getConditionBuilder()->add("article.articleID IN (
+				SELECT	articleID
+				FROM	wiki".WIKI_N."_article_label_to_object
+				WHERE	labelID = ?
+			)", array($labelID));
+		}
 
 		// article language
 		if ($this->languageID) {

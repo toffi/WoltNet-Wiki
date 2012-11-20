@@ -165,7 +165,7 @@ class CategoryPage extends SortablePage {
 	
 		WCF::getTPL()->assign(array(
 			'categoryList' => $this->categoryNodeList,
-			'category'	=> $this->category,
+			'category' => $this->category,
 			'filter' => $this->filter,
 			'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
 			'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
@@ -179,7 +179,8 @@ class CategoryPage extends SortablePage {
 	 * @see wcf\page\MultipleLinkPage::initObjectList()
 	 */
 	protected function initObjectList() {
-		$this->objectList = new CategoryArticleList($this->category, $this->categoryID);
+		$this->objectList = new CategoryArticleList($this->category, $this->categoryID, $this->labelID);
+		$this->objectList->setLabelList($this->labelList);
 	}
 	
 	/**

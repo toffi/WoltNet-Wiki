@@ -1,5 +1,7 @@
 <?php
 namespace wiki\data\article;
+use wiki\data\article\label\ArticleLabel;
+use wiki\data\article\label\ArticleLabelEditor;
 
 use wcf\system\WCF;
 use wcf\data\DatabaseObjectDecorator;
@@ -33,7 +35,13 @@ class ViewableArticle extends DatabaseObjectDecorator {
 	 * @var integer
 	 */
 	protected $effectiveVisitTime = null;
-
+	
+	/**
+	 * list of assigned labels
+	 * @var	array<wiki\data\article\label\ArticleLabel>
+	 */
+	protected $labels = array();
+	
 	public function getFormattedMessage() {
 		$messageParser = MessageParser::getInstance();
 		return $messageParser->parse($this->object->message);
@@ -99,5 +107,23 @@ class ViewableArticle extends DatabaseObjectDecorator {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Assigns a label.
+	 * 
+	 * @param	wiki\data\article\label\ArticleLabel	$label
+	 */
+	public function assignLabel(ArticleLabel $label) {
+		$this->labels[$label->labelID] = $label;
+	}
+	
+	/**
+	 * Returns a list of assigned labels.
+	 * 
+	 * @return	array<wiki\data\article\label\ArticleLabel>
+	 */
+	public function getAssignedLabels() {
+		return $this->labels;
 	}
 }

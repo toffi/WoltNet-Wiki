@@ -186,7 +186,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		
 		return array(
 			'actionName' => 'getLabelForm',
-			'template' => WCF::getTPL()->fetch('articleLabelAssignment')
+			'template' => WCF::getTPL()->fetch('articleLabelAssignment', 'wiki')
 		);
 	}
 	

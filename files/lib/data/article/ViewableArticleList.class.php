@@ -1,8 +1,10 @@
 <?php
 namespace wiki\data\article;
+use wiki\data\article\label\ArticleLabel;
+use wiki\data\article\label\ArticleLabelList;
 
-use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\visitTracker\VisitTracker;
+use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
 
 /**
@@ -14,13 +16,18 @@ use wcf\system\WCF;
  * @category 	WoltNet - Wiki
  */
 class ViewableArticleList extends ArticleList {
-
 	/**
 	 * decorator class name
 	 * @var string
 	 */
 	public $decoratorClassName = 'wiki\data\article\ViewableArticle';
-
+	
+	/**
+	 * label list object
+	 * @var	wiki\data\article\label\ArticleLabelList
+	 */
+	public $labelList = null;
+	
 	/**
 	 * Creates a new ViewableProjectList object.
 	 */
@@ -50,9 +57,69 @@ class ViewableArticleList extends ArticleList {
 	public function readObjects() {
 		if ($this->objectIDs === null) $this->readObjectIDs();
 		parent::readObjects();
-
+		
+		$labels = $this->loadLabelAssignments();
+		
 		foreach ($this->objects as $articleID => $article) {
 			$this->objects[$articleID] = new $this->decoratorClassName($article);
+			
+			if (isset($labels[$articleID])) {
+				foreach ($labels[$articleID] as $label) {
+					$this->objects[$articleID]->assignLabel($label);
+				}
+			}
 		}
+	}
+	
+	/**
+	 * Returns a list of article labels.
+	 * 
+	 * @return	array<wiki\data\article\label\ArticleLabel>
+	 */
+	protected function getLabels() {
+		if ($this->labelList === null) {
+			$this->labelList = ArticleLabel::getLabelsByUser();
+		}
+		
+		return $this->labelList->getObjects();
+	}
+	
+	/**
+	 * Returns label assignments per article.
+	 * 
+	 * @return	array<array>
+	 */
+	protected function loadLabelAssignments() {
+		$labels = $this->getLabels();
+		if (empty($labels)) {
+			return array();
+		}
+		
+		$conditions = new PreparedStatementConditionBuilder();
+		$conditions->add("articleID IN (?)", array(array_keys($this->objects)));
+		$conditions->add("labelID IN (?)", array(array_keys($labels)));
+		
+		$sql = "SELECT	labelID, articleID
+			FROM	wiki".WIKI_N."_article_label_to_object
+			".$conditions;
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute($conditions->getParameters());
+		$data = array();
+		while ($row = $statement->fetchArray()) {
+			if (!isset($data[$row['articleID']])) {
+				$data[$row['articleID']] = array();
+			}
+			
+			$data[$row['articleID']][$row['labelID']] = $labels[$row['labelID']];
+		}
+		
+		return $data;
+	}
+	
+	/**
+	 * @param	wiki\data\article\label\ArticleLabelList	$labelList
+	 */
+	public function setLabelList(ArticleLabelList $labelList) {
+		$this->labelList = $labelList;
 	}
 }

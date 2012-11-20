@@ -32,10 +32,10 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 		$where = "";
 		if($this->parentID != 0) {
 			$where = "parentID = '".$this->parentID."' OR
-					  articleID = '".$this->parentID."'";
+					articleID = '".$this->parentID."'";
 		} else {
 			$where = "articleID = '".$this->articleID."' OR
-					  parentID = '".$this->articleID."'";
+					parentID = '".$this->articleID."'";
 		}
 		$sql = "UPDATE ".self::getDatabaseTableName()." SET isActive = 0
 				WHERE ".$where;
@@ -49,24 +49,24 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 
 		if(MODULE_CONVERSATION && $this->userID != 0 && $this->userID != WCF::getUser()->userID) {
 			$data = array(
-					'subject' => WCF::getLanguage()->getDynamicVariable('wiki.article.conversation.subject.active', array('topic' => $this->getTitle())),
-					'time' => TIME_NOW,
-					'userID' => WCF::getUser()->userID,
-					'username' => WCF::getUser()->username,
-					'isDraft' => 0
+				'subject' => WCF::getLanguage()->getDynamicVariable('wiki.article.conversation.subject.active', array('topic' => $this->getTitle())),
+				'time' => TIME_NOW,
+				'userID' => WCF::getUser()->userID,
+				'username' => WCF::getUser()->username,
+				'isDraft' => 0
 			);
 			$conversationData = array(
-					'data' => $data,
-					'participants' => array($this->userID),
-					'messageData' => array(
-							'message' => WCF::getLanguage()->getDynamicVariable('wiki.article.conversation.message.active', array(
-										'username' 	=> $this->username,
-										'inspectorID'	=> WCF::getUser()->userID,
-										'inspector'	=> WCF::getUser()->username,
-										'articleID'	=> $this->articleID,
-										'topic'		=> $this->getTitle(),
-										'createTime'	=> $this->time))
-					)
+				'data' => $data,
+				'participants' => array($this->userID),
+				'messageData' => array(
+					'message' => WCF::getLanguage()->getDynamicVariable('wiki.article.conversation.message.active', array(
+						'username' 	=> $this->username,
+						'inspectorID'	=> WCF::getUser()->userID,
+						'inspector'	=> WCF::getUser()->username,
+						'articleID'	=> $this->articleID,
+						'topic'		=> $this->getTitle(),
+						'createTime'	=> $this->time))
+				)
 			);
 			$objectAction = new ConversationAction(array(), 'create', $conversationData);
 			$objectAction->executeAction();

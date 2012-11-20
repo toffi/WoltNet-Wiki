@@ -13,6 +13,4 @@ use wcf\data\category\ViewableCategoryNodeList;
  * @subpackage	data.category
  * @category	WoltNet Wiki
  */
-class WikiCategoryNodeList extends ViewableCategoryNodeList {
-
-}
+class WikiCategoryNodeList extends ViewableCategoryNodeList {}

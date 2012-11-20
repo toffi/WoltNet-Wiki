@@ -1,4 +1,4 @@
-{hascontent}
+{if $objects}
 	<div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList articleList jsClipboardContainer" data-type="com.woltnet.wiki.article">
 		<hgroup>
 			<h1>{lang}wiki.article.articles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
@@ -16,7 +16,6 @@
 			</thead>
 
 			<tbody>
-				{content}
 				{foreach from=$objects item=article}
 					<tr class="article{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}">
 						<td class="columnMark">
@@ -31,6 +30,16 @@
 						</td>
 						<td class="columnText columnSubject">
 							<h1>
+								{hascontent}
+									<ul class="labelList">
+										{content}
+											{foreach from=$articleConversationList'}{->getAssignedLabels() item=label}
+												<li><a href="{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}" class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</a></li>
+											{/foreach}
+										{/content}
+									</ul>
+								{/hascontent}
+
 								<a href="{link controller='Article' object=$article}{/link}" class="articleLink messageGroupLink" data-article-id="{@$article->articleID}">{$article->getTitle()}</a>
 							</h1>
 
@@ -45,10 +54,9 @@
 						<td class="columnText columnLastPost">{@$article->time|time}</td>
 					</tr>
 				{/foreach}
-				{/content}
 			</tbody>
 		</table>
 	</div>
-{hascontentelse}
+{else}
 	<div class="container marginTop containerPadding">{lang}wiki.article.noneAvailable{/lang}</div>
-{/hascontent}
+{/if}

@@ -65,6 +65,45 @@ class ArticleClipboardAction implements IClipboardAction {
 				$item->setName('article.assignLabel');
 			break;
 			
+			case 'trash':
+				$articleIDs = $this->validateTrash();
+				if (empty($articleIDs)) {
+					return null;
+				}
+				
+				$item->addParameter('objectIDs', $articleIDs);
+				$item->addInternalData('confirmMessage', WCF::getLanguage()->getDynamicVariable('wcf.clipboard.item.project.article.confirmMessage', array('count' => count($articleIDs))));
+				$item->addParameter('actionName', 'trash');
+				$item->addParameter('className', 'wiki\data\article\ArticleAction');
+				$item->setName('article.trash');
+			break;
+			
+			case 'delete':
+				$articleIDs = $this->validateDelete();
+				if (empty($articleIDs)) {
+					return null;
+				}
+			
+				$item->addParameter('objectIDs', $articleIDs);
+				$item->addInternalData('confirmMessage', WCF::getLanguage()->getDynamicVariable('wcf.clipboard.item.article.delete.confirmMessage', array('count' => count($articleIDs))));
+				$item->addParameter('actionName', 'delete');
+				$item->addParameter('className', 'wiki\data\article\ArticleAction');
+				$item->setName('article.delete');
+			break;
+			
+			case 'restore':
+				$articleIDs = $this->validateRestore();
+				if (empty($articleIDs)) {
+					return null;
+				}
+			
+				$item->addParameter('objectIDs', $articleIDs);
+				$item->addInternalData('confirmMessage', WCF::getLanguage()->getDynamicVariable('wcf.clipboard.item.project.restore.confirmMessage', array('count' => count($articleIDs))));
+				$item->addParameter('actionName', 'restore');
+				$item->addParameter('className', 'wiki\data\article\ArticleAction');
+				$item->setName('article.restore');
+			break;
+			
 			case 'enable':
 				$articleIDs = $this->validateEnable();
 				if (empty($articleIDs)) {
@@ -86,6 +125,60 @@ class ArticleClipboardAction implements IClipboardAction {
 	}
 	
 	/**
+	 * Validates articles for restoring and returns ids.
+	 *
+	 * @TODO: implement permission check
+	 * @return	array<integer>
+	 */
+	public function validateRestore() {
+		$articleIDs = array();
+		
+		foreach ($this->articles as $article) {
+			if ($article->isDeleted) {
+				$articleIDs[] = $article->articleID;
+			}
+		}
+		
+		return $articleIDs;
+	}
+	
+	/**
+	 * Validates articles for deleting and returns ids.
+	 *
+	 * @TODO: implement permission check
+	 * @return	array<integer>
+	 */
+	public function validateDelete() {
+		$articleIDs = array();
+		
+		foreach ($this->articles as $article) {
+			if ($article->isDeleted) {
+				$articleIDs[] = $article->articleID;
+			}
+		}
+		
+		return $articleIDs;
+	}
+	
+	/**
+	 * Validates articles for trashing and returns ids.
+	 *
+	 * @TODO: implement permission check
+	 * @return	array<integer>
+	 */
+	public function validateTrash() {
+		$articleIDs = array();
+		
+		foreach ($this->articles as $article) {
+			if (!$article->isDeleted) {
+				$articleIDs[] = $article->articleID;
+			}
+		}
+		
+		return $articleIDs;
+	}
+	
+	/**
 	 * validates articles for enabling and returns ids.
 	 *
 	 * @TODO: implement permission check
@@ -95,7 +188,7 @@ class ArticleClipboardAction implements IClipboardAction {
 		$articleIDs = array();
 		
 		foreach ($this->articles as $article) {
-			if ($article->isActive) {
+			if (!$article->isActive) {
 				$articleIDs[] = $article->articleID;
 			}
 		}
@@ -110,7 +203,7 @@ class ArticleClipboardAction implements IClipboardAction {
 	 * @return	array<wiki\data\article\Article>
 	 */
 	protected function loadCategories(array $articles) {
-		// TODO: get categories to article
+		// TODO: get categories to article for permission check
 		
 		return $articles;
 	}

@@ -535,6 +535,12 @@ WIKI.Article.Label.Editor = Class.extend({
 	_editorHandler: null,
 	
 	/**
+	 * system notification object
+	 * @var	WCF.System.Notification
+	 */
+	_notification: null,
+	
+	/**
 	 * action proxy object
 	 * @var	WCF.Action.Proxy
 	 */
@@ -558,6 +564,7 @@ WIKI.Article.Label.Editor = Class.extend({
 		this._dialog = null;
 		this._editorHandler = editorHandler;
 		
+		this._notification = new WCF.System.Notification(WCF.Language.get('wiki.article.label.management.addLabel.success'));
 		this._proxy = new WCF.Action.Proxy({
 			success: $.proxy(this._success, this)
 		});
