@@ -43,7 +43,7 @@ class WikiCategory extends ViewableCategory {
 	/**
 	 * @see wcf\data\category\ViewableCategory::getPermission()
 	 */
-	public function getPermission($permission) {
+	public function getPermission($permission = 'canViewCategory') {
 		if ($this->permissions === null) {
 			$this->permissions = CategoryPermissionHandler::getInstance()->getPermissions($this->getDecoratedObject());
 		}

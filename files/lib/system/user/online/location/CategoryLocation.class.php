@@ -1,5 +1,6 @@
 <?php
 namespace wiki\system\user\online\location;
+use wiki\data\category\WikiCategory;
 
 use wcf\system\category\CategoryHandler;
 use wcf\data\user\online\UserOnline;
@@ -26,6 +27,7 @@ class CategoryLocation implements IUserOnlineLocation {
 	 */
 	public function get(UserOnline $user, $languageVariable = '') {
 		if ($category = CategoryHandler::getInstance()->getCategory($user->objectID)) {
+			$category = new WikiCategory($category);
 			if ($category->getPermission()) {
 				return WCF::getLanguage()->getDynamicVariable($languageVariable, array('category' => $category));
 			}
