@@ -14,7 +14,7 @@
 					<th class="columnText columnLastPost{if $sortField == 'time'} active{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=time&sortOrder={if $sortField == 'time' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.time{/lang}{if $sortField == 'time'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
 				</tr>
 			</thead>
-
+			
 			<tbody>
 				{foreach from=$objects item=article}
 					<tr class="article{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}">
@@ -33,7 +33,7 @@
 								{hascontent}
 									<ul class="labelList">
 										{content}
-											{foreach from=$articleConversationList'}{->getAssignedLabels() item=label}
+											{foreach from=$article->getAssignedLabels() item=label}
 												<li><a href="{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}" class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</a></li>
 											{/foreach}
 										{/content}
