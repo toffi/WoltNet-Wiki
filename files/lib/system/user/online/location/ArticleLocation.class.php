@@ -1,6 +1,6 @@
 <?php
 namespace wiki\system\user\online\location;
-use wiki\data\category\Category;
+use wiki\data\category\WikiCategory;
 use wiki\data\article\ArticleList;
 
 use wcf\data\user\online\UserOnline;
@@ -44,7 +44,7 @@ class ArticleLocation implements IUserOnlineLocation {
 			$this->readArticles();
 		}
 
-		if (!isset($this->articless[$user->objectID])) {
+		if (!isset($this->articles[$user->objectID])) {
 			return '';
 		}
 
@@ -59,7 +59,7 @@ class ArticleLocation implements IUserOnlineLocation {
 
 		if (empty($this->articleIDs)) return;
 		$this->articleIDs = array_unique($this->articleIDs);
-		$categoryIDs = Category::getAccessibleCategoryIDs();
+		$categoryIDs = WikiCategory::getAccessibleCategoryIDs();
 		if (empty($categoryIDs)) return;
 
 
