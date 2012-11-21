@@ -50,12 +50,13 @@ class ArticleClipboardAction implements IClipboardAction {
 		
 		switch ($actionName) {
 			case 'assignLabel':
-				// check if user has labels
+				$article = current($this->articles);
+				// check if category has labels
 				$sql = "SELECT	COUNT(*) AS count
 					FROM	wiki".WIKI_N."_article_label
-					WHERE	userID = ?";
+					WHERE	categoryID = ?";
 				$statement = WCF::getDB()->prepareStatement($sql);
-				$statement->execute(array(WCF::getUser()->userID));
+				$statement->execute(array($article->categoryID));
 				$row = $statement->fetchArray();
 				if ($row['count'] == 0) {
 					return null;

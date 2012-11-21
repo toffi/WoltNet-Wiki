@@ -29,14 +29,19 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 	protected $className = 'wiki\data\article\label\ArticleLabelEditor';
 	
 	/**
+	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
+	 */
+	protected $permissionsCreate = array('user.wiki.category.canManageLabels');
+	
+	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsDelete
 	 */
-	protected $permissionsDelete = array('user.wiki.article.read.canReadArticle', 'user.wiki.article.read.canViewArticle');
+	protected $permissionsDelete = array('user.wiki.category.canManageLabels');
 	
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
 	 */
-	protected $permissionsUpdate = array('user.wiki.article.read.canReadArticle', 'user.wiki.article.read.canViewArticle');
+	protected $permissionsUpdate = array('user.wiki.category.canManageLabels');
 	
 	/**
 	 * article object
@@ -78,7 +83,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 	 * Validates parameters to add a new label.
 	 */
 	public function validateAdd() {
-		if (!WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle')) {
+		if (!WCF::getSession()->getPermission('user.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
 		
@@ -126,10 +131,6 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 	 * Validates parameters for label assignment form.
 	 */
 	public function validateGetLabelForm() {
-		if (!WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle')) {
-			throw new PermissionDeniedException();
-		}
-		
 		// validate article id
 		$this->parameters['articleIDs'] = (isset($this->parameters['articleIDs'])) ? ArrayUtil::toIntegerArray($this->parameters['articleIDs']) : array();
 		if (empty($this->parameters['articleIDs'])) {

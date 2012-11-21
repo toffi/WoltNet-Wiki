@@ -76,8 +76,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		foreach ($this->articles as $article) {
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->update(array(
-				'isDeleted' 	=> '1',
-				'deleteTime'	=> TIME_NOW
+				'isDeleted' => 1,
+				'deleteTime' => TIME_NOW
 			));
 		}
 
@@ -110,8 +110,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		foreach ($this->articles as $article) {
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->update(array(
-					'isDeleted' 	=> '0',
-					'deleteTime'	=> 0
+				'isDeleted' => 0,
+				'deleteTime' => 0
 			));
 		}
 		
@@ -149,7 +149,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * Validates user access for label management.
 	 */
 	public function validateGetLabelManagement() {
-		if (!WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle')) {
+		if (!WCF::getSession()->getPermission('user.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
 		
