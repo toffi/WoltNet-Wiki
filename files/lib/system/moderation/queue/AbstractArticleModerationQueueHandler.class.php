@@ -14,7 +14,7 @@ use wcf\system\WCF;
  * An abstract implementation of IModerationQueueHandler for articles.
  *
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
  * @package	com.woltnet.wiki
  * @subpackage	system.moderation.queue
  * @category 	WoltNet Wiki

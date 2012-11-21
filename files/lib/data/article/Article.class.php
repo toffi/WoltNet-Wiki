@@ -19,7 +19,7 @@ use wcf\system\cache\CacheHandler;
 
 /**
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	data.article

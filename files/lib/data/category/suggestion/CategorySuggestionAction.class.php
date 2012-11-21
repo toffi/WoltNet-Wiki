@@ -2,6 +2,7 @@
 namespace wiki\data\category\suggestion;
 
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\system\moderation\queue\ModerationQueueCategorySuggestionManager;
 
 /**
  * @author	Rene Gessinger
@@ -22,6 +23,8 @@ class CategorySuggestionAction extends AbstractDatabaseObjectAction {
 	 */
 	public function create() {
 		$object = call_user_func(array($this->className, 'create'), $this->parameters);
+		
+		ModerationQueueCategorySuggestionManager::getInstance()->addSuggestedContent('com.woltnet.wiki.moderation.category.suggestion', $object->suggestionID);
 	
 		return $object;
 	}

@@ -55,7 +55,7 @@ class ArticleModerationQueueReportHandler extends AbstractArticleModerationQueue
 			'article' => new ViewableArticle($queue->getAffectedObject())
 		));
 
-		return WCF::getTPL()->fetch('moderationArticle');
+		return WCF::getTPL()->fetch('moderationArticle', 'wiki');
 	}
 
 	/**
