@@ -15,7 +15,6 @@
 	</authorinformation>
 
 	<requiredpackages>
-		<requiredpackage file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.acl.tar">com.woltlab.wcf.acl</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.acp.language.tar">com.woltlab.wcf.acp.language</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.attachment.tar">com.woltlab.wcf.attachment</requiredpackage>
@@ -33,6 +32,7 @@
 		<requiredpackage file="requirements/com.woltlab.wcf.moderation.tar">com.woltlab.wcf.moderation</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.acp.style.tar">com.woltlab.wcf.acp.style</requiredpackage>
+		<requiredpackage file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
