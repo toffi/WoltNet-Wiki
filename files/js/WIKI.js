@@ -523,6 +523,12 @@ WIKI.Article.Label.Editor = Class.extend({
 	_articleIDs: 0,
 	
 	/**
+	 * list of category id
+	 * @var	array<integer>
+	 */
+	_categoryID: 0,
+	
+	/**
 	 * dialog object
 	 * @var	jQuery
 	 */
@@ -561,6 +567,10 @@ WIKI.Article.Label.Editor = Class.extend({
 			this._articleIDs = articleIDs;
 		}
 		
+		if (elementID) {
+			this._categoryID = [ $('#' + elementID).data('categoryID') ];
+		}
+		
 		this._dialog = null;
 		this._editorHandler = editorHandler;
 		
@@ -580,7 +590,8 @@ WIKI.Article.Label.Editor = Class.extend({
 			actionName: 'getLabelForm',
 			className: 'wiki\\data\\article\\label\\ArticleLabelAction',
 			parameters: {
-				articleIDs: this._articleIDs
+				articleIDs: this._articleIDs,
+				categoryID: this._categoryID
 			}
 		});
 		this._proxy.sendRequest();
@@ -727,7 +738,12 @@ WIKI.Article.Label.Manager = Class.extend({
 	_click: function() {
 		this._proxy.setOption('data', {
 			actionName: 'getLabelManagement',
-			className: 'wiki\\data\\article\\ArticleAction'
+			className: 'wiki\\data\\article\\ArticleAction',
+			parameters: {
+				data: {
+					categoryID: $('#manageLabel').data('categoryID')
+				}
+			}
 		});
 		this._proxy.sendRequest();
 	},
@@ -892,6 +908,7 @@ WIKI.Article.Label.Manager = Class.extend({
 	_addLabel: function() {
 		var $labelName = $('#labelName').val();
 		var $cssClassName = $('#labelManagementList input:checked').val();
+		var $categoryID = $('#wikiLabelManagementForm').data('categoryID');
 		
 		this._proxy.setOption('data', {
 			actionName: 'add',
@@ -899,7 +916,8 @@ WIKI.Article.Label.Manager = Class.extend({
 			parameters: {
 				data: {
 					cssClassName: $cssClassName,
-					labelName: $labelName
+					labelName: $labelName,
+					categoryID: $categoryID
 				}
 			}
 		});

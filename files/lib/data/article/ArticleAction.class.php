@@ -153,6 +153,11 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		if (!WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle')) {
 			throw new PermissionDeniedException();
 		}
+		
+		$this->parameters['data']['categoryID'] = (isset($this->parameters['data']['categoryID'])) ? intval($this->parameters['data']['categoryID']) : 0;
+		if (empty($this->parameters['data']['categoryID'])) {
+			throw new UserInputException('categoryID');
+		}
 	}
 	
 	/**
@@ -163,7 +168,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	public function getLabelManagement() {
 		WCF::getTPL()->assign(array(
 			'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
-			'labelList' => ArticleLabel::getLabelsByUser()
+			'labelList' => ArticleLabel::getLabelsByCategory($this->parameters['data']['categoryID']),
+			'categoryID' => $this->parameters['data']['categoryID']
 		));
 	
 		return array(
