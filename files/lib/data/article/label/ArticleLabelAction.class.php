@@ -1,9 +1,9 @@
 <?php
 namespace wiki\data\article\label;
-use wiki\data\article\Article;
 
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
+use wcf\system\clipboard\ClipboardHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
@@ -254,5 +254,14 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 			'actionName' => 'assignLabel',
 			'labelIDs' => $this->parameters['labelIDs']
 		);
+		
+		$this->unmarkAll();
+	}
+	
+	/**
+	 * @see wcf\data\IClipboardAction::unmarkAll()
+	 */
+	public function unmarkAll() {
+		ClipboardHandler::getInstance()->removeItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
 	}
 }

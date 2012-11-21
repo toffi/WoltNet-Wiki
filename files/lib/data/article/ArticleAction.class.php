@@ -6,7 +6,6 @@ use wiki\data\article\label\ArticleLabel;
 use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\visitTracker\VisitTracker;
-use wcf\data\category\CategoryList;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\data\IClipboardAction;
 use wcf\system\package\PackageDependencyHandler;
@@ -238,7 +237,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	}
 
 	/**
-	 * Unmarks projects.
+	 * Unmarks articles.
 	 */
 	protected function unmarkItems() {
 		ClipboardHandler::getInstance()->unmark(array_keys($this->articles), ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
