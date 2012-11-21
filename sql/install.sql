@@ -6,7 +6,7 @@ CREATE TABLE wiki1_1_article (
 	categoryID 	INT(10),
 	userID		INT(10),
 	username	VARCHAR(255),
-	subject		VARCHAR(255),
+	subject		VARCHAR(255) NOT NULL,
 	message		TEXT,
 	time 		INT(10) NOT NULL,
 	languageID   	INT(10),
@@ -16,6 +16,18 @@ CREATE TABLE wiki1_1_article (
 	isDeleted	TINYINT(1) NOT NULL DEFAULT 0,
 	deleteTime 	INT(10) NULL,
 	lastPostTime	INT(10)
+);
+
+-- category suggestion
+DROP TABLE IF EXISTS wiki1_1_category_suggestion;
+CREATE TABLE wiki1_1_category_suggestion (
+	suggestionID		INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title			VARCHAR(255) NOT NULL,
+	parentCategoryID	INT(10) NOT NULL,
+	description 		TEXT,
+	time 			INT(10)	NOT NULL,
+	userID			INT(10),
+	username		VARCHAR(255) NOT NULL
 );
 
 -- labels

@@ -92,6 +92,12 @@
 			<definitionname>com.woltlab.wcf.moderation.activation</definitionname>
 			<classname>wiki\system\moderation\queue\activation\ArticleModerationQueueActivationHandler</classname>
 		</type>
+
+		<type>
+			<name>com.woltlab.wiki.moderation.category.suggestion</name>
+			<definitionname>com.woltlab.wiki.moderation.category.suggestion</definitionname>
+			<classname>wiki\system\moderation\queue\category\suggestion\CategorySuggestModerationQueueCategorySuggestionHandler</classname>
+		</type>
 		
 		<!-- user online locations -->
 		<type>
