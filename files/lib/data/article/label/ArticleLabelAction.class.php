@@ -1,6 +1,7 @@
 <?php
 namespace wiki\data\article\label;
 
+use wcf\data\IClipboardAction;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\clipboard\ClipboardHandler;
@@ -21,7 +22,7 @@ use wcf\util\StringUtil;
  * @subpackage	data.article.label
  * @category	WoltNet Wiki
  */
-class ArticleLabelAction extends AbstractDatabaseObjectAction {
+class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipboardAction {
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$className
 	 */
@@ -256,6 +257,13 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		);
 		
 		$this->unmarkAll();
+	}
+	
+	/**
+	 * @see wcf\data\IClipboardAction::validateUnmarkAll()
+	 */
+	public function validateUnmarkAll() {
+		// does nothing
 	}
 	
 	/**
