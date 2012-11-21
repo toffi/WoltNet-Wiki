@@ -3,6 +3,7 @@ namespace wiki\data\article;
 use wiki\data\article\label\ArticleLabel;
 use wiki\data\article\label\ArticleLabelList;
 
+use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\visitTracker\VisitTracker;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
@@ -45,9 +46,9 @@ class ViewableArticleList extends ArticleList {
 			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_tracked_visit tracked_category_visit ON (tracked_category_visit.objectTypeID = ".VisitTracker::getInstance()->getObjectTypeID('com.woltnet.wiki.category')." AND tracked_category_visit.objectID = article.categoryID AND tracked_category_visit.userID = ".WCF::getUser()->userID.")";
 
 			// subscriptions
-			//if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
-			//$this->sqlSelects .= 'user_object_watch.watchID';
-			//$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user_object_watch user_object_watch ON (user_object_watch.objectTypeID = ".ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.article')->objectTypeID." AND user_object_watch.userID = ".WCF::getUser()->userID." AND user_object_watch.objectID = article.articleID)";
+			if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+			$this->sqlSelects .= 'user_object_watch.watchID';
+			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user_object_watch user_object_watch ON (user_object_watch.objectTypeID = ".ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.article')->objectTypeID." AND user_object_watch.userID = ".WCF::getUser()->userID." AND user_object_watch.objectID = article.articleID)";
 		}
 	}
 
@@ -78,10 +79,12 @@ class ViewableArticleList extends ArticleList {
 	 */
 	protected function getLabels() {
 		if ($this->labelList === null) {
-			$this->labelList = ArticleLabel::getLabelsByUser();
+			$this->labelList = ArticleLabel::getLabelsByCategory();
 		}
 		
-		return $this->labelList->getObjects();
+		if(is_object($this->labelList)) return $this->labelList->getObjects();
+		
+		return null;
 	}
 	
 	/**

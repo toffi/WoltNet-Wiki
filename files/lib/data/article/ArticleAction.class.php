@@ -17,14 +17,13 @@ use wcf\system\WCF;
 
 /**
  * @author	Jean-Marc Licht
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
  */
 class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAction {
-
 	/**
 	 * @see wcf\data\AbstractDatabaseObjectAction::$className
 	 */
@@ -76,8 +75,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		foreach ($this->articles as $article) {
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->update(array(
-				'isDeleted' 	=> '1',
-				'deleteTime'	=> TIME_NOW
+				'isDeleted' => 1,
+				'deleteTime' => TIME_NOW
 			));
 		}
 
@@ -110,8 +109,8 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		foreach ($this->articles as $article) {
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->update(array(
-					'isDeleted' 	=> '0',
-					'deleteTime'	=> 0
+				'isDeleted' => 0,
+				'deleteTime' => 0
 			));
 		}
 		
@@ -149,7 +148,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * Validates user access for label management.
 	 */
 	public function validateGetLabelManagement() {
-		if (!WCF::getSession()->getPermission('user.wiki.article.read.canViewArticle') || !WCF::getSession()->getPermission('user.wiki.article.read.canReadArticle')) {
+		if (!WCF::getSession()->getPermission('user.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
 		

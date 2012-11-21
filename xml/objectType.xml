@@ -95,7 +95,7 @@
 
 		<type>
 			<name>com.woltnet.wiki.moderation.category.suggestion</name>
-			<definitionname>com.woltnet.wiki.moderation.category.suggestion</definitionname>
+			<definitionname>com.woltnet.wiki.core.moderation.category.suggestion</definitionname>
 			<classname>wiki\system\moderation\queue\category\suggestion\CategorySuggestModerationQueueCategorySuggestionHandler</classname>
 		</type>
 		
