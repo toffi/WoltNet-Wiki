@@ -1,9 +1,9 @@
 <?php
 namespace wiki\data\article\label;
-use wiki\data\article\Article;
 
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
+use wcf\system\clipboard\ClipboardHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
@@ -60,11 +60,6 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		if (count($this->objects) != 1) {
 			throw new UserInputException('objectID');
 		}
-		
-		$label = current($this->objects);
-		if ($label->userID != WCF::getUser()->userID) {
-			throw new PermissionDeniedException();
-		}
 	}
 	
 	/**
@@ -75,11 +70,6 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		
 		if (count($this->objects) != 1) {
 			throw new UserInputException('objectID');
-		}
-		
-		$label = current($this->objects);
-		if ($label->userID != WCF::getUser()->userID) {
-			throw new PermissionDeniedException();
 		}
 	}
 	
@@ -101,6 +91,11 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 			throw new UserInputException('cssClassName');
 		}
 		
+		$this->parameters['data']['categoryID'] = (isset($this->parameters['data']['categoryID'])) ? intval($this->parameters['data']['categoryID']) : 0;
+		if (empty($this->parameters['data']['categoryID'])) {
+			throw new UserInputException('categoryID');
+		}
+		
 		// 'none' is a pseudo value
 		if ($this->parameters['data']['cssClassName'] == 'none') $this->parameters['data']['cssClassName'] = '';
 	}
@@ -112,7 +107,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 	 */
 	public function add() {
 		$label = ArticleLabelEditor::create(array(
-			'userID' => WCF::getUser()->userID,
+			'categoryID' => $this->parameters['data']['categoryID'],
 			'label' => $this->parameters['data']['labelName'],
 			'cssClassName' => $this->parameters['data']['cssClassName']
 		));
@@ -120,6 +115,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		return array(
 			'actionName' => 'add',
 			'cssClassName' => $label->cssClassName,
+			'categoryID' => $label->categoryID,
 			'label' => $label->label,
 			'labelID' => $label->labelID
 		);
@@ -140,7 +136,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 		}
 		
 		// validate available labels
-		$this->labelList = ArticleLabel::getLabelsByUser();
+		$this->labelList = ArticleLabel::getLabelsByCategory($this->parameters['categoryID']);
 		if (!count($this->labelList)) {
 			throw new IllegalLinkException();
 		}
@@ -258,5 +254,14 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction {
 			'actionName' => 'assignLabel',
 			'labelIDs' => $this->parameters['labelIDs']
 		);
+		
+		$this->unmarkAll();
+	}
+	
+	/**
+	 * @see wcf\data\IClipboardAction::unmarkAll()
+	 */
+	public function unmarkAll() {
+		ClipboardHandler::getInstance()->removeItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
 	}
 }

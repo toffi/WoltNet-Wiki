@@ -44,16 +44,16 @@ class ArticleLabel extends WIKIDatabaseObject {
 	);
 	
 	/**
-	 * Returns a list of conversation labels for given user id.
+	 * Returns a list of article labels for given category id.
 	 * 
-	 * @param	integer		$userID
-	 * @return	wcf\data\conversation\label\ConversationLabelList
+	 * @param	integer		$categoryID
+	 * @return	wiki\data\article\label\ArticleLabelList
 	 */
-	public static function getLabelsByUser($userID = null) {
-		if ($userID === null) $userID = WCF::getUser()->userID;
+	public static function getLabelsByCategory($categoryID = 0) {
+		if($categoryID == 0) return null;
 		
 		$labelList = new ArticleLabelList();
-		$labelList->getConditionBuilder()->add("article_label.userID = ?", array($userID));
+		$labelList->getConditionBuilder()->add("article_label.categoryID = ?", array($categoryID));
 		$labelList->sqlLimit = 0;
 		$labelList->readObjects();
 		

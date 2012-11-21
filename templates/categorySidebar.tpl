@@ -24,6 +24,6 @@
 			</ul>
 		</div>
 		
-		<button id="manageLabel">{lang}wiki.article.label.management{/lang}</button>
+		<button id="manageLabel" data-category-id="{@$category->categoryID}" >{lang}wiki.article.label.management{/lang}</button>
 	</fieldset>
 {/capture}
