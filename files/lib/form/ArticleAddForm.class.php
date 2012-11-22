@@ -83,7 +83,7 @@ class ArticleAddForm extends MessageForm {
 	public $objectTypeName = 'com.woltnet.wiki.category';
 	
 	/**
-	 * @see wcf\page\IPage::save()
+	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
 		parent::readData();

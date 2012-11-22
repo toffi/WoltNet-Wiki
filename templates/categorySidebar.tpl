@@ -1,5 +1,5 @@
 {capture assign='sidebar'}
-	{if $__wcf->session->getPermission('user.wiki.category.canManageLabels')}
+	{if $__wcf->session->getPermission('mod.wiki.category.canManageLabels')}
 		<fieldset>
 			<legend>{lang}wiki.article.label{/lang}</legend>
 

@@ -18,11 +18,13 @@
 			<category name="user.wiki.category.read">
 				<parent>user.wiki.category</parent>
 			</category>
+			<category name="user.wiki.category.write">
+				<parent>user.wiki.category</parent>
+			</category>
 			
 			<category name="user.wiki.article.read">
 				<parent>user.wiki.article</parent>
 			</category>
-			
 			<category name="user.wiki.article.write">
 				<parent>user.wiki.article</parent>
 			</category>
@@ -78,6 +80,7 @@
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
+			
 			<option name="user.wiki.category.read.canViewCategory">
 				<categoryname>user.wiki.category.read</categoryname>
 				<optiontype>boolean</optiontype>
@@ -90,8 +93,8 @@
 				<defaultvalue>1</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="user.wiki.category.canManageLabels">
-				<categoryname>user.wiki.category</categoryname>
+			<option name="user.wiki.category.write.canSuggestCategories">
+				<categoryname>user.wiki.category.write</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
@@ -154,6 +157,12 @@
 			</option>
 			
 			<option name="mod.wiki.category.canManageSuggestedCategories">
+				<categoryname>mod.wiki.category</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+			</option>
+			<option name="mod.wiki.category.canManageLabels">
 				<categoryname>mod.wiki.category</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>

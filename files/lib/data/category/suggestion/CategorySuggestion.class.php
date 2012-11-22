@@ -4,6 +4,7 @@ use wiki\data\WIKIDatabaseObject;
 
 use wcf\data\IUserContent;
 use wcf\util\StringUtil;
+use wcf\system\WCF;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -65,8 +66,8 @@ class CategorySuggestion extends WIKIDatabaseObject implements IUserContent {
 	 * @return	string
 	 */
 	public function getExcerpt($maxLength = 255) {
-		if (StringUtil::length($this->description) > $maxLength) {
-			$message = StringUtil::encodeHTML(StringUtil::substring($this->description, 0, $maxLength)).'&hellip;';
+		if (StringUtil::length($this->reason) > $maxLength) {
+			$message = StringUtil::encodeHTML(StringUtil::substring($this->reason, 0, $maxLength)).'&hellip;';
 		}
 		else {
 			$message = StringUtil::encodeHTML($message);

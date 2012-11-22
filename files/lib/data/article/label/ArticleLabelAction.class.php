@@ -83,7 +83,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 	 * Validates parameters to add a new label.
 	 */
 	public function validateAdd() {
-		if (!WCF::getSession()->getPermission('user.wiki.category.canManageLabels')) {
+		if (!WCF::getSession()->getPermission('mod.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
 		

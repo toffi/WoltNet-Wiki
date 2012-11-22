@@ -37,13 +37,13 @@
 	<div class="container containerPadding marginTop shadow">
 		<fieldset>
 			<legend>
-				{lang}wiki.article{$action|ucfirst}.data{/lang}
+				{lang}wiki.article.article{$action|ucfirst}.data{/lang}
 			</legend>
 			{if !$__wcf->getUser()->userID}
 				<dl>
 					<dt>
 						<label for="username">
-							{lang}wiki.article{$action|ucfirst}.username{/lang}
+							{lang}wiki.article.article{$action|ucfirst}.username{/lang}
 						</label>
 					</dt>
 					<dd>
@@ -61,7 +61,7 @@
 			<dl>
 				<dt>
 					<label for="category">
-						{lang}wiki.article{$action|ucfirst}.category{/lang}
+						{lang}wiki.article.article{$action|ucfirst}.category{/lang}
 					</label>
 				</dt>
 				<dd>
@@ -78,7 +78,7 @@
 			<dl>
 				<dt>
 					<label for="subject">
-						{lang}wiki.article{$action|ucfirst}.title{/lang}
+						{lang}wiki.article.article{$action|ucfirst}.title{/lang}
 					</label>
 				</dt>
 				<dd>
@@ -97,11 +97,11 @@
 
 		<fieldset>
 			<legend>
-				{lang}wiki.article{$action|ucfirst}.text{/lang}
+				{lang}wiki.article.article{$action|ucfirst}.text{/lang}
 			</legend>
 			<dd>
 				<textarea id="text" name="text" rows="20" cols="40">{if $text|isset}{$text}{/if}</textarea>
-				{if $errorField == 'texte'}
+				{if $errorField == 'text'}
 					<small class="innerError">
 						{if $errorType == 'empty'}{lang}wcf.global.form.error.empty{/lang}{/if}
 					</small>
