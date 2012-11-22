@@ -34,12 +34,19 @@
 				</dt>
 				<dd>
 					<select id="parentCategory" name="parentCategory" class="medium">
+						<option value="0"{if $parentCategoryID|isset && $parentCategoryID == 0} selected="selected"{/if}>{lang}wiki.category.categorySuggestionAdd.parentCategory.none{/lang}</option>
 						{foreach from=$categoryNodeList item=category}
 							{*if $category->getPermission('canEnterCategory')*}
-								<option value="{$category->categoryID}"{if $categoryID|isset && $categoryID == $category->categoryID} selected="selected"{/if}>{section name=i loop=$categoryNodeList->getDepth()}&nbsp;&raquo;&raquo;&nbsp;{/section}{$category->getTitle()}</option>
+								<option value="{$category->categoryID}"{if $parentCategoryID|isset && $categoryID == $category->categoryID} selected="selected"{/if}>{section name=i loop=$categoryNodeList->getDepth()}&nbsp;&raquo;&raquo;&nbsp;{/section}{$category->getTitle()}</option>
 							{*/if*}
 						{/foreach}
 					</select>
+					{if $errorField == 'parentCategory'}
+						<small class="innerError">
+							{if $errorType == 'empty'}{lang}wcf.global.form.error.empty{/lang}{/if}
+							{if $errorType == 'notValid'}{lang}wiki.global.form.error.notValid{/lang}{/if}
+						</small>
+					{/if}
 				</dd>
 			</dl>
 			<dl>
@@ -82,7 +89,7 @@
 						});
 						//]]>
 					</script>
-					<textarea id="reason" name="text" rows="10" cols="40">{if $reason|isset}{$reason}{/if}</textarea>
+					<textarea id="reason" name="reason" rows="10" cols="40">{if $reason|isset}{$reason}{/if}</textarea>
 					{if $errorField == 'reason'}
 						<small class="innerError">
 							{if $errorType == 'empty'}{lang}wcf.global.form.error.empty{/lang}{/if}

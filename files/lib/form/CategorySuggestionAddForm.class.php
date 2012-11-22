@@ -1,9 +1,12 @@
 <?php
 namespace wiki\form;
+use wiki\data\category\suggestion\CategorySuggestionAction;
 use wiki\data\category\WikiCategoryNodeList;
 
 use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
+use wcf\system\package\PackageDependencyHandler;
+use wcf\util\HeaderUtil;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\NamedUserException;
 use wcf\system\exception\PermissionDeniedException;
@@ -61,7 +64,7 @@ class CategorySuggestionAddForm extends AbstractForm {
 	public function readData() {
 		parent::readData();
 	
-		//WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
+		WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
 		
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
@@ -79,18 +82,89 @@ class CategorySuggestionAddForm extends AbstractForm {
 	}
 	
 	/**
+	 * @see wcf\form\IForm::readFormParameters()
+	 */
+	public function readFormParameters() {
+		parent::readFormParameters();
+		
+		I18nHandler::getInstance()->readValues();
+		
+		if(isset($_POST['parentCategory'])) $this->parentCategoryID = intval($_POST['parentCategory']);
+		if(isset($_POST['title'])) $this->title = escapeString($_POST['title']);
+		if(isset($_POST['reason'])) $this->reason = escapeString($_POST['reason']);
+	}
+	
+	/**
 	 * @see wcf\page\IPage::assignVariables()
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
-		
+	
 		I18nHandler::getInstance()->assignVariables();
 	
 		WCF::getTPL()->assign(array(
-			'categoryNodeList' 	=> $this->categoryNodeList,
-			'partentCategoryID'	=> $this->parentCategoryID,
-			'title'			=> $this->title,
-			'reason'		=> $this->reason
+				'categoryNodeList' 	=> $this->categoryNodeList,
+				'partentCategoryID'	=> $this->parentCategoryID,
+				'title'			=> $this->title,
+				'reason'		=> $this->reason
 		));
+	}
+	
+	/**
+	 * @see wcf\form\IForm::validate()
+	 */
+	public function validate() {
+		parent::validate();
+		
+		if($this->parentCategoryID < 0) {
+			throw new UserInputException('parentCategoryID', 'notValid');
+		}
+		
+		if (!I18nHandler::getInstance()->validateValue('title', false)) {
+			throw new UserInputException('title');
+		}
+		
+		if (!I18nHandler::getInstance()->validateValue('reason', false)) {
+			throw new UserInputException('reason');
+		}
+	}
+	
+	/**
+	 * @see wcf\form\IForm::save()
+	 */
+	public function save() {
+		parent::save();
+		
+		$data = array(
+			'title'			=> $this->title,
+			'reason'		=> $this->reason,
+			'parentCategoryID'	=> $this->parentCategoryID,
+			'userID'		=> $this->userID,
+			'username'		=> $this->username
+		);
+		
+		$this->objectAction = new CategorySuggestionAction(array(), 'create', $data);
+		$returnValues = $this->objectAction->executeAction();
+		
+		// save i18n values
+		$this->saveI18nValue($returnValues['returnValues'], 'title');
+		$this->saveI18nValue($returnValues['returnValues'], 'reason');
+		
+		// disable assignment of i18n values
+		I18nHandler::getInstance()->disableAssignValueVariables();
+		
+		$this->saved();
+	}
+	
+	/**
+	 * Saves i18n values.
+	 *
+	 * @param	wcf\data\category\Category	$category
+	 * @param	string				$columnName
+	 */
+	public function saveI18nValue(Category $category, $columnName) {
+		if (!I18nHandler::getInstance()->isPlainValue($columnName)) {
+			I18nHandler::getInstance()->save($columnName, 'wiki.category.'.$columnName, 'wiki.category', PackageDependencyHandler::getInstance()->getPackageID('com.woltnet.wiki'));
+		}
 	}
 }
