@@ -1,7 +1,6 @@
 <?php
 namespace wiki\system\moderation\queue\category\suggestion;
 use wiki\data\category\suggestion\CategorySuggestionAction;
-
 use wiki\data\category\suggestion\CategorySuggestion;
 use wiki\data\category\suggestion\CategorySuggestionList;
 
@@ -33,7 +32,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 			if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
 				$assignUser = true;
 			}
-		
+			
 			$assignments[$queue->queueID] = $assignUser;
 		}
 		
@@ -63,7 +62,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 	 */
 	public function getSuggestedContent(ViewableModerationQueue $queue) {
 		WCF::getTPL()->assign(array(
-				'article' => $queue->getAffectedObject()
+				'categorySuggestion' => $queue->getAffectedObject()
 		));
 		
 		return WCF::getTPL()->fetch('moderationCategorySuggestion', 'wcf');

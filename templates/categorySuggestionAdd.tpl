@@ -65,10 +65,11 @@
 						});
 						//]]>
 					</script>
-					<input type="text" id="title" name="title" value="{if $title|isset}{$title}{/if}" required="required" class="medium" />
+					<input type="text" id="title" name="title" value="{$i18nPlainValues['title']}" required="required" class="medium" />
 					{if $errorField == 'title'}
 						<small class="innerError">
 							{if $errorType == 'empty'}{lang}wcf.global.form.error.empty{/lang}{/if}
+							{if $errorType == 'notValid'}{lang}wiki.global.form.error.notValid{/lang}{/if}
 						</small>
 					{/if}
 				</dd>
@@ -89,10 +90,11 @@
 						});
 						//]]>
 					</script>
-					<textarea id="reason" name="reason" rows="10" cols="40">{if $reason|isset}{$reason}{/if}</textarea>
+					<textarea id="reason" name="reason" rows="10" cols="40">{$i18nPlainValues['reason']}</textarea>
 					{if $errorField == 'reason'}
 						<small class="innerError">
 							{if $errorType == 'empty'}{lang}wcf.global.form.error.empty{/lang}{/if}
+							{if $errorType == 'notValid'}{lang}wiki.global.form.error.notValid{/lang}{/if}
 						</small>
 					{/if}
 				</dd>

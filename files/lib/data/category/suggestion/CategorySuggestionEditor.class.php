@@ -15,5 +15,5 @@ class CategorySuggestionEditor extends DatabaseObjectEditor {
 	/**
 	 * @see	wcf\data\DatabaseObjectDecorator::$baseClass
 	 */
-	protected static $baseClass = 'wiki\data\article\Article';
+	protected static $baseClass = 'wiki\data\category\suggestion\CategorySuggestion';
 }

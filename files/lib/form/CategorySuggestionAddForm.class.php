@@ -2,6 +2,7 @@
 namespace wiki\form;
 use wiki\data\category\suggestion\CategorySuggestionAction;
 use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\suggestion\CategorySuggestion;
 
 use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
@@ -48,6 +49,11 @@ class CategorySuggestionAddForm extends AbstractForm {
 	 */
 	public $objectTypeName = 'com.woltnet.wiki.category';
 	
+	/**
+	 * @see wcf\page\IPage::$supportI18n
+	 */
+	public $supportI18n = true;
+	
 	public $username = null;
 	
 	public $userID = 0;
@@ -62,9 +68,8 @@ class CategorySuggestionAddForm extends AbstractForm {
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
-		parent::readData();
-	
-		WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
+			
+		//WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
 		
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
@@ -79,6 +84,8 @@ class CategorySuggestionAddForm extends AbstractForm {
 		
 		I18nHandler::getInstance()->register('title');
 		I18nHandler::getInstance()->register('reason');
+		
+		parent::readData();
 	}
 	
 	/**
@@ -120,12 +127,12 @@ class CategorySuggestionAddForm extends AbstractForm {
 			throw new UserInputException('parentCategoryID', 'notValid');
 		}
 		
-		if (!I18nHandler::getInstance()->validateValue('title', false)) {
-			throw new UserInputException('title');
+		if (!I18nHandler::getInstance()->validateValue('title')) {
+			throw new UserInputException('title', 'notValid');
 		}
 		
-		if (!I18nHandler::getInstance()->validateValue('reason', false)) {
-			throw new UserInputException('reason');
+		if (!I18nHandler::getInstance()->validateValue('reason')) {
+			throw new UserInputException('reason', 'notValid');
 		}
 	}
 	
@@ -137,10 +144,11 @@ class CategorySuggestionAddForm extends AbstractForm {
 		
 		$data = array(
 			'title'			=> $this->title,
-			'reason'		=> $this->reason,
+			'description'		=> $this->reason,
 			'parentCategoryID'	=> $this->parentCategoryID,
 			'userID'		=> $this->userID,
-			'username'		=> $this->username
+			'username'		=> $this->username,
+			'time'			=> TIME_NOW
 		);
 		
 		$this->objectAction = new CategorySuggestionAction(array(), 'create', $data);
@@ -159,10 +167,10 @@ class CategorySuggestionAddForm extends AbstractForm {
 	/**
 	 * Saves i18n values.
 	 *
-	 * @param	wcf\data\category\Category	$category
-	 * @param	string				$columnName
+	 * @param	wiki\data\category\suggestion\CategorySuggestion	$category
+	 * @param	string							$columnName
 	 */
-	public function saveI18nValue(Category $category, $columnName) {
+	public function saveI18nValue(CategorySuggestion $category, $columnName) {
 		if (!I18nHandler::getInstance()->isPlainValue($columnName)) {
 			I18nHandler::getInstance()->save($columnName, 'wiki.category.'.$columnName, 'wiki.category', PackageDependencyHandler::getInstance()->getPackageID('com.woltnet.wiki'));
 		}

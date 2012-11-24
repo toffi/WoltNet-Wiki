@@ -3,8 +3,10 @@ namespace wiki\data\category\suggestion;
 use wiki\data\WIKIDatabaseObject;
 
 use wcf\data\IUserContent;
-use wcf\util\StringUtil;
+use wcf\system\request\IRouteController;
+use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
+use wcf\util\StringUtil;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -14,7 +16,7 @@ use wcf\system\WCF;
  * @subpackage	data.category.suggestion
  * @category 	WoltNet - Wiki
  */
-class CategorySuggestion extends WIKIDatabaseObject implements IUserContent {
+class CategorySuggestion extends WIKIDatabaseObject implements IRouteController, IUserContent {
 	protected $editor = null;
 	
 	/**
@@ -74,5 +76,49 @@ class CategorySuggestion extends WIKIDatabaseObject implements IUserContent {
 		}
 	
 		return $message;
+	}
+	
+	/**
+	 * @see wcf\data\IUserContent::getTime()
+	 */
+	public function getTime() {
+		return $this->time;
+	}
+	
+	/**
+	 * @see wcf\data\IUserContent::getUserID()
+	 */
+	public function getUserID() {
+		return $this->userID;
+	}
+	
+	/**
+	 * @see wcf\data\IUserContent::getUsername()
+	 */
+	public function getUsername() {
+		return $this->username;
+	}
+	
+	/**
+	 * @see	wcf\system\request\IRouteController::getID()
+	 */
+	public function getID() {
+		return $this->suggestionID;
+	}
+	
+	/**
+	 * @see	wcf\system\request\IRouteController::getTitle()
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+	
+	/**
+	 * @see	wcf\data\ILinkableDatabaseObject::getLink()
+	 */
+	public function getLink() {
+		return LinkHandler::getInstance()->getLink('CategorySuggestion', array(
+				'object' => $this
+		));
 	}
 }
