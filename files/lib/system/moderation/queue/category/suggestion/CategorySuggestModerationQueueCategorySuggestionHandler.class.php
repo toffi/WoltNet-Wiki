@@ -32,7 +32,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 			if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
 				$assignUser = true;
 			}
-			$assignUser = true;
+			
 			$assignments[$queue->queueID] = $assignUser;
 		}
 		
@@ -40,14 +40,30 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 	}
 	
 	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::canReport()
+	 * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::acceptSuggestion()
 	 */
-	public function canSuggest($objectID) {
-		if (!$this->isValid($objectID)) {
-			return false;
+	public function acceptSuggestion(ModerationQueue $queue) {
+		if ($this->isValid($queue->objectID)) {
+			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'accept');
+			$categorySuggestionAction->executeAction();
 		}
-		
-		return true;
+	}
+	
+	/**
+	 * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::declineSuggestion()
+	 */
+	public function declineSuggestion(ModerationQueue $queue, $message='') {
+		if ($this->isValid($queue->objectID)) {
+			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'decline');
+			$categorySuggestionAction->executeAction();
+		}
+	}
+	
+	/**
+	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::removeContent()
+	 */
+	public function removeContent(ModerationQueue $queue, $message) {
+		$this->declineSuggestion($queue, $message);
 	}
 	
 	/**
@@ -125,13 +141,5 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 				$object->setAffectedObject($categorySuggestion);
 			}
 		}
-	}
-	
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::removeContent()
-	 */
-	public function removeContent(ModerationQueue $queue, $message) {
-		$this->objectAction = new CategorySuggestionAction(array($queue->getAffectedObject()->suggestionID), 'delete');
-		$this->objectAction->executeAction();
 	}
 }
