@@ -18,7 +18,7 @@
 				<div class="messageBody">
 					<div>
 						<div class="messageText">
-							{$categorySuggestion->getExcerpt()}
+							{$categorySuggestion->getReason()}
 						</div>
 					</div>
 				</div>

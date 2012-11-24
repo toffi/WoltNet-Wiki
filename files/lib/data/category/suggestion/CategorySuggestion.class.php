@@ -77,11 +77,11 @@ class CategorySuggestion extends WIKIDatabaseObject implements IRouteController,
 	 * @return	string
 	 */
 	public function getExcerpt($maxLength = 255) {
-		if (StringUtil::length($this->reason) > $maxLength) {
-			$message = StringUtil::encodeHTML(StringUtil::substring($this->reason, 0, $maxLength)).'&hellip;';
+		if (StringUtil::length($this->getReason()) > $maxLength) {
+			$message = StringUtil::encodeHTML(StringUtil::substring($this->getReason(), 0, $maxLength)).'&hellip;';
 		}
 		else {
-			$message = StringUtil::encodeHTML($this->reason);
+			$message = StringUtil::encodeHTML($this->getReason());
 		}
 	
 		return $message;
@@ -119,7 +119,16 @@ class CategorySuggestion extends WIKIDatabaseObject implements IRouteController,
 	 * @see	wcf\system\request\IRouteController::getTitle()
 	 */
 	public function getTitle() {
-		return $this->title;
+		return WCF::getLanguage()->get($this->title);
+	}
+	
+	/**
+	 * Returns the reason of this category suggestion.
+	 * 
+	 * @return	string
+	 */
+	public function getReason() {
+		return WCF::getLanguage()->get($this->reason);
 	}
 	
 	/**

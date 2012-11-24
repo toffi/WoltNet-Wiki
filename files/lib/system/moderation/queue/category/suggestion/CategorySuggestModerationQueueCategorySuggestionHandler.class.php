@@ -28,9 +28,9 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 	public function assignQueues(array $queues) {
 		$assignments = array();
 		foreach ($queues as $queue) {
-			$assignUser = false;
+			$assignUser = 0;
 			if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
-				$assignUser = true;
+				$assignUser = 1;
 			}
 			
 			$assignments[$queue->queueID] = $assignUser;
@@ -54,7 +54,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 	 */
 	public function declineSuggestion(ModerationQueue $queue, $message='') {
 		if ($this->isValid($queue->objectID)) {
-			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'decline');
+			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'decline', array('message' => $message));
 			$categorySuggestionAction->executeAction();
 		}
 	}

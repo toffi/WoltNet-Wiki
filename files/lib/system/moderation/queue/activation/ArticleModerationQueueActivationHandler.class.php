@@ -28,9 +28,9 @@ class ArticleModerationQueueActivationHandler extends AbstractArticleModerationQ
 	public function assignQueues(array $queues) {
 		$assignments = array();
 		foreach ($queues as $queue) {
-			$assignUser = false;
+			$assignUser = 0;
 			if (WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle')) {
-				$assignUser = true;
+				$assignUser = 1;
 			}
 
 			$assignments[$queue->queueID] = $assignUser;

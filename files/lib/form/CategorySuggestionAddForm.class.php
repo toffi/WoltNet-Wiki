@@ -1,5 +1,7 @@
 <?php
 namespace wiki\form;
+use wiki\data\category\suggestion\CategorySuggestionEditor;
+
 use wiki\data\category\suggestion\CategorySuggestionAction;
 use wiki\data\category\WikiCategoryNodeList;
 use wiki\data\category\suggestion\CategorySuggestion;
@@ -8,6 +10,7 @@ use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
 use wcf\system\package\PackageDependencyHandler;
 use wcf\util\HeaderUtil;
+use wcf\util\StringUtil;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\NamedUserException;
 use wcf\system\exception\PermissionDeniedException;
@@ -34,7 +37,7 @@ class CategorySuggestionAddForm extends AbstractForm {
 	/**
 	 * @see wcf\page\AbstractPage::$loginRequired
 	 */
-	public $loginRequired = false;
+	public $loginRequired = true;
 	
 	/**
 	 * category node list
@@ -58,18 +61,18 @@ class CategorySuggestionAddForm extends AbstractForm {
 	
 	public $userID = 0;
 	
-	public $title = null;
+	public $title = '';
 	
 	public $parentCategoryID = 0;
 	
-	public $reason = null;
+	public $reason = '';
 	
 	/**
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
-			
-		//WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
+		//checks neccassary permissions
+		WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
 		
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
@@ -97,8 +100,8 @@ class CategorySuggestionAddForm extends AbstractForm {
 		I18nHandler::getInstance()->readValues();
 		
 		if(isset($_POST['parentCategory'])) $this->parentCategoryID = intval($_POST['parentCategory']);
-		if(isset($_POST['title'])) $this->title = escapeString($_POST['title']);
-		if(isset($_POST['reason'])) $this->reason = escapeString($_POST['reason']);
+		if (I18nHandler::getInstance()->isPlainValue('title')) $this->title = I18nHandler::getInstance()->getValue('title');
+		if (I18nHandler::getInstance()->isPlainValue('reason')) $this->reason = I18nHandler::getInstance()->getValue('reason');
 	}
 	
 	/**
@@ -144,7 +147,7 @@ class CategorySuggestionAddForm extends AbstractForm {
 		
 		$data = array(
 			'title'			=> $this->title,
-			'description'		=> $this->reason,
+			'reason'		=> $this->reason,
 			'parentCategoryID'	=> $this->parentCategoryID,
 			'userID'		=> $this->userID,
 			'username'		=> $this->username,
@@ -171,8 +174,15 @@ class CategorySuggestionAddForm extends AbstractForm {
 	 * @param	string							$columnName
 	 */
 	public function saveI18nValue(CategorySuggestion $category, $columnName) {
-		if (!I18nHandler::getInstance()->isPlainValue($columnName)) {
-			I18nHandler::getInstance()->save($columnName, 'wiki.category.'.$columnName, 'wiki.category', PackageDependencyHandler::getInstance()->getPackageID('com.woltnet.wiki'));
+		if (!I18nHandler::getInstance()->isPlainValue($columnName)) {;
+			$categoryID = $category->suggestionID;
+			I18nHandler::getInstance()->save($columnName, 'wiki.category.suggestion.suggestion'.$categoryID.StringUtil::firstCharToUpperCase($columnName), 'wiki.category', PACKAGE_ID);
+
+			// update category name
+			$categoryEditor = new CategorySuggestionEditor($category);
+			$categoryEditor->update(array(
+					$columnName => 'wiki.category.suggestion.suggestion'.$categoryID.StringUtil::firstCharToUpperCase($columnName)
+			));
 		}
 	}
 }
