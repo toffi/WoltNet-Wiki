@@ -3,6 +3,8 @@ namespace wiki\data\category\suggestion;
 use wiki\data\WIKIDatabaseObject;
 
 use wcf\data\IUserContent;
+use wcf\data\user\User;
+use wcf\data\user\UserProfile;
 use wcf\system\request\IRouteController;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
@@ -28,6 +30,13 @@ class CategorySuggestion extends WIKIDatabaseObject implements IRouteController,
 	 * @see wcf\data\DatabaseObject::$databaseTableIndexName
 	 */
 	protected static $databaseTableIndexName = 'suggestionID';
+	
+	/**
+	 * user profile object
+	 * 
+	 * @var	wcf\data\user\UserProfile
+	 */
+	protected $userProfile = null;
 	
 	/**
 	 * @see DatabaseObject::__construct()
@@ -72,7 +81,7 @@ class CategorySuggestion extends WIKIDatabaseObject implements IRouteController,
 			$message = StringUtil::encodeHTML(StringUtil::substring($this->reason, 0, $maxLength)).'&hellip;';
 		}
 		else {
-			$message = StringUtil::encodeHTML($message);
+			$message = StringUtil::encodeHTML($this->reason);
 		}
 	
 		return $message;
@@ -118,7 +127,20 @@ class CategorySuggestion extends WIKIDatabaseObject implements IRouteController,
 	 */
 	public function getLink() {
 		return LinkHandler::getInstance()->getLink('CategorySuggestion', array(
-				'object' => $this
+			'object' => $this
 		));
+	}
+	
+	/**
+	 * Returns the user profile object.
+	 *
+	 * @return	wcf\data\user\UserProfile
+	 */
+	public function getUserProfile() {
+		if ($this->userProfile === null) {
+			$this->userProfile = new UserProfile(new User($this->userID));
+		}
+	
+		return $this->userProfile;
 	}
 }

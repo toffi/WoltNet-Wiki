@@ -12,7 +12,7 @@ use wcf\data\user\UserProfile;
 
 /**
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	data.article
@@ -26,22 +26,28 @@ class ViewableArticle extends DatabaseObjectDecorator {
 
 	/**
 	 * user profile object
+	 * 
 	 * @var	wcf\data\user\UserProfile
 	 */
 	protected $userProfile = null;
 
 	/**
 	 * effective visit time
+	 * 
 	 * @var integer
 	 */
 	protected $effectiveVisitTime = null;
 	
 	/**
 	 * list of assigned labels
+	 * 
 	 * @var	array<wiki\data\article\label\ArticleLabel>
 	 */
 	protected $labels = array();
 	
+	/**
+	 * Returns the formatted Message of this object
+	 */
 	public function getFormattedMessage() {
 		$messageParser = MessageParser::getInstance();
 		return $messageParser->parse($this->object->message);

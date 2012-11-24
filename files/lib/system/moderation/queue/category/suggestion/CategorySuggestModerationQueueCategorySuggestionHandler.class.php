@@ -32,7 +32,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 			if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
 				$assignUser = true;
 			}
-			
+			$assignUser = true;
 			$assignments[$queue->queueID] = $assignUser;
 		}
 		
@@ -65,7 +65,7 @@ class CategorySuggestModerationQueueCategorySuggestionHandler implements IModera
 				'categorySuggestion' => $queue->getAffectedObject()
 		));
 		
-		return WCF::getTPL()->fetch('moderationCategorySuggestion', 'wcf');
+		return WCF::getTPL()->fetch('wikiModerationCategorySuggestion', 'wiki');
 	}
 	
 	/**
