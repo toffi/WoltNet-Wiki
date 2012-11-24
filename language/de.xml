@@ -2,4 +2,23 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
 	<category name="wiki.category">
 	</category>
+	<category name="wiki.breadCrumbs">
+		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
+	</category>
+	<category name="wiki.pageMenu">
+		<item name="wiki.pageMenu.index"><![CDATA[Wiki]]></item>
+	</category>
+	<category name="wiki.global">
+		<item name="wiki.global.button.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
+		<item name="wiki.global.statistics"><![CDATA[Statistik]]></item>
+	</category>
+	<category name="wiki.article">
+		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
+		<item name="wiki.article.articleAdd.data"><![CDATA[Artikeldaten]]></item>
+		<item name="wiki.article.articleAdd.username"><![CDATA[Benutzername]]></item>
+		<item name="wiki.article.articleAdd.category"><![CDATA[zugeordnete Kategorie]]></item>
+		<item name="wiki.article.articleAdd.title"><![CDATA[Artikeltitel]]></item>
+		<item name="wiki.article.articleAdd.text"><![CDATA[Artikeltext]]></item>
+		<item name="wiki.article.permissions"><![CDATA[Berechtigungen]]></item>
+	</category>
 </language>
