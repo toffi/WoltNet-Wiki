@@ -18,7 +18,7 @@
 						<td class="columnIcon columnAvatar">
 							<div style="text-align: center;">
 								<p class="framed">{@$version->getUserProfile()->getAvatar()->getImageTag(24)}</p>
-								<p><a href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a></p>
+								<p><a href="{link controller='User' object=$version->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$version->userID}">{$version->username}</a></p>
 							</div>
 						</td>
 						<td class="columnText"><a href="{link application='wiki' controller='Article' object=$version}{/link}" title="">{@$version->time|time}</td>
