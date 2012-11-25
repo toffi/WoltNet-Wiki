@@ -22,13 +22,21 @@
 							<label><input type="checkbox" class="jsClipboardItem" data-object-id="{@$article->articleID}" /></label>
 						</td>
 						<td class="columnIcon columnAvatar">
-							{if $article->getUserProfile()->getAvatar()}
-								<div>
-									<p class="framed"><img src="{icon}documentColored{/icon}" class="icon32"></p>
-								</div>
-							{/if}
+							<div>
+								<p class="framed"><img src="{icon}documentColored{/icon}" class="icon32"></p>
+							</div>
 						</td>
 						<td class="columnText columnSubject">
+							<div class="statusDisplay">
+								<ul class="statusIcons">
+									{if $article->getLanguage()|is_object}
+									<li>
+										<img src="{@$article->getLanguage()->getIconPath()}" class="icon24" />
+									</li>
+									{/if}
+								</ul>
+							</div>
+							
 							<h1>
 								{hascontent}
 									<ul class="labelList">

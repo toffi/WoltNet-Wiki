@@ -12,7 +12,8 @@ use wcf\system\WCF;
 
 /**
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	system.menu.article.content
  * @category 	WoltNet - Wiki
