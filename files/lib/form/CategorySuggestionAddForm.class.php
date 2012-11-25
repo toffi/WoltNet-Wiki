@@ -164,6 +164,9 @@ class CategorySuggestionAddForm extends AbstractForm {
 		// disable assignment of i18n values
 		I18nHandler::getInstance()->disableAssignValueVariables();
 		
+		// show success message
+		WCF::getTPL()->assign('success', true);
+		
 		$this->saved();
 	}
 	

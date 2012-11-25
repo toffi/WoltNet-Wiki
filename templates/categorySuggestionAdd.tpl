@@ -20,6 +20,10 @@
 	<p class="error">{lang}wcf.global.form.error{/lang}</p>
 {/if}
 
+{if $success|isset}
+	<p class="success">{lang}wiki.category.categorySuggestionAdd.success{/lang}</p>	
+{/if}
+
 <form method="post" action="{link controller='CategorySuggestionAdd'}{/link}" id="categorySuggestionAddForm">
 	<div class="container containerPadding marginTop shadow">
 		<fieldset>
@@ -52,7 +56,7 @@
 			<dl>
 				<dt>
 					<label for="title">
-						{lang}wiki.article.article{$action|ucfirst}.title{/lang}
+						{lang}wiki.category.categorySuggestionAdd.title{/lang}
 					</label>
 				</dt>
 				<dd>

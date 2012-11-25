@@ -5,7 +5,17 @@
 		<item name="wiki.category.article.articleName"><![CDATA[Titel]]></item>
 		<item name="wiki.category.article.comments"><![CDATA[Kommentare]]></item>
 		<item name="wiki.category.article.author"><![CDATA[Autor]]></item>
-		<item name="wiki.category.article.time"><![CDATA[Datum]]></item>
+		<item name="wiki.category.article.time"><![CDATA[Erstellungsdatum]]></item>
+		<item name="wiki.category.sortBy.time"><![CDATA[Erstellungsdatum]]></item>
+		<item name="wiki.category.sortBy.subject"><![CDATA[Titel]]></item>
+		<item name="wiki.category.sortBy.username"><![CDATA[Autor]]></item>
+		<item name="wiki.category.categorySuggestionAdd"><![CDATA[Kategorievorschlag einreichen]]></item>
+		<item name="wiki.category.categorySuggestionAdd.data"><![CDATA[Daten]]></item>
+		<item name="wiki.category.categorySuggestionAdd.parentCategory"><![CDATA[übergeordnete Kategorie]]></item>
+		<item name="wiki.category.categorySuggestionAdd.parentCategory.none"><![CDATA[keine]]></item>
+		<item name="wiki.category.categorySuggestionAdd.title"><![CDATA[Titel der Kategorie]]></item>
+		<item name="wiki.category.categorySuggestionAdd.reason"><![CDATA[Begründung]]></item>
+		<item name="wiki.category.categorySuggestionAdd.success"><![CDATA[Ihr Vorschlag wurde erfolgreich im System eingetragen.<br />Bitte beachten Sie das Ihr Vorschlag durch einen Moderator geprüft werden muss.]]></item>
 	</category>
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
@@ -101,6 +111,7 @@
 		<item name="wcf.acp.option.category_list_depth"><![CDATA[Tiefe der Kategorienstruktur]]></item>
 	</category>
 	<category name="wcf.acl.option">
+		<item name="wcf.acl.option.fullAccess"><![CDATA[Vollzugriff]]></item>
 		<item name="wcf.acl.option.category.com.woltnet.wiki.user.article"><![CDATA[Allgemeine Rechte]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canViewArticle"><![CDATA[Kann Artikel sehen]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
