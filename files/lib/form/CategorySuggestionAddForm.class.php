@@ -77,10 +77,6 @@ class CategorySuggestionAddForm extends AbstractForm {
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
 		
-		if($this->categoryNodeList->count() == 0) {
-			throw new NamedUserException(WCF::getLanguage()->get('wiki.articleAdd.noCategories'));
-		}
-		
 		// add userdata
 		$this->userID = WCF::getUser()->userID;
 		$this->username = WCF::getUser()->username;
