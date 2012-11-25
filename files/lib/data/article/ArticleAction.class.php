@@ -148,7 +148,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * Validates user access for label management.
 	 */
 	public function validateGetLabelManagement() {
-		if (!WCF::getSession()->getPermission('user.wiki.category.canManageLabels')) {
+		if (!WCF::getSession()->getPermission('mod.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
 		

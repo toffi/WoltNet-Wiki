@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
 	<category name="wiki.category">
+		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>
 	</category>
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
@@ -13,7 +14,12 @@
 	</category>
 	<category name="wiki.global">
 		<item name="wiki.global.button.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
+		<item name="wiki.global.button.activate"><![CDATA[Aktivieren]]></item>
+		<item name="wiki.global.button.edit"><![CDATA[Bearbeiten]]></item>
+		<item name="wiki.global.button.trash"><![CDATA[In Papierkorb verschieben]]></item>
+		<item name="wiki.global.button.delete"><![CDATA[Löschen]]></item>
 		<item name="wiki.global.statistics"><![CDATA[Statistik]]></item>
+		<item name="wiki.global.options"><![CDATA[Optionen]]></item>
 	</category>
 	<category name="wiki.article">
 		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
@@ -23,6 +29,29 @@
 		<item name="wiki.article.articleAdd.title"><![CDATA[Artikeltitel]]></item>
 		<item name="wiki.article.articleAdd.text"><![CDATA[Artikeltext]]></item>
 		<item name="wiki.article.permissions"><![CDATA[Berechtigungen]]></item>
+		<item name="wiki.article.noneAvailable"><![CDATA[Es wurde noch kein Artikel hinzugefügt.]]></item>
+		<item name="wiki.article.label"><![CDATA[Filter nach Label]]></item>
+		<item name="wiki.article.label.filter"><![CDATA[Label auswählen]]></item>
+		<item name="wiki.article.label.disableFilter"><![CDATA[Keine Filterung]]></item>
+		<item name="wiki.article.label.management"><![CDATA[Label verwalten]]></item>
+		<item name="wiki.article.label.management.addLabel"><![CDATA[Label hinzufügen]]></item>
+		<item name="wiki.article.label.labelName"><![CDATA[Labelbeschriftung]]></item>
+		<item name="wiki.article.label.cssClassName"><![CDATA[Aussehen]]></item>
+		<item name="wiki.article.label.placeholder"><![CDATA[Label]]></item>
+		<item name="wiki.article.notActive"><![CDATA[Dieser Artikel ist noch nicht aktiviert]]></item>
+		<item name="wiki.article.menu.overview"><![CDATA[Übersicht]]></item>
+		<item name="wiki.article.menu.discuss"><![CDATA[Diskussionen]]></item>
+		<item name="wiki.article.menu.version"><![CDATA[Versionen]]></item>
+		<item name="wiki.article.versions"><![CDATA[Versionen]]></item>
+		<item name="wiki.article.author"><![CDATA[Autor]]></item>
+		<item name="wiki.article.date"><![CDATA[Datum]]></item>
+		<item name="wiki.article.sidebar.informations"><![CDATA[Artikelinformationen]]></item>
+		<item name="wiki.article.sidebar.articleName"><![CDATA[Titel]]></item>
+		<item name="wiki.article.sidebar.articleCategory"><![CDATA[zugehörige Kategorie]]></item>
+		<item name="wiki.article.sidebar.lastEditedDate"><![CDATA[zuletzt bearbeitet]]></item>
+		<item name="wiki.article.sidebar.share"><![CDATA[verbreiten]]></item>
+		<item name="wiki.article.sidebar.share.description"><![CDATA[verlinken]]></item>
+		<item name="wiki.article.sidebar.share.bbcode.description"><![CDATA[Einbetten (benötigt BBCode-Unterstützung)]]></item>
 	</category>
 	<category name="wiki.acp">
 		<item name="wiki.acp.index"><![CDATA[Startseite]]></item>
@@ -35,7 +64,7 @@
 		<item name="wiki.acp.index.system.os"><![CDATA[Betriebssystem]]></item>
 		<item name="wiki.acp.index.system.webserver"><![CDATA[Webserver]]></item>
 		<item name="wiki.acp.index.system.php"><![CDATA[PHP-Version]]></item>
-		<item name="wiki.acp.index.systemsql.type"><![CDATA[Datenbank]]></item>
+		<item name="wiki.acp.index.system.sql.type"><![CDATA[Datenbank]]></item>
 		<item name="wiki.acp.index.system.sql.version"><![CDATA[Datenbankversion]]></item>
 		<item name="wiki.acp.index.credits"><![CDATA[Danksagungen]]></item>
 		<item name="wiki.acp.index.credits.developedBy"><![CDATA[Entwicklet von]]></item>
@@ -44,6 +73,12 @@
 		<item name="wiki.acp.index.credits.designer"><![CDATA[Design]]></item>
 		<item name="wiki.acp.index.credits.contributor"><![CDATA[Mitwirkende]]></item>
 	</category>
+	<category name="wiki.acp.menu">
+		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Kategorien]]></item>
+		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
+		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
+	</category>
+	
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.category.wiki"><![CDATA[Wiki]]></item>
 		<item name="wcf.acp.option.category.wiki.article"><![CDATA[Artikel]]></item>
@@ -51,20 +86,60 @@
 		<item name="wcf.acp.option.category_default_sort_field"><![CDATA[Standardsortierfeld]]></item>
 		<item name="wcf.acp.option.category_default_sort_order"><![CDATA[Standardsortierreihenfolge]]></item>
 		<item name="wcf.acp.option.category.wiki.index"><![CDATA[Startseite]]></item>
-		<item name="wcf.acp.option.category.wiki.index.generel"><![CDATA[Allgemein]]></item>
+		<item name="wcf.acp.option.category.wiki.index.general"><![CDATA[Allgemein]]></item>
 		<item name="wcf.acp.option.index_enable_stats"><![CDATA[Statistik anzeigen?]]></item>
 		<item name="wcf.acp.option.category.wiki.index.categories"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.option.category_list_depth"><![CDATA[Tiefe der Kategorienstruktur]]></item>
 	</category>
-	<category name="wiki.acp.menu">
-		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Kategorien]]></item>
-		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
-		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
-	</category>
 	<category name="wcf.acl.option">
-		<item name="wcf.acl.option.category.com.woltnet.wiki.user.article"><![CDATA[Artikelrechte]]></item>
+		<item name="wcf.acl.option.category.com.woltnet.wiki.user.article"><![CDATA[Allgemeine Rechte]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canViewArticle"><![CDATA[Kann Artikel sehen]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canEditArticle"><![CDATA[Kann Artikel bearbeiten]]></item>
+		<item name="wcf.acl.option.category.com.woltnet.wiki.user.category"><![CDATA[Allgemeine Rechte]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canViewCategory"><![CDATA[Kann Kategorie sehen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canEnterCategory"><![CDATA[Kann Kategorie betreten]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canAddArticle"><![CDATA[Kann Artikel hinzufügen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canEditOwnArticle"><![CDATA[Kann eigene Artikel bearbeiten]]></item>
+		<item name="wcf.acl.option.category.com.woltnet.wiki.mod.category"><![CDATA[Moderative Rechte]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canReadDeactivatedArticle"><![CDATA[Kann deaktivierte Artikel lesen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canTrashArticle"><![CDATA[Kann Artikel in den Papierkorb verschieben]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canReadTrashedArticle"><![CDATA[Kann gelöschte Artikel lesen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canRestoreArticle"><![CDATA[Kann gelöschte Artikel wiederherstellen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canDeleteArticle"><![CDATA[Kann Artikel endgültig löschen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canActivateArticle"><![CDATA[Kann Artikel aktivieren]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canModerateArticle"><![CDATA[Kann Artikel in der Moderation sehen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canManagePermissions"><![CDATA[Kann Artikelrechte verwalten]]></item>
+	</category>
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.category.user.wiki"><![CDATA[Wiki]]></item>
+		<item name="wcf.acp.group.option.category.mod.wiki"><![CDATA[Wiki]]></item>
+		<item name="wcf.acp.group.option.category.user.wiki.article"><![CDATA[Artikel]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.read.canViewArticle"><![CDATA[Kann Artikel sehen]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.read.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canAddArticle"><![CDATA[Kann Artikel schreiben]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canEditOwnArticle"><![CDATA[Kann eigene Artikel bearbeiten]]></item>
+		<item name="wcf.acp.group.option.category.user.wiki.category"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.group.option.user.wiki.category.read.canViewCategory"><![CDATA[Kann Kategorien sehen]]></item>
+		<item name="wcf.acp.group.option.user.wiki.category.read.canEnterCategory"><![CDATA[Kann Kategorien betreten]]></item>
+		<item name="wcf.acp.group.option.user.wiki.category.write.canSuggestCategories"><![CDATA[Kann neue Kategorien vorschlagen]]></item>
+		<item name="wcf.acp.group.option.category.mod.wiki.article"><![CDATA[Artikel]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canManagePermissions"><![CDATA[Kann Artikelrechte verwalten]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canTrashArticle"><![CDATA[Kann Artikel in den Papierkorb verschieben]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canRestoreArticle"><![CDATA[Kann gelöschte Artikel wiederherstellen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canDeleteArticle"><![CDATA[Kann Artikel endgültig löschen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canEditArticle"><![CDATA[Kann Artikel bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canActivateArticle"><![CDATA[Kann Artikel aktivieren]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canReadDeactivatedArticle"><![CDATA[Kann deaktivierte Artikel lesen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canModerateArticle"><![CDATA[Kann Artikel in der Moderation sehen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canReadTrashedArticle"><![CDATA[Kann gelöschte Artikel lesen]]></item>
+		<item name="wcf.acp.group.option.category.mod.wiki.category"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.category.canManageSuggestedCategories"><![CDATA[Kann vorgeschlagene Kategorien verwalten]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.category.canManageLabels"><![CDATA[Kann Kategorielabels verwalten]]></item>
+		<item name="wcf.acp.group.option.category.admin.category"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.group.option.admin.category.canListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
+		<item name="wcf.acp.group.option.admin.category.canAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
+		<item name="wcf.acp.group.option.admin.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
+		<item name="wcf.acp.group.option.admin.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
 </language>

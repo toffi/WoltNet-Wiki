@@ -155,7 +155,7 @@
 					{/foreach}
 				</select>
 			</noscript>*}
-		{lang}wiki.article.author{/lang}
+		{lang}wiki.article.overview.author{/lang}
 		</h2>
 	</hgroup>
 </header>
