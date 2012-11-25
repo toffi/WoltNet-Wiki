@@ -9,8 +9,10 @@ use wcf\page\SortablePage;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\breadcrumb\Breadcrumb;
 use wcf\system\clipboard\ClipboardHandler;
 use wcf\system\dashboard\DashboardHandler;
+use wcf\system\request\LinkHandler;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
 
@@ -152,6 +154,13 @@ class CategoryPage extends SortablePage {
 		// get node tree
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName, $this->category->categoryID);
 		$this->categoryNodeList->setMaxDepth(0);
+		
+		foreach($this->category->getParentCategories() AS $categoryItem) {
+			WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
+					'application' => 'wiki',
+					'object' => $categoryItem
+			))));
+		}
 	}
 	
 	/**

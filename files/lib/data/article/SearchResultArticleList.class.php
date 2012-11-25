@@ -11,7 +11,7 @@ namespace wiki\data\article;
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
  */
-class SearchResultArticleList extends ArticleList {
+class SearchResultArticleList extends ViewableArticleList {
 
 	/**
 	 * @see wiki\data\article\ViewableArticleList::$decoratorClassName

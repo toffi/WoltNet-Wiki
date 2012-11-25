@@ -154,16 +154,24 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 	 * Returns an excerpt of this article.
 	 *
 	 * @param	string		$maxLength
+	 * @param	boolean		$highlight
 	 * @return	string
 	 */
-	public function getExcerpt($maxLength = 255) {
-		MessageParser::getInstance()->setOutputType('text/plain');
+	public function getExcerpt($maxLength = 255, $highlight=false) {
+		if(!$highlight) MessageParser::getInstance()->setOutputType('text/plain');
 		$message = MessageParser::getInstance()->parse($this->message, false, false, true);
-		if (StringUtil::length($message) > $maxLength) {
-			$message = StringUtil::encodeHTML(StringUtil::substring($message, 0, $maxLength)).'&hellip;';
+		if(!$highlight) {
+			if (StringUtil::length($message) > $maxLength) {
+				$message = StringUtil::encodeHTML(StringUtil::substring($message, 0, $maxLength)).'&hellip;';
+			}
+			else {
+				$message = StringUtil::encodeHTML($message);
+			}
 		}
 		else {
-			$message = StringUtil::encodeHTML($message);
+			if(StringUtil::length($message) > $maxLength) {
+				$message = StringUtil::substring($message, 0, $maxLength);
+			}
 		}
 
 		return $message;

@@ -106,6 +106,12 @@ class ArticlePage extends AbstractPage {
 			$this->showNotActive = true;
 		}
 
+		foreach($this->article->getCategory()->getParentCategories() AS $categoryItem) {
+			WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
+					'application' => 'wiki',
+					'object' => $categoryItem
+			))));
+		}
 		WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
 			'object' => $this->article->getCategory()
 		))));

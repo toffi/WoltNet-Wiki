@@ -2,6 +2,10 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
 	<category name="wiki.category">
 		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>
+		<item name="wiki.category.article.articleName"><![CDATA[Titel]]></item>
+		<item name="wiki.category.article.comments"><![CDATA[Kommentare]]></item>
+		<item name="wiki.category.article.author"><![CDATA[Autor]]></item>
+		<item name="wiki.category.article.time"><![CDATA[Datum]]></item>
 	</category>
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
@@ -52,6 +56,7 @@
 		<item name="wiki.article.sidebar.share"><![CDATA[verbreiten]]></item>
 		<item name="wiki.article.sidebar.share.description"><![CDATA[verlinken]]></item>
 		<item name="wiki.article.sidebar.share.bbcode.description"><![CDATA[Einbetten (benötigt BBCode-Unterstützung)]]></item>
+		<item name="wiki.article.articles"><![CDATA[verfügbare Artikel]]></item>
 	</category>
 	<category name="wiki.acp">
 		<item name="wiki.acp.index"><![CDATA[Startseite]]></item>
@@ -77,6 +82,10 @@
 		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
+	</category>
+	<category name="wiki.search">
+		<item name="wiki.search.categories"><![CDATA[Folgende Kategorien durchsuchen:]]></item>
+		<item name="wiki.search.categories.all"><![CDATA[Alle Kategorien durchsuchen]]></item>
 	</category>
 	
 	<category name="wcf.acp.option">
@@ -141,5 +150,8 @@
 		<item name="wcf.acp.group.option.admin.category.canAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
 		<item name="wcf.acp.group.option.admin.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
 		<item name="wcf.acp.group.option.admin.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
+	</category>
+	<category name="wcf.search">
+		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
 	</category>
 </language>
