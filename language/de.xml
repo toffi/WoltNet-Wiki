@@ -166,6 +166,11 @@
 		<item name="wcf.acp.group.option.admin.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
 		<item name="wcf.acp.group.option.admin.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
+	<category name="wcf.user.profile">
+		<item name="wcf.user.profile.userArticles"><![CDATA[Artikel]]></item>
+		<item name="wcf.user.profile.userArticles.noneAvailable"><![CDATA[Der Benutzer hat noch keine für Sie sichtbaren Artikel veröffentlicht.]]></item>
+		<item name="wcf.user.profile.userArticles.category"><![CDATA[Kategorie]]></item>
+	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
 	</category>

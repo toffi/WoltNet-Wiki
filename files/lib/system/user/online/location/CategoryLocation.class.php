@@ -11,7 +11,8 @@ use wcf\system\WCF;
  * Implementation of IUserOnlineLocation for the category page location.
  *
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	system.user.online.location
  * @category 	WoltNet Wiki

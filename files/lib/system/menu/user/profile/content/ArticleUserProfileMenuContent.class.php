@@ -42,6 +42,6 @@ class ArticleUserProfileMenuContent extends SingletonFactory implements IUserPro
 			'userID' => $userID
 		));
 
-		return WCF::getTPL()->fetch('userProfileArticles');
+		return WCF::getTPL()->fetch('userProfileArticles', 'wiki');
 	}
 }

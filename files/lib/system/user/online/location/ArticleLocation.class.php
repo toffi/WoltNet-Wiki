@@ -11,7 +11,8 @@ use wcf\system\WCF;
  * Implementation of IUserOnlineLocation for the article page location.
  *
  * @author	Jean-Marc Licht
- * @copyright	2012 woltnet
+ * @copyright	2012 WoltNet
+ * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
  * @subpackage	system.user.online.location
  * @category 	WoltNet Wiki
@@ -25,9 +26,9 @@ class ArticleLocation implements IUserOnlineLocation {
 
 	/**
 	 * list of articles
-	 * @var array<wdb\data\article\Article>
+	 * @var array<wiki\data\article\Article>
 	 */
-	protected $projects = null;
+	protected $articles = null;
 
 	/**
 	 * @see wcf\system\user\online\location\IUserOnlineLocation::cache()
