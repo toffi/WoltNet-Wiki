@@ -52,6 +52,10 @@
 		<item name="wiki.article.label.labelName"><![CDATA[Labelbeschriftung]]></item>
 		<item name="wiki.article.label.cssClassName"><![CDATA[Aussehen]]></item>
 		<item name="wiki.article.label.placeholder"><![CDATA[Label]]></item>
+		<item name="wiki.article.label.management.existingLabels"><![CDATA[Vorhandene Labels]]></item>
+		<item name="wiki.article.label.management.edit.description"><![CDATA[Klicken Sie ein Label an, um dieses zu bearbeiten oder zu löschen.]]></item>
+		<item name="wiki.article.label.management.deleteLabel"><![CDATA[Label löschen]]></item>
+		<item name="wiki.article.label.management.deleteLabel.confirmMessage"><![CDATA[Wollen Sie das Label wirklich löschen?]]></item>
 		<item name="wiki.article.notActive"><![CDATA[Dieser Artikel ist noch nicht aktiviert]]></item>
 		<item name="wiki.article.menu.overview"><![CDATA[Übersicht]]></item>
 		<item name="wiki.article.menu.discuss"><![CDATA[Diskussionen]]></item>

@@ -31,17 +31,17 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
 	 */
-	protected $permissionsCreate = array('user.wiki.category.canManageLabels');
+	protected $permissionsCreate = array('mod.wiki.category.canManageLabels');
 	
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsDelete
 	 */
-	protected $permissionsDelete = array('user.wiki.category.canManageLabels');
+	protected $permissionsDelete = array('mod.wiki.category.canManageLabels');
 	
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
 	 */
-	protected $permissionsUpdate = array('user.wiki.category.canManageLabels');
+	protected $permissionsUpdate = array('mod.wiki.category.canManageLabels');
 	
 	/**
 	 * article object

@@ -128,7 +128,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		}
 		
 		foreach($this->objects AS $object) {
-			if(!$object->isDeletable) throw new PermissionDeniedException();
+			if(!$object->isDeletable()) throw new PermissionDeniedException();
 		}
 	}
 	
