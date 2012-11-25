@@ -61,4 +61,10 @@
 		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
 	</category>
+	<category name="wcf.acl.option">
+		<item name="wcf.acl.option.category.com.woltnet.wiki.user.article"><![CDATA[Artikelrechte]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canViewArticle"><![CDATA[Kann Artikel sehen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
+		<item name="wcf.acl.option.com.woltnet.wiki.canEditArticle"><![CDATA[Kann Artikel bearbeiten]]></item>
+	</category>
 </language>

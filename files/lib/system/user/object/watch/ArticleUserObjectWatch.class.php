@@ -1,5 +1,6 @@
 <?php
 namespace wiki\system\user\object\watch;
+use wiki\data\article\WatchedArticle;
 use wiki\data\article\Article;
 use wiki\data\article\WatchedArticleList;
 use wiki\data\category\WikiCategory;
@@ -49,6 +50,22 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 			'sql' => $sql,
 			'parameters' => $conditionBuilder->getParameters()
 		);
+	}
+	
+	/**
+	 * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadObjects()
+	 */
+	public function getUnreadObjects($userID, $limit=5) {
+		$categoryIDs = WikiCategory::getAccessibleCategoryIDs();
+		if (empty($categoryIDs)) return null;
+		
+		$objectIDs = $this->getObjectIDs($userID);
+		array_slice($objectIDs, 0, $limit);
+		$objects = array();
+		foreach($objectIDs AS $objectID) {
+			$objects[] = new WatchedArticle(new Article($objectID));
+		}
+		return $objects;
 	}
 
 	/**
