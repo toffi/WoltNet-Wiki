@@ -117,6 +117,21 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		$this->unmarkItems();
 	}
 	
+	public function validateDelete() {
+		// read objects
+		if (empty($this->objects)) {
+			$this->readObjects();
+				
+			if (empty($this->objects)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+		
+		foreach($this->objects AS $object) {
+			if(!$object->isDeletable) throw new PermissionDeniedException();
+		}
+	}
+	
 	/**
 	 * Validating for enabling articles.
 	 */

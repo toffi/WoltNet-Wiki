@@ -42,9 +42,11 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 		$statement->execute();
 
 		$sql = "UPDATE ".self::getDatabaseTableName()." SET isActive = 1
-				WHERE articleID = ".$this->articleID;
+				WHERE articleID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
-		$statement->execute();
+		$statement->execute(array($this->articleID));
+		
+		$editor = call_user_func(array('wiki\data\article\ArticleEditor', 'updateLastPostTime'), array('articleID' => $this->articleID));
 
 		if(MODULE_CONVERSATION && $this->userID != 0 && $this->userID != WCF::getUser()->userID) {
 			$data = array(
@@ -69,6 +71,25 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 			);
 			$objectAction = new ConversationAction(array(), 'create', $conversationData);
 			$objectAction->executeAction();
+		}
+	}
+	
+	public static function updateLastPostTime(array $parameters = array()) {
+		$versionList = new ArticleList();
+		$versionList->getConditionBuilder()->add('article.articleID = ?', array($parameters['articleID']));
+		$versionList->getConditionBuilder()->add('article.isActive = ?', array(1));
+		$versionList->sqlOrderBy = 'time DESC';
+		$versionList->sqlLimit = 1;
+		$versionList->readObjects();
+		$objects = $versionList->getObjects();
+		
+		foreach($objects AS $object) {
+			$sql = "UPDATE wiki".WIKI_N."_article
+				SET lastPostTime = ?
+					WHERE articleID = ?
+						OR parentID = ?";
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute(array($object->time, $object->articleID, $object->articleID));
 		}
 	}
 

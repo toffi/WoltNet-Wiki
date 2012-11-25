@@ -1,5 +1,7 @@
 <?php
 namespace wiki\system\moderation\queue;
+use wiki\data\article\ArticleAction;
+
 use wiki\system\moderation\queue;
 use wiki\data\article\ArticleList;
 use wiki\data\article\Article;
@@ -93,6 +95,7 @@ abstract class AbstractArticleModerationQueueHandler implements IModerationQueue
 	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::removeContent()
 	 */
 	public function removeContent(ModerationQueue $queue, $message) {
-		throw new SystemException("Article cannot be deleted");
+		$article = new Article($queue->objectID);
+		$objectAction = new ArticleAction(array($article), 'delete');
 	}
 }

@@ -92,7 +92,7 @@
 					<li class="box24" style="margin-top: 20px;">
 						<hgroup class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.lastEditedDate{/lang}</h1>
-								<h2><small>{@$articleOverview->time|time}</small></h2>
+								<h2><small>{@$articleOverview->lastPostTime|time}</small></h2>
 						</hgroup>
 					</li>
 				</ul>
