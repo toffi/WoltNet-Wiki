@@ -57,9 +57,6 @@
 		<item name="wiki.article.label.management.deleteLabel"><![CDATA[Label löschen]]></item>
 		<item name="wiki.article.label.management.deleteLabel.confirmMessage"><![CDATA[Wollen Sie das Label wirklich löschen?]]></item>
 		<item name="wiki.article.notActive"><![CDATA[Dieser Artikel ist noch nicht aktiviert]]></item>
-		<item name="wiki.article.menu.overview"><![CDATA[Übersicht]]></item>
-		<item name="wiki.article.menu.discuss"><![CDATA[Diskussionen]]></item>
-		<item name="wiki.article.menu.version"><![CDATA[Versionen]]></item>
 		<item name="wiki.article.versions"><![CDATA[Versionen]]></item>
 		<item name="wiki.article.author"><![CDATA[Autor]]></item>
 		<item name="wiki.article.date"><![CDATA[Datum]]></item>
@@ -71,6 +68,12 @@
 		<item name="wiki.article.sidebar.share.description"><![CDATA[verlinken]]></item>
 		<item name="wiki.article.sidebar.share.bbcode.description"><![CDATA[Einbetten (benötigt BBCode-Unterstützung)]]></item>
 		<item name="wiki.article.articles"><![CDATA[verfügbare Artikel]]></item>
+		<item name="wiki.article.overview.author"><![CDATA[Erstellt am {$articleOverview->time|plainTime} von {if $articleOverview->userID}<a href="{link controller="User" object=$articleOverview->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$articleOverview->getUserProfile()->userID}">{/if}{$articleOverview->username}{if $articleOverview->userID}</a>{/if}]]></item>
+	</category>
+	<category name="wiki.article.menu">
+		<item name="wiki.article.menu.overview"><![CDATA[Übersicht]]></item>
+		<item name="wiki.article.menu.discuss"><![CDATA[Diskussionen{if $commentCount > 0}<span class="badge badgeUpdate">{#$commentCount}</span>{/if}]]></item>
+		<item name="wiki.article.menu.version"><![CDATA[Versionen]]></item>
 	</category>
 	<category name="wiki.acp">
 		<item name="wiki.acp.index"><![CDATA[Startseite]]></item>
@@ -167,9 +170,16 @@
 		<item name="wcf.acp.group.option.admin.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
 	<category name="wcf.user.profile">
-		<item name="wcf.user.profile.userArticles"><![CDATA[Artikel]]></item>
+		<item name="wcf.user.profile.menu.userArticles"><![CDATA[Artikel]]></item>
 		<item name="wcf.user.profile.userArticles.noneAvailable"><![CDATA[Der Benutzer hat noch keine für Sie sichtbaren Artikel veröffentlicht.]]></item>
 		<item name="wcf.user.profile.userArticles.category"><![CDATA[Kategorie]]></item>
+		<item name="wcf.user.profile.recentActivity.articleCommentResponse"><![CDATA[Hat auf einen Kommentar von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a> im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geantwortet.]]></item>
+		<item name="wcf.user.profile.recentActivity.articleComment"><![CDATA[Hat ein Kommentar im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geschrieben.]]></item>
+	</category>
+	<category name="wcf.user">
+		<item name="wcf.user.usersOnline.location.indexPage"><![CDATA[Startseite]]></item>
+		<item name="wcf.user.usersOnline.location.categoryPage"><![CDATA[<a href="{link controller='Category' application='wiki' object=$category}{/link}">Kategorie &bdquo;{$category->getTitle()}&ldquo;</a>]]></item>
+		<item name="wcf.user.usersOnline.location.articlePage"><![CDATA[<a href="{link controller='Article' application='article' object=$article}{/link}">Artikel &bdquo;{$article->subject}&ldquo;</a>]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
