@@ -655,7 +655,8 @@ WIKI.Article.Label.Editor = Class.extend({
 			className: 'wiki\\data\\article\\label\\ArticleLabelAction',
 			parameters: {
 				articleIDs: this._articleIDs,
-				labelIDs: $labelIDs
+				labelIDs: $labelIDs,
+				categoryID: this._categoryID
 			}
 		});
 		this._proxy.sendRequest();
