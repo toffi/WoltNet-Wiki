@@ -224,18 +224,18 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	}
 
 	/**
-	 * Marks projects as read.
+	 * Marks articles as read.
 	 */
 	public function markAsRead() {
 		if (empty($this->parameters['visitTime'])) {
 			$this->parameters['visitTime'] = TIME_NOW;
 		}
 
-		if (!count($this->objects)) {
-			$this->readObjects();
+		if (!count($this->articles)) {
+			$this->loadArticles();
 		}
 
-		foreach ($this->objects as $article) {
+		foreach ($this->articles as $article) {
 			VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.article', $article->articleID, $this->parameters['visitTime']);
 		}
 
@@ -270,16 +270,16 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * @see	wcf\data\IMessageQuoteAction::validateSaveFullQUote()
 	 */
 	public function validateSaveFullQUote() {
-		if (empty($this->objects)) {
-			$this->readObjects();
+		if (empty($this->articles)) {
+			$this->loadArticles();
 	
-			if (empty($this->objects)) {
+			if (empty($this->articles)) {
 				throw new UserInputException('objectIDs');
 			}
 		}
 	
 		// validate permissions
-		$this->article = current($this->objects);
+		$this->article = current($this->articles);
 	}
 	
 	/**
@@ -301,11 +301,12 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * @see	wcf\data\IMessageQuoteAction::validateSaveQuote()
 	 */
 	public function validateSaveQuote() {
-		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';
+		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';	
 		if (empty($this->parameters['message'])) {
 			throw new UserInputException('message');
 		}
-	
+
+		$this->objects = ArticleCache::getInstance()->getArticles();
 		if (empty($this->objects)) {
 			$this->readObjects();
 				

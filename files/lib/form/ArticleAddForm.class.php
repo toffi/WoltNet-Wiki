@@ -13,6 +13,7 @@ use wcf\util\HeaderUtil;
 use wcf\util\StringUtil;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\message\quote\MessageQuoteManager;
 use wcf\util\UserUtil;
 use wcf\data\moderation\queue\ModerationQueueActivationAction;
 use wcf\system\moderation\queue\ModerationQueueActivationManager;
@@ -83,6 +84,30 @@ class ArticleAddForm extends MessageForm {
 	public $objectTypeName = 'com.woltnet.wiki.category';
 	
 	/**
+	 * @see wcf\page\IPage::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		if(isset($_GET['id'])) {
+			$this->categoryID = intval($_GET['id']);
+			$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
+				
+			if($category !== null) $this->category = new WikiCategory($category);
+				
+			if ($this->category === null || !$this->category->categoryID) {
+				throw new IllegalLinkException();
+			}
+		
+			// check permissions
+			$this->category->checkPermission(array('canViewCategory', 'canEnterCategory', 'canAddArticle'));
+		}
+		
+		// quotes
+		MessageQuoteManager::getInstance()->readParameters();
+	}
+	
+	/**
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
@@ -94,20 +119,6 @@ class ArticleAddForm extends MessageForm {
 		$aclObjectTypeName = 'com.woltnet.wiki.article';
 		if ($aclObjectTypeName) {
 			$this->aclObjectTypeID = ACLHandler::getInstance()->getObjectTypeID($aclObjectTypeName);
-		}
-	
-		if(isset($_GET['id'])) {
-			$this->categoryID = intval($_GET['id']);
-			$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
-			
-			if($category !== null) $this->category = new WikiCategory($category);
-			
-			if ($this->category === null || !$this->category->categoryID) {
-				throw new IllegalLinkException();
-			}
-	
-			// check permissions
-			$this->category->checkPermission(array('canViewCategory', 'canEnterCategory', 'canAddArticle'));
 		}
 	
 		// default values
@@ -126,6 +137,22 @@ class ArticleAddForm extends MessageForm {
 					$this->languageID = array_shift($languageIDs);
 				}
 			}
+			
+			// get all message ids from current conversation
+			$sql = "SELECT	articleID
+			FROM	wiki".WIKI_N."_article";
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute();
+			$articleIDs = array();
+			while ($row = $statement->fetchArray()) {
+				$articleIDs[] = $row['articleID'];
+			}
+				
+			/*$renderedQuotes = MessageQuoteManager::getInstance()->getQuotesByObjectIDs('com.woltnet.wiki.article', $articleIDs);
+			if (!empty($renderedQuotes)) {
+				$this->text = implode("\n", $renderedQuotes);
+			}*/
+			MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
 		}
 	
 		// read categories
@@ -151,6 +178,9 @@ class ArticleAddForm extends MessageForm {
 	
 		if(isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 		if(isset($_POST['category'])) $this->categoryID = intval($_POST['category']);
+		
+		// quotes
+		MessageQuoteManager::getInstance()->readFormParameters();
 	}
 	
 	/**
@@ -162,6 +192,8 @@ class ArticleAddForm extends MessageForm {
 		if (WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
 			ACLHandler::getInstance()->assignVariables($this->aclObjectTypeID);
 		}
+		
+		MessageQuoteManager::getInstance()->assignVariables();
 	
 		WCF::getTPL()->assign(array(
 				'categoryNodeList' 	=> $this->categoryNodeList,
@@ -268,6 +300,8 @@ class ArticleAddForm extends MessageForm {
 		ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->articleID);
 	
 		$this->saved();
+		
+		MessageQuoteManager::getInstance()->saved();
 	
 		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
 				'application' => 'wiki',

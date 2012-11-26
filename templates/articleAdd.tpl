@@ -22,6 +22,9 @@
 	//<![CDATA[
 	$(function() {
 		new WCF.ACL.List($('#articlePermissions'), {@$aclObjectTypeID}{if $groupID|isset}, '', {@$groupID}{/if});
+	
+		{include file='__messageQuoteManager' wysiwygSelector='text' supportPaste=true}
+		new WIKI.Article.QuoteHandler($quoteManager);
 	});
 	//]]>
 </script>
