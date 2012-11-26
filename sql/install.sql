@@ -18,8 +18,7 @@ CREATE TABLE wiki1_1_article (
 	lastPostTime	INT(10),
 	enableSmilies 	TINYINT(1) NOT NULL DEFAULT 1,
 	enableHtml 	TINYINT(1) NOT NULL DEFAULT 0,
-	enableBBCodes	TINYINT(1) NOT NULL DEFAULT 1,
-	showSignature 	TINYINT(1) NOT NULL DEFAULT 1,
+	enableBBCodes	TINYINT(1) NOT NULL DEFAULT 1
 	ipAddress 	VARCHAR(39) NOT NULL DEFAULT ''
 );
 
