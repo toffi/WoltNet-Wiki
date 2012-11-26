@@ -6,6 +6,7 @@ use wiki\system\article\ArticlePermissionHandler;
 
 use wcf\system\WCF;
 use wcf\data\IUserContent;
+use wcf\data\IMessage;
 use wcf\system\language\LanguageFactory;
 use wcf\data\category\Category;
 use wcf\data\user\User;
@@ -25,7 +26,7 @@ use wcf\system\cache\CacheHandler;
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
  */
-class Article extends WIKIDatabaseObject implements IRouteController, IUserContent {
+class Article extends WIKIDatabaseObject implements IRouteController, IUserContent, IMessage {
 	protected $category = null;
 	protected $editor = null;
 	protected $versionList = null;
@@ -60,6 +61,28 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 		}
 
 		parent::__construct(null, $row, $object);
+	}
+	
+	/**
+	 * @see	wcf\data\IMessage::getFormattedMessage()
+	 */
+	public function getFormattedMessage() {
+		$article = ViewableArticle::getArticle($this->articleID);
+		return $article->getFormattedMessage();
+	}
+	
+	/**
+	 * @see	wcf\data\IMessage::getMessage()
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+	
+	/**
+	 * @see	wcf\data\IMessage::__toString()
+	 */
+	public function __toString() {
+		return $this->getFormattedMessage();
 	}
 
 	public function getCategory() {

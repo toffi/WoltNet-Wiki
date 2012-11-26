@@ -65,6 +65,7 @@ class ArticleClipboardAction implements IClipboardAction {
 				}
 				
 				$item->addParameter('objectIDs', array_keys($this->articles));
+				$item->addParameter('categoryID', $article->categoryID);
 				$item->setName('article.assignLabel');
 			break;
 			

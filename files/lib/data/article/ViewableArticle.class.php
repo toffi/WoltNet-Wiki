@@ -49,8 +49,8 @@ class ViewableArticle extends DatabaseObjectDecorator {
 	 * Returns the formatted Message of this object
 	 */
 	public function getFormattedMessage() {
-		$messageParser = MessageParser::getInstance();
-		return $messageParser->parse($this->object->message);
+		MessageParser::getInstance()->setOutputType('text/html');
+		return MessageParser::getInstance()->parse($this->object->message);
 	}
 
 	/**

@@ -1,8 +1,5 @@
 <?php
 namespace wiki\page;
-use wcf\system\language\LanguageFactory;
-
-use wcf\system\menu\article\ArticleMenu;
 use wiki\data\article\ArticleAction;
 
 use wcf\system\WCF;
@@ -10,6 +7,9 @@ use wiki\data\article\ArticleCache;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\breadcrumb\Breadcrumb;
 use wcf\system\request\LinkHandler;
+use wcf\system\language\LanguageFactory;
+use wcf\system\menu\article\ArticleMenu;
+use wcf\system\message\quote\MessageQuoteManager;
 use wcf\util\HeaderUtil;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
@@ -126,6 +126,8 @@ class ArticlePage extends AbstractPage {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
+		
+		MessageQuoteManager::getInstance()->assignVariables();
 
 		WCF::getTPL()->assign(array(
 			'articleOverview'			=> $this->article,

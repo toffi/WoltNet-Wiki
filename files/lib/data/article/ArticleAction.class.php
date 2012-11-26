@@ -5,6 +5,7 @@ use wiki\data\article\label\ArticleLabel;
 
 use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\data\IMessageQuoteAction;
 use wcf\system\visitTracker\VisitTracker;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\data\IClipboardAction;
@@ -12,7 +13,9 @@ use wcf\system\package\PackageDependencyHandler;
 use wcf\system\exception\UserInputException;
 use wcf\system\exception\ValidateActionException;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\message\quote\MessageQuoteManager;
 use wcf\system\clipboard\ClipboardHandler;
+use wcf\util\StringUtil;
 use wcf\system\WCF;
 
 /**
@@ -23,7 +26,7 @@ use wcf\system\WCF;
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
  */
-class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAction {
+class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAction, IMessageQuoteAction {
 	/**
 	 * @see wcf\data\AbstractDatabaseObjectAction::$className
 	 */
@@ -34,6 +37,12 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * @var	array<wiki\data\article\Article>
 	 */
 	public $articles = array();
+	
+	/**
+	 * article object
+	 * @var	wiki\data\article\Article
+	 */
+	public $message = null;
 
 	/**
 	 * @see DatabaseObjectEditor::create()
@@ -255,5 +264,68 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 */
 	protected function unmarkItems() {
 		ClipboardHandler::getInstance()->unmark(array_keys($this->articles), ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
+	}
+	
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::validateSaveFullQUote()
+	 */
+	public function validateSaveFullQUote() {
+		if (empty($this->objects)) {
+			$this->readObjects();
+	
+			if (empty($this->objects)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+	
+		// validate permissions
+		$this->article = current($this->objects);
+	}
+	
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::saveFullQuote()
+	 */
+	public function saveFullQuote() {
+		if (!MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage())) {
+			$quoteID = MessageQuoteManager::getInstance()->getQuoteID('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage());
+			MessageQuoteManager::getInstance()->removeQuote($quoteID);
+		}
+	
+		return array(
+				'count' => MessageQuoteManager::getInstance()->countQuotes(),
+				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array('com.woltnet.wiki.article'))
+		);
+	}
+	
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::validateSaveQuote()
+	 */
+	public function validateSaveQuote() {
+		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';
+		if (empty($this->parameters['message'])) {
+			throw new UserInputException('message');
+		}
+	
+		if (empty($this->objects)) {
+			$this->readObjects();
+				
+			if (empty($this->objects)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+	
+		$this->article = current($this->objects);
+	}
+	
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::saveQuote()
+	 */
+	public function saveQuote() {
+		MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->parameters['message']);
+	
+		return array(
+				'count' => MessageQuoteManager::getInstance()->countQuotes(),
+				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array('com.woltnet.wiki.article'))
+		);
 	}
 }

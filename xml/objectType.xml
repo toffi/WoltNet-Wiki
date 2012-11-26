@@ -136,6 +136,13 @@
 			<classname>wiki\system\user\activity\event\ArticleCommentResponseUserActivityEvent</classname>
 		</type>
 		
+		<!-- quotes -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.message.quote</definitionname>
+			<classname>wiki\system\message\quote\ArticleQuoteHandler</classname>
+		</type>
+		
 		<!-- notification
 		<type>
 			<name>com.woltnet.wiki.articleComment.notification</name>

@@ -17,6 +17,9 @@
 			WCF.TabMenu.init();
 
 			new WCF.User.ObjectWatch.Subscribe();
+			
+			{include file='__messageQuoteManager' wysiwygSelector='text' supportPaste=true}
+			new WIKI.Article.QuoteHandler($quoteManager);
 		});
 		//]]>
 	</script>

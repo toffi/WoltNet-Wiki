@@ -928,3 +928,18 @@ WIKI.Article.Label.Manager = Class.extend({
 		this._dialog.wcfDialog('close');
 	}
 });
+
+/**
+ * Provides the quote manager for conversation messages.
+ * 
+ * @param	WCF.Message.Quote.Manager	quoteManager
+ * @see		WCF.Message.Quote.Handler
+ */
+WIKI.Article.QuoteHandler = WCF.Message.Quote.Handler.extend({
+	/**
+	 * @see	WCF.Message.QuoteManager.init()
+	 */
+	init: function(quoteManager) {
+		this._super(quoteManager, 'wiki\\data\\article\\ArticleAction', 'com.woltnet.wiki.article', '.message', '.messageBody > div.messageText');
+	}
+});
