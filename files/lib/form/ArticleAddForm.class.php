@@ -255,13 +255,17 @@ class ArticleAddForm extends MessageForm {
 	
 		// save article
 		$data = array(
-				'subject' => $this->subject,
-				'categoryID' => $this->categoryID,
-				'message' => $this->text,
-				'userID' => (WCF::getUser()->userID ?: null),
-				'username' => (WCF::getUser()->userID ? WCF::getUser()->username : $this->username),
-				'time' => TIME_NOW,
-				'languageID' => $this->languageID
+				'subject' 	=> $this->subject,
+				'categoryID' 	=> $this->categoryID,
+				'message' 	=> $this->text,
+				'userID' 	=> (WCF::getUser()->userID ?: null),
+				'username' 	=> (WCF::getUser()->userID ? WCF::getUser()->username : $this->username),
+				'time' 		=> TIME_NOW,
+				'languageID' 	=> $this->languageID,
+				'enableSmilies'	=> $this->enableSmilies,
+				'enableHtml'	=> $this->enableHtml,
+				'enableBBCodes'	=> $this->enableBBCodes,
+				'showSignature'	=> $this->showSignature
 		);
 		$this->objectAction = new ArticleAction(array(), 'create', $data);
 		$resultValues = $this->objectAction->executeAction();
