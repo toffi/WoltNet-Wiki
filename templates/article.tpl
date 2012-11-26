@@ -89,7 +89,7 @@
 					<li class="box24" style="margin-top: 20px;">
 						<hgroup class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.articleCategory{/lang}</h1>
-							<h2><small>{$articleOverview->getCategory()->getTitle()}</small></h2>
+							<h2><small><a title="{$articleOverview->getCategory()->getTitle()}" href="{link application='wiki' controller='Category' object=$article->getCategory()}{/link}">{$articleOverview->getCategory()->getTitle()}</a></small></h2>
 						</hgroup>
 					</li>
 					<li class="box24" style="margin-top: 20px;">
