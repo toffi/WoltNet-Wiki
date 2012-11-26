@@ -74,6 +74,12 @@ class ArticleAddForm extends MessageForm {
 	 */
 	public $enableMultilingualism = true;
 	
+	/**
+	 * @see	wcf\form\MessageForm::$showSignatureSetting
+	 */
+	public $showSignatureSetting = 0;
+	
+	
 	protected $article = null;
 	
 	/**
