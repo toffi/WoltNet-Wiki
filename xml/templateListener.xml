@@ -25,11 +25,11 @@
 			<eventname>tabMenuContent</eventname>
 			<templatecode><![CDATA[{if $templateName == 'articleAdd'}{include file='articlePermissions' application='wiki'}{/if}]]></templatecode>
 		</templatelistener>
-		<templatelistener name="wikiArticleSettings">
+		<templatelistener name="wikiArticleAddSettings">
 			<environment>user</environment>
 			<templatename>messageFormSettings</templatename>
 			<eventname>settings</eventname>
-			<templatecode><![CDATA[{if $templateName == 'articleAdd'}{include file='wikiArticleSettings' application='wiki'}{/if}]]></templatecode>
+			<templatecode><![CDATA[{if $templateName == 'articleAdd'}{include file='wikiArticleAddSettings' application='wiki'}{/if}]]></templatecode>
 		</templatelistener>
 		<templatelistener name="wikiCategorySuggest">
 			<environment>user</environment>
