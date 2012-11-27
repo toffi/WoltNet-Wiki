@@ -79,6 +79,8 @@ class ArticleAddForm extends MessageForm {
 	 */
 	public $showSignatureSetting = 0;
 	
+	public $activateArticle = 0;
+	
 	
 	protected $article = null;
 	
@@ -154,12 +156,11 @@ class ArticleAddForm extends MessageForm {
 				$articleIDs[] = $row['articleID'];
 			}
 				
-			/*$renderedQuotes = MessageQuoteManager::getInstance()->getQuotesByObjectIDs('com.woltnet.wiki.article', $articleIDs);
-			if (!empty($renderedQuotes)) {
-				$this->text = implode("\n", $renderedQuotes);
-			}*/
-			MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
+			if(WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle')) $this->activateArticle = 1;
 		}
+		
+		//manage quotes
+		MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
 	
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
@@ -184,6 +185,7 @@ class ArticleAddForm extends MessageForm {
 	
 		if(isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 		if(isset($_POST['category'])) $this->categoryID = intval($_POST['category']);
+		if(isset($_POST['activateArticle']) && WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle')) $this->activateArticle = intval($_POST['activateArticle']);
 		
 		// quotes
 		MessageQuoteManager::getInstance()->readFormParameters();
@@ -204,8 +206,9 @@ class ArticleAddForm extends MessageForm {
 		WCF::getTPL()->assign(array(
 				'categoryNodeList' 	=> $this->categoryNodeList,
 				'categoryID'		=> $this->categoryID,
-				'username'			=> $this->username,
-				'aclObjectTypeID'	=> $this->aclObjectTypeID
+				'username'		=> $this->username,
+				'aclObjectTypeID'	=> $this->aclObjectTypeID,
+				'activateArticle'	=> $this->activateArticle
 		));
 	}
 	
@@ -270,7 +273,8 @@ class ArticleAddForm extends MessageForm {
 				'languageID' 	=> $this->languageID,
 				'enableSmilies'	=> $this->enableSmilies,
 				'enableHtml'	=> $this->enableHtml,
-				'enableBBCodes'	=> $this->enableBBCodes
+				'enableBBCodes'	=> $this->enableBBCodes,
+				'showSignature'	=> $this->showSignature
 		);
 		$this->objectAction = new ArticleAction(array(), 'create', $data);
 		$resultValues = $this->objectAction->executeAction();
@@ -306,8 +310,13 @@ class ArticleAddForm extends MessageForm {
 			UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'articleUserPermissions', serialize($userPermissions));
 		}
 	
-		ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->articleID);
-	
+		if($this->activateArticle) {
+			$this->article->getEditor()->setActive();
+		}
+		else {
+			ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->articleID);
+		}
+		
 		$this->saved();
 		
 		MessageQuoteManager::getInstance()->saved();
