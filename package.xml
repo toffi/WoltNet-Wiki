@@ -47,9 +47,6 @@
 		<!-- sql -->
 		<instruction type="sql">sql/install.sql</instruction>
 		
-		<!-- style -->
-		<instruction type="style">style/woltnet-wiki-style.tgz</instruction>
-		
 		<!-- config -->
 		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
