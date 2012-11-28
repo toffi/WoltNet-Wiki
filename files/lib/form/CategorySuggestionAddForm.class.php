@@ -1,7 +1,6 @@
 <?php
 namespace wiki\form;
 use wiki\data\category\suggestion\CategorySuggestionEditor;
-
 use wiki\data\category\suggestion\CategorySuggestionAction;
 use wiki\data\category\WikiCategoryNodeList;
 use wiki\data\category\suggestion\CategorySuggestion;
