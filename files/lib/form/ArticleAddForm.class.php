@@ -121,8 +121,9 @@ class ArticleAddForm extends MessageForm {
 	public function readData() {
 		parent::readData();
 	
-		WCF::getSession()->checkPermissions(array('user.wiki.article.write.canAddArticle'));
-	
+		if($this->categoryID == 0) {
+			WCF::getSession()->checkPermissions(array('user.wiki.article.write.canAddArticle'));
+		}
 		// get acl object type id
 		$aclObjectTypeName = 'com.woltnet.wiki.article';
 		if ($aclObjectTypeName) {
