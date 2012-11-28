@@ -42,6 +42,8 @@
 		<item name="wiki.article.articleAdd.category"><![CDATA[zugeordnete Kategorie]]></item>
 		<item name="wiki.article.articleAdd.title"><![CDATA[Artikeltitel]]></item>
 		<item name="wiki.article.articleAdd.text"><![CDATA[Artikeltext]]></item>
+		<item name="wiki.article.articleAdd.activate"><![CDATA[Diesen Artikel aktivieren]]></item>
+		<item name="wiki.article.articleAdd.activate.description"><![CDATA[Wenn Sie diese Option aktivieren, wird der Artikel automatisch freigeschaltet.]]></item>
 		<item name="wiki.article.permissions"><![CDATA[Berechtigungen]]></item>
 		<item name="wiki.article.noneAvailable"><![CDATA[Es wurde noch kein Artikel hinzugefügt.]]></item>
 		<item name="wiki.article.label"><![CDATA[Filter nach Label]]></item>
@@ -60,6 +62,7 @@
 		<item name="wiki.article.versions"><![CDATA[Versionen]]></item>
 		<item name="wiki.article.author"><![CDATA[Autor]]></item>
 		<item name="wiki.article.date"><![CDATA[Datum]]></item>
+		<item name="wiki.article.sidebar.language"><![CDATA[verfügbare Sprachen:]]></item>
 		<item name="wiki.article.sidebar.informations"><![CDATA[Artikelinformationen]]></item>
 		<item name="wiki.article.sidebar.articleName"><![CDATA[Titel]]></item>
 		<item name="wiki.article.sidebar.articleCategory"><![CDATA[zugehörige Kategorie]]></item>

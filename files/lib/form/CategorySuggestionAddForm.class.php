@@ -40,6 +40,11 @@ class CategorySuggestionAddForm extends AbstractForm {
 	public $loginRequired = true;
 	
 	/**
+	 * @see wcf\page\AbstractPage::$neededPermissions
+	 */
+	public $neededPermissions = array('user.wiki.category.write.canSuggestCategories');
+	
+	/**
 	 * category node list
 	 * @var	wiki\data\category\WikiCategoryNodeList
 	 */
@@ -71,9 +76,6 @@ class CategorySuggestionAddForm extends AbstractForm {
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
-		//checks neccassary permissions
-		WCF::getSession()->checkPermissions(array('user.wiki.category.write.canSuggestCategories'));
-		
 		// read categories
 		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
 		
