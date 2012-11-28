@@ -13,7 +13,7 @@
 						<div>
 							<p><a href="{link controller='User' object=$article->getUserProfile()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a><p>
 							
-							{@$item[message]->time|time}
+							{@$article->time|time}
 						</div>
 					</div>
 					
