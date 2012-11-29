@@ -25,6 +25,8 @@
 			new WIKI.Article.Clipboard($editorHandler);
 			new WIKI.Article.Label.Manager('{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
 			
+			new WCF.User.ObjectWatch.Subscribe();
+			
 			WCF.Icon.addObject({
 				'wcf.icon.closed': '{icon}arrowRightColored{/icon}',
 				'wcf.icon.opened': '{icon}arrowDownColored{/icon}'
@@ -37,6 +39,16 @@
 </head>
 
 <body id="tpl{$templateName|ucfirst}">
+
+{capture assign='headerNavigation'}
+	{if $__wcf->user->userID}
+		{if $category->watchID}
+			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="1"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
+		{else}
+			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="0"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
+		{/if}
+	{/if}
+{/capture}
 
 {include file='categorySidebar'}
 

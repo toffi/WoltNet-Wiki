@@ -41,8 +41,8 @@ class LatestArticlesDashboardBox extends AbstractDashboardBoxSidebar {
 		$this->latestArticleList->getConditionBuilder()->add('article.isActive = ?', array('1'));
 		$this->latestArticleList->getConditionBuilder()->add('article.versionID = ?', array('0'));
 		$this->latestArticleList->getConditionBuilder()->add('article.isDeleted = ?', array('0'));
-		if (count(WCF::getUser()->getLanguageIDs())) {
-			$this->latestArticleList->getConditionBuilder()->add('(article.languageID IN (?))', array(WCF::getUser()->getLanguageIDs()));
+		if (count(LanguageFactory::getInstance()->getContentLanguages())) {
+			$this->latestArticleList->getConditionBuilder()->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
 		}
 		$this->latestArticleList->sqlLimit = 5;
 		$this->latestArticleList->sqlOrderBy = 'article.articleID DESC';
