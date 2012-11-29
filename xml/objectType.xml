@@ -58,6 +58,12 @@
 			<classname>wiki\system\user\object\watch\ArticleUserObjectWatch</classname>
 		</type>
 		
+		<type>
+			<name>com.woltnet.wiki.category</name>
+			<definitionname>com.woltlab.wcf.user.objectWatch</definitionname>
+			<classname>wiki\system\user\object\watch\CategoryUserObjectWatch</classname>
+		</type>
+		
 		<!-- clipboard -->
 		<type>
 			<name>com.woltnet.wiki.article</name>

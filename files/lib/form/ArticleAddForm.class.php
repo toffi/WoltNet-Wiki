@@ -274,8 +274,7 @@ class ArticleAddForm extends MessageForm {
 				'languageID' 	=> $this->languageID,
 				'enableSmilies'	=> $this->enableSmilies,
 				'enableHtml'	=> $this->enableHtml,
-				'enableBBCodes'	=> $this->enableBBCodes,
-				'showSignature'	=> $this->showSignature
+				'enableBBCodes'	=> $this->enableBBCodes
 		);
 		$this->objectAction = new ArticleAction(array(), 'create', $data);
 		$resultValues = $this->objectAction->executeAction();
