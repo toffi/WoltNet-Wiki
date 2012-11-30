@@ -42,7 +42,7 @@
 
 {capture assign='headerNavigation'}
 	{if $__wcf->user->userID}
-		{if $category->watchID}
+		{if $category->isWatched()}
 			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="1"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
 		{else}
 			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="0"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
