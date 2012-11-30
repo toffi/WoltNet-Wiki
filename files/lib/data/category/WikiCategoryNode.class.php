@@ -1,6 +1,5 @@
 <?php
 namespace wiki\data\category;
-
 use wiki\system\category\WikiCategoryType;
 
 use wcf\data\category\ViewableCategoryNode;

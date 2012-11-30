@@ -2,7 +2,7 @@
 namespace wiki\data\article;
 
 /**
- * Represents a list of watch articles.
+ * Represents a list of watched articles.
  *
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet

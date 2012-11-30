@@ -7,10 +7,11 @@ use wiki\system\article\ArticlePermissionHandler;
 use wcf\system\WCF;
 use wcf\data\IUserContent;
 use wcf\data\IMessage;
-use wcf\system\language\LanguageFactory;
+use wcf\data\object\type\ObjectTypeCache;
 use wcf\data\category\Category;
 use wcf\data\user\User;
 use wcf\data\user\UserProfile;
+use wcf\system\language\LanguageFactory;
 use wcf\system\request\IRouteController;
 use wcf\system\bbcode\MessageParser;
 use wcf\util\StringUtil;
@@ -247,6 +248,30 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 			return $this->getModeratorPermission('canReadTrashedArticle');
 		}
 		return ($this->getPermission('canViewArticle') && $this->getPermission('canReadArticle'));
+	}
+	
+	/**
+	 * Returns true, if the given User has subscribed this article
+	 * 
+	 * @param	integer	$userID
+	 * @return	boolean
+	 */
+	public function isWatched($userID = 0) {
+		$userID = ($userID > 0) ? $userID : WCF::getUser()->userID;
+		
+		$sql = "SELECT COUNT(*) AS count
+				FROM wcf".WCF_N."_user_object_watch
+				WHERE objectID = ?
+					AND objectTypeID = ?
+					AND userID = ?";
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute(array(
+					$this->articleID,
+					ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.article')->objectTypeID,
+					$userID));
+		$row = $statement->fetchArray();
+		if($row['count'] > 0) return true;
+		return false;
 	}
 
 	/**

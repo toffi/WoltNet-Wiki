@@ -1,11 +1,12 @@
 <?php
 namespace wiki\system\dashboard\box;
 use wiki\data\article\ViewableArticleList;
-use wiki\data\category\Category;
+use wiki\data\category\WikiCategory;
 
 use wcf\data\dashboard\box\DashboardBox;
 use wcf\page\IPage;
 use wcf\system\dashboard\box\AbstractDashboardBoxSidebar;
+use wcf\system\language\LanguageFactory;
 use wcf\system\WCF;
 
 /**
@@ -32,7 +33,7 @@ class UpdatedArticlesDashboardBox extends AbstractDashboardBoxSidebar {
 		parent::init($box, $page);
 
 		// get category id ids
-		$categoryIDs = Category::getAccessibleCategoryIDs(array('canViewCategory', 'canEnterCategory', 'canReadArticle'));
+		$categoryIDs = WikiCategory::getAccessibleCategoryIDs(array('canViewCategory', 'canEnterCategory', 'canReadArticle'));
 		if (!count($categoryIDs)) return;
 
 		// read articles
@@ -44,6 +45,7 @@ class UpdatedArticlesDashboardBox extends AbstractDashboardBoxSidebar {
 		if (count(LanguageFactory::getInstance()->getContentLanguages())) {
 			$this->updatedArticleList->getConditionBuilder()->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
 		}
+		print_r(WCF::getUser()->getLanguageIDs());
 		$this->updatedArticleList->sqlLimit = 5;
 		$this->updatedArticleList->sqlOrderBy = 'article.time DESC';
 		$this->updatedArticleList->readObjects();
