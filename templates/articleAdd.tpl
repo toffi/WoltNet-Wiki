@@ -35,7 +35,7 @@
 {/if}
 
 
-<form method="post" action="{if $action == 'add'}{link controller='ArticleAdd'}{/link}{else}{link controller='ArticleEdit'}{/link}{/if}" id="article{$action|ucfirst}Form">
+<form method="post" action="{if $action == 'add'}{link controller='ArticleAdd'}{/link}{else}{link controller='ArticleEdit' object=$article}{/link}{/if}" id="article{$action|ucfirst}Form">
 	{if $articleID|isset}<input type="hidden" name="articleID" value="{$articleID}" />{/if}
 	<div class="container containerPadding marginTop shadow">
 		<fieldset>
