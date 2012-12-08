@@ -38,7 +38,7 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 
 		$sql = "SELECT		COUNT(*) AS count
 			FROM		wcf".WCF_N."_user_object_watch user_object_watch
-			LEFT JOIN	wiki".WIKI_N."_article article
+			LEFT JOIN	wiki".WCF_N."_article article
 			ON		(article.articleID = user_object_watch.objectID)
 			LEFT JOIN 	wcf".WCF_N."_tracked_visit tracked_article_visit
 			ON 		(tracked_article_visit.objectTypeID = ".VisitTracker::getInstance()->getObjectTypeID('com.woltnet.wiki.article')." AND tracked_article_visit.objectID = article.articleID AND tracked_article_visit.userID = ".$userID.")
@@ -84,7 +84,7 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 		$sql = "SELECT		user_object_watch.objectTypeID, user_object_watch.objectID,
 					article.subject AS title, article.userID, article.username, article.time AS lastChangeTime
 			FROM		wcf".WCF_N."_user_object_watch user_object_watch
-			LEFT JOIN	wiki".WIKI_N."_article article
+			LEFT JOIN	wiki".WCF_N."_article article
 			ON		(article.articleID = user_object_watch.objectID)
 			".$conditionBuilder;
 

@@ -27,7 +27,7 @@ class ArticleCacheBuilder implements ICacheBuilder {
 		$sql = "SELECT
 				articleID
 			FROM
-				wiki".WIKI_N."_article";
+				wiki".WCF_N."_article";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
 		while($row = $statement->fetchArray()) {

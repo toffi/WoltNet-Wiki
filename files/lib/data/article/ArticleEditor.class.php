@@ -84,7 +84,7 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 		$objects = $versionList->getObjects();
 		
 		foreach($objects AS $object) {
-			$sql = "UPDATE wiki".WIKI_N."_article
+			$sql = "UPDATE wiki".WCF_N."_article
 				SET lastPostTime = ?
 					WHERE articleID = ?
 						OR parentID = ?";

@@ -16,6 +16,6 @@ abstract class WIKIDatabaseObject extends DatabaseObject {
 	 * @see	wcf\data\IStorableObject::getDatabaseTableName()
 	 */
 	public static function getDatabaseTableName() {
-		return 'wiki'.WIKI_N.'_'.static::$databaseTableName;
+		return 'wiki'.WCF_N.'_'.static::$databaseTableName;
 	}
 }

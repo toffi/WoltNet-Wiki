@@ -93,7 +93,7 @@ class ArticleEditForm extends MessageForm {
 			$this->subject = $this->article->getTitle();
 	
 			$sql = "SELECT	articleID
-				FROM	wiki".WIKI_N."_article";
+				FROM	wiki".WCF_N."_article";
 			$statement = WCF::getDB()->prepareStatement($sql);
 			$statement->execute();
 			$articleIDs = array();

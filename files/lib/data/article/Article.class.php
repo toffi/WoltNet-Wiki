@@ -119,7 +119,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 	}
 
 	public function getAvailableLanguages($languageIDs) {
-		$sql = "SELECT languageID FROM wiki".WIKI_N."_article
+		$sql = "SELECT languageID FROM wiki".WCF_N."_article
 				WHERE translationID = ?
 					AND languageID IN (?)";
 		$statement = WCF::getDB()->prepareStatement($sql);
@@ -141,7 +141,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 	public function getArticleToLanguage($languageID) {
 		if($this->languageID == $languageID) return $this;
 
-		$sql = "SELECT articleID FROM wiki".WIKI_N."_article
+		$sql = "SELECT articleID FROM wiki".WCF_N."_article
 				WHERE translationID  = ?
 					AND languageID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);

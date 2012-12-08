@@ -21,7 +21,7 @@ class ArticleUtil {
 	public static function getNextTranslationID() {
 		$translationID = 1;
 
-		$sql = "SELECT translationID FROM wiki".WIKI_N."_article` GROUP BY translationID ORDER BY translationID DESC LIMIT 1";
+		$sql = "SELECT translationID FROM wiki".WCF_N."_article` GROUP BY translationID ORDER BY translationID DESC LIMIT 1";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
 		while($row = $statement->fetchArray()) {

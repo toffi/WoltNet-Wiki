@@ -127,7 +127,7 @@ class ArticleSearch extends AbstractSearchableObjectType {
 	 * @see wcf\system\search\ISearchableObjectType::getTableName()
 	 */
 	public function getTableName() {
-		return 'wiki'.WIKI_N.'_article';
+		return 'wiki'.WCF_N.'_article';
 	}
 
 	/**

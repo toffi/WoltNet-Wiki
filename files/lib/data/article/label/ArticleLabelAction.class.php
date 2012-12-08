@@ -166,7 +166,7 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 			$conditions->add("labelID IN (?)", array($labelIDs));
 			
 			$sql = "SELECT	labelID
-				FROM	wiki".WIKI_N."_article_label_to_object
+				FROM	wiki".WCF_N."_article_label_to_object
 				".$conditions;
 			$statement = WCF::getDB()->prepareStatement($sql);
 			$statement->execute($conditions->getParameters());
@@ -228,14 +228,14 @@ class ArticleLabelAction extends AbstractDatabaseObjectAction implements IClipbo
 		$conditions->add("articleID IN (?)", array($this->parameters['articleIDs']));
 		$conditions->add("labelID IN (?)", array($labelIDs));
 		
-		$sql = "DELETE FROM	wiki".WIKI_N."_article_label_to_object
+		$sql = "DELETE FROM	wiki".WCF_N."_article_label_to_object
 			".$conditions;
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute($conditions->getParameters());
 		
 		// assign label ids
 		if (!empty($this->parameters['labelIDs'])) {
-			$sql = "INSERT INTO	wiki".WIKI_N."_article_label_to_object
+			$sql = "INSERT INTO	wiki".WCF_N."_article_label_to_object
 						(labelID, articleID)
 				VALUES		(?, ?)";
 			$statement = WCF::getDB()->prepareStatement($sql);

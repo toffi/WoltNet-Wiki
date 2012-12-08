@@ -149,7 +149,7 @@ class ArticleAddForm extends MessageForm {
 			
 			// get all message ids from current conversation
 			$sql = "SELECT	articleID
-			FROM	wiki".WIKI_N."_article";
+			FROM	wiki".WCF_N."_article";
 			$statement = WCF::getDB()->prepareStatement($sql);
 			$statement->execute();
 			$articleIDs = array();

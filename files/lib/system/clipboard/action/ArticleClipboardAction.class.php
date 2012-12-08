@@ -54,7 +54,7 @@ class ArticleClipboardAction implements IClipboardAction {
 				if(is_object($article)) {
 					// check if category has labels
 					$sql = "SELECT	COUNT(*) AS count
-						FROM	wiki".WIKI_N."_article_label
+						FROM	wiki".WCF_N."_article_label
 						WHERE	categoryID = ?";
 					$statement = WCF::getDB()->prepareStatement($sql);
 					$statement->execute(array($article->categoryID));

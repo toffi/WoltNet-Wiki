@@ -45,7 +45,6 @@ class UpdatedArticlesDashboardBox extends AbstractDashboardBoxSidebar {
 		if (count(LanguageFactory::getInstance()->getContentLanguages())) {
 			$this->updatedArticleList->getConditionBuilder()->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
 		}
-		print_r(WCF::getUser()->getLanguageIDs());
 		$this->updatedArticleList->sqlLimit = 5;
 		$this->updatedArticleList->sqlOrderBy = 'article.time DESC';
 		$this->updatedArticleList->readObjects();

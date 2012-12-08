@@ -103,7 +103,7 @@ class ViewableArticleList extends ArticleList {
 		$conditions->add("labelID IN (?)", array(array_keys($labels)));
 		
 		$sql = "SELECT	labelID, articleID
-			FROM	wiki".WIKI_N."_article_label_to_object
+			FROM	wiki".WCF_N."_article_label_to_object
 			".$conditions;
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute($conditions->getParameters());

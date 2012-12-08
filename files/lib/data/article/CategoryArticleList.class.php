@@ -55,7 +55,7 @@ class CategoryArticleList extends ViewableArticleList {
 		if ($labelID) {
 			$this->getConditionBuilder()->add("article.articleID IN (
 				SELECT	articleID
-				FROM	wiki".WIKI_N."_article_label_to_object
+				FROM	wiki".WCF_N."_article_label_to_object
 				WHERE	labelID = ?
 			)", array($labelID));
 		}
