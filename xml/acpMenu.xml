@@ -6,13 +6,13 @@
 			<showorder>1</showorder>
 		</acpmenuitem>
 		<acpmenuitem name="wiki.acp.menu.link.wiki.category.list">
-			<link>index.php/CategoryList/</link>
+			<controller><![CDATA[wiki\acp\page\CategoryListPage]]></controller>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>1</showorder>
 			<permissions>admin.category.canListCategory</permissions>
 		</acpmenuitem>
 		<acpmenuitem name="wiki.acp.menu.link.wiki.category.add">
-			<link>index.php/CategoryAdd/</link>
+			<controller><![CDATA[wiki\acp\form\CategoryAddForm]]></controller>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>2</showorder>
 			<permissions>admin.category.canAddCategory</permissions>
