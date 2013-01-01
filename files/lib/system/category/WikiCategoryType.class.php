@@ -23,4 +23,11 @@ class WikiCategoryType extends AbstractCategoryType {
 	 * @see wcf\system\category\AbstractCategoryType::$forceDescription
 	 */
 	protected $forceDescription = false;
+	
+	/**
+	* @see  wcf\system\category\ICategoryType::getApplication()
+	*/
+	public function getApplication() {
+		return 'wiki';
+	}
 }
