@@ -5,7 +5,6 @@ use wiki\data\category\Article;
 use wcf\system\acl\ACLHandler;
 use wcf\system\cache\builder\ICacheBuilder;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\system\WCF;
 
 /**
@@ -29,7 +28,7 @@ class ArticlePermissionCacheBuilder implements ICacheBuilder {
 
 		if (count($groupIDs)) {
 			$conditionBuilder = new PreparedStatementConditionBuilder();
-			$conditionBuilder->add('acl_option.packageID IN (?)', array(PackageDependencyHandler::getInstance()->getDependencies()));
+			$conditionBuilder->add('acl_option.packageID IN (?)', array(PACKAGE_ID));
 			$conditionBuilder->add('acl_option.objectTypeID = ?', array(ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')));
 			$conditionBuilder->add('option_to_group.optionID = acl_option.optionID');
 			$conditionBuilder->add('option_to_group.groupID IN (?)', array($groupIDs));

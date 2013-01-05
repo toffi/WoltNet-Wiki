@@ -9,7 +9,6 @@ use wcf\data\IMessageQuoteAction;
 use wcf\system\visitTracker\VisitTracker;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\data\IClipboardAction;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\system\exception\UserInputException;
 use wcf\system\exception\ValidateActionException;
 use wcf\system\exception\PermissionDeniedException;
@@ -241,7 +240,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 
 		// reset storage
 		if (WCF::getUser()->userID) {
-			UserStorageHandler::getInstance()->reset(array(WCF::getUser()->userID), 'unreadArticles', PackageDependencyHandler::getInstance()->getPackageID('com.woltnet.wiki'));
+			UserStorageHandler::getInstance()->reset(array(WCF::getUser()->userID), 'unreadArticles', PACKAGE_ID);
 		}
 	}
 

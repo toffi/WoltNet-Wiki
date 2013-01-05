@@ -19,7 +19,6 @@ use wcf\data\moderation\queue\ModerationQueueActivationAction;
 use wcf\system\moderation\queue\ModerationQueueActivationManager;
 use wcf\system\exception\UserInputException;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\acl\ACLHandler;
 use wcf\system\breadcrumb\Breadcrumb;
@@ -291,7 +290,7 @@ class ArticleAddForm extends MessageForm {
 			$userPermissions = array();
 	
 			$conditionBuilder = new PreparedStatementConditionBuilder();
-			$conditionBuilder->add('acl_option.packageID IN (?)', array(PackageDependencyHandler::getInstance()->getDependencies()));
+			$conditionBuilder->add('acl_option.packageID IN (?)', array(PACKAGE_ID));
 			$conditionBuilder->add('acl_option.objectTypeID = ?', array(ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')));
 			$conditionBuilder->add('option_to_user.optionID = acl_option.optionID');
 			$conditionBuilder->add('option_to_user.userID = ?', array(WCF::getUser()->userID));
