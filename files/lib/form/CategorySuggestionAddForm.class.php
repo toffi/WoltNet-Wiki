@@ -7,7 +7,6 @@ use wiki\data\category\suggestion\CategorySuggestion;
 
 use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\util\HeaderUtil;
 use wcf\util\StringUtil;
 use wcf\system\category\CategoryHandler;
