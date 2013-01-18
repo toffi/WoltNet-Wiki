@@ -24,4 +24,5 @@ Follow the above conventions if you want your pull requests accepted.
 License
 -------
 
-Woltnet License <http://www.woltnet.com/license.html>
+GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
+ 
