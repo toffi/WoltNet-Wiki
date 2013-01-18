@@ -51,17 +51,17 @@ class CategoryPage extends SortablePage {
 	/**
 	 * @see wcf\page\MultipleLinkPage::$itemsPerPage
 	 */
-	public $itemsPerPage = WIKI_CATEGORY_ARTICLES_PER_PAGE;
+	public $itemsPerPage = CATEGORY_ARTICLES_PER_PAGE;
 	
 	/**
 	 * @see wcf\page\SortablePage::$defaultSortField
 	 */
-	public $defaultSortField = WIKI_CATEGORY_DEFAULT_SORT_FIELD;
+	public $defaultSortField = CATEGORY_DEFAULT_SORT_FIELD;
 	
 	/**
 	 * @see wcf\page\SortablePage::$defaultSortField
 	 */
-	public $defaultSortOrder = WIKI_CATEGORY_DEFAULT_SORT_ORDER;
+	public $defaultSortOrder = CATEGORY_DEFAULT_SORT_ORDER;
 	
 	/**
 	 * @see wcf\page\SortablePage::$validSortFields

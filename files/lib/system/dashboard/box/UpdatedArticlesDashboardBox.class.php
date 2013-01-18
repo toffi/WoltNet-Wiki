@@ -5,7 +5,7 @@ use wiki\data\category\WikiCategory;
 
 use wcf\data\dashboard\box\DashboardBox;
 use wcf\page\IPage;
-use wcf\system\dashboard\box\AbstractDashboardBoxSidebar;
+use wcf\system\dashboard\box\AbstractSidebarDashboardBox;
 use wcf\system\language\LanguageFactory;
 use wcf\system\WCF;
 
@@ -18,7 +18,7 @@ use wcf\system\WCF;
  * @subpackage	system.dashboard.box
  * @category 	WoltNet Wiki
  */
-class UpdatedArticlesDashboardBox extends AbstractDashboardBoxSidebar {
+class UpdatedArticlesDashboardBox extends AbstractSidebarDashboardBox {
 
 	/**
 	 * updated article list

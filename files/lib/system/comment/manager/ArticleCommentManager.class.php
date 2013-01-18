@@ -35,4 +35,32 @@ class ArticleCommentManager extends AbstractCommentManager {
 
 		return true;
 	}
+	
+	/**
+	 * @see wcf\system\comment\manager\AbstractCommentManager::getLink()
+	 */
+	public function getLink($objectTypeID, $objectID) {
+		return "";
+	}
+	
+	/**
+	 * @see wcf\system\comment\manager\AbstractCommentManager::getTitle()
+	 */
+	public function getTitle($objectTypeID, $objectID, $isResponse = false) {
+		return "";
+	}
+	
+	/**
+	 * @see wcf\system\comment\manager\AbstractCommentManager::isAccessible()
+	 */
+	public function isAccessible($objectID) {
+		return true;
+	}
+	
+	/**
+	 * @see wcf\system\comment\manager\AbstractCommentManager::updateCounter()
+	 */
+	public function updateCounter($objectID, $value) {
+		
+	}
 }

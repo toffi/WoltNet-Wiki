@@ -62,7 +62,7 @@ class ViewableArticleList extends ArticleList {
 		$labels = $this->loadLabelAssignments();
 		
 		foreach ($this->objects as $articleID => $article) {
-			$this->objects[$articleID] = new $this->decoratorClassName($article);
+			$this->objects[$articleID] = $article;
 			
 			if (isset($labels[$articleID])) {
 				foreach ($labels[$articleID] as $label) {

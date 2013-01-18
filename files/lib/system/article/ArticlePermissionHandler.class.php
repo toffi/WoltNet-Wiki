@@ -6,7 +6,6 @@ use wiki\data\article\ArticleCache;
 use wcf\system\acl\ACLHandler;
 use wcf\system\cache\CacheHandler;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
@@ -52,7 +51,7 @@ class ArticlePermissionHandler extends SingletonFactory {
 				$userPermissions = array();
 
 				$conditionBuilder = new PreparedStatementConditionBuilder();
-				$conditionBuilder->add('acl_option.packageID IN (?)', array(PackageDependencyHandler::getInstance()->getDependencies()));
+				$conditionBuilder->add('acl_option.packageID IN (?)', array(PACKAGE_ID));
 				$conditionBuilder->add('acl_option.objectTypeID = ?', array(ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')));
 				$conditionBuilder->add('option_to_user.optionID = acl_option.optionID');
 				$conditionBuilder->add('option_to_user.userID = ?', array(WCF::getUser()->userID));

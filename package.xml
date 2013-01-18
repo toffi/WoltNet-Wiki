@@ -28,8 +28,8 @@
 		<requiredpackage file="requirements/com.woltlab.wcf.like.tar">com.woltlab.wcf.like</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.message.sidebar.tar">com.woltlab.wcf.message.sidebar</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.search.tar">com.woltlab.wcf.search</requiredpackage>
+        <requiredpackage file="requirements/com.woltlab.wcf.moderation.tar">com.woltlab.wcf.moderation</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.comment.tar">com.woltlab.wcf.comment</requiredpackage>
-		<requiredpackage file="requirements/com.woltlab.wcf.moderation.tar">com.woltlab.wcf.moderation</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.acp.style.tar">com.woltlab.wcf.acp.style</requiredpackage>
 		<requiredpackage file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>

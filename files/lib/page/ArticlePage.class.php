@@ -77,7 +77,7 @@ class ArticlePage extends AbstractPage {
 		$objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
 		$commentManager = $objectType->getProcessor();
 
-		$this->commentList = CommentHandler::getInstance()->getCommentList($objectTypeID, $commentManager, $this->articleID);
+		$this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
 	}
 
 	/**
