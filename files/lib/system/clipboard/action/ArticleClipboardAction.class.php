@@ -24,6 +24,11 @@ class ArticleClipboardAction implements IClipboardAction {
 	public $articles = null;
 	
 	/**
+	 * @see	wcf\system\clipboard\action\AbstractClipboardAction::$supportedActions
+	 */
+	protected $supportedActions = array('assignLabel', 'trash', 'delete', 'restore', 'enable');
+	
+	/**
 	 * @see	wcf\system\clipboard\action\IClipboardAction::getTypeName()
 	 */
 	public function getTypeName() {

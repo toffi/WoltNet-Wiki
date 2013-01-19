@@ -45,7 +45,7 @@
 			</dl>
 			<dl>
 				<dt>{lang}wiki.acp.index.system.wiki.installationDate{/lang}</dt>
-				<dd>{@WIKI_INSTALL_DATE|time}</dd>
+				<dd>{@INSTALL_DATE|time}</dd>
 			</dl>
 			<dl>
 				<dt>{lang}wiki.acp.index.system.wcf.version{/lang}</dt>

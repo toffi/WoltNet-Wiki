@@ -71,7 +71,7 @@ class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenu
 				'commentList' 			=> $this->commentList,
 				'commentObjectTypeID'		=> $this->objectTypeID,
 				'commentCanAdd' 		=> $this->commentManager->canAdd($this->articleID),
-				'commentsPerPage' 		=> $this->commentManager->commentsPerPage()
+				'commentsPerPage' 		=> $this->commentManager->getCommentsPerPage()
 		));
 		return WCF::getTPL()->fetch('articleCommentList', 'wiki');
 	}

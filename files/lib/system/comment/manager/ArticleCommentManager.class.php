@@ -17,23 +17,6 @@ class ArticleCommentManager extends AbstractCommentManager {
 	 * @see wcf\system\SingletonFactory::init()
 	 */
 	protected function init() {
-		if (WCF::getUser()->userID) {
-			// TODO: check permissions
-			$this->canAdd = true;
-			$this->canDelete = true;
-			$this->canEdit = true;
-		}
-	}
-
-	/**
-	 * @see wcf\system\comment\manager\AbstractCommentManager::canAdd()
-	 */
-	public function canAdd($objectID) {
-		if (!$this->canAdd) {
-			return false;
-		}
-
-		return true;
 	}
 	
 	/**
