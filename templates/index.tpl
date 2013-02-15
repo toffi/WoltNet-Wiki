@@ -38,7 +38,7 @@
 		<ul>
 		{content}
 			{if $categoryList|count > 0 && $__wcf->session->getPermission('user.wiki.article.write.canAddArticle')}
-				<li><a href="{link application='wiki' controller='ArticleAdd'}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><img src="{icon size='M'}asterisk{/icon}" alt="" class="icon24" /> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
+				<li><a href="{link application='wiki' controller='ArticleAdd'}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><span class="icon icon24 icon-asterisk"></span> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
 			{/if}
 			{event name='largeButtonsTop'}
 		{/content}
@@ -53,7 +53,7 @@
 	<ul class="containerList">
 		{if INDEX_ENABLE_STATS}
 			<li class="box24">
-				<img src="{icon}chartVertical{/icon}" alt="" class="icon24" />
+				<span class="icon icon24 icon-chartVertical"></span>
 				<div>
 					<hgroup class="containerHeadline">
 						<h1>{lang}wiki.global.statistics{/lang}</h1>

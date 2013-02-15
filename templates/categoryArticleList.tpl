@@ -8,10 +8,10 @@
 			<thead>
 				<tr>
 					<th class="columnMark"><label><input type="checkbox" class="jsClipboardMarkAll" /></label></th>
-					<th colspan="2" class="columnTitle columnSubject{if $sortField == 'subject'} active{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=subject&sortOrder={if $sortField == 'subject' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.articleName{/lang}{if $sortField == 'subject'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
-					<th class="columnDigits columnComments{if $sortField == 'comments'} active{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=comments&sortOrder={if $sortField == 'comments' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.comments{/lang}{if $sortField == 'comments'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
-					<th class="columnDigits columnAuthor{if $sortField == 'username'} active{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=username&sortOrder={if $sortField == 'username' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.author{/lang}{if $sortField == 'username'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
-					<th class="columnText columnLastPost{if $sortField == 'time'} active{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=time&sortOrder={if $sortField == 'time' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.time{/lang}{if $sortField == 'time'} <img src="{icon}sort{@$sortOrder}{/icon}" alt="" />{/if}</a></th>
+					<th colspan="2" class="columnTitle columnSubject{if $sortField == 'subject'} active {@$sortOrder}{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}pageNo={@$pageNo}&sortField=subject&sortOrder={if $sortField == 'subject' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.articleName{/lang}</a></th>
+					<th class="columnDigits columnComments{if $sortField == 'comments'} active {@$sortOrder}{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=comments&sortOrder={if $sortField == 'comments' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.comments{/lang}</a></th>
+					<th class="columnDigits columnAuthor{if $sortField == 'username'} active {@$sortOrder}{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=username&sortOrder={if $sortField == 'username' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.author{/lang}</a></th>
+					<th class="columnText columnLastPost{if $sortField == 'time'} active {@$sortOrder}{/if}"><a href="{link controller='Category' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=time&sortOrder={if $sortField == 'time' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.time{/lang}</a></th>
 				</tr>
 			</thead>
 			
@@ -23,7 +23,7 @@
 						</td>
 						<td class="columnIcon columnAvatar">
 							<div>
-								<p class="framed"><img src="{icon}documentColored{/icon}" class="icon32"></p>
+								<p class="framed"><span class="icon icon32 icon-file"></span></p>
 							</div>
 						</td>
 						<td class="columnText columnSubject">

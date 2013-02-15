@@ -26,11 +26,6 @@
 			new WIKI.Article.Label.Manager('{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
 			
 			new WCF.User.ObjectWatch.Subscribe();
-			
-			WCF.Icon.addObject({
-				'wcf.icon.closed': '{icon}arrowRightColored{/icon}',
-				'wcf.icon.opened': '{icon}arrowDownColored{/icon}'
-			});
 
 			WCF.Collapsible.Simple.init();
 		});
@@ -43,9 +38,9 @@
 {capture assign='headerNavigation'}
 	{if $__wcf->user->userID}
 		{if $category->isWatched()}
-			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="1"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
+			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="1"><span class="icon icon16 icon-bookmark"></span><span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
 		{else}
-			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="0"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
+			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="0"><span class="icon icon16 icon-bookmark-empty"></span><span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
 		{/if}
 	{/if}
 {/capture}
@@ -67,7 +62,7 @@
 	<nav>
 		<ul>
 			{if $category->getPermission('canAddArticle')}
-				<li><a href="{link application='wiki' controller='ArticleAdd' object=$category}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><img src="{icon size='M'}asterisk{/icon}" alt="" class="icon24" /> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
+				<li><a href="{link application='wiki' controller='ArticleAdd' object=$category}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><span class="icon icon24 icon-asterisk"></span><span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
 			{/if}
 			{event name='largeButtonsTop'}
 		</ul>
