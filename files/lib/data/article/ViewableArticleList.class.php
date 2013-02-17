@@ -30,7 +30,7 @@ class ViewableArticleList extends ArticleList {
 	public $labelList = null;
 	
 	/**
-	 * Creates a new ViewableProjectList object.
+	 * Creates a new ViewableArticleList object.
 	 */
 	public function __construct() {
 		parent::__construct();
