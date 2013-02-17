@@ -1,5 +1,6 @@
 <?php
 namespace wiki\data\article;
+use wiki\system\cache\builder\ArticleCacheBuilder;
 
 use wcf\system\cache\CacheHandler;
 use wcf\system\SingletonFactory;
@@ -27,8 +28,7 @@ class ArticleCache extends SingletonFactory {
 	 */
 	protected function init() {
 		// get article cache
-		CacheHandler::getInstance()->addResource('articles', WIKI_DIR.'cache/cache.articles.php', 'wiki\system\cache\builder\ArticleCacheBuilder');
-		$this->cachedArticles = CacheHandler::getInstance()->get('articles', 'articles');
+		$this->cachedArticles = ArticleCacheBuilder::getInstance()->getData();
 	}
 
 	/**
@@ -38,11 +38,11 @@ class ArticleCache extends SingletonFactory {
 	 * @return	wiki\data\article\ViewableArticle
 	 */
 	public function getArticle($articleID) {
-		if (!isset($this->cachedArticles[$articleID])) {
+		if (!isset($this->cachedArticles['articles'][$articleID])) {
 			return null;
 		}
 
-		return $this->cachedArticles[$articleID];
+		return $this->cachedArticles['articles'][$articleID];
 	}
 
 	/**
@@ -51,6 +51,6 @@ class ArticleCache extends SingletonFactory {
 	 * @return	array<wiki\data\ViewableArticle>
 	 */
 	public function getArticles() {
-		return $this->cachedArticles;
+		return $this->cachedArticles['articles'];
 	}
 }

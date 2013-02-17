@@ -2,6 +2,7 @@
 namespace wiki\system\article;
 use wiki\data\article\Article;
 use wiki\data\article\ArticleCache;
+use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
 
 use wcf\system\acl\ACLHandler;
 use wcf\system\cache\CacheHandler;
@@ -34,10 +35,8 @@ class ArticlePermissionHandler extends SingletonFactory {
 	protected function init() {
 		// get groups permissions
 		$groups = implode(',', WCF::getUser()->getGroupIDs());
-		$groupsFileName = StringUtil::getHash(implode('-', WCF::getUser()->getGroupIDs()));
-		CacheHandler::getInstance()->addResource('articlePermission-'.$groups, WIKI_DIR.'cache/cache.articlePermission-'.$groupsFileName.'.php', 'wiki\system\cache\builder\ArticlePermissionCacheBuilder');
-		$this->articlePermissions = CacheHandler::getInstance()->get('articlePermission-'.$groups);
-
+		$this->articlePermissions = ArticlePermissionCacheBuilder::getInstance()->getData(array('groups' => $groups));
+		
 		// get user permissions
 		if (WCF::getUser()->userID) {
 			// get data from storage

@@ -3,7 +3,7 @@ namespace wiki\system\cache\builder;
 use wiki\data\category\Article;
 
 use wcf\system\acl\ACLHandler;
-use wcf\system\cache\builder\ICacheBuilder;
+use wcf\system\cache\builder\AbstractCacheBuilder;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
 
@@ -16,15 +16,14 @@ use wcf\system\WCF;
  * @subpackage	system.cache.builder
  * @category 	WoltNet Wiki
  */
-class ArticlePermissionCacheBuilder implements ICacheBuilder {
+class ArticlePermissionCacheBuilder extends AbstractCacheBuilder {
 
 	/**
 	 * @see wcf\system\cache\ICacheBuilder::getData()
 	 */
-	public function getData(array $cacheResource) {
+	public function rebuild(array $parameters) {
 		$data = array();
-		list($cache, $groupIDsStr) = explode('-', $cacheResource['cache']);
-		$groupIDs = explode(',', $groupIDsStr);
+		$groupIDs = explode(',', $parameters['groups']);
 
 		if (count($groupIDs)) {
 			$conditionBuilder = new PreparedStatementConditionBuilder();

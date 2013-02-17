@@ -86,6 +86,26 @@ class ArticleSearch extends AbstractSearchableObjectType {
 			}
 		}
 	}
+	
+	/**
+	 * @see	wcf\system\search\ISearchableObjectType::cacheObjects()
+	 */
+	public function cacheObjects(array $objectIDs, array $additionalData = null) {
+		$messageList = new SearchResultConversationMessageList();
+		$messageList->getConditionBuilder()->add('conversation_message.messageID IN (?)', array($objectIDs));
+		$messageList->readObjects();
+		foreach ($messageList->getObjects() as $message) {
+			$this->messageCache[$message->messageID] = $message;
+		}
+	}
+	
+	/**
+	 * @see	wcf\system\search\ISearchableObjectType::getObject()
+	 */
+	public function getObject($objectID) {
+		if (isset($this->messageCache[$objectID])) return $this->messageCache[$objectID];
+		return null;
+	}
 
 	/**
 	 * @see wcf\system\search\ISearchableObjectType::cacheMessageData()

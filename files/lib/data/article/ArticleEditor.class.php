@@ -1,6 +1,8 @@
 <?php
 namespace wiki\data\article;
 use wiki\util\ArticleUtil;
+use wiki\system\cache\builder\ArticleCacheBuilder;
+use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
 
 use wcf\data\DatabaseObjectEditor;
 use wcf\system\cache\CacheHandler;
@@ -97,7 +99,7 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 	 * @see	wcf\data\IEditableCachedObject::resetCache()
 	 */
 	public static function resetCache() {
-		CacheHandler::getInstance()->clear(WIKI_DIR.'cache', 'cache.articles.php');
-		CacheHandler::getInstance()->clear(WIKI_DIR.'cache', 'cache.categories.php');
+		ArticleCacheBuilder::getInstance()->reset();
+		ArticlePermissionCacheBuilder::getInstance()->reset();
 	}
 }

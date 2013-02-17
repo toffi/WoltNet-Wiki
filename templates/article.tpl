@@ -30,9 +30,9 @@
 {capture assign='headerNavigation'}
 	{if $__wcf->user->userID}
 		{if $article->isWatched()}
-			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.article" data-object-id="{@$article->articleID}" data-subscribed="1"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
+			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.article" data-object-id="{@$article->articleID}" data-subscribed="1"><span class="icon icon16 icon-bookmark"></span> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
 		{else}
-			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.article" data-object-id="{@$article->articleID}" data-subscribed="0"><img src="{icon}bookmarkColored{/icon}" class="icon16" alt="" /> <span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
+			<li><a title="{lang}wcf.user.watchedObjects.subscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.article" data-object-id="{@$article->articleID}" data-subscribed="0"><span class="icon icon16 icon-bookmark-empty"></span> <span class="invisible">{lang}wcf.user.watchedObjects.subscribe{/lang}</span></a></li>
 		{/if}
 	{/if}
 {/capture}
@@ -107,14 +107,14 @@
 			<div class="container wikiArticleInfo">
 				<ul class="sidebarBoxList containerList">
 					<li class="sidebarBox box24">
-						<p><img src="{icon}link{/icon}" alt="" onclick="document.getElementById('articleLink').select()" class="icon24" /></p>
+						<p><span onclick="document.getElementById('articleLink').select()" class="icon icon24 icon-link"></span></p>
 						<hgroup class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLink" readonly="readonly" onclick="this.select()" value="{link application='wiki' controller='Article' object=$article}{/link}" /></h1>
 							<h2 onclick="document.getElementById('articleLink').select()"><small>{lang}wiki.article.sidebar.share.description{/lang}</small></h2>
 						</hgroup>
 					</li>
 					<li class="sidebarBox box24">
-						<p><img src="{icon}alt{/icon}" alt="" onclick="document.getElementById('projectLinkBBCode').select()" class="icon24" /></p>
+						<p><span onclick="document.getElementById('articleLinkBBCode').select()" class="icon icon24 icon-share"></span></p>
 						<hgroup class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLinkBBCode" readonly="readonly" onclick="this.select()" value="[url='{link application='wiki' controller='Article' object=$article}{/link}']{$article->getTitle()}[/url]" /></h1>
 							<h2 onclick="document.getElementById('articleLinkBBCode').select()"><small>{lang}wiki.article.sidebar.share.bbcode.description{/lang}</small></h2>

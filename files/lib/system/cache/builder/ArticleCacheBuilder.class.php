@@ -6,7 +6,7 @@ use wiki\data\article\Article;
 use wcf\system\event\EventHandler;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
-use wcf\system\cache\builder\ICacheBuilder;
+use wcf\system\cache\builder\AbstractCacheBuilder;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -15,11 +15,11 @@ use wcf\system\cache\builder\ICacheBuilder;
  * @subpackage	system.cache.builder
  * @category 	WoltNet - Wiki
  */
-class ArticleCacheBuilder implements ICacheBuilder {
+class ArticleCacheBuilder extends AbstractCacheBuilder {
 	/**
 	 * @see wcf\system\cache\ICacheBuilder::getData()
 	 */
-	public function getData(array $cacheResource) {
+	public function rebuild(array $parameters) {
 		$data = array(
 			'articles' => array()
 		);
