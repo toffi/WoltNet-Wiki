@@ -53,7 +53,7 @@
 	<ul class="containerList">
 		{if INDEX_ENABLE_STATS}
 			<li class="box24">
-				<span class="icon icon24 icon-chartVertical"></span>
+				<span class="icon icon24 icon-bar-chart"></span>
 				<div>
 					<hgroup class="containerHeadline">
 						<h1>{lang}wiki.global.statistics{/lang}</h1>

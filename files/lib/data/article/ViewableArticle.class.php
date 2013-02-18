@@ -58,6 +58,21 @@ class ViewableArticle extends DatabaseObjectDecorator {
 
 		return $this->userProfile;
 	}
+	
+	/**
+	 * Gets a specific article decorated as viewable article.
+	 *
+	 * @param integer $projectID
+	 * @return wiki\data\article\ViewableArticleList
+	 */
+	public static function getArticle($articleID) {
+		$list = new ViewableArticleList();
+		$list->getConditionBuilder()->add('article.articleID = ?', array($articleID));
+		$list->readObjects();
+		$objects = $list->getObjects();
+		if (isset($objects[$articleID])) return $objects[$articleID];
+		return null;
+	}
 
 	/**
 	 * Returns the effective visit time.
