@@ -909,7 +909,7 @@ WIKI.Article.Label.Manager = Class.extend({
 	_addLabel: function() {
 		var $labelName = $('#labelName').val();
 		var $cssClassName = $('#labelManagementList input:checked').val();
-		var $categoryID = $('#wikiLabelManagementForm').data('categoryID');
+		var $categoryID = $('#articleLabelManagementForm').data('categoryID');
 		
 		this._proxy.setOption('data', {
 			actionName: 'add',

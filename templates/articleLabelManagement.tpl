@@ -14,7 +14,7 @@
 	<small>{lang}wiki.article.label.management.edit.description{/lang}</small>
 {/hascontent}
 
-<fieldset id="wikiLabelManagementForm" data-category-id="{$categoryID}">
+<fieldset id="articleLabelManagementForm" data-category-id="{$categoryID}">
 	<legend>{lang}wiki.article.label.management.addLabel{/lang}</legend>
 	
 	<dl>
