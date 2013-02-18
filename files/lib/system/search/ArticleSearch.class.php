@@ -68,7 +68,7 @@ class ArticleSearch extends AbstractSearchableObjectType {
 	/**
 	 * @see wcf\system\search\ISearchableObjectType::cacheMessageData()
 	 */
-	public function cacheMessageData(array $objectIDs, array $additionalData = null) {
+	/*public function cacheMessageData(array $objectIDs, array $additionalData = null) {
 		if ($additionalData !== null && !empty($additionalData['findArticles'])) {
 			WCF::getTPL()->assign('findArticles', 1);
 			$articleList = new SearchResultArticleList();
@@ -85,17 +85,17 @@ class ArticleSearch extends AbstractSearchableObjectType {
 				$this->messageCache[$article->articleID] = array('type' => 'com.woltnet.wiki.article', 'message' => $article);
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * @see	wcf\system\search\ISearchableObjectType::cacheObjects()
 	 */
 	public function cacheObjects(array $objectIDs, array $additionalData = null) {
-		$messageList = new SearchResultConversationMessageList();
-		$messageList->getConditionBuilder()->add('conversation_message.messageID IN (?)', array($objectIDs));
-		$messageList->readObjects();
-		foreach ($messageList->getObjects() as $message) {
-			$this->messageCache[$message->messageID] = $message;
+		$articleList = new SearchResultArticleList();
+		$articleList->getConditionBuilder()->add('article.articleID IN (?)', array($objectIDs));
+		$articleList->readObjects();
+		foreach ($articleList->getObjects() as $article) {
+			$this->messageCache[$article->articleID] = $article;
 		}
 	}
 	
@@ -108,12 +108,12 @@ class ArticleSearch extends AbstractSearchableObjectType {
 	}
 
 	/**
-	 * @see wcf\system\search\ISearchableObjectType::cacheMessageData()
+	 * @see wcf\system\search\ISearchableObjectType::getMessageData()
 	 */
-	public function getMessageData($objectID) {
+	/*public function getMessageData($objectID) {
 		if (isset($this->messageCache[$objectID])) return $this->messageCache[$objectID];
 		return null;
-	}
+	}*/
 
 	/**
 	 * @see wcf\system\search\ISearchableObjectType::getFormTemplateName()

@@ -45,13 +45,6 @@ class ViewableArticle extends DatabaseObjectDecorator {
 	 */
 	protected $labels = array();
 	
-	/**
-	 * Returns the formatted Message of this object
-	 */
-	public function getFormattedMessage() {
-		MessageParser::getInstance()->setOutputType('text/html');
-		return MessageParser::getInstance()->parse($this->getMessage(), $this->enableSmilies, $this->enableHtml, $this->enableBBCodes);
-	}
 
 	/**
 	 * Returns the user profile object.
@@ -64,21 +57,6 @@ class ViewableArticle extends DatabaseObjectDecorator {
 		}
 
 		return $this->userProfile;
-	}
-
-	/**
-	 * Gets a specific article decorated as viewable article.
-	 *
-	 * @param	integer		$projectID
-	 * @return	wiki\data\article\ViewableArticleList
-	 */
-	public static function getArticle($articleID) {
-		$list = new ViewableArticleList();
-		$list->getConditionBuilder()->add('article.articleID = ?', array($articleID));
-		$list->readObjects();
-		$objects = $list->getObjects();
-		if (isset($objects[$articleID])) return $objects[$articleID];
-		return null;
 	}
 
 	/**

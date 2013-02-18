@@ -65,15 +65,15 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 	}
 	
 	/**
-	 * @see	wcf\data\IMessage::getFormattedMessage()
+	 * Returns the formatted Message of this object
 	 */
 	public function getFormattedMessage() {
-		$article = ViewableArticle::getArticle($this->articleID);
-		return $article->getFormattedMessage();
+		MessageParser::getInstance()->setOutputType('text/html');
+		return MessageParser::getInstance()->parse($this->message, $this->enableSmilies, $this->enableHtml, $this->enableBBCodes);
 	}
 	
 	/**
-	 * @see	wcf\data\IMessage::getMessage()
+	 * @see wcf\data\IMessage::getMessage()
 	 */
 	public function getMessage() {
 		return $this->message;

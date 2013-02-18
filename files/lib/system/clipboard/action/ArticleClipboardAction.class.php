@@ -1,7 +1,7 @@
 <?php
 namespace wiki\system\clipboard\action;
 use wcf\system\clipboard\ClipboardEditorItem;
-use wcf\system\clipboard\action\IClipboardAction;
+use wcf\system\clipboard\action\AbstractClipboardAction;
 use wcf\system\exception\SystemException;
 use wcf\system\WCF;
 
@@ -15,7 +15,7 @@ use wcf\system\WCF;
  * @subpackage	system.clipboard.action
  * @category	WoltNet Wiki
  */
-class ArticleClipboardAction implements IClipboardAction {
+class ArticleClipboardAction extends AbstractClipboardAction {
 	/**
 	 * list of conversations
 	 * 

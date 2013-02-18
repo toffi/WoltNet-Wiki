@@ -1,7 +1,9 @@
 <?php
 namespace wiki\data\article;
 use wcf\system\bbcode\KeywordHighlighter;
-use wcf\util\StringUtil;
+use wcf\data\search\ISearchResultObject;
+use wcf\system\request\LinkHandler;
+use wcf\system\search\SearchResultTextParser;
 
 /**
  * Represents a list of search result.
@@ -13,14 +15,82 @@ use wcf\util\StringUtil;
  * @subpackage	data.article
  * @category 	Woltnet - Wiki
  */
-class SearchResultArticle extends ViewableArticle {
-
+class SearchResultArticle extends ViewableArticle implements ISearchResultObject {
 	/**
-	 * Gets a highlighted topic.
-	 *
-	 * @return string
+	 * article object
+	 * @var wiki\data\article\Article
 	 */
-	public function getHighlightedTopic() {
-		return KeywordHighlighter::getInstance()->doHighlight(StringUtil::encodeHTML($this->subject));
+	public $article = null;
+	
+	/**
+	 * Returns the article object.
+	 *
+	 * @return wiki\data\article\Article
+	 */
+	public function getArticle() {
+		if ($this->article === null) {
+			$this->article = new Article(null, array(
+					'articleID' => $this->articleID,
+					'subject' => $this->subject
+			));
+		}
+	
+		return $this->article;
+	}
+	
+	/**
+	* @see wiki\data\article\Article::getFormattedMessage()
+	*/
+	public function getFormattedMessage() {
+		return SearchResultTextParser::getInstance()->parse($this->getDecoratedObject()->getFormattedMessage());
+	}
+	
+	/**
+	* @see wcf\data\search\ISearchResultObject::getSubject()
+	*/
+	public function getSubject() {
+		return $this->subject;
+	}
+	
+	/**
+	* @see wcf\data\search\ISearchResultObject::getLink()
+	*/
+	public function getLink($query = '') {
+		if ($query) {
+			return LinkHandler::getInstance()->getLink('Article', array(
+				'object' => $this->getArticle(),
+				'highlight' => urlencode($query)
+			));
+		}
+		
+		return $this->getDecoratedObject()->getLink();
+	}
+	
+	/**
+	 * @see wcf\data\search\ISearchResultObject::getTime()
+	 */
+	public function getTime() {
+		return $this->time;
+	}
+	
+	/**
+	 * @see wcf\data\search\ISearchResultObject::getObjectTypeName()
+	 */
+	public function getObjectTypeName() {
+		return 'com.woltnet.wiki.article';
+	}
+	
+	/**
+	 * @see wcf\data\search\ISearchResultObject::getContainerTitle()
+	 */
+	public function getContainerTitle() {
+		return '';
+	}
+	
+	/**
+	 * @see wcf\data\search\ISearchResultObject::getContainerLink()
+	 */
+	public function getContainerLink() {
+		return '';
 	}
 }
