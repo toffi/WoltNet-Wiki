@@ -4,6 +4,26 @@
 	<title>{lang}wiki.article.article{$action|ucfirst}{/lang} - {PAGE_TITLE|language}</title>
 
 	{include file='headInclude'}
+	
+	{if $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}
+		{include file='aclPermissions'}
+
+		<script type="text/javascript">
+			//<![CDATA[
+			$(function() {
+				new WCF.ACL.List($('#articlePermissions'), {@$aclObjectTypeID}{if $groupID|isset}, '', {@$groupID}{/if});
+			});
+			//]]>
+		</script>
+	{/if}
+	<script type="text/javascript">
+		//<![CDATA[
+		$(function() {
+			{include file='__messageQuoteManager' wysiwygSelector='text' supportPaste=true}
+			new WIKI.Article.QuoteHandler($quoteManager);
+		});
+		//]]>
+	</script>
 </head>
 
 <body id="tpl{$templateName|ucfirst}">
@@ -15,20 +35,6 @@
 		<h1>{lang}wiki.article.article{$action|ucfirst}{/lang}</h1>
 	</hgroup>
 </header>
-{if $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}
-{include file='aclPermissions'}
-
-<script type="text/javascript">
-	//<![CDATA[
-	$(function() {
-		new WCF.ACL.List($('#articlePermissions'), {@$aclObjectTypeID}{if $groupID|isset}, '', {@$groupID}{/if});
-	
-		{include file='__messageQuoteManager' wysiwygSelector='text' supportPaste=true}
-		new WIKI.Article.QuoteHandler($quoteManager);
-	});
-	//]]>
-</script>
-{/if}
 
 {if $errorField}
 	<p class="error">{lang}wcf.global.form.error{/lang}</p>

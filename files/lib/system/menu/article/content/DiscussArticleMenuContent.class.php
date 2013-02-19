@@ -54,7 +54,7 @@ class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenu
 		$objectType = CommentHandler::getInstance()->getObjectType($this->objectTypeID);
 		$this->commentManager = $objectType->getProcessor();
 
-		$this->commentList = CommentHandler::getInstance()->getCommentList($this->objectTypeID, $this->commentManager, $this->articleID);
+		$this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->objectTypeID, $this->articleID);
 	}
 
 	/**
