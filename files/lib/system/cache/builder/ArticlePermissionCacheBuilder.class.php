@@ -17,9 +17,8 @@ use wcf\system\WCF;
  * @category 	WoltNet Wiki
  */
 class ArticlePermissionCacheBuilder extends AbstractCacheBuilder {
-
 	/**
-	 * @see wcf\system\cache\ICacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
 	 */
 	public function rebuild(array $parameters) {
 		$data = array();

@@ -17,7 +17,7 @@ use wcf\system\cache\builder\AbstractCacheBuilder;
  */
 class ArticleCacheBuilder extends AbstractCacheBuilder {
 	/**
-	 * @see wcf\system\cache\ICacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
 	 */
 	public function rebuild(array $parameters) {
 		$data = array(
