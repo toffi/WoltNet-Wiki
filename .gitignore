@@ -24,6 +24,7 @@ Thumbs.db
 .buildpath
 .classpath
 .project
+deployment.*
 
 # SVN
 # svn folders
