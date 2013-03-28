@@ -13,35 +13,36 @@ $package = $this->installation->getPackage();
 
 // set installation date
 $sql = "UPDATE	wcf".WCF_N."_option
-	SET	optionValue = ?
-	WHERE	optionName = 'install_date'
-		AND packageID = ?";
+  SET	optionValue = ?
+  WHERE	optionName = 'install_date'
+    AND packageID = ?";
 $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute(array(
-	TIME_NOW, 
-	$package->packageID
+  TIME_NOW,
+  $package->packageID
 ));
 
 // add article column in user table
 $columnName = 'wiki'.$package->instanceNo.'Articles';
 $editor = WCF::getDB()->getEditor();
 $editor->addColumn("wcf".WCF_N."_user", $columnName, array(
-	'type' => 'int',
-	'length' => 10,
-	'notNull' => true,
-	'default' => 0
+  'type' => 'int',
+  'length' => 10,
+  'notNull' => true,
+  'default' => 0
 ));
 
 // log column
 $sql = "INSERT INTO	wcf".WCF_N."_package_installation_sql_log
-			(packageID, sqlTable, sqlColumn)
-	VALUES		(?, ?, ?)";
+      (packageID, sqlTable, sqlColumn)
+  VALUES		(?, ?, ?)";
 $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute(array($package->packageID, "wcf".WCF_N."_user", $columnName));
 
 // dashboard
-DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('latestArticles' => 1, 'updatedArticles' => 2));
-DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryPage', array('latestArticles' => 1, 'updatedArticles' => 2));
+DashboardHandler::setDefaultValues('com.woltlab.wcf.user.DashboardPage', array('com.wolnet.wiki.latestArticles' => 1));
+DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1, 'com.wolnet.wiki.updatedArticlesSidebar' => 2));
+DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1, 'com.wolnet.wiki.updatedArticlesSidebar' => 2));
 
 // try to delete this file
 @unlink(__FILE__);

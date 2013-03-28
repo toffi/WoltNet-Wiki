@@ -5,12 +5,12 @@ use wiki\data\category\WikiCategory;
 
 use wcf\data\dashboard\box\DashboardBox;
 use wcf\page\IPage;
-use wcf\system\dashboard\box\AbstractContentDashboardBox;
+use wcf\system\dashboard\box\AbstractSidebarDashboardBox;
 use wcf\system\language\LanguageFactory;
 use wcf\system\WCF;
 
 /**
- * Dashboard content box for latest articles list.
+ * Dashboard sidebar box for latest articles list.
  *
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 woltnet
@@ -18,7 +18,7 @@ use wcf\system\WCF;
  * @subpackage	system.dashboard.box
  * @category 	WoltNet Wiki
  */
-class LatestArticlesDashboardBox extends AbstractContentDashboardBox {
+class LatestArticlesSidebarDashboardBox extends AbstractSidebarDashboardBox {
 
   /**
    * latest article list
@@ -55,9 +55,9 @@ class LatestArticlesDashboardBox extends AbstractContentDashboardBox {
    */
   protected function render() {
     WCF::getTPL()->assign(array(
-      'latestArticles' => $this->latestArticleList
+      'latestArticleList' => $this->latestArticleList
     ));
 
-    return WCF::getTPL()->fetch('dashboardBoxLatestArticles', 'wiki');
+    return WCF::getTPL()->fetch('dashboardBoxLatestArticlesSidebar', 'wiki');
   }
 }
