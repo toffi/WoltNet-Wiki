@@ -5,8 +5,8 @@
 		<packagedescription><![CDATA[Wiki Version for WCF 2.0]]></packagedescription>
 		<isapplication>1</isapplication>
 		<isunique>0</isunique>
-		<version>1.0.0 Alpha 1</version>
-		<date>2012-11-10</date>
+		<version>1.0.0 Alpha 2</version>
+		<date>2013-03-30</date>
 	</packageinformation>
 
 	<authorinformation>
@@ -16,7 +16,6 @@
 
 	<requiredpackages>
 		<requiredpackage file="requirements/com.woltlab.wcf.attachment.tar">com.woltlab.wcf.attachment</requiredpackage>
-		<requiredpackage file="requirements/com.woltlab.wcf.label.tar">com.woltlab.wcf.label</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.bbcode.tar">com.woltlab.wcf.bbcode</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.ckeditor.tar">com.woltlab.wcf.ckeditor</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.recaptcha.tar">com.woltlab.wcf.recaptcha</requiredpackage>
@@ -55,6 +54,7 @@
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="aclOption">xml/aclOption.xml</instruction>
 		<instruction type="dashboardBox">xml/dashboardBox.xml</instruction>
+        <instruction type="sitemap">sitemap.xml</instruction>
 		<instruction type="script">acp/install_com.woltnet.wiki_1.0.0.php</instruction>
 	</instructions>
 
@@ -81,5 +81,6 @@
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="aclOption">xml/aclOption.xml</instruction>
+        <instruction type="sitemap">sitemap.xml</instruction>
 	</instructions>
 </package>
