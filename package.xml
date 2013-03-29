@@ -54,7 +54,7 @@
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="aclOption">xml/aclOption.xml</instruction>
 		<instruction type="dashboardBox">xml/dashboardBox.xml</instruction>
-        <instruction type="sitemap">xml/sitemap.xml</instruction>
+        <instruction type="sitemap">sitemap.xml</instruction>
 		<instruction type="script">acp/install_com.woltnet.wiki_1.0.0.php</instruction>
 	</instructions>
 
