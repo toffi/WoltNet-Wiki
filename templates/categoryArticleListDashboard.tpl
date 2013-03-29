@@ -38,13 +38,13 @@
                                 <ul class="labelList">
                                     {content}
                                         {foreach from=$article->getAssignedLabels() item=label}
-                                            <li><a href="{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}" class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</a></li>
+                                            <li><a href="{link controller='Category' application='wiki' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}" class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</a></li>
                                         {/foreach}
                                     {/content}
                                 </ul>
                             {/hascontent}
 
-                            <a href="{link controller='Article' object=$article}{/link}" class="articleLink messageGroupLink" data-article-id="{@$article->articleID}">{$article->getTitle()}</a>
+                            <a href="{link controller='Article' application='wiki' object=$article}{/link}" class="articleLink messageGroupLink" data-article-id="{@$article->articleID}">{$article->getTitle()}</a>
                         </h1>
 
                         <small>
