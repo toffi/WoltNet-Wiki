@@ -25,133 +25,134 @@ use wcf\page\AbstractPage;
  * @category 	WoltNet - Wiki
  */
 class ArticlePage extends AbstractPage {
-	/**
-	 * @see wcf\page\AbstractPage::$enableTracking
-	 */
-	public $enableTracking = true;
+  /**
+   * @see wcf\page\AbstractPage::$enableTracking
+   */
+  public $enableTracking = true;
 
-	/**
-	 * @see wcf\page\AbstractPage::$templateName
-	 */
-	public $templatename = 'article';
+  /**
+   * @see wcf\page\AbstractPage::$templateName
+   */
+  public $templatename = 'article';
 
-	public $cache = null;
+  public $cache = null;
 
-	public $article = null;
+  public $article = null;
 
-	public $articleID = 0;
+  public $articleID = 0;
 
-	public $showNotActive = false;
+  public $showNotActive = false;
 
-	public $languageID = 0;
+  public $languageID = 0;
 
-	/**
-	 * article content for active menu item
-	 * @var	string
-	 */
-	public $articleContent = '';
+  /**
+   * article content for active menu item
+   * @var	string
+   */
+  public $articleContent = '';
 
-	/**
-	 * comment list object
-	 * @var	wcf\data\comment\StructuredCommentList
-	 */
-	public $commentList = null;
+  /**
+   * comment list object
+   * @var	wcf\data\comment\StructuredCommentList
+   */
+  public $commentList = null;
 
-	/**
-	 * List of all available content languages
-	 * @var array
-	 */
-	public $availableContentLanguages = array();
+  /**
+   * List of all available content languages
+   * @var array
+   */
+  public $availableContentLanguages = array();
 
-	/**
-	 * @see wcf\page\AbstractPage::readParameters()
-	 */
-	public function readParameters() {
-		parent::readParameters();
+  /**
+   * @see wcf\page\AbstractPage::readParameters()
+   */
+  public function readParameters() {
+    parent::readParameters();
 
-		if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-		if(isset($_GET['l'])) $this->languageID = intval($_GET['l']);
+    if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
+    if(isset($_GET['l'])) $this->languageID = intval($_GET['l']);
 
-		// init comments
-		$objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
-		$objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
-		$commentManager = $objectType->getProcessor();
+    // init comments
+    $objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
+    $objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
+    $commentManager = $objectType->getProcessor();
 
-		$this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
-	}
+    $this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
+  }
 
-	/**
-	 * @see wcf\page\AbstractPage::readData()
-	 */
-	public function readData() {
-		parent::readData();
+  /**
+   * @see wcf\page\AbstractPage::readData()
+   */
+  public function readData() {
+    parent::readData();
 
-		$this->article = ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion();
+    $this->article = ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion();
 
-		if(!$this->article->articleID || (!$this->article->canEnter())) {
-			throw new IllegalLinkException();
-		}
+    if(!$this->article->articleID || (!$this->article->canEnter())) {
+      throw new IllegalLinkException();
+    }
 
-		$this->availableContentLanguages = LanguageFactory::getInstance()->getContentLanguages();
+    $this->availableContentLanguages = LanguageFactory::getInstance()->getContentLanguages();
 
-		if(count($this->availableContentLanguages) > 0 && $this->languageID > 0 && $this->article->languageID != $this->languageID) HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array('application' => 'wiki', 'object' => $this->article->getArticleToLanguage($this->languageID), 'l' => $this->languageID)));
+    if(count($this->availableContentLanguages) > 0 && $this->languageID > 0 && $this->article->languageID != $this->languageID) HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array('application' => 'wiki', 'object' => $this->article->getArticleToLanguage($this->languageID), 'l' => $this->languageID)));
 
-		// update article visit
-		if ($this->article->time > $this->article->visitTime) {
-			$articleAction = new ArticleAction(array($this->article->getDecoratedObject()), 'markAsRead', array('visitTime' => $this->article->time));
-			$articleAction->executeAction();
-		}
+    // update article visit
+    if ($this->article->time > $this->article->visitTime) {
+      $articleAction = new ArticleAction(array($this->article->getDecoratedObject()), 'markAsRead', array('visitTime' => $this->article->time));
+      $articleAction->executeAction();
+    }
 
-		if(!$this->article->isActive) {
-			$this->showNotActive = true;
-		}
+    if(!$this->article->isActive) {
+      $this->showNotActive = true;
+    }
 
-		foreach($this->article->getCategory()->getParentCategories() AS $categoryItem) {
-			WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
-					'application' => 'wiki',
-					'object' => $categoryItem
-			))));
-		}
-		WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
-			'object' => $this->article->getCategory()
-		))));
+    foreach($this->article->getCategory()->getParentCategories() AS $categoryItem) {
+      WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
+          'application' => 'wiki',
+          'object' => $categoryItem
+      ))));
+    }
+    WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
+          'application' => 'wiki',
+          'object' => $this->article->getCategory()
+    ))));
 
-		$activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
-		$contentManager = $activeMenuItem->getContentManager();
-		$this->articleContent = $contentManager->getContent($this->article->articleID);
-	}
+    $activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
+    $contentManager = $activeMenuItem->getContentManager();
+    $this->articleContent = $contentManager->getContent($this->article->articleID);
+  }
 
-	/**
-	 * @see wcf\page\AbstractPage::assignVariables()
-	 */
-	public function assignVariables() {
-		parent::assignVariables();
-		
-		MessageQuoteManager::getInstance()->assignVariables();
+  /**
+   * @see wcf\page\AbstractPage::assignVariables()
+   */
+  public function assignVariables() {
+    parent::assignVariables();
 
-		WCF::getTPL()->assign(array(
-			'articleOverview'			=> $this->article,
-			'showNotActive'				=> $this->showNotActive,
-			'articleContent' 			=> $this->articleContent,
-			'sidebarCollapsed' 			=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),
-			'sidebarName' 				=> 'com.woltnet.wiki.article',
-			'commentCount'				=> count($this->commentList),
-			'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
-			'contentLanguages'			=> WCF::getUser()->getLanguageIDs()
-		));
-	}
-	
-	/**
-	 * @see wcf\page\ITrackablePage::getObjectType()
-	 */
-	public function getObjectType() {
-		return 'com.woltlab.wiki.article';
-	}
+    MessageQuoteManager::getInstance()->assignVariables();
 
-	/**
-	 * @see wcf\page\ITrackablePage::getObjectID()
-	 */
-	public function getObjectID() {
-		return $this->articleID;
-	}
+    WCF::getTPL()->assign(array(
+      'articleOverview'			=> $this->article,
+      'showNotActive'				=> $this->showNotActive,
+      'articleContent' 			=> $this->articleContent,
+      'sidebarCollapsed' 			=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),
+      'sidebarName' 				=> 'com.woltnet.wiki.article',
+      'commentCount'				=> count($this->commentList),
+      'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
+      'contentLanguages'			=> WCF::getUser()->getLanguageIDs()
+    ));
+  }
+
+  /**
+   * @see wcf\page\ITrackablePage::getObjectType()
+   */
+  public function getObjectType() {
+    return 'com.woltlab.wiki.article';
+  }
+
+  /**
+   * @see wcf\page\ITrackablePage::getObjectID()
+   */
+  public function getObjectID() {
+    return $this->articleID;
+  }
 }

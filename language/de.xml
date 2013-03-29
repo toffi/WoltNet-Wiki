@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
-	<category name="wiki.category">
+	<category name="com.woltnet.wiki">
+        <item name="com.woltnet.wiki.latestArticles"><![CDATA[Die letzten Artikel]]></item>
+    </category>
+    <category name="wiki.category">
 		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>
 		<item name="wiki.category.article.articleName"><![CDATA[Titel]]></item>
 		<item name="wiki.category.article.comments"><![CDATA[Kommentare]]></item>

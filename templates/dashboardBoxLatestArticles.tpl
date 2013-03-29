@@ -5,5 +5,5 @@
     </hgroup>
 </header>
 
-{include file='categoryArticleListDashboard' objects=$latestArticles}
+{include file='categoryArticleListDashboard' application='wiki' objects=$latestArticles}
 {/if}
