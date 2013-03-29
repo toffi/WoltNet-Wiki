@@ -179,8 +179,9 @@
 	</category>
 	
 	<category name="wcf.dashboard.box">
-		<item name="wcf.dashboard.box.latestArticles"><![CDATA[Letzte Artikel]]></item>
-		<item name="wcf.dashboard.box.updatedArticles"><![CDATA[Zuletzt bearbeitet]]></item>
+		<item name="wcf.dashboard.box.com.woltnet.wiki.latestArticles"><![CDATA[Letzte Artikel]]></item>
+        <item name="wcf.dashboard.box.com.woltnet.wiki.latestArticlesSidebar"><![CDATA[Letzte Artikel]]></item>
+		<item name="wcf.dashboard.box.com.woltnet.wiki.updatedArticlesSidebar"><![CDATA[Zuletzt bearbeitete Artikel]]></item>
 	</category>
 	
 	<category name="wcf.user.profile">
