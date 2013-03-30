@@ -96,6 +96,10 @@
 				<categoryname>user.article</categoryname>
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</option>
+            <option name="canWriteComment">
+				<categoryname>user.article</categoryname>
+				<objecttype>com.woltnet.wiki.article</objecttype>
+			</option>
 			<!-- /user.article (com.woltnet.wiki.article) -->
 		</options>
 	</import>
