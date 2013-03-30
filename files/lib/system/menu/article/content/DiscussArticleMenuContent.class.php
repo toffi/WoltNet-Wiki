@@ -20,59 +20,60 @@ use wcf\system\WCF;
  */
 class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenuContent {
 
-	public $articleID = 0;
+  public $articleID = 0;
 
-	/**
-	 * comment list object
-	 * @var	wcf\data\comment\StructuredCommentList
-	 */
-	public $commentList = null;
+  /**
+   * comment list object
+   * @var	wcf\data\comment\StructuredCommentList
+   */
+  public $commentList = null;
 
-	/**
-	 * comment manager object
-	 * @var	wcf\system\comment\manager\ICommentManager
-	 */
-	public $commentManager = null;
+  /**
+   * comment manager object
+   * @var	wcf\system\comment\manager\ICommentManager
+   */
+  public $commentManager = null;
 
-	/**
-	 * object type id
-	 * @var	integer
-	 */
-	public $objectTypeID = 0;
+  /**
+   * object type id
+   * @var	integer
+   */
+  public $objectTypeID = 0;
 
-	/**
-	 * @see	wcf\system\SingletonFactory::init()
-	 */
-	protected function init() {
-		EventHandler::getInstance()->fireAction($this, 'shouldInit');
+  /**
+   * @see	wcf\system\SingletonFactory::init()
+   */
+  protected function init() {
+    EventHandler::getInstance()->fireAction($this, 'shouldInit');
 
-		EventHandler::getInstance()->fireAction($this, 'didInit');
-	}
+    EventHandler::getInstance()->fireAction($this, 'didInit');
+  }
 
-	public function readData() {
-		$this->objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
-		$objectType = CommentHandler::getInstance()->getObjectType($this->objectTypeID);
-		$this->commentManager = $objectType->getProcessor();
+  public function readData() {
+    $this->objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
+    $objectType = CommentHandler::getInstance()->getObjectType($this->objectTypeID);
+    $this->commentManager = $objectType->getProcessor();
 
-		$this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->objectTypeID, $this->articleID);
-	}
+    $this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->objectTypeID, $this->articleID);
+  }
 
-	/**
-	 * @see	wiki\system\menu\article\content\IArticleMenuContent::getContent()
-	 */
-	public function getContent($articleID) {
-		$this->articleID = $articleID;
+  /**
+   * @see	wiki\system\menu\article\content\IArticleMenuContent::getContent()
+   */
+  public function getContent($articleID) {
+    $this->articleID = $articleID;
 
-		$this->readData();
+    $this->readData();
 
-		$article = ArticleCache::getInstance()->getArticle($articleID);
-		WCF::getTPL()->assign(array(
-				'article'			=> $article,
-				'commentList' 			=> $this->commentList,
-				'commentObjectTypeID'		=> $this->objectTypeID,
-				'commentCanAdd' 		=> $this->commentManager->canAdd($this->articleID),
-				'commentsPerPage' 		=> $this->commentManager->getCommentsPerPage()
-		));
-		return WCF::getTPL()->fetch('articleCommentList', 'wiki');
-	}
+    $article = ArticleCache::getInstance()->getArticle($articleID);
+    WCF::getTPL()->assign(array(
+        'article'			=> $article,
+        'commentList' 			=> $this->commentList,
+        'commentObjectTypeID'		=> $this->objectTypeID,
+        'commentCanAdd' 		=> $this->commentManager->canAdd($this->articleID),
+        'lastCommentTime' => $this->commentList->getLastCommentTime(),
+        'commentsPerPage' 		=> $this->commentManager->getCommentsPerPage()
+    ));
+    return WCF::getTPL()->fetch('articleCommentList', 'wiki');
+  }
 }
