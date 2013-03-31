@@ -1,54 +1,54 @@
 /* ### -- -- -- -- -- category -- -- -- -- -- ### */
 .wikiCategoryListIndex {
-	.wikiCategory {
-		&:hover {
-			background-color: @wcfContainerHoverBackgroundColor;
-		}
-	}
+  .wikiCategory {
+    &:hover {
+      background-color: @wcfContainerHoverBackgroundColor;
+    }
+  }
 
-	.subCategory > li{
-		display: inline-block;
-	}
+  .subCategory > li{
+    display: inline-block;
+  }
 }
 
 .overflow {
-	overflow: auto !important;
+  overflow: auto !important;
 }
 
 #articleLabelFilter {
-	margin-bottom: @wcfGapMedium;
+    margin-bottom: @wcfGapMedium;
 }
 
 .articleLabelList {
-	margin-bottom: @wcfGapMedium;
-	
-	li:not(:last-child) {
-		margin-bottom: @wcfGapTiny;
-	}
-	
-	&~small {
-		display: block;
-	}
+    margin-bottom: @wcfGapMedium;
+
+    li:not(:last-child) {
+        margin-bottom: @wcfGapTiny;
+    }
+
+    &~small {
+        display: block;
+    }
 }
 
 
 /* ### -- -- -- -- -- category article list -- -- -- -- -- ### */
 .wikiArticleList {
-	.wikiArticle1 {
-		background-color: @wcfContainerBackgroundColor;
-	}
+  .wikiArticle1 {
+    background-color: @wcfContainerBackgroundColor;
+  }
 
-	.wikiArticle2 {
-		background-color: @wcfContainerAccentBackgroundColor;
-	}
+  .wikiArticle2 {
+    background-color: @wcfContainerAccentBackgroundColor;
+  }
 
-	.wikiArticle {
-		&:hover {
-			background-color: @wcfContainerHoverBackgroundColor;
-		}
-	}
+  .wikiArticle {
+    &:hover {
+      background-color: @wcfContainerHoverBackgroundColor;
+    }
+  }
 
-	.wikiArticleDeleted {
-		.boxShadow(0, 0, @wcfErrorBackgroundColor, 10px);
-	}
+  .wikiArticleDeleted {
+    .boxShadow(0, 0, @wcfErrorBackgroundColor, 10px);
+  }
 }
