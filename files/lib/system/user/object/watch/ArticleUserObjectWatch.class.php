@@ -51,14 +51,14 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 			'parameters' => $conditionBuilder->getParameters()
 		);
 	}
-	
+
 	/**
 	 * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadObjects()
 	 */
 	public function getUnreadObjects($userID, $limit=5) {
 		$categoryIDs = WikiCategory::getAccessibleCategoryIDs();
 		if (empty($categoryIDs)) return null;
-		
+
 		$objectIDs = $this->getObjectIDs($userID);
 		array_slice($objectIDs, 0, $limit);
 		$objects = array();
@@ -105,9 +105,16 @@ class ArticleUserObjectWatch extends AbstractObjectTypeProcessor implements IUse
 	}
 
 	/**
+	 * @see \wcf\system\user\object\watch\IUserObjectWatch::resetUserStorage()
+	 */
+	public function resetUserStorage(array $userIDs) {
+
+	}
+
+	/**
 	 * @see wcf\system\user\object\watch\IUserObjectWatch::validateObjectID()
 	 */
-	public function validateObjectID($objectID, $userID) {
+	public function validateObjectID($objectID) {
 		// get project
 		$article = new Article($objectID);
 		if (!$article->articleID) return false;

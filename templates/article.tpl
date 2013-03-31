@@ -6,7 +6,6 @@
 	{include file='headInclude'}
 
 	<script type="text/javascript" src="{@$__wcf->getPath('wcf')}js/WCF.Moderation.js"></script>
-	<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.Article.js"></script>
 	<script type="text/javascript">
 		//<![CDATA[
 		$(function() {
@@ -17,7 +16,7 @@
 			WCF.TabMenu.init();
 
 			new WCF.User.ObjectWatch.Subscribe();
-			
+
 			{include file='__messageQuoteManager' wysiwygSelector='text' supportPaste=true}
 			new WIKI.Article.QuoteHandler($quoteManager);
 		});
