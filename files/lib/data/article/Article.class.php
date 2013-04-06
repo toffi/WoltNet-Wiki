@@ -17,7 +17,7 @@ use wcf\system\bbcode\MessageParser;
 use wcf\util\StringUtil;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\system\request\LinkHandler;
-use wcf\system\cache\CacheHandler;
+use wcf\system\comment\CommentHandler;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -34,6 +34,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
   protected $author = null;
   protected $cache = null;
   protected $language = null;
+  protected $commentList = null;
 
   /**
    * @see wcf\data\DatabaseObject::$databaseTableName
@@ -366,5 +367,16 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
       $this->language = LanguageFactory::getInstance()->getLanguage($this->languageID);
     }
     return $this->language;
+  }
+
+  public function getCommentList() {
+  	if($this->commentList === null) {
+  	  $objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
+      $objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
+  	  $commentManager = $objectType->getProcessor();
+
+  	  $this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
+  	}
+  	return $this->commentList;
   }
 }

@@ -57,7 +57,7 @@
                             <a href="{link controller='Category' application='wiki' object=$article->getCategory()}{/link}">{$article->getCategory()->getTitle()}</a>
                         </p>
                     </td>
-                    <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' object=$article}#discuss{/link}">{#$article->comments}</a></p></td>
+                    <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' object=$article}#discuss{/link}">{#$article->getCommentList()|count}</a></p></td>
                     <td class="columnDigits columnUsername"><p><a href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a></p></td>
                     <td class="columnText columnLastPost"><p>{@$article->time|time}</p></td>
                 </tr>

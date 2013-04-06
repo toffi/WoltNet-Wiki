@@ -12,8 +12,6 @@ use wcf\system\menu\article\ArticleMenu;
 use wcf\system\message\quote\MessageQuoteManager;
 use wcf\util\HeaderUtil;
 use wcf\system\exception\IllegalLinkException;
-use wcf\system\exception\PermissionDeniedException;
-use wcf\system\comment\CommentHandler;
 use wcf\page\AbstractPage;
 
 /**
@@ -52,12 +50,6 @@ class ArticlePage extends AbstractPage {
   public $articleContent = '';
 
   /**
-   * comment list object
-   * @var	wcf\data\comment\StructuredCommentList
-   */
-  public $commentList = null;
-
-  /**
    * List of all available content languages
    * @var array
    */
@@ -71,13 +63,6 @@ class ArticlePage extends AbstractPage {
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
     if(isset($_GET['l'])) $this->languageID = intval($_GET['l']);
-
-    // init comments
-    $objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
-    $objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
-    $commentManager = $objectType->getProcessor();
-
-    $this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
   }
 
   /**
@@ -131,14 +116,14 @@ class ArticlePage extends AbstractPage {
     MessageQuoteManager::getInstance()->assignVariables();
 
     WCF::getTPL()->assign(array(
-      'articleOverview'			=> $this->article,
-      'showNotActive'				=> $this->showNotActive,
-      'articleContent' 			=> $this->articleContent,
-      'sidebarCollapsed' 			=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),
-      'sidebarName' 				=> 'com.woltnet.wiki.article',
-      'commentCount'				=> count($this->commentList),
+      'articleOverview'					=> $this->article,
+      'showNotActive'					=> $this->showNotActive,
+      'articleContent' 					=> $this->articleContent,
+      'sidebarCollapsed' 				=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),
+      'sidebarName' 					=> 'com.woltnet.wiki.article',
+      'commentCount'					=> count($this->article->getCommentList()),
       'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
-      'contentLanguages'			=> WCF::getUser()->getLanguageIDs()
+      'contentLanguages'				=> WCF::getUser()->getLanguageIDs()
     ));
   }
 

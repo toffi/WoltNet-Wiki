@@ -51,7 +51,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    *
    * @return	wcf\data\user\UserProfile
    */
-  public function getUserProfile() {
+  public function getAuhor() {
     if ($this->userProfile === null) {
       $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->data));
     }
