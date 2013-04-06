@@ -17,14 +17,14 @@
 					<tr class="jsBugRow">
 						<td class="columnIcon columnAvatar">
 							<div style="text-align: center;">
-								<p class="framed">{@$version->getUserProfile()->getAvatar()->getImageTag(24)}</p>
-								<p><a href="{link controller='User' object=$version->getUserProfile()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$version->userID}">{$version->username}</a></p>
+								<p class="framed">{@$version->getAuthor()->getAvatar()->getImageTag(24)}</p>
+								<p><a href="{link controller='User' object=$version->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$version->userID}">{$version->username}</a></p>
 							</div>
 						</td>
 						<td class="columnText"><a href="{link application='wiki' controller='Article' object=$version}{/link}" title="">{@$version->time|time}</td>
 						<td class="columnText"><a href="{link application='wiki' controller='Article' object=$version}{/link}" title="">
 							<ul>
-								{if !$version->isActive && $version->getmoderatorPermission('canReadDeacticatedArticle')}<li><a href="{link application='wiki' controller='Article' object=$version}{/link}"><span>{lang}wiki.global.button.view{/lang}</span></a></li>{/if}
+								{if !$version->isActive && $version->getModeratorPermission('canReadDeactivatedArticle')}<li><a href="{link application='wiki' controller='Article' object=$version}{/link}"><span>{lang}wiki.global.button.view{/lang}</span></a></li>{/if}
 								{if !$version->isActive && $version->getModeratorPermission('canActivateArticle')}<li><a href="{link application='wiki' controller='ArticleActivate' object=$version}{/link}"><span>{lang}wiki.global.button.restore{/lang}</span></a></li>{/if}
 								{if $version->getModeratorPermission('canTrashArticle')}<li><a href="{link application='wiki' controller='ArticleTrash' object=$version}{/link}"><span>{lang}wiki.global.button.trash{/lang}</span></a></li>{/if}
 							</ul>
