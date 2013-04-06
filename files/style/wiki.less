@@ -31,6 +31,41 @@
     }
 }
 
+/* user information */
+.articleInformation {
+    > hgroup > h2,
+    > .inlineDataList,
+    > .dataList {
+        font-size: @wcfSmallFontSize;
+    }
+}
+
+.articlePreview {
+    position: relative;
+
+    > .articleInformation {
+        padding-bottom: 16px;// + @wcfGapTiny;
+
+        > .inlineDataList,
+        > .dataList {
+            margin-bottom: @wcfGapTiny;
+            padding-top: @wcfGapTiny;
+            border-top: 1px dotted @wcfContainerBorderColor;
+        }
+
+        > .dataList {
+            padding-bottom: @wcfGapTiny;
+            border-bottom: 1px dotted @wcfContainerBorderColor;
+        }
+
+        > .buttonList {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
+
 
 /* ### -- -- -- -- -- category article list -- -- -- -- -- ### */
 .wikiArticleList {

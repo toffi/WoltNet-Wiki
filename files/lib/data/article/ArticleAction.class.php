@@ -36,7 +36,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 * @var	array<wiki\data\article\Article>
 	 */
 	public $articles = array();
-	
+
 	/**
 	 * article object
 	 * @var	wiki\data\article\Article
@@ -90,24 +90,24 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 
 		$this->unmarkItems();
 	}
-	
+
 	/**
 	 * Validating parameters for restoring articles.
 	 */
 	public function validateRestore() {
 		$this->loadArticles();
-		
+
 		foreach ($this->articles as $article) {
 			if (!$article->isDeleted) {
 				throw new ValidateActionException("Action is not applicable for article ".$article->articleID);
 			}
-		
+
 			if (!$article->isRestorable()) {
 				throw new PermissionDeniedException();
 			}
 		}
 	}
-	
+
 	/**
 	 * Restores given articles.
 	 *
@@ -121,41 +121,41 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 				'deleteTime' => 0
 			));
 		}
-		
+
 		$this->unmarkItems();
 	}
-	
+
 	public function validateDelete() {
 		// read objects
 		if (empty($this->objects)) {
 			$this->readObjects();
-				
+
 			if (empty($this->objects)) {
 				throw new UserInputException('objectIDs');
 			}
 		}
-		
+
 		foreach($this->objects AS $object) {
 			if(!$object->isDeletable()) throw new PermissionDeniedException();
 		}
 	}
-	
+
 	/**
 	 * Validating for enabling articles.
 	 */
 	public function validateEnable() {
 		$this->loadArticles();
-		
+
 		foreach ($this->articles as $article) {
 			if (!$article->isActive) {
 				throw new ValidateActionException("Action is not applicable for article ".$article->articleID);
 			}
 		}
 	}
-	
+
 	/**
 	 * Enables given articles.
-	 * 
+	 *
 	 * @return	array<array>
 	 */
 	public function enable() {
@@ -163,10 +163,10 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 			$articleEditor = new ArticleEditor($article);
 			$articleEditor->setActive();
 		}
-		
+
 		$this->unmarkItems();
 	}
-	
+
 	/**
 	 * Validates user access for label management.
 	 */
@@ -174,13 +174,13 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		if (!WCF::getSession()->getPermission('mod.wiki.category.canManageLabels')) {
 			throw new PermissionDeniedException();
 		}
-		
+
 		$this->parameters['data']['categoryID'] = (isset($this->parameters['data']['categoryID'])) ? intval($this->parameters['data']['categoryID']) : 0;
 		if (empty($this->parameters['data']['categoryID'])) {
 			throw new UserInputException('categoryID');
 		}
 	}
-	
+
 	/**
 	 * Returns the article label management.
 	 *
@@ -192,7 +192,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 			'labelList' => ArticleLabel::getLabelsByCategory($this->parameters['data']['categoryID']),
 			'categoryID' => $this->parameters['data']['categoryID']
 		));
-	
+
 		return array(
 			'actionName' => 'getLabelManagement',
 			'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki')
@@ -264,23 +264,23 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	protected function unmarkItems() {
 		ClipboardHandler::getInstance()->unmark(array_keys($this->articles), ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
 	}
-	
+
 	/**
 	 * @see	wcf\data\IMessageQuoteAction::validateSaveFullQUote()
 	 */
-	public function validateSaveFullQUote() {
+	public function validateSaveFullQuote() {
 		if (empty($this->articles)) {
 			$this->loadArticles();
-	
+
 			if (empty($this->articles)) {
 				throw new UserInputException('objectIDs');
 			}
 		}
-	
+
 		// validate permissions
 		$this->article = current($this->articles);
 	}
-	
+
 	/**
 	 * @see	wcf\data\IMessageQuoteAction::saveFullQuote()
 	 */
@@ -289,18 +289,18 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 			$quoteID = MessageQuoteManager::getInstance()->getQuoteID('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage());
 			MessageQuoteManager::getInstance()->removeQuote($quoteID);
 		}
-	
+
 		return array(
 				'count' => MessageQuoteManager::getInstance()->countQuotes(),
 				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array('com.woltnet.wiki.article'))
 		);
 	}
-	
+
 	/**
 	 * @see	wcf\data\IMessageQuoteAction::validateSaveQuote()
 	 */
 	public function validateSaveQuote() {
-		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';	
+		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';
 		if (empty($this->parameters['message'])) {
 			throw new UserInputException('message');
 		}
@@ -308,24 +308,56 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 		$this->objects = ArticleCache::getInstance()->getArticles();
 		if (empty($this->objects)) {
 			$this->readObjects();
-				
+
 			if (empty($this->objects)) {
 				throw new UserInputException('objectIDs');
 			}
 		}
-	
+
 		$this->article = current($this->objects);
 	}
-	
+
 	/**
 	 * @see	wcf\data\IMessageQuoteAction::saveQuote()
 	 */
 	public function saveQuote() {
 		MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->parameters['message']);
-	
+
 		return array(
 				'count' => MessageQuoteManager::getInstance()->countQuotes(),
 				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array('com.woltnet.wiki.article'))
+		);
+	}
+
+	/**
+	 * Validates user profile preview.
+	 */
+	public function validateGetArticle() {
+		if (count($this->objectIDs) != 1) {
+			throw new UserInputException('articleIDs');
+		}
+	}
+
+	/**
+	 * Returns article preview.
+	 *
+	 * @return	array
+	 */
+	public function getArticle() {
+		$articleID = reset($this->objectIDs);
+
+		$articleList = new ArticleList();
+		$articleList->getConditionBuilder()->add("article.articleID = ?", array($articleID));
+		$articleList->readObjects();
+		$article = $articleList->getObjects();
+
+		WCF::getTPL()->assign(array(
+		'article' => reset($articles)
+		));
+
+		return array(
+				'template' => WCF::getTPL()->fetch('articlePreview'),
+				'articleID' => $articleID
 		);
 	}
 }

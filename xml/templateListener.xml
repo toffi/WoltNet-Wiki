@@ -13,6 +13,12 @@
 			<eventname>javascriptInclude</eventname>
 			<templatecode><![CDATA[<script type="text/javascript" src="{@$__wcf->getPath('wiki')}js/WIKI.js"></script>]]></templatecode>
 		</templatelistener>
+        <templatelistener name="wikiJavascriptInit">
+			<environment>user</environment>
+			<templatename>headInclude</templatename>
+			<eventname>javascriptInit</eventname>
+			<templatecode><![CDATA[new WIKI.Article.ArticlePreview()]]></templatecode>
+		</templatelistener>
 		<templatelistener name="wikiArticlePermissionTab">
 			<environment>user</environment>
 			<templatename>messageFormTabs</templatename>

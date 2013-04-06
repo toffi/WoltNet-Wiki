@@ -133,28 +133,28 @@ WIKI.Article.EditorHandler = Class.extend({
 	 * @var	object
 	 */
 	_attributes: { },
-	
+
 	/**
 	 * list of articles
 	 * @var	object
 	 */
 	_articles: { },
-	
+
 	/**
 	 * Initializes the core editor handler for articles.
 	 */
 	init: function(availableLabels) {
 		this._articles = { };
-		
+
 		var self = this;
 		$('.article').each(function(index, article) {
 			var $article = $(article);
 			var $articleID = $article.data('articleID');
-			
+
 			if (!self._articles[$articleID]) {
 				self._articles[$articleID] = $article;
 				var $labelIDs = eval($article.data('labelIDs'));
-				
+
 				// set attributes
 				self._attributes[$articleID] = {
 					labelIDs: $labelIDs
@@ -162,10 +162,10 @@ WIKI.Article.EditorHandler = Class.extend({
 			}
 		});
 	},
-	
+
 	/**
 	 * Returns an attribute's value for given article id.
-	 * 
+	 *
 	 * @param	integer		articleID
 	 * @param	string		key
 	 * @return	mixed
@@ -177,30 +177,30 @@ WIKI.Article.EditorHandler = Class.extend({
 					// TODO: fetch label ids
 					this._attributes[articleID].labelIDs = [ ];
 				}
-				
+
 				return this._attributes[articleID].labelIDs;
 			break;
 		}
 	},
-	
+
 	/**
 	 * Counts available labels.
-	 * 
+	 *
 	 * @return	integer
 	 */
 	countAvailableLabels: function() {
 		return (this.getAvailableLabels()).length;
 	},
-	
+
 	getAvailableLabels: function() {
 		var $labels = [ ];
-		
+
 		$('#articleLabelFilter > .dropdownMenu li').each(function(index, listItem) {
 			var $listItem = $(listItem);
 			if ($listItem.hasClass('dropdownDivider')) {
 				return false;
 			}
-			
+
 			var $span = $listItem.find('span');
 			$labels.push({
 				cssClassName: $span.data('cssClassName'),
@@ -208,13 +208,13 @@ WIKI.Article.EditorHandler = Class.extend({
 				label: $span.text()
 			});
 		});
-		
+
 		return $labels;
 	},
-	
+
 	/**
 	 * Updates article data.
-	 * 
+	 *
 	 * @param	integer		articleID
 	 * @param	object		data
 	 */
@@ -224,20 +224,20 @@ WIKI.Article.EditorHandler = Class.extend({
 			return;
 		}
 		var $article = this._articles[articleID];
-		
-		switch (key) {		
+
+		switch (key) {
 			case 'labelIDs':
 				var $labels = { };
 				$('#articleLabelFilter > .dropdownMenu > li > a > span').each(function(index, span) {
 					var $span = $(span);
-					
+
 					$labels[$span.data('labelID')] = {
 						cssClassName: $span.data('cssClassName'),
 						label: $span.text(),
 						url: $span.parent().attr('href')
 					};
 				});
-				
+
 				var $labelList = $article.find('.columnSubject > h1 > .labelList');
 				if (!data.length) {
 					if ($labelList.length) $labelList.remove();
@@ -247,10 +247,10 @@ WIKI.Article.EditorHandler = Class.extend({
 					if (!$labelList.length) {
 						$labelList = $('<ul class="labelList" />').prependTo($article.find('.columnSubject > h1'));
 					}
-					
+
 					// remove all existing labels
 					$labelList.empty();
-					
+
 					// insert labels
 					for (var $i = 0, $length = data.length; $i < $length; $i++) {
 						var $label = $labels[data[$i]];
@@ -264,7 +264,7 @@ WIKI.Article.EditorHandler = Class.extend({
 
 /**
  * Article editor handler for article page.
- * 
+ *
  * @see	WIKI.Article.EditorHandler
  * @param	array<object>	availableLabels
  */
@@ -274,25 +274,25 @@ WIKI.Article.EditorHandlerArticle = WIKI.Article.EditorHandler.extend({
 	 * @var	array<object>
 	 */
 	_availableLabels: null,
-	
+
 	/**
 	 * @see	WIKI.Article.EditorHandler.init()
-	 * 
+	 *
 	 * @param	array<object>	availableLabels
 	 */
 	init: function(availableLabels) {
 		this._availableLabels = availableLabels || [ ];
-		
+
 		this._super();
 	},
-	
+
 	/**
 	 * @see	WIKI.Article.EditorHandler.getAvailableLabels()
 	 */
 	getAvailableLabels: function() {
 		return this._availableLabels;
 	},
-	
+
 	/**
 	 * @see	WIKI.Article.EditorHandler.update()
 	 */
@@ -302,7 +302,7 @@ WIKI.Article.EditorHandlerArticle = WIKI.Article.EditorHandler.extend({
 			return;
 		}
 		var $article = this._articles[articleID];
-		
+
 		switch (key) {
 			case 'labelIDs':
 				var $container = $('#content > header h1');
@@ -315,19 +315,19 @@ WIKI.Article.EditorHandlerArticle = WIKI.Article.EditorHandler.extend({
 					if (!$labelList.length) {
 						$labelList = $('<ul class="labelList" />').appendTo($container);
 					}
-					
+
 					// remove existing labels
 					$labelList.empty();
-					
+
 					// add new labels
 					for (var $i = 0, $length = data.length; $i < $length; $i++) {
 						var $labelID = data[$i];
-						
+
 						for (var $j = 0, $innerLength = this.getAvailableLabels().length; $j < $innerLength; $j++) {
 							var $label = this.getAvailableLabels()[$j];
 							if ($label.labelID == $labelID) {
 								$('<li><span class="label badge' + ($label.cssClassName ? " " + $label.cssClassName : "") + '">' + $label.label + '</span>&nbsp;</li>').appendTo($labelList);
-								
+
 								break;
 							}
 						}
@@ -347,15 +347,15 @@ WIKI.Article.Clipboard = Class.extend({
 	 * @var	WIKI.Article.EditorHandler
 	 */
 	_editorHandler: null,
-	
+
 	/**
 	 * Initializes a new WIKI.Article.Clipboard object.
-	 * 
+	 *
 	 * @param	WIKI.Article.EditorHandler	editorHandler
 	 */
 	init: function(editorHandler) {
 		this._editorHandler = editorHandler;
-		
+
 		// bind listener
 		$('.jsClipboardEditor').each($.proxy(function(index, container) {
 			var $container = $(container);
@@ -367,10 +367,10 @@ WIKI.Article.Clipboard = Class.extend({
 			}
 		}, this));
 	},
-	
+
 	/**
 	 * Handles clipboard actions.
-	 * 
+	 *
 	 * @param	object		event
 	 * @param	string		type
 	 * @param	string		actionName
@@ -381,10 +381,10 @@ WIKI.Article.Clipboard = Class.extend({
 			new WIKI.Article.Label.Editor(this._editorHandler, null, parameters.objectIDs);
 		}
 	},
-	
+
 	/**
 	 * Evaluates AJAX responses.
-	 * 
+	 *
 	 * @param	object		event
 	 * @param	object		data
 	 * @param	string		type
@@ -401,7 +401,7 @@ WIKI.Article.Clipboard = Class.extend({
 
 /**
  * Inline editor implementation for articles.
- * 
+ *
  * @see	WCF.Inline.Editor
  */
 WIKI.Article.InlineEditor = WCF.InlineEditor.extend({
@@ -410,29 +410,29 @@ WIKI.Article.InlineEditor = WCF.InlineEditor.extend({
 	 * @var	WIKI.Article.EditorHandler
 	 */
 	_editorHandler: null,
-	
+
 	/**
 	 * execution environment
 	 * @var	string
 	 */
 	_environment: 'article',
-	
+
 	/**
 	 * @see	WCF.InlineEditor._setOptions()
 	 */
 	_setOptions: function() {
-		this._options = [			
+		this._options = [
 			// assign labels
 			{ label: WCF.Language.get('wiki.article.edit.assignLabel'), optionName: 'assignLabel' },
-			
+
 			// divider
 			{ optionName: 'divider' }
 		];
 	},
-	
+
 	/**
 	 * Sets editor handler object.
-	 * 
+	 *
 	 * @param	WIKI.Article.EditorHandler	editorHandler
 	 * @param	string				environment
 	 */
@@ -440,29 +440,29 @@ WIKI.Article.InlineEditor = WCF.InlineEditor.extend({
 		this._editorHandler = editorHandler;
 		this._environment = (environment == 'list') ? 'list' : 'article';
 	},
-	
+
 	/**
 	 * @see	WCF.InlineEditor._getTriggerElement()
 	 */
 	_getTriggerElement: function(element) {
 		return element.find('.jsArticleInlineEditor');
 	},
-	
+
 	/**
 	 * @see	WCF.InlineEditor._validate()
 	 */
 	_validate: function(elementID, optionName) {
 		var $articleID = $('#' + elementID).data('articleID');
-		
+
 		switch (optionName) {
 			case 'assignLabel':
 				return (this._editorHandler.countAvailableLabels()) ? true : false;
 			break;
 		}
-		
+
 		return false;
 	},
-	
+
 	/**
 	 * @see	WCF.InlineEditor._execute()
 	 */
@@ -471,26 +471,26 @@ WIKI.Article.InlineEditor = WCF.InlineEditor.extend({
 		if (!this._validate(elementID, optionName)) {
 			return false;
 		}
-		
+
 		switch (optionName) {
 			case 'assignLabel':
 				new WIKI.Article.Label.Editor(this._editorHandler, elementID);
 			break;
 		}
 	},
-	
+
 	/**
 	 * Updates article properties.
-	 * 
+	 *
 	 * @param	string		elementID
 	 * @param	string		optionName
 	 * @param	object		data
 	 */
 	_updateArticle: function(elementID, optionName, data) {
 		var $articleID = this._elements[elementID].data('articleID');
-		
+
 	},
-	
+
 	/**
 	 * @see	WCF.InlineEditor._updateState()
 	 */
@@ -498,7 +498,7 @@ WIKI.Article.InlineEditor = WCF.InlineEditor.extend({
 		for (var $i = 0, $length = this._updateData.length; $i < $length; $i++) {
 			var $data = this._updateData[$i];
 			var $articleID = this._elements[$data.elementID].data('articleID');
-			
+
 		}
 	}
 });
@@ -510,7 +510,7 @@ WIKI.Article.Label = { };
 
 /**
  * Providers an editor for article labels.
- * 
+ *
  * @param	WIKI.Article.EditorHandler	editorHandler
  * @param	string				elementID
  * @param	array<integer>			articleIDs
@@ -521,40 +521,40 @@ WIKI.Article.Label.Editor = Class.extend({
 	 * @var	array<integer>
 	 */
 	_articleIDs: 0,
-	
+
 	/**
 	 * list of category id
 	 * @var	array<integer>
 	 */
 	_categoryID: 0,
-	
+
 	/**
 	 * dialog object
 	 * @var	jQuery
 	 */
 	_dialog: null,
-	
+
 	/**
 	 * editor handler object
 	 * @var	WIKI.Article.EditorHandler
 	 */
 	_editorHandler: null,
-	
+
 	/**
 	 * system notification object
 	 * @var	WCF.System.Notification
 	 */
 	_notification: null,
-	
+
 	/**
 	 * action proxy object
 	 * @var	WCF.Action.Proxy
 	 */
 	_proxy: null,
-	
+
 	/**
 	 * Initializes the label editor for given article.
-	 * 
+	 *
 	 * @param	WIKI.Article.EditorHandler	editorHandler
 	 * @param	string				elementID
 	 * @param	array<integer>			articleIDs
@@ -566,22 +566,22 @@ WIKI.Article.Label.Editor = Class.extend({
 		else {
 			this._articleIDs = articleIDs;
 		}
-		
+
 		if (elementID) {
 			this._categoryID = [ $('#' + elementID).data('categoryID') ];
 		}
-		
+
 		this._dialog = null;
 		this._editorHandler = editorHandler;
-		
+
 		this._notification = new WCF.System.Notification(WCF.Language.get('wiki.article.label.management.addLabel.success'));
 		this._proxy = new WCF.Action.Proxy({
 			success: $.proxy(this._success, this)
 		});
-		
+
 		this._loadDialog();
 	},
-	
+
 	/**
 	 * Loads label assignment dialog.
 	 */
@@ -596,10 +596,10 @@ WIKI.Article.Label.Editor = Class.extend({
 		});
 		this._proxy.sendRequest();
 	},
-	
+
 	/**
 	 * Handles successful AJAX requests.
-	 * 
+	 *
 	 * @param	object		data
 	 * @param	string		textStatus
 	 * @param	jQuery		jqXHR
@@ -609,16 +609,16 @@ WIKI.Article.Label.Editor = Class.extend({
 			case 'assignLabel':
 				this._assignLabels(data);
 			break;
-			
+
 			case 'getLabelForm':
 				this._renderDialog(data);
 			break;
 		}
 	},
-	
+
 	/**
 	 * Renders the label assignment form overlay.
-	 * 
+	 *
 	 * @param	object		data
 	 */
 	_renderDialog: function(data) {
@@ -628,16 +628,16 @@ WIKI.Article.Label.Editor = Class.extend({
 				this._dialog = $('<div id="articleLabelForm" />').hide().appendTo(document.body);
 			}
 		}
-		
+
 		this._dialog.html(data.returnValues.template);
 		this._dialog.wcfDialog({
 			title: WCF.Language.get('wiki.articlen.label.assignLabels')
 		});
 		this._dialog.wcfDialog('render');
-		
+
 		$('#assignLabels').click($.proxy(this._save, this));
 	},
-	
+
 	/**
 	 * Saves label assignments for current article id.
 	 */
@@ -649,7 +649,7 @@ WIKI.Article.Label.Editor = Class.extend({
 				$labelIDs.push($checkbox.data('labelID'));
 			}
 		});
-		
+
 		this._proxy.setOption('data', {
 			actionName: 'assignLabel',
 			className: 'wiki\\data\\article\\label\\ArticleLabelAction',
@@ -661,10 +661,10 @@ WIKI.Article.Label.Editor = Class.extend({
 		});
 		this._proxy.sendRequest();
 	},
-	
+
 	/**
 	 * Updates article labels.
-	 * 
+	 *
 	 * @param	object		data
 	 */
 	_assignLabels: function(data) {
@@ -672,7 +672,7 @@ WIKI.Article.Label.Editor = Class.extend({
 		for (var $i = 0, $length = this._articleIDs.length; $i < $length; $i++) {
 			this._editorHandler.update(this._articleIDs[$i], 'labelIDs', data.returnValues.labelIDs);
 		}
-		
+
 		// close dialog and show a 'success' notice
 		this._dialog.wcfDialog('close');
 		this._notification.show();
@@ -681,7 +681,7 @@ WIKI.Article.Label.Editor = Class.extend({
 
 /**
  * Label manager for articles.
- * 
+ *
  * @param	string		link
  */
 WIKI.Article.Label.Manager = Class.extend({
@@ -690,49 +690,49 @@ WIKI.Article.Label.Manager = Class.extend({
 	 * @var	integer
 	 */
 	_deletedLabelID: 0,
-	
+
 	/**
 	 * dialog object
 	 * @var	jQuery
 	 */
 	_dialog: null,
-	
+
 	/**
 	 * list of labels
 	 * @var	jQuery
 	 */
 	_labels: null,
-	
+
 	/**
 	 * parsed label link
 	 * @var	string
 	 */
 	_link: '',
-	
+
 	/**
 	 * action proxy object
 	 * @var	WCF.Action.Proxy
 	 */
 	_proxy: null,
-	
+
 	/**
 	 * Initializes the label manager for articles.
-	 * 
+	 *
 	 * @param	string		link
 	 */
 	init: function(link) {
 		this._deletedLabelID = 0;
 		this._link = link;
-		
+
 		this._labels = $('#articleLabelFilter .dropdownMenu');
 		$('#manageLabel').click($.proxy(this._click, this));
-		
+
 		this._notification = new WCF.System.Notification(WCF.Language.get('wiki.article.label.management.addLabel.success'));
 		this._proxy = new WCF.Action.Proxy({
 			success: $.proxy(this._success, this)
 		});
 	},
-	
+
 	/**
 	 * Handles clicks on the 'manage labels' button.
 	 */
@@ -748,10 +748,10 @@ WIKI.Article.Label.Manager = Class.extend({
 		});
 		this._proxy.sendRequest();
 	},
-	
+
 	/**
 	 * Handles successful AJAX requests.
-	 * 
+	 *
 	 * @param	object		data
 	 * @param	string		textStatus
 	 * @param	jQuery		jqXHR
@@ -760,13 +760,13 @@ WIKI.Article.Label.Manager = Class.extend({
 		if (this._dialog === null) {
 			this._dialog = $('<div id="labelManagement" />').hide().appendTo(document.body);
 		}
-		
+
 		if (data.returnValues && data.returnValues.actionName) {
 			switch (data.returnValues.actionName) {
 				case 'add':
 					this._insertLabel(data);
 				break;
-				
+
 				case 'getLabelManagement':
 					// render dialog
 					this._dialog.empty().html(data.returnValues.template);
@@ -774,7 +774,7 @@ WIKI.Article.Label.Manager = Class.extend({
 						title: WCF.Language.get('wiki.article.label.management')
 					});
 					this._dialog.wcfDialog('render');
-					
+
 					// bind action listeners
 					this._bindListener();
 				break;
@@ -792,22 +792,22 @@ WIKI.Article.Label.Manager = Class.extend({
 			}
 		}
 	},
-	
+
 	/**
 	 * Inserts a previously created label.
-	 * 
+	 *
 	 * @param	object		data
 	 */
 	_insertLabel: function(data) {
 		var $listItem = $('<li><a href="' + this._link + '&labelID=' + data.returnValues.labelID + '"><span class="badge label' + (data.returnValues.cssClassName ? ' ' + data.returnValues.cssClassName : '') + '">' + data.returnValues.label + '</span></a></li>');
 		$listItem.find('a > span').data('labelID', data.returnValues.labelID).data('cssClassName', data.returnValues.cssClassName);
-		
+
 		var $divider = this._labels.find('.dropdownDivider:eq(0)').show();
 		$listItem.insertBefore($divider);
-		
+
 		this._notification.show();
 	},
-	
+
 	/**
 	 * Binds event listener for label management.
 	 */
@@ -815,41 +815,41 @@ WIKI.Article.Label.Manager = Class.extend({
 		$('#labelName').keyup($.proxy(this._updateLabels, this));
 		$('#addLabel').disable().click($.proxy(this._addLabel, this));
 		$('#editLabel').disable();
-		
+
 		this._dialog.find('.articleLabelList a.label').click($.proxy(this._edit, this));
 	},
-	
+
 	/**
 	 * Prepares a label for editing.
-	 * 
+	 *
 	 * @param	object		event
 	 */
 	_edit: function(event) {
 		var $label = $(event.currentTarget);
-		
+
 		// replace legends
 		var $legend = WCF.Language.get('wiki.article.label.management.editLabel').replace(/#labelName#/, $label.text());
 		$('#articleLabelManagementForm').data('labelID', $label.data('labelID')).children('legend').html($legend);
-		
+
 		// update text input
 		$('#labelName').val($label.text()).trigger('keyup');
-		
+
 		// select css class name
 		var $cssClassName = $label.data('cssClassName');
 		$('#labelManagementList input').each(function(index, input) {
 			var $input = $(input);
-			
+
 			if ($input.val() == $cssClassName) {
 				$input.attr('checked', 'checked');
 			}
 		});
-		
+
 		// toggle buttons
 		$('#addLabel').hide();
 		$('#editLabel').show().click($.proxy(this._editLabel, this));
 		$('#deleteLabel').show().click($.proxy(this._deleteLabel, this));
 	},
-	
+
 	/**
 	 * Edits a label.
 	 */
@@ -867,7 +867,7 @@ WIKI.Article.Label.Manager = Class.extend({
 		});
 		this._proxy.sendRequest();
 	},
-	
+
 	/**
 	 * Deletes a label.
 	 */
@@ -881,12 +881,12 @@ WIKI.Article.Label.Manager = Class.extend({
 					objectIDs: [ $('#articleLabelManagementForm').data('labelID') ]
 				});
 				this._proxy.sendRequest();
-				
+
 				this._deletedLabelID = $('#articleLabelManagementForm').data('labelID');
 			}
 		}, this));
 	},
-	
+
 	/**
 	 * Updates label text within label management.
 	 */
@@ -899,10 +899,10 @@ WIKI.Article.Label.Manager = Class.extend({
 			$('#addLabel, #editLabel').disable();
 			$value = WCF.Language.get('wiki.article.label.placeholder');
 		}
-		
+
 		$('#labelManagementList').find('span.label').text($value);
 	},
-	
+
 	/**
 	 * Sends an AJAX request to add a new label.
 	 */
@@ -910,7 +910,7 @@ WIKI.Article.Label.Manager = Class.extend({
 		var $labelName = $('#labelName').val();
 		var $cssClassName = $('#labelManagementList input:checked').val();
 		var $categoryID = $('#articleLabelManagementForm').data('categoryID');
-		
+
 		this._proxy.setOption('data', {
 			actionName: 'add',
 			className: 'wiki\\data\\article\\label\\ArticleLabelAction',
@@ -923,7 +923,7 @@ WIKI.Article.Label.Manager = Class.extend({
 			}
 		});
 		this._proxy.sendRequest();
-		
+
 		// close dialog
 		this._dialog.wcfDialog('close');
 	}
@@ -931,7 +931,7 @@ WIKI.Article.Label.Manager = Class.extend({
 
 /**
  * Provides the quote manager for conversation messages.
- * 
+ *
  * @param	WCF.Message.Quote.Manager	quoteManager
  * @see		WCF.Message.Quote.Handler
  */
@@ -941,5 +941,66 @@ WIKI.Article.QuoteHandler = WCF.Message.Quote.Handler.extend({
 	 */
 	init: function(quoteManager) {
 		this._super(quoteManager, 'wiki\\data\\article\\ArticleAction', 'com.woltnet.wiki.article', '.message', '.messageBody > div.messageText');
+	}
+});
+
+/**
+ * Loads article previews.
+ *
+ * @see	WCF.Popover
+ */
+WIKI.Article.ArticlePreview = WCF.Popover.extend({
+	/**
+	 * action proxy
+	 * @var	WCF.Action.Proxy
+	 */
+	_proxy: null,
+
+	/**
+	 * list of user profiles
+	 * @var	object
+	 */
+	_articles: { },
+
+	/**
+	 * @see	WCF.Popover.init()
+	 */
+	init: function() {
+		this._super('.articleLink');
+
+		this._proxy = new WCF.Action.Proxy({
+			showLoadingOverlay: false
+		});
+	},
+
+	/**
+	 * @see	WCF.Popover._loadContent()
+	 */
+	_loadContent: function() {
+		var $element = $('#' + this._activeElementID);
+		var $articleID = $element.data('articleID');
+
+		if (this._articles[$articleID]) {
+			// use cached user profile
+			this._insertContent(this._activeElementID, this._articles[$articleID], true);
+		}
+		else {
+			this._proxy.setOption('data', {
+				actionName: 'getArticles',
+				className: 'wiki\\data\\article\\ArticleAction',
+				objectIDs: [ $articleID ]
+			});
+
+			var $elementID = this._activeElementID;
+			var self = this;
+			this._proxy.setOption('success', function(data, textStatus, jqXHR) {
+				// cache article
+				self._articles[$articleID] = data.returnValues.template;
+
+				// show article
+				self._insertContent($elementID, data.returnValues.template, true);
+			});
+			this._proxy.sendRequest();
+		}
 	}
 });
