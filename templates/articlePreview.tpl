@@ -1,8 +1,8 @@
-{assign var="user" value=$article->getUserProfile()->getDecoratedObject()}
+{assign var="user" value=$article->getUserProfile()}
 <div class="box128 articlePreview">
-	<a href="{link controller='User' object=$user}{/link}" title="{$user->username}">{@$user->getAvatar()->getImageTag(128)}</a>
+	<a href="{link controller='User' object=$user->getDecoratedObject()}{/link}" title="{$user->getDecoratedObject()->username}">{@$user->getAvatar()->getImageTag(128)}</a>
 
 	<div class="articleInformation">
-		{$article->getExcerpt()}
+		{@$article->getExcerpt()}
 	</div>
 </div>

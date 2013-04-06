@@ -332,7 +332,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	/**
 	 * Validates user profile preview.
 	 */
-	public function validateGetArticle() {
+	public function validateGetArticles() {
 		if (count($this->objectIDs) != 1) {
 			throw new UserInputException('articleIDs');
 		}
@@ -343,20 +343,20 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 	 *
 	 * @return	array
 	 */
-	public function getArticle() {
+	public function getArticles() {
 		$articleID = reset($this->objectIDs);
 
-		$articleList = new ArticleList();
+		$articleList = new ViewableArticleList();
 		$articleList->getConditionBuilder()->add("article.articleID = ?", array($articleID));
 		$articleList->readObjects();
-		$article = $articleList->getObjects();
+		$articles = $articleList->getObjects();
 
 		WCF::getTPL()->assign(array(
 		'article' => reset($articles)
 		));
 
 		return array(
-				'template' => WCF::getTPL()->fetch('articlePreview'),
+				'template' => WCF::getTPL()->fetch('articlePreview', 'wiki'),
 				'articleID' => $articleID
 		);
 	}
