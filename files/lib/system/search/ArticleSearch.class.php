@@ -25,39 +25,39 @@ use wcf\util\ArrayUtil;
 class ArticleSearch extends AbstractSearchableObjectType {
 	/**
 	 * message data cache
-	 * 
+	 *
 	 * @var array
 	 */
 	public $messageCache = array();
 
 	/**
 	 * category ids
-	 * 
+	 *
 	 * @var array<integer>
 	 */
 	public $categoryIDs = array();
 
 	/**
 	 * list of all categories
-	 * 
+	 *
 	 * @var array
 	 */
 	public $categories = array();
 
 	/**
 	 * list of selected categories
-	 * 
+	 *
 	 * @var array
 	 */
 	public $selectedCategoriess = array();
 
 	/**
 	 * shows results as articles
-	 * 
+	 *
 	 * @var boolean
 	 */
 	public $findArticles = 1;
-	
+
 	/**
 	 * objectTypeName for Wiki Categories
 	 *
@@ -65,28 +65,6 @@ class ArticleSearch extends AbstractSearchableObjectType {
 	 */
 	public $objectTypeName = 'com.woltnet.wiki.category';
 
-	/**
-	 * @see wcf\system\search\ISearchableObjectType::cacheMessageData()
-	 */
-	/*public function cacheMessageData(array $objectIDs, array $additionalData = null) {
-		if ($additionalData !== null && !empty($additionalData['findArticles'])) {
-			WCF::getTPL()->assign('findArticles', 1);
-			$articleList = new SearchResultArticleList();
-			$articleList->getConditionBuilder()->add('article.articleID IN (?)', array($objectIDs));
-			$articleList->readObjects();
-			foreach ($articleList->getObjects() as $article) {
-				$this->messageCache[$article->articleID] = array('type' => 'com.woltnet.wiki.article', 'message' => $article);
-			}
-		}else{
-			$articleList = new SearchResultArticleList();
-			$articleList->getConditionBuilder()->add('article.articleID IN (?)', array($objectIDs));
-			$articleList->readObjects();
-			foreach ($articleList->getObjects() as $article) {
-				$this->messageCache[$article->articleID] = array('type' => 'com.woltnet.wiki.article', 'message' => $article);
-			}
-		}
-	}*/
-	
 	/**
 	 * @see	wcf\system\search\ISearchableObjectType::cacheObjects()
 	 */
@@ -98,7 +76,7 @@ class ArticleSearch extends AbstractSearchableObjectType {
 			$this->messageCache[$article->articleID] = $article;
 		}
 	}
-	
+
 	/**
 	 * @see	wcf\system\search\ISearchableObjectType::getObject()
 	 */
@@ -108,27 +86,12 @@ class ArticleSearch extends AbstractSearchableObjectType {
 	}
 
 	/**
-	 * @see wcf\system\search\ISearchableObjectType::getMessageData()
-	 */
-	/*public function getMessageData($objectID) {
-		if (isset($this->messageCache[$objectID])) return $this->messageCache[$objectID];
-		return null;
-	}*/
-
-	/**
 	 * @see wcf\system\search\ISearchableObjectType::getFormTemplateName()
 	 */
 	public function getFormTemplateName() {
 		return 'searchArticle';
 	}
 
-	/**
-	 * @see wcf\system\search\ISearchableObjectType::getResultTemplateName()
-	 */
-	public function getResultTemplateName() {
-		return 'searchResultArticle';
-	}
-	
 	/**
 	 * @see wcf\system\search.AbstractSearchableObjectType::getApplication()
 	 */

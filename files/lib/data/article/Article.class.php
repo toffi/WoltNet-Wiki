@@ -186,10 +186,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
     $message = MessageParser::getInstance()->parse($this->message, false, false, true);
     if(!$highlight) {
       if (StringUtil::length($message) > $maxLength) {
-        $message = StringUtil::encodeHTML(StringUtil::substring($message, 0, $maxLength)).'&hellip;';
-      }
-      else {
-        $message = StringUtil::encodeHTML($message);
+        $message = StringUtil::substring($message, 0, $maxLength).'&hellip;';
       }
     }
     else {
