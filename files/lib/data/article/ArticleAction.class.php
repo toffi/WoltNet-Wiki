@@ -360,4 +360,18 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
 				'articleID' => $articleID
 		);
 	}
+
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::validateGetRenderedQuote()
+	 */
+	public function validateGetRenderedQuotes() {
+
+	}
+
+	/**
+	 * @see	wcf\data\IMessageQuoteAction::getRenderedQuote()
+	 */
+	public function getRenderedQuotes() {
+
+	}
 }
