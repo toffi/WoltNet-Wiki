@@ -36,7 +36,7 @@ class ArticlePermissionHandler extends SingletonFactory {
 		// get groups permissions
 		$groups = implode(',', WCF::getUser()->getGroupIDs());
 		$this->articlePermissions = ArticlePermissionCacheBuilder::getInstance()->getData(array('groups' => $groups));
-		
+
 		// get user permissions
 		if (WCF::getUser()->userID) {
 			// get data from storage
@@ -90,9 +90,6 @@ class ArticlePermissionHandler extends SingletonFactory {
 	public function getPermission($articleID, $permission) {
 		if (isset($this->articlePermissions[$articleID][$permission])) return $this->articlePermissions[$articleID][$permission];
 
-		$categoryID = ArticleCache::getInstance()->getArticle($articleID)->categoryID;
-		//if (CategoryPermissionHandler::getInstance()->getPermission($categoryID, $permission)) return CategoryPermissionHandler::getInstance()->getPermission($categoryID, $permission);
-
 		return WCF::getSession()->getPermission('user.wiki.article.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.write.'.$permission);
 	}
 
@@ -103,9 +100,6 @@ class ArticlePermissionHandler extends SingletonFactory {
 	 * @return	boolean
 	 */
 	public function getModeratorPermission($articleID, $permission) {
-		$categoryID = ArticleCache::getInstance()->getArticle($articleID)->categoryID;
-		//if (CategoryPermissionHandler::getInstance()->getModeratorPermission($categoryID, $permission)) return CategoryPermissionHandler::getInstance()->getPermission($categoryID, $permission);
-
 		return WCF::getSession()->getPermission('mod.wiki.article.'.$permission);
 	}
 
@@ -114,6 +108,5 @@ class ArticlePermissionHandler extends SingletonFactory {
 	 */
 	public function resetCache() {
 		CacheHandler::getInstance()->clear(WIKI_DIR.'cache/', 'cache.articlePermission-');
-
 	}
 }

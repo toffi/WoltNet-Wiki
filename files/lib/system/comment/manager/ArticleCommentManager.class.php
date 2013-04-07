@@ -2,6 +2,8 @@
 namespace wiki\system\comment\manager;
 use wiki\data\article\Article;
 
+use wcf\data\comment\response\CommentResponse;
+use wcf\data\comment\Comment;
 use wcf\system\comment\manager\AbstractCommentManager;
 use wcf\system\WCF;
 
@@ -16,19 +18,111 @@ class ArticleCommentManager extends AbstractCommentManager {
     public $article = null;
 
     /**
-     * @see \wcf\system\comment\manager\AbstractCommentManager::canAdd()
+     * @see wcf\system\comment\manager\ICommentManager::canAdd()
      */
     public function canAdd($objectID) {
-        if($this->article === null) {
-        	$this->article = new Article($objectID);
-        }
-
         if(!$this->isAccessible($objectID)) {
             return false;
         }
 
+        if($this->article === null) {
+        	$this->article = new Article($objectID);
+        }
+
         return $this->article->getPermission('canWriteComment');
     }
+
+    /**
+	 * @see	wcf\system\comment\manager\ICommentManager::canEditComment()
+	 */
+	public function canEditComment(Comment $comment) {
+		// disallow guests
+		if (!WCF::getUser()->userID) {
+			return false;
+		}
+
+		if(!$this->isAccessible($comment->objectID)) {
+			return false;
+		}
+
+		if($this->article === null) {
+			$this->article = new Article($comment->objectID);
+		}
+
+		if($comment->userID == WCF::getUser()->userID) {
+			return $this->article->getPermission('canEditOwnComment');
+		}
+		return $this->article->getPermission('canEditComment');
+	}
+
+	/**
+	 * @see	wcf\system\comment\manager\ICommentManager::canEditCommentResponse()
+	 */
+	public function canEditCommentResponse(CommentResponse $response) {
+		// disallow guests
+		if (!WCF::getUser()->userID) {
+			return false;
+		}
+
+		if(!$this->isAccessible($response->getCommenct()->objectID)) {
+			return false;
+		}
+
+		if($this->article === null) {
+			$this->article = new Article($response->getCommenct()->objectID);
+		}
+
+		if($response->getCommenct()->userID == WCF::getUser()->userID) {
+			return $this->article->getPermission('canEditOwnComment');
+		}
+		return $this->article->getPermission('canEditComment');
+	}
+
+	/**
+	 * @see	wcf\system\comment\manager\ICommentManager::canDeleteComment()
+	 */
+	public function canDeleteComment(Comment $comment) {
+		// disallow guests
+		if (!WCF::getUser()->userID) {
+			return false;
+		}
+
+		if(!$this->isAccessible($comment->objectID)) {
+			return false;
+		}
+
+		if($this->article === null) {
+			$this->article = new Article($comment->objectID);
+		}
+
+		if($comment->userID == WCF::getUser()->userID) {
+			return $this->article->getPermission('canDeleteOwnComment');
+		}
+		return $this->article->getModeratorPermission('canDeleteComment');
+	}
+
+	/**
+	 * @see	wcf\system\comment\manager\ICommentManager::canDeleteCommentResponse()
+	 */
+	public function canDeleteCommentResponse(CommentResponse $response) {
+		// disallow guests
+		if (!WCF::getUser()->userID) {
+			return false;
+		}
+
+		if(!$this->isAccessible($response->getCommenct()->objectID)) {
+			return false;
+		}
+
+		if($this->article === null) {
+			$this->article = new Article($response->getCommenct()->objectID);
+		}
+
+		if($response->getCommenct()->userID == WCF::getUser()->userID) {
+			return $this->article->getPermission('canDeleteOwnComment');
+		}
+		return $this->article->getModeratorPermission('canDeleteComment');
+	}
 
     /**
      * @see wcf\system\comment\manager\AbstractCommentManager::getLink()
