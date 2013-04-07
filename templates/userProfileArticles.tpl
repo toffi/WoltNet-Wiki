@@ -5,7 +5,7 @@
         {content}
           {foreach from=$userArticleList item=articleList}
             <li class="wikiProfileContainer box48 marginTop">
-              <a href="{link application='wiki' controller='Article' object=$articleList->getDecoratedObject()}{/link}" class="framed" title="{lang}wiki.article.goToArticle{/lang}"><p class="framed"><span class="icon icon32 icon-file"></span></p></a>
+              <a href="{link application='wiki' controller='Article' object=$articleList->getDecoratedObject()}{/link}" class="framed jsTooltip" title="{lang}wiki.article.goToArticle{/lang}"><p class="framed"><span class="icon icon32 icon-file"></span></p></a>
 
               <hgroup class="wikiProfileContainerHeadline">
                 <h1><a href="{link application='wiki' controller='Article' object=$articleList->getDecoratedObject()}{/link}" data-article-id="{@$articleList->getID()}" class="wikiArticleTopicLink articleLink framed" title="{$articleList->getTitle()}">{$articleList->getTitle()}</a></h1>
