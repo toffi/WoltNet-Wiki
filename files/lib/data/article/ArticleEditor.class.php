@@ -1,14 +1,10 @@
 <?php
 namespace wiki\data\article;
-use wiki\util\ArticleUtil;
 use wiki\system\cache\builder\ArticleCacheBuilder;
 use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
 
 use wcf\data\DatabaseObjectEditor;
-use wcf\system\cache\CacheHandler;
 use wcf\data\conversation\ConversationAction;
-use wcf\data\category\Category;
-use wcf\data\category\CategoryEditor;
 use wcf\system\WCF;
 use wcf\data\IEditableCachedObject;
 
@@ -47,7 +43,7 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 				WHERE articleID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array($this->articleID));
-		
+
 		$editor = call_user_func(array('wiki\data\article\ArticleEditor', 'updateLastPostTime'), array('articleID' => $this->articleID));
 
 		if(MODULE_CONVERSATION && $this->userID != 0 && $this->userID != WCF::getUser()->userID) {
@@ -75,7 +71,7 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 			$objectAction->executeAction();
 		}
 	}
-	
+
 	public static function updateLastPostTime(array $parameters = array()) {
 		$versionList = new ArticleList();
 		$versionList->getConditionBuilder()->add('article.articleID = ?', array($parameters['articleID']));
@@ -84,7 +80,7 @@ class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObjec
 		$versionList->sqlLimit = 1;
 		$versionList->readObjects();
 		$objects = $versionList->getObjects();
-		
+
 		foreach($objects AS $object) {
 			$sql = "UPDATE wiki".WCF_N."_article
 				SET lastPostTime = ?
