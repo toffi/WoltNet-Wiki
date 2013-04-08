@@ -2,7 +2,6 @@
 namespace wiki\data\article;
 use wiki\system\cache\builder\ArticleCacheBuilder;
 
-use wcf\system\cache\CacheHandler;
 use wcf\system\SingletonFactory;
 
 /**

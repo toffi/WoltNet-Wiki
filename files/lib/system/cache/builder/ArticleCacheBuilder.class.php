@@ -1,11 +1,8 @@
 <?php
 namespace wiki\system\cache\builder;
 use wiki\data\article\ViewableArticle;
-use wiki\data\article\Article;
 
-use wcf\system\event\EventHandler;
 use wcf\system\WCF;
-use wcf\util\StringUtil;
 use wcf\system\cache\builder\AbstractCacheBuilder;
 
 /**
