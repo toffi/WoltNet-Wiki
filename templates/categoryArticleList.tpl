@@ -17,7 +17,7 @@
 
       <tbody>
         {foreach from=$objects item=article}
-          <tr class="article{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}" data-category-id="{@$article->categoryID}" data-label-ids="[ {implode from=$article->getAssignedLabels() item=label}{@$label->labelID}{/implode} ]">
+          <tr class="article jsClipboardObject{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}" data-category-id="{@$article->categoryID}" data-label-ids="[ {implode from=$article->getAssignedLabels() item=label}{@$label->labelID}{/implode} ]">
             <td class="columnMark">
               <label><input type="checkbox" class="jsClipboardItem" data-object-id="{@$article->articleID}" /></label>
             </td>
