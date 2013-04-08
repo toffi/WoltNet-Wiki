@@ -1,7 +1,6 @@
 <?php
 namespace wiki\util;
 
-use wcf\util\StringUtil;
 use wcf\system\WCF;
 
 /**
