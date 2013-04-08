@@ -1,6 +1,5 @@
 <?php
 namespace wiki\data\article;
-use wcf\system\bbcode\KeywordHighlighter;
 use wcf\data\search\ISearchResultObject;
 use wcf\system\request\LinkHandler;
 use wcf\system\search\SearchResultTextParser;
@@ -93,5 +92,8 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
    */
   public function getContainerLink() {
     return '';
+  }
+  public function getUserProfile() {
+  	return $this->getArticle()->getAuthor();
   }
 }
