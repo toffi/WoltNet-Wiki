@@ -5,10 +5,7 @@ use wiki\data\article\ArticleCache;
 use wcf\system\menu\article\content\IArticleMenuContent;
 use wcf\system\event\EventHandler;
 use wcf\system\SingletonFactory;
-use wcf\system\cache\CacheHandler;
 use wcf\system\WCF;
-use wcf\system\exception\IllegalLinkException;
-use wcf\system\bbcode\MessageParser;
 
 /**
  * @author	Rene Gessinger (NurPech)

@@ -2,10 +2,8 @@
 namespace wiki\system\menu\article\content;
 use wiki\data\article\ArticleCache;
 
-use wcf\system\cache\CacheHandler;
 use wcf\system\event\EventHandler;
 use wcf\system\menu\article\content\IArticleMenuContent;
-use wcf\system\user\activity\event\UserActivityEventHandler;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
 

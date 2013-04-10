@@ -1,8 +1,6 @@
 <?php
 namespace wiki\system\moderation\queue\activation;
-use wiki\data\article\ArticleAction;
 use wiki\data\article\ViewableArticle;
-use wiki\data\article\Article;
 use wiki\system\moderation\queue\AbstractArticleModerationQueueHandler;
 
 use wcf\data\moderation\queue\ModerationQueue;

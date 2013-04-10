@@ -5,7 +5,6 @@ use wcf\data\category\CategoryAction;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\system\category\CategoryHandler;
 use wcf\system\moderation\queue\ModerationQueueCategorySuggestionManager;
-use wcf\system\exception\SystemException;
 
 /**
  * @author	Rene Gessinger
@@ -20,18 +19,18 @@ class CategorySuggestionAction extends AbstractDatabaseObjectAction {
 	 * @see wcf\data\AbstractDatabaseObjectAction::$className
 	 */
 	protected $className = 'wiki\data\category\suggestion\CategorySuggestionEditor';
-	
+
 	/**
 	 * @see DatabaseObjectEditor::create()
 	 */
 	public function create() {
 		$object = call_user_func(array($this->className, 'create'), $this->parameters);
-		
+
 		ModerationQueueCategorySuggestionManager::getInstance()->addSuggestedContent('com.woltnet.wiki.moderation.category.suggestion', $object->suggestionID);
-	
+
 		return $object;
 	}
-	
+
 	public function accept() {
 		$objectType = CategoryHandler::getInstance()->getObjectTypeByName('com.woltnet.wiki.category');
 		foreach($this->objects AS $object) {
@@ -49,8 +48,8 @@ class CategorySuggestionAction extends AbstractDatabaseObjectAction {
 			$returnValues = $objectAction->getReturnValues();
 		}
 	}
-	
+
 	public function decline() {
-		
+
 	}
 }

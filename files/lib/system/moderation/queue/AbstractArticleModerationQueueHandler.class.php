@@ -1,16 +1,11 @@
 <?php
 namespace wiki\system\moderation\queue;
 use wiki\data\article\ArticleAction;
-
-use wiki\system\moderation\queue;
 use wiki\data\article\ArticleList;
 use wiki\data\article\Article;
 
 use wcf\data\moderation\queue\ModerationQueue;
-use wcf\data\moderation\queue\ViewableModerationQueue;
-use wcf\system\exception\SystemException;
 use wcf\system\moderation\queue\IModerationQueueHandler;
-use wcf\system\WCF;
 
 /**
  * An abstract implementation of IModerationQueueHandler for articles.

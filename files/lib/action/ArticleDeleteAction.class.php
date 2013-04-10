@@ -1,14 +1,10 @@
 <?php
 namespace wiki\action;
 use wiki\data\article\ArticleCache;
-use wiki\data\article\ArticleEditor;
-use wiki\data\article\Article;
 use wiki\data\article\ArticleAction;
 
-use wcf\system\cache\CacheHandler;
 use wcf\action\AbstractAction;
 use wcf\util\HeaderUtil;
-use wcf\system\WCF;
 use wcf\system\request\LinkHandler;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;

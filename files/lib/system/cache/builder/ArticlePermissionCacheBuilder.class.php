@@ -1,6 +1,5 @@
 <?php
 namespace wiki\system\cache\builder;
-use wiki\data\category\Article;
 
 use wcf\system\acl\ACLHandler;
 use wcf\system\cache\builder\AbstractCacheBuilder;

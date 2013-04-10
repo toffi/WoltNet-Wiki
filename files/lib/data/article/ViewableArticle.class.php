@@ -1,11 +1,9 @@
 <?php
 namespace wiki\data\article;
 use wiki\data\article\label\ArticleLabel;
-use wiki\data\article\label\ArticleLabelEditor;
 
 use wcf\system\WCF;
 use wcf\data\DatabaseObjectDecorator;
-use wcf\system\bbcode\MessageParser;
 use wcf\system\visitTracker\VisitTracker;
 use wcf\data\user\User;
 use wcf\data\user\UserProfile;

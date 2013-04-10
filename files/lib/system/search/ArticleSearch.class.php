@@ -6,11 +6,9 @@ use wiki\data\category\WikiCategoryNodeList;
 use wcf\form\IForm;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\category\CategoryHandler;
-use wcf\system\exception\PermissionDeniedException;
 use wcf\system\exception\UserInputException;
 use wcf\system\search\AbstractSearchableObjectType;
 use wcf\system\WCF;
-use wcf\system\cache\CacheHandler;
 use wcf\util\ArrayUtil;
 
 /**

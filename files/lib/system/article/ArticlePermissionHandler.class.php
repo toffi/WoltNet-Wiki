@@ -1,7 +1,5 @@
 <?php
 namespace wiki\system\article;
-use wiki\data\article\Article;
-use wiki\data\article\ArticleCache;
 use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
 
 use wcf\system\acl\ACLHandler;
@@ -10,7 +8,6 @@ use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\user\storage\UserStorageHandler;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
-use wcf\util\StringUtil;
 
 /**
  * get article permissions

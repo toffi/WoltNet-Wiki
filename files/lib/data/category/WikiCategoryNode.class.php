@@ -1,9 +1,7 @@
 <?php
 namespace wiki\data\category;
-use wiki\system\category\WikiCategoryType;
 
 use wcf\data\category\ViewableCategoryNode;
-use wcf\system\category\CategoryHandler;
 use wcf\data\DatabaseObject;
 
 /**
@@ -19,34 +17,34 @@ use wcf\data\DatabaseObject;
 class WikiCategoryNode extends ViewableCategoryNode {
 	/**
 	 * child category nodelist
-	 * 
+	 *
 	 * @var wiki\data\category\WikiCategorynodeList
 	 */
 	protected $subCategories = null;
-	
+
 	/**
 	 * objectTypeName for Wiki Categoires
 	 *
 	 * @var string
 	 */
 	public $objectTypeName = 'com.woltnet.wiki.category';
-	
+
 	/**
 	 * @see    wcf\data\category\CategoryNode::fulfillsConditions()
 	 */
 	protected function fulfillsConditions(DatabaseObject $category) {
 		if (parent::fulfillsConditions($category)) {
 			$category = new WikiCategory($category);
-	
+
 			return $category->isAccessible();
 		}
-	
+
 		return false;
 	}
-	
+
 	/**
 	 * Returns all children of this category
-	 * 
+	 *
 	 * @return wiki\data\category\WikiCategorynodeList
 	 */
 	public function getChildCategories($depth = 0) {
@@ -54,10 +52,10 @@ class WikiCategoryNode extends ViewableCategoryNode {
 			$this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
 			if($depth > 0) $this->subCategories->setMaxDepth($depth);
 		}
-		
+
 		return $this->subCategories;
 	}
-	
+
 	//TODO: implement this
 	/**
 	 * Returns count of articles
@@ -65,7 +63,7 @@ class WikiCategoryNode extends ViewableCategoryNode {
 	public function getArticles() {
 		return $this->articles;
 	}
-	
+
 	//TODO: implement this
 	/**
 	 * Returns count of unread articles

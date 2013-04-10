@@ -7,7 +7,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="columnMark"><label><input type="checkbox" class="jsClipboardMarkAll" /></label></th>
+          <th class="columnMark jsOnly"><label><input type="checkbox" class="jsClipboardMarkAll" /></label></th>
           <th colspan="2" class="columnTitle columnSubject{if $sortField == 'subject'} active {@$sortOrder}{/if}"><a href="{link controller='Category' application='wiki' object=$category}filter={@$filter}pageNo={@$pageNo}&sortField=subject&sortOrder={if $sortField == 'subject' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.articleName{/lang}</a></th>
           <th class="columnDigits columnComments{if $sortField == 'comments'} active {@$sortOrder}{/if}"><a href="{link controller='Category' application='wiki' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=comments&sortOrder={if $sortField == 'comments' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.comments{/lang}</a></th>
           <th class="columnDigits columnAuthor{if $sortField == 'username'} active {@$sortOrder}{/if}"><a href="{link controller='Category' application='wiki' object=$category}filter={@$filter}&pageNo={@$pageNo}&sortField=username&sortOrder={if $sortField == 'username' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wiki.category.article.author{/lang}</a></th>
@@ -18,7 +18,7 @@
       <tbody>
         {foreach from=$objects item=article}
           <tr class="article jsClipboardObject{if $article->isNew()} new{/if}" data-article-id="{@$article->articleID}" data-category-id="{@$article->categoryID}" data-label-ids="[ {implode from=$article->getAssignedLabels() item=label}{@$label->labelID}{/implode} ]">
-            <td class="columnMark">
+            <td class="columnMark jsOnly">
               <label><input type="checkbox" class="jsClipboardItem" data-object-id="{@$article->articleID}" /></label>
             </td>
             <td class="columnIcon columnAvatar">
@@ -54,7 +54,7 @@
               <small>
                 <a href="{link controller='User' object=$article->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a>
                 - {@$article->time|time}
-                - <a class="jsArticleInlineEditor">{lang}wcf.global.button.edit{/lang}</a>
+                - <a class="jsOnly jsArticleInlineEditor">{lang}wcf.global.button.edit{/lang}</a>
               </small>
             </td>
             <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' object=$article}#discuss{/link}">{#$article->getCommentList()|count}</a></p></td>

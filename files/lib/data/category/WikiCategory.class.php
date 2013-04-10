@@ -6,7 +6,6 @@ use wcf\system\category\CategoryPermissionHandler;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
 use wcf\data\object\type\ObjectTypeCache;
-use wcf\data\user\User;
 use wcf\system\WCF;
 
 /**
@@ -26,7 +25,7 @@ class WikiCategory extends ViewableCategory {
 	 * @var string
 	 */
 	public static $objectTypeName = 'com.woltnet.wiki.category';
-	
+
 	/**
 	 * Checks the given category permissions.
 	 * Throws a PermissionDeniedException if the active user doesn't have one of the given permissions.
@@ -40,7 +39,7 @@ class WikiCategory extends ViewableCategory {
 			}
 		}
 	}
-	
+
 	/**
 	 * @see wcf\data\category\ViewableCategory::getPermission()
 	 */
@@ -48,14 +47,14 @@ class WikiCategory extends ViewableCategory {
 		if ($this->permissions === null) {
 			$this->permissions = CategoryPermissionHandler::getInstance()->getPermissions($this->getDecoratedObject());
 		}
-		
+
 		if (isset($this->permissions[$permission])) {
 			return $this->permissions[$permission];
 		}
-		
+
 		return WCF::getSession()->getPermission('user.wiki.category.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.category.write.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.read.'.$permission) || WCF::getSession()->getPermission('user.wiki.article.write.'.$permission);
 	}
-	
+
 	/**
 	 * Returns a list of accessible categories.
 	 *
@@ -70,15 +69,15 @@ class WikiCategory extends ViewableCategory {
 			foreach ($permissions as $permission) {
 				$result = $result && $category->getPermission($permission);
 			}
-		
+
 			if ($result) {
 				$categoryIDs[] = $category->categoryID;
 			}
 		}
-		
+
 		return $categoryIDs;
 	}
-	
+
 	/**
 	 * Returns true if the category is accessible for the given user. If no
 	 * user is given, the active user is used.
@@ -88,7 +87,7 @@ class WikiCategory extends ViewableCategory {
 	public function isAccessible() {
 		return $this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory');
 	}
-	
+
 	/**
 	 * Returns true, if the given User has subscribed this category
 	 *
@@ -97,7 +96,7 @@ class WikiCategory extends ViewableCategory {
 	 */
 	public function isWatched($userID = 0) {
 		$userID = ($userID > 0) ? $userID : WCF::getUser()->userID;
-	
+
 		$sql = "SELECT COUNT(*) AS count
 				FROM wcf".WCF_N."_user_object_watch
 				WHERE objectID = ?

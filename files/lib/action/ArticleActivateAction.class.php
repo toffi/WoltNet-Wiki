@@ -2,8 +2,6 @@
 namespace wiki\action;
 
 use wiki\data\article\ArticleEditor;
-use wiki\data\article\Article;
-use wiki\data\article\ArticleAction;
 use wiki\data\article\ArticleCache;
 
 use wcf\action\AbstractAction;
