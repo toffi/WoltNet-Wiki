@@ -54,7 +54,7 @@
               <small>
                 <a href="{link controller='User' object=$article->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a>
                 - {@$article->time|time}
-                - <a class="jsOnly jsArticleInlineEditor">{lang}wcf.global.button.edit{/lang}</a>
+                - <a class="jsOnly jsArticleInlineEditor articleEditLink">{lang}wcf.global.button.edit{/lang}</a>
               </small>
             </td>
             <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' object=$article}#discuss{/link}">{#$article->getCommentList()|count}</a></p></td>
