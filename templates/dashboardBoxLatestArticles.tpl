@@ -1,9 +1,7 @@
 {if $latestArticles|count > 0}
-<header class="boxHeadline boxSubHeadline">
-    <hgroup>
-        <h1>{lang}com.woltnet.wiki.latestArticles{/lang}</h1>
-    </hgroup>
-</header>
+<hgroup>
+    <h1>{lang}com.woltnet.wiki.latestArticles{/lang}</h1>
+</hgroup>
 
 {include file='categoryArticleListDashboard' application='wiki' objects=$latestArticles}
 {/if}
