@@ -379,4 +379,11 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
   	}
   	return $this->commentList;
   }
+
+  /**
+   * @see wcf\data\IMessage::isVisible()
+   */
+  public function isVisible() {
+  	return $this->getPermission('canViewArticle');
+  }
 }

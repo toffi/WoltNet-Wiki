@@ -38,6 +38,7 @@
 		<item name="wiki.global.button.edit"><![CDATA[Bearbeiten]]></item>
 		<item name="wiki.global.button.trash"><![CDATA[In Papierkorb verschieben]]></item>
 		<item name="wiki.global.button.delete"><![CDATA[Löschen]]></item>
+        <item name="wiki.global.button.quote"><![CDATA[Zitieren]]></item>
 		<item name="wiki.global.statistics"><![CDATA[Statistik]]></item>
 		<item name="wiki.global.options"><![CDATA[Optionen]]></item>
 	</category>
