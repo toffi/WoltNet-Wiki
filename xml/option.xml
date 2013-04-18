@@ -20,7 +20,7 @@
 		
 		<options>
 			<!-- general -->
-			<option name="install_date">
+			<option name="wiki_install_date">
 				<categoryname>general</categoryname>
 				<optiontype>integer</optiontype>
 				<hidden>1</hidden>
@@ -28,7 +28,7 @@
 			<!-- /general -->
 			
 			<!-- wiki.general -->
-			<option name="index_enable_stats">
+			<option name="wiki_index_enable_stats">
 				<categoryname>wiki.index.general</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
@@ -36,7 +36,7 @@
 			<!-- /wiki.general -->
 			
 			<!-- wiki.categories-->
-			<option name="category_list_depth">
+			<option name="wiki_category_list_depth">
 				<categoryname>wiki.index.categories</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>1</defaultvalue>
@@ -44,12 +44,12 @@
 			<!-- /wiki.categories -->
 			
 			<!-- wiki.articles -->
-			<option name="category_articles_per_page">
+			<option name="wiki_category_articles_per_page">
 				<categoryname>wiki.article</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>20</defaultvalue>
 			</option>
-			<option name="category_default_sort_field">
+			<option name="wiki_category_default_sort_field">
 				<categoryname>wiki.article</categoryname>
 				<optiontype>select</optiontype>
 				<defaultvalue>time</defaultvalue>
@@ -57,7 +57,7 @@
 username:wiki.category.sortBy.username
 time:wiki.category.sortBy.time]]></selectoptions>
 			</option>
-			<option name="category_default_sort_order">
+			<option name="wiki_category_default_sort_order">
 				<categoryname>wiki.article</categoryname>
 				<optiontype>select</optiontype>
 				<defaultvalue>DESC</defaultvalue>

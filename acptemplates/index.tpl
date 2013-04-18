@@ -32,30 +32,30 @@
 			{event name='tabs'}
 		</ul>
 	</nav>
-	
+
 	{* system *}
 	<div id="system" class="container containerPadding shadow hidden tabMenuContent">
-		
+
 		<fieldset>
 			<legend>{lang}wiki.acp.index.system.software{/lang}</legend>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.system.wiki.version{/lang}</dt>
 				<dd>{PACKAGE_VERSION}</dd>
 			</dl>
 			<dl>
 				<dt>{lang}wiki.acp.index.system.wiki.installationDate{/lang}</dt>
-				<dd>{@INSTALL_DATE|time}</dd>
+				<dd>{@WIKI_INSTALL_DATE|time}</dd>
 			</dl>
 			<dl>
 				<dt>{lang}wiki.acp.index.system.wcf.version{/lang}</dt>
 				<dd>{WCF_VERSION}</dd>
 			</dl>
 		</fieldset>
-		
+
 		<fieldset>
 			<legend>{lang}wiki.acp.index.system.server{/lang}</legend>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.system.os{/lang}</dt>
 				<dd>{$os}</dd>
@@ -84,7 +84,7 @@
 			{/if}
 		</fieldset>
 	</div>
-	
+
 	{* credits *}
 	<div id="credits" class="container containerPadding shadow hidden tabMenuContent">
 		<fieldset>
@@ -92,7 +92,7 @@
 				<dt>{lang}wiki.acp.index.credits.developedBy{/lang}</dt>
 				<dd><a href="{@RELATIVE_WCF_DIR}acp/dereferrer.php?url={"http://www.woltnet.com"|rawurlencode}" class="externalURL">WoltNet</a></dd>
 			</dl>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.credits.productManager{/lang}</dt>
 				<dd>
@@ -102,7 +102,7 @@
 					</ul>
 				</dd>
 			</dl>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.credits.developer{/lang}</dt>
 				<dd>
@@ -112,7 +112,7 @@
 					</ul>
 				</dd>
 			</dl>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.credits.designer{/lang}</dt>
 				<dd>
@@ -121,7 +121,7 @@
 					</ul>
 				</dd>
 			</dl>
-			
+
 			<dl>
 				<dt>{lang}wiki.acp.index.credits.contributor{/lang}</dt>
 				<dd>
@@ -130,14 +130,14 @@
 					</ul>
 				</dd>
 			</dl>
-			
+
 			<dl>
 				<dt></dt>
 				<dd>Copyright &copy; 2012 WoltNet.</dd>
 			</dl>
 		</fieldset>
 	</div>
-	
+
 	{event name='tabContent'}
 </div>
 

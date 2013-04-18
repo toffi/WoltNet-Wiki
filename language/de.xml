@@ -119,14 +119,14 @@
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.category.wiki"><![CDATA[Wiki]]></item>
 		<item name="wcf.acp.option.category.wiki.article"><![CDATA[Artikel]]></item>
-		<item name="wcf.acp.option.category_articles_per_page"><![CDATA[Artikel pro Seite]]></item>
-		<item name="wcf.acp.option.category_default_sort_field"><![CDATA[Standardsortierfeld]]></item>
-		<item name="wcf.acp.option.category_default_sort_order"><![CDATA[Standardsortierreihenfolge]]></item>
+		<item name="wcf.acp.option.wiki_category_articles_per_page"><![CDATA[Artikel pro Seite]]></item>
+		<item name="wcf.acp.option.wiki_category_default_sort_field"><![CDATA[Standardsortierfeld]]></item>
+		<item name="wcf.acp.option.wiki_category_default_sort_order"><![CDATA[Standardsortierreihenfolge]]></item>
 		<item name="wcf.acp.option.category.wiki.index"><![CDATA[Startseite]]></item>
 		<item name="wcf.acp.option.category.wiki.index.general"><![CDATA[Allgemein]]></item>
-		<item name="wcf.acp.option.index_enable_stats"><![CDATA[Statistik anzeigen?]]></item>
+		<item name="wcf.acp.option.wiki_index_enable_stats"><![CDATA[Statistik anzeigen?]]></item>
 		<item name="wcf.acp.option.category.wiki.index.categories"><![CDATA[Kategorien]]></item>
-		<item name="wcf.acp.option.category_list_depth"><![CDATA[Tiefe der Kategorienstruktur]]></item>
+		<item name="wcf.acp.option.wiki_category_list_depth"><![CDATA[Tiefe der Kategorienstruktur]]></item>
 	</category>
 	<category name="wcf.acl.option">
 		<item name="wcf.acl.option.fullAccess"><![CDATA[Vollzugriff]]></item>

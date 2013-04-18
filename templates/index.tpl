@@ -51,7 +51,7 @@
 
 <div class="container marginTop shadow">
 	<ul class="containerList">
-		{if INDEX_ENABLE_STATS}
+		{if WIKI_INDEX_ENABLE_STATS}
 			<li class="box24">
 				<span class="icon icon24 icon-bar-chart"></span>
 				<div>
