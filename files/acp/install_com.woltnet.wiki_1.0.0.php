@@ -14,7 +14,7 @@ $package = $this->installation->getPackage();
 // set installation date
 $sql = "UPDATE	wcf".WCF_N."_option
   SET	optionValue = ?
-  WHERE	optionName = 'install_date'
+  WHERE	optionName = 'wiki_install_date'
     AND packageID = ?";
 $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute(array(
