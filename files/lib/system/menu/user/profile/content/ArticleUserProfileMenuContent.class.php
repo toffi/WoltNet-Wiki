@@ -44,4 +44,11 @@ class ArticleUserProfileMenuContent extends SingletonFactory implements IUserPro
 
 		return WCF::getTPL()->fetch('userProfileArticles', 'wiki');
 	}
+
+	/**
+	 * @see	wcf\system\menu\user\profile\content\IUserProfileMenuContent::isVisible()
+	 */
+	public function isVisible($userID) {
+		return true;
+	}
 }

@@ -7,7 +7,7 @@ use wcf\system\message\quote\QuotedMessage;
 use wcf\system\message\quote\MessageQuoteManager;
 /**
  * IMessageQuoteHandler implementation for articles.
- * 
+ *
  * @author	Rene Gessinger (NurPech)
  * @copyright	2012 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
@@ -26,12 +26,12 @@ class ArticleQuoteHandler extends AbstractMessageQuoteHandler {
 		$articleList->sqlLimit = 0;
 		$articleList->readObjects();
 		$articles = $articleList->getObjects();
-			
+
 		// create QuotedMessage objects
 		$quotedArticles = array();
 		foreach ($articles as $article) {
 			$message = new QuotedMessage($article);
-			
+
 			foreach (array_keys($data[$article->articleID]) as $quoteID) {
 				$message->addQuote(
 					$quoteID,
@@ -39,10 +39,10 @@ class ArticleQuoteHandler extends AbstractMessageQuoteHandler {
 					MessageQuoteManager::getInstance()->getQuote($quoteID, true)	// same as above or full quote
 				);
 			}
-			
-			$quotedMessages[] = $message;
+
+			$quotedArticles[] = $message;
 		}
-		
-		return $quotedMessages;
+
+		return $quotedArticles;
 	}
 }
