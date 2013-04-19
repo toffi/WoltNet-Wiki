@@ -110,7 +110,7 @@
 			<name>com.woltnet.wiki.indexPage</name>
 			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
 			<controller>wiki\page\IndexPage</controller>
-			<languagevariable>wcf.user.usersOnline.location.indexPage</languagevariable>
+			<languagevariable>wcf.user.usersOnline.location.wikiIndexPage</languagevariable>
 		</type>
 		
 		<type>
@@ -118,7 +118,7 @@
 			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
 			<classname>wiki\system\user\online\location\CategoryLocation</classname>
 			<controller>wiki\page\CategoryPage</controller>
-			<languagevariable>wcf.user.usersOnline.location.categoryPage</languagevariable>
+			<languagevariable>wcf.user.usersOnline.location.wikiCategoryPage</languagevariable>
 		</type>
 		
 		<type>
@@ -126,7 +126,7 @@
 			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
 			<classname>wiki\system\user\online\location\ArticleLocation</classname>
 			<controller>wiki\page\ArticlePage</controller>
-			<languagevariable>wcf.user.usersOnline.location.articlePage</languagevariable>
+			<languagevariable>wcf.user.usersOnline.location.wikiArticlePage</languagevariable>
 		</type>
 		
 		<!-- recent activity event -->

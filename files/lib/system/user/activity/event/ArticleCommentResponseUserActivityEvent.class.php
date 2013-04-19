@@ -65,7 +65,7 @@ class ArticleCommentResponseUserActivityEvent extends SingletonFactory implement
 					$comment = $comments[$response->commentID];
 					if (isset($articles[$comment->objectID]) && isset($articles[$comment->userID])) {
 						// title
-						$text = WCF::getLanguage()->getDynamicVariable('wcf.user.profile.recentActivity.articleCommentResponse', array(
+						$text = WCF::getLanguage()->getDynamicVariable('wcf.user.profile.recentActivity.wikiArticleCommentResponse', array(
 							'commentAuthor' => $articles[$comment->userID],
 							'article' => $articles[$comment->objectID]
 						));

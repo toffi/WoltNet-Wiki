@@ -174,11 +174,11 @@
 		<item name="wcf.acp.group.option.category.mod.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageSuggestedCategories"><![CDATA[Kann vorgeschlagene Kategorien verwalten]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageLabels"><![CDATA[Kann Kategorielabels verwalten]]></item>
-		<item name="wcf.acp.group.option.category.admin.category"><![CDATA[Kategorien]]></item>
-		<item name="wcf.acp.group.option.admin.category.canListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
-		<item name="wcf.acp.group.option.admin.category.canAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
-		<item name="wcf.acp.group.option.admin.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
-		<item name="wcf.acp.group.option.admin.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
+		<item name="wcf.acp.group.option.category.admin.wikiCategory"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.group.option.admin.category.wikiCanListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
+		<item name="wcf.acp.group.option.admin.category.wikiCanAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
+		<item name="wcf.acp.group.option.admin.category.wikiCanEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
+		<item name="wcf.acp.group.option.admin.category.wikiCanDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
 	
 	<category name="wcf.dashboard">
@@ -196,13 +196,13 @@
 		<item name="wcf.user.profile.menu.userArticles"><![CDATA[Artikel]]></item>
 		<item name="wcf.user.profile.userArticles.noneAvailable"><![CDATA[Der Benutzer hat noch keine für Sie sichtbaren Artikel veröffentlicht.]]></item>
 		<item name="wcf.user.profile.userArticles.category"><![CDATA[Kategorie]]></item>
-		<item name="wcf.user.profile.recentActivity.articleCommentResponse"><![CDATA[Hat auf einen Kommentar von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a> im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geantwortet.]]></item>
-		<item name="wcf.user.profile.recentActivity.articleComment"><![CDATA[Hat ein Kommentar im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geschrieben.]]></item>
+		<item name="wcf.user.profile.recentActivity.wikiArticleCommentResponse"><![CDATA[Hat auf einen Kommentar von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a> im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geantwortet.]]></item>
+		<item name="wcf.user.profile.recentActivity.wikiArticleComment"><![CDATA[Hat ein Kommentar im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geschrieben.]]></item>
 	</category>
 	<category name="wcf.user">
-		<item name="wcf.user.usersOnline.location.indexPage"><![CDATA[Startseite]]></item>
-		<item name="wcf.user.usersOnline.location.categoryPage"><![CDATA[<a href="{link controller='Category' application='wiki' object=$category}{/link}" class="categoryLink" data-category-id="{$category->id}">Kategorie &bdquo;{$category->getTitle()}&ldquo;</a>]]></item>
-		<item name="wcf.user.usersOnline.location.articlePage"><![CDATA[<a href="{link controller='Article' application='article' object=$article}{/link}" class="articleLink" data-article-id="{$article->getID()}"">Artikel &bdquo;{$article->subject}&ldquo;</a>]]></item>
+		<item name="wcf.user.usersOnline.location.wikiIndexPage"><![CDATA[Startseite]]></item>
+		<item name="wcf.user.usersOnline.location.wikiCategoryPage"><![CDATA[<a href="{link controller='Category' application='wiki' object=$category}{/link}" class="categoryLink" data-category-id="{$category->id}">Kategorie &bdquo;{$category->getTitle()}&ldquo;</a>]]></item>
+		<item name="wcf.user.usersOnline.location.wikiArticlePage"><![CDATA[<a href="{link controller='Article' application='article' object=$article}{/link}" class="articleLink" data-article-id="{$article->getID()}"">Artikel &bdquo;{$article->subject}&ldquo;</a>]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>

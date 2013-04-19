@@ -52,7 +52,7 @@ class ArticleCommentUserActivityEvent extends SingletonFactory implements IUserA
 				$comment = $comments[$event->objectID];
 				if (isset($articles[$comment->objectID])) {
 					$article = $articles[$comment->objectID];
-					$text = WCF::getLanguage()->getDynamicVariable('wcf.user.profile.recentActivity.articleComment', array('article' => $article));
+					$text = WCF::getLanguage()->getDynamicVariable('wcf.user.profile.recentActivity.wikiArticleComment', array('article' => $article));
 					$event->setTitle($text);
 
 					// output
