@@ -9,13 +9,13 @@
 			<controller><![CDATA[wiki\acp\page\CategoryListPage]]></controller>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>1</showorder>
-			<permissions>admin.category.wikiCanListCategory</permissions>
+			<permissions>admin.wiki.category.canListCategory</permissions>
 		</acpmenuitem>
 		<acpmenuitem name="wiki.acp.menu.link.wiki.category.add">
 			<controller><![CDATA[wiki\acp\form\CategoryAddForm]]></controller>
 			<parent>wiki.acp.menu.link.wiki.category</parent>
 			<showorder>2</showorder>
-			<permissions>admin.category.wikiCanAddCategory</permissions>
+			<permissions>admin.wiki.category.canAddCategory</permissions>
 		</acpmenuitem>
 	</import>
 </data>

@@ -49,12 +49,12 @@
 			</category>
             
 			<category name="admin.wiki.category">
-				<parent>admin.wiki</parent>
+				<parent>admin.content</parent>
 				<showorder>1</showorder>
 			</category>
 			
 			<category name="admin.wiki.article">
-				<parent>admin.wiki</parent>
+				<parent>admin.content</parent>
 				<showorder>2</showorder>
 			</category>
 		</categories>

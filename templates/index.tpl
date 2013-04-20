@@ -47,7 +47,7 @@
 </div>
 {/hascontent}
 
-{include file='categoryList'}
+{include file='categoryList' application='wiki'}
 
 <div class="container marginTop shadow">
 	<ul class="containerList">
