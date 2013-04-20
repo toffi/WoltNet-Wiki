@@ -43,13 +43,18 @@
 			</category>
 			
 			<!-- Administration -->
-			<category name="admin.category">
+            <category name="admin.wiki">
 				<parent>admin.content</parent>
 				<showorder>1</showorder>
 			</category>
+            
+			<category name="admin.wiki.category">
+				<parent>admin.wiki</parent>
+				<showorder>1</showorder>
+			</category>
 			
-			<category name="admin.article">
-				<parent>admin.content</parent>
+			<category name="admin.wiki.article">
+				<parent>admin.wiki</parent>
 				<showorder>2</showorder>
 			</category>
 		</categories>
@@ -200,26 +205,26 @@
 			</option>
 			
 			<!-- Administration -->
-			<option name="admin.category.canListCategory">
-				<categoryname>admin.category</categoryname>
+			<option name="admin.wiki.category.canListCategory">
+				<categoryname>admin.wiki.category</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="admin.category.canAddCategory">
-				<categoryname>admin.category</categoryname>
+			<option name="admin.wiki.category.canAddCategory">
+				<categoryname>admin.wiki.category</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="admin.category.canDeleteCategory">
-				<categoryname>admin.category</categoryname>
+			<option name="admin.wiki.category.canDeleteCategory">
+				<categoryname>admin.wiki.category</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="admin.category.canEditCategory">
-				<categoryname>admin.category</categoryname>
+			<option name="admin.wiki.category.canEditCategory">
+				<categoryname>admin.wiki.category</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>

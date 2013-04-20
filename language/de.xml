@@ -174,11 +174,12 @@
 		<item name="wcf.acp.group.option.category.mod.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageSuggestedCategories"><![CDATA[Kann vorgeschlagene Kategorien verwalten]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageLabels"><![CDATA[Kann Kategorielabels verwalten]]></item>
-		<item name="wcf.acp.group.option.category.admin.wikiCategory"><![CDATA[Kategorien]]></item>
-		<item name="wcf.acp.group.option.admin.category.wikiCanListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
-		<item name="wcf.acp.group.option.admin.category.wikiCanAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
-		<item name="wcf.acp.group.option.admin.category.wikiCanEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
-		<item name="wcf.acp.group.option.admin.category.wikiCanDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
+        <item name="wcf.acp.group.option.category.admin.wiki><![CDATA[Wiki]]></item>
+		<item name="wcf.acp.group.option.category.admin.wiki.category"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.group.option.admin.wiki.category.canListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
+		<item name="wcf.acp.group.option.admin.wiki.category.canAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
+		<item name="wcf.acp.group.option.admin.wiki.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>
+		<item name="wcf.acp.group.option.admin.wiki.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
 	
 	<category name="wcf.dashboard">
