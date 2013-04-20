@@ -15,16 +15,16 @@
 				'wiki.article.label.management.editLabel': '{lang}wiki.article.label.management.editLabel{/lang}',
 				'wiki.article.label.placeholder': '{lang}wiki.article.label.placeholder{/lang}',
 			});
-			
+
 			WCF.Clipboard.init('wiki\\page\\CategoryPage', {@$hasMarkedItems}, { });
-						
+
 			var $editorHandler = new WIKI.Article.EditorHandler();
 			var $inlineEditor = new WIKI.Article.InlineEditor('.article');
 			$inlineEditor.setEditorHandler($editorHandler, 'list');
-			
+
 			new WIKI.Article.Clipboard($editorHandler);
-			new WIKI.Article.Label.Manager('{link controller='Category' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
-			
+			new WIKI.Article.Label.Manager('{link controller='Category' object=$category application='wiki'}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}');
+
 			new WCF.User.ObjectWatch.Subscribe();
 
 			WCF.Collapsible.Simple.init();
@@ -45,7 +45,7 @@
 	{/if}
 {/capture}
 
-{include file='categorySidebar'}
+{include file='categorySidebar' application='wiki'}
 
 {include file='header' sidebarOrientation='right'}
 
@@ -71,15 +71,15 @@
 
 {hascontent}
 <div class="wikiCategoryListIndex marginTop">
-	{content}{include file='categoryNodeList'}{/content}
+	{content}{include file='categoryNodeList' application='wiki'}{/content}
 </div>
 {/hascontent}
 
-{include file='categoryArticleList'}
+{include file='categoryArticleList' application='wiki'}
 
 <div class="contentNavigation">
 	{@$pagesLinks}
-	
+
 	<div class="jsClipboardEditor" data-types="[ 'com.woltnet.wiki.article' ]"></div>
 </div>
 

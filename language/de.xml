@@ -174,7 +174,7 @@
 		<item name="wcf.acp.group.option.category.mod.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageSuggestedCategories"><![CDATA[Kann vorgeschlagene Kategorien verwalten]]></item>
 		<item name="wcf.acp.group.option.mod.wiki.category.canManageLabels"><![CDATA[Kann Kategorielabels verwalten]]></item>
-        <item name="wcf.acp.group.option.category.admin.wiki"><![CDATA[Wiki-Kategorien]]></item>
+        <item name="wcf.acp.group.option.category.admin.wiki.category"><![CDATA[Wiki-Kategorien]]></item>
 		<item name="wcf.acp.group.option.admin.wiki.category.canListCategory"><![CDATA[Kann Kategorien auflisten]]></item>
 		<item name="wcf.acp.group.option.admin.wiki.category.canAddCategory"><![CDATA[Kann Kategorien hinzufügen]]></item>
 		<item name="wcf.acp.group.option.admin.wiki.category.canEditCategory"><![CDATA[Kann Kategorien bearbeiten]]></item>

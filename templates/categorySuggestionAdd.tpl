@@ -21,7 +21,7 @@
 {/if}
 
 {if $success|isset}
-	<p class="success">{lang}wiki.category.categorySuggestionAdd.success{/lang}</p>	
+	<p class="success">{lang}wiki.category.categorySuggestionAdd.success{/lang}</p>
 {/if}
 
 <form method="post" action="{link controller='CategorySuggestionAdd'}{/link}" id="categorySuggestionAddForm">
