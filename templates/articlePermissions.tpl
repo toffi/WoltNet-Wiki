@@ -6,7 +6,5 @@
 						<dt>{lang}wcf.acl.permissions{/lang}</dt>
 						<dd></dd>
 				</dl>
-
-				{event name='permissionFields'}
 		</fieldset>
 {/if}
