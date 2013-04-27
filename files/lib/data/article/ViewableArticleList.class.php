@@ -53,7 +53,7 @@ class ViewableArticleList extends ArticleList {
 			// get avatar
 			if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
 			$this->sqlSelects .= "user_avatar.*, user_table.email, user_table.disableAvatar, user_table.enableGravatar";
-			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user user_table ON (user_table.userID = bug.userID)";
+			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user user_table ON (user_table.userID = article.userID)";
 			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user_avatar user_avatar ON (user_avatar.avatarID = user_table.avatarID)";
 		}
 	}

@@ -28,10 +28,7 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
    */
   public function getArticle() {
     if ($this->article === null) {
-      $this->article = new Article(null, array(
-          'articleID' => $this->articleID,
-          'subject' => $this->subject
-      ));
+      $this->article = new Article($this->articleID);
     }
 
     return $this->article;
@@ -84,15 +81,19 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
    * @see wcf\data\search\ISearchResultObject::getContainerTitle()
    */
   public function getContainerTitle() {
-    return '';
+    return $this->getArticle()->getCategory()->getTitle();
   }
 
   /**
    * @see wcf\data\search\ISearchResultObject::getContainerLink()
    */
   public function getContainerLink() {
-    return '';
+    return LinkHandler::getInstance()->getLink('Category',  array(
+        'application' => 'wiki',
+        'object' => $this->getArticle()->getCategory()
+      ));
   }
+
   public function getUserProfile() {
   	return $this->getArticle()->getAuthor();
   }
