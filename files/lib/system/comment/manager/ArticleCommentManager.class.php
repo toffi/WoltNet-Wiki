@@ -141,9 +141,13 @@ class ArticleCommentManager extends AbstractCommentManager {
     /**
      * @see wcf\system\comment\manager\AbstractCommentManager::isAccessible()
      */
-    public function isAccessible($objectID) {
+    public function isAccessible($objectID, $validateWritePermission = false) {
     	if($this->article === null) {
     		$this->article = new Article($objectID);
+    	}
+
+    	if($validateWritePermission) {
+    		return $this->article->getPermission('canWriteComment');
     	}
 
     	return $this->article->getPermission('canReadArticle');

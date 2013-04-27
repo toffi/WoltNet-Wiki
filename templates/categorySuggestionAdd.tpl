@@ -24,7 +24,7 @@
 	<p class="success">{lang}wiki.category.categorySuggestionAdd.success{/lang}</p>
 {/if}
 
-<form method="post" action="{link controller='CategorySuggestionAdd'}{/link}" id="categorySuggestionAddForm">
+<form method="post" action="{link controller='CategorySuggestionAdd' application='wiki'}{/link}" id="categorySuggestionAddForm">
 	<div class="container containerPadding marginTop shadow">
 		<fieldset>
 			<legend>
