@@ -22,13 +22,13 @@
 		<templatelistener name="wikiArticlePermissionTab">
 			<environment>user</environment>
 			<templatename>messageFormTabs</templatename>
-			<eventname>tabMenuItems</eventname>
+			<eventname>tabMenuTabs</eventname>
 			<templatecode><![CDATA[{if $templateName == 'articleAdd'&& $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}<li><a href="{@$__wcf->getAnchor('permissions')}" title="{lang}wiki.article.permissions{/lang}">{lang}wiki.article.permissions{/lang}</a></li>{/if}]]></templatecode>
 		</templatelistener>
 		<templatelistener name="wikiArticlePermissionFields">
 			<environment>user</environment>
 			<templatename>messageFormTabs</templatename>
-			<eventname>tabMenuContent</eventname>
+			<eventname>tabMenuContents</eventname>
 			<templatecode><![CDATA[{if $templateName == 'articleAdd'}{include file='articlePermissions' application='wiki'}{/if}]]></templatecode>
 		</templatelistener>
 		<templatelistener name="wikiArticleAddSettings">
