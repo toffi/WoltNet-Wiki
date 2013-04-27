@@ -49,12 +49,20 @@ class ViewableArticle extends DatabaseObjectDecorator {
    *
    * @return	wcf\data\user\UserProfile
    */
-  public function getAuhor() {
+  public function getAuthor() {
     if ($this->userProfile === null) {
       $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->data));
     }
 
     return $this->userProfile;
+  }
+
+  /**
+   * Alias for wiki\data\article\ViewableArticle::getAuthor()
+   * @return \wcf\data\user\UserProfile
+   */
+  public function getUserProfile() {
+  	return $this->getAuthor();
   }
 
   /**

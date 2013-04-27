@@ -176,6 +176,14 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
   }
 
   /**
+   * Alias for wiki\data\article\Article::getAuthor()
+   * @return \wcf\data\user\UserProfile
+   */
+  public function getUserProfile() {
+  	return $this->getAuthor();
+  }
+
+  /**
    * Returns an excerpt of this article.
    *
    * @param	string		$maxLength

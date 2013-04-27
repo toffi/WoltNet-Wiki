@@ -22,13 +22,13 @@ class ViewableArticleList extends ArticleList {
 	 * @var string
 	 */
 	public $decoratorClassName = 'wiki\data\article\ViewableArticle';
-	
+
 	/**
 	 * label list object
 	 * @var	wiki\data\article\label\ArticleLabelList
 	 */
 	public $labelList = null;
-	
+
 	/**
 	 * Creates a new ViewableArticleList object.
 	 */
@@ -49,6 +49,12 @@ class ViewableArticleList extends ArticleList {
 			if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
 			$this->sqlSelects .= 'user_object_watch.watchID';
 			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user_object_watch user_object_watch ON (user_object_watch.objectTypeID = ".ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.article')->objectTypeID." AND user_object_watch.userID = ".WCF::getUser()->userID." AND user_object_watch.objectID = article.articleID)";
+
+			// get avatar
+			if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+			$this->sqlSelects .= "user_avatar.*, user_table.email, user_table.disableAvatar, user_table.enableGravatar";
+			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user user_table ON (user_table.userID = bug.userID)";
+			$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_user_avatar user_avatar ON (user_avatar.avatarID = user_table.avatarID)";
 		}
 	}
 
@@ -58,12 +64,12 @@ class ViewableArticleList extends ArticleList {
 	public function readObjects() {
 		if ($this->objectIDs === null) $this->readObjectIDs();
 		parent::readObjects();
-		
+
 		$labels = $this->loadLabelAssignments();
-		
+
 		foreach ($this->objects as $articleID => $article) {
 			$this->objects[$articleID] = $article;
-			
+
 			if (isset($labels[$articleID])) {
 				foreach ($labels[$articleID] as $label) {
 					$this->objects[$articleID]->assignLabel($label);
@@ -71,25 +77,25 @@ class ViewableArticleList extends ArticleList {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns a list of article labels.
-	 * 
+	 *
 	 * @return	array<wiki\data\article\label\ArticleLabel>
 	 */
 	protected function getLabels() {
 		if ($this->labelList === null) {
 			$this->labelList = ArticleLabel::getLabelsByCategory();
 		}
-		
+
 		if(is_object($this->labelList)) return $this->labelList->getObjects();
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Returns label assignments per article.
-	 * 
+	 *
 	 * @return	array<array>
 	 */
 	protected function loadLabelAssignments() {
@@ -97,11 +103,11 @@ class ViewableArticleList extends ArticleList {
 		if (empty($labels)) {
 			return array();
 		}
-		
+
 		$conditions = new PreparedStatementConditionBuilder();
 		$conditions->add("articleID IN (?)", array(array_keys($this->objects)));
 		$conditions->add("labelID IN (?)", array(array_keys($labels)));
-		
+
 		$sql = "SELECT	labelID, articleID
 			FROM	wiki".WCF_N."_article_label_to_object
 			".$conditions;
@@ -112,13 +118,13 @@ class ViewableArticleList extends ArticleList {
 			if (!isset($data[$row['articleID']])) {
 				$data[$row['articleID']] = array();
 			}
-			
+
 			$data[$row['articleID']][$row['labelID']] = $labels[$row['labelID']];
 		}
-		
+
 		return $data;
 	}
-	
+
 	/**
 	 * @param	wiki\data\article\label\ArticleLabelList	$labelList
 	 */
