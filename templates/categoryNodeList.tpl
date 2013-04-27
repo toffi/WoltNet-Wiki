@@ -4,11 +4,11 @@
 			<li class="box48" data-category-id="{@$categoryItem->categoryID}">
 				<span class="icon icon48 icon-folder{if $categoryItem->getUnreadArticles()}New{/if}Colored {if $categoryItem->getUnreadArticles()} markAsRead{/if}"></span>
 				<div>
-					<hgroup class="containerHeadline">
+					<div class="containerHeadline">
 						<h1><a {if $categoryItem->getUnreadArticles()}class="wikiCategoryNew"{/if} title="{$categoryItem->getTitle()}" href="{link application='wiki' controller='Category' id=$categoryItem->categoryID title=$categoryItem->title|language}{/link}">{$categoryItem->getTitle()}</a> ({#$categoryItem->getArticles()}) {if $categoryItem->getUnreadArticles()}<span class="badge">{$categoryItem->getUnreadArticles()}</span>{/if}</h1>
 						{hascontent}<h2 class="wikiCategoryDescription">{content}{$categoryItem->description|language}{/content}</h2>{/hascontent}
-					
-					
+
+
 						{* Subcategorys *}
 						{if $categoryItem->hasChildren()}
 							<ul class="subCategory">
@@ -21,7 +21,7 @@
 								{/implode}
 							</ul>
 						{/if}
-					</hgroup>
+					</div>
 				</div>
 			</li>
 		</ul>

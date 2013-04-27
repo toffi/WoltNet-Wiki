@@ -1,8 +1,8 @@
 <div id="version" class="container containerPadding tabMenuContent hidden">
 		<div id="versionContainer" class="tabularBox tabularBoxTitle marginTop shadow">
-			<hgroup>
+			<div>
 				<h1>{lang}wiki.article.versions{/lang} <span class="badge" title="{lang}wiki.article.versionsCount{/lang}">CODE</span></h1>
-			</hgroup>
+			</div>
 			<table id="version1" class="table">
 				<thead>
 					<tr>

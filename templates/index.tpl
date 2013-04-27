@@ -13,10 +13,10 @@
 {include file='header' sidebarOrientation='right'}
 
 <header class="boxHeadline">
-	<hgroup>
+	<div>
 		<h1>{PAGE_TITLE|language}</h1>
 		{hascontent}<h2>{content}{PAGE_DESCRIPTION|language}{/content}</h2>{/hascontent}
-	</hgroup>
+	</div>
 </header>
 
 {hascontent}
@@ -55,10 +55,10 @@
 			<li class="box24">
 				<span class="icon icon24 icon-bar-chart"></span>
 				<div>
-					<hgroup class="containerHeadline">
+					<div class="containerHeadline">
 						<h1>{lang}wiki.global.statistics{/lang}</h1>
 						<h2>{lang}wiki.global.statistics.description{/lang}</h2>
-					</hgroup>
+					</div>
 				</div>
 			</li>
 		{/if}

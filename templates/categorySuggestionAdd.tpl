@@ -11,9 +11,9 @@
 {include file='header'}
 
 <header class="boxHeadline">
-	<hgroup>
+	<div>
 		<h1>{lang}wiki.category.categorySuggestionAdd{/lang}</h1>
-	</hgroup>
+	</div>
 </header>
 
 {if $errorField}

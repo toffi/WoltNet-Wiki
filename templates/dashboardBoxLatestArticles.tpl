@@ -1,7 +1,7 @@
 {if $latestArticles|count > 0}
-<hgroup>
+<div>
     <h1>{lang}com.woltnet.wiki.latestArticles{/lang}</h1>
-</hgroup>
+</div>
 
 {include file='categoryArticleListDashboard' application='wiki' objects=$latestArticles}
 {/if}

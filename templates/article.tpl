@@ -44,7 +44,7 @@
 				<ul class="sidebarBoxList">
 					{if $availableContentLanguagesCount > 0 && $articleOverview->getLanguage() !== null}
 					<li class="box24">
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.language{/lang}</h1>
 							<h2>
 								<small id="languageIDContainer">
@@ -76,26 +76,26 @@
 									</noscript>
 								</small>
 							</h2>
-						</hgroup>
+						</>
 					</li>
 					{/if}
 					<li class="box24" {if $availableContentLanguagesCount > 0 && $articleOverview->getLanguage() !== null}style="margin-top: 20px;"{/if}>
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.articleName{/lang}</h1>
 							<h2><small>{$articleOverview->getTitle()}</small></h2>
-						</hgroup>
+						</div>
 					</li>
 					<li class="box24" style="margin-top: 20px;">
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.articleCategory{/lang}</h1>
 							<h2><small><a title="{$articleOverview->getCategory()->getTitle()}" href="{link application='wiki' controller='Category' object=$article->getCategory()}{/link}">{$articleOverview->getCategory()->getTitle()}</a></small></h2>
-						</hgroup>
+						</div>
 					</li>
 					<li class="box24" style="margin-top: 20px;">
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1>{lang}wiki.article.sidebar.lastEditedDate{/lang}</h1>
 								<h2><small>{@$articleOverview->lastPostTime|time}</small></h2>
-						</hgroup>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -107,17 +107,17 @@
 				<ul class="sidebarBoxList containerList">
 					<li class="sidebarBox box24">
 						<p><span onclick="document.getElementById('articleLink').select()" class="icon icon24 icon-link"></span></p>
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLink" readonly="readonly" onclick="this.select()" value="{link application='wiki' controller='Article' object=$article}{/link}" /></h1>
 							<h2 onclick="document.getElementById('articleLink').select()"><small>{lang}wiki.article.sidebar.share.description{/lang}</small></h2>
-						</hgroup>
+						</div>
 					</li>
 					<li class="sidebarBox box24">
 						<p><span onclick="document.getElementById('articleLinkBBCode').select()" class="icon icon24 icon-share"></span></p>
-						<hgroup class="sidebarBoxHeadline">
+						<div class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLinkBBCode" readonly="readonly" onclick="this.select()" value="[url='{link application='wiki' controller='Article' object=$article}{/link}']{$article->getTitle()}[/url]" /></h1>
 							<h2 onclick="document.getElementById('articleLinkBBCode').select()"><small>{lang}wiki.article.sidebar.share.bbcode.description{/lang}</small></h2>
-						</hgroup>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -128,7 +128,7 @@
 {include file='header' sidebarOrientation='right'}
 
 <header class="boxHeadline">
-	<hgroup>
+	<div>
 		<h1>
 			{$articleOverview->getTitle()}
 		</h1>
@@ -159,7 +159,7 @@
 			</noscript>*}
 		{lang}wiki.article.overview.author{/lang}
 		</h2>
-	</hgroup>
+	</div>
 </header>
 
 {if $showNotActive}

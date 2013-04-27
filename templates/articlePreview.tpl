@@ -5,9 +5,9 @@
     {/if}
 
     <div>
-        <hgroup class="containerHeadline">
+        <div class="containerHeadline">
             <h1><a href="{link controller='User' object=$user->getDecoratedObject()}{/link}">{$user->username}</a> <small>- {@$article->time|time}</small></h1>
-        </hgroup>
+        </div>
 
         <div>{@$article->getExcerpt()|nl2br}</div>
     </div>

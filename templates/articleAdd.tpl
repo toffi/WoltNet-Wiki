@@ -29,9 +29,9 @@
 {include file='header'}
 
 <header class="boxHeadline">
-  <hgroup>
+  <div>
     <h1>{lang}wiki.article.article{$action|ucfirst}{/lang}</h1>
-  </hgroup>
+  </div>
 </header>
 
 {if $errorField}

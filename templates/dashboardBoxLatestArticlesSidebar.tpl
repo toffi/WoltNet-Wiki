@@ -7,10 +7,10 @@
 				<li class="sidebarBox box24">
 					<a href="{link controller='Article' object=$latestArticleObject}{/link}" class="framed">{@$latestArticleObject->getAuthor()->getAvatar()->getImageTag(24)}</a>
 
-					<hgroup class="sidebarBoxHeadline">
+					<div class="sidebarBoxHeadline">
 						<h1><a href="{link controller='Article' object=$latestArticle->getActiveVersion()}{/link}" class="wikiArticleTopicLink articleLink" data-article-id="{@$latestArticle->getActiveVersion()->articleID}" data-sort-order="DESC" title="{$latestArticle->getActiveVersion()->getTitle()}">{$latestArticle->getActiveVersion()->getTitle()}</a></h1>
 						<h2><small>{if $latestArticleObject->userID}<a href="{link controller='User' object=$latestArticleObject->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$latestArticleObject->getDecoratedObject()->userID}">{$latestArticleObject->username}</a>{else}{$latestArticleObject->username}{/if} - {@$latestArticleObject->time|time}</small></h2>
-					</hgroup>
+					</div>
 				</li>
 				{/if}
 			{/foreach}
