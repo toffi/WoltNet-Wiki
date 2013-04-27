@@ -107,7 +107,7 @@
 		<item name="wiki.acp.index.credits.contributor"><![CDATA[Mitwirkende]]></item>
 	</category>
 	<category name="wiki.acp.menu">
-		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Kategorien]]></item>
+		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Wiki Kategorien]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
 	</category>
