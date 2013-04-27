@@ -8,7 +8,7 @@
 
 <body id="tpl{$templateName|ucfirst}">
 
-{include file='sidebar'}
+{include file='sidebar' application='wiki'}
 
 {include file='header' sidebarOrientation='right'}
 
