@@ -172,7 +172,7 @@
 	</nav>
 
 	{foreach from=$__wcf->getArticleMenu()->getMenuItems() item=menuItem}
-		<div id="{$menuItem->getIdentifier()}" class="container tabMenuContent shadow" data-menu-item="{$menuItem->menuItem}">
+		<div id="{$menuItem->getIdentifier()}" class="container containerPadding tabMenuContent shadow" data-menu-item="{$menuItem->menuItem}">
 			{if $menuItem === $__wcf->getArticleMenu()->getActiveMenuItem()}
 				{@$articleContent}
 			{/if}
