@@ -3,6 +3,9 @@ namespace wiki\data\category;
 
 use wcf\data\category\ViewableCategoryNode;
 use wcf\data\DatabaseObject;
+use wcf\system\language\LanguageFactory;
+use wcf\system\database\util\PreparedStatementConditionBuilder;
+use wcf\system\WCF;
 
 /**
  * Represents a wiki category node.
@@ -15,60 +18,93 @@ use wcf\data\DatabaseObject;
  * @category	WoltNet Wiki
  */
 class WikiCategoryNode extends ViewableCategoryNode {
-	/**
-	 * child category nodelist
-	 *
-	 * @var wiki\data\category\WikiCategorynodeList
-	 */
-	protected $subCategories = null;
+    /**
+     * child category nodelist
+     *
+     * @var wiki\data\category\WikiCategorynodeList
+     */
+    protected $subCategories = null;
 
-	/**
-	 * objectTypeName for Wiki Categoires
-	 *
-	 * @var string
-	 */
-	public $objectTypeName = 'com.woltnet.wiki.category';
+    /**
+     * Count of articles in this category
+     *
+     * @var integer
+     */
+    public $articles = null;
 
-	/**
-	 * @see    wcf\data\category\CategoryNode::fulfillsConditions()
-	 */
-	protected function fulfillsConditions(DatabaseObject $category) {
-		if (parent::fulfillsConditions($category)) {
-			$category = new WikiCategory($category);
+    /**
+     * Count of unread articles in this category
+     *
+     * @var integer
+     */
+    public $unreadArticles = null;
 
-			return $category->isAccessible();
-		}
+    /**
+     * objectTypeName for Wiki Categoires
+     *
+     * @var string
+     */
+    public $objectTypeName = 'com.woltnet.wiki.category';
 
-		return false;
-	}
+    /**
+     * @see    wcf\data\category\CategoryNode::fulfillsConditions()
+     */
+    protected function fulfillsConditions(DatabaseObject $category) {
+        if (parent::fulfillsConditions($category)) {
+            $category = new WikiCategory($category);
 
-	/**
-	 * Returns all children of this category
-	 *
-	 * @return wiki\data\category\WikiCategorynodeList
-	 */
-	public function getChildCategories($depth = 0) {
-		if($this->subCategories === null) {
-			$this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
-			if($depth > 0) $this->subCategories->setMaxDepth($depth);
-		}
+            return $category->isAccessible();
+        }
 
-		return $this->subCategories;
-	}
+        return false;
+    }
 
-	//TODO: implement this
-	/**
-	 * Returns count of articles
-	 */
-	public function getArticles() {
-		return $this->articles;
-	}
+    /**
+     * Returns all children of this category
+     *
+     * @return wiki\data\category\WikiCategorynodeList
+     */
+    public function getChildCategories($depth = 0) {
+        if($this->subCategories === null) {
+            $this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
+            if($depth > 0) $this->subCategories->setMaxDepth($depth);
+        }
 
-	//TODO: implement this
-	/**
-	 * Returns count of unread articles
-	 */
-	public function getUnreadArticles() {
-		return 0;
-	}
+        return $this->subCategories;
+    }
+
+    /**
+     * Returns count of articles
+     */
+    public function getArticles() {
+        if($this->articles === null) {
+            $conditions = new PreparedStatementConditionBuilder();
+            /*$sql = "SELECT COUNT(articleID) AS count
+                    FROM wiki".WCF_N."_article
+                    WHERE categoryID = ?
+                        AND isActive = ?
+                        AND isDeleted = ?";*/
+            $conditions->add('article.categoryID = ?', array($this->categoryID));
+            $conditions->add('article.isActive = ?', array(1));
+            $conditions->add('article.isDeleted = ?', array(0));
+            if (count(LanguageFactory::getInstance()->getContentLanguages()) > 0 && count(WCF::getUser()->getLanguageIDs())) {
+                $conditions->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
+            }
+            $sql = "SELECT COUNT(articleID) AS count
+                    FROM wiki".WCF_N."_article AS article
+                    ".$conditions;
+            $statement = WCF::getDB()->prepareStatement($sql);
+            $statement->execute($conditions->getParameters());
+            $row = $statement->fetchArray();
+            $this->articles = $row['count'];
+        }
+        return $this->articles;
+    }
+
+    /**
+     * Returns count of unread articles
+     */
+    public function getUnreadArticles() {
+        return 0;
+    }
 }
