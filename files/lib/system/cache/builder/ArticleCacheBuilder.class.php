@@ -1,6 +1,6 @@
 <?php
 namespace wiki\system\cache\builder;
-use wiki\data\article\ViewableArticle;
+use wiki\data\article\Article;
 
 use wcf\system\WCF;
 use wcf\system\cache\builder\AbstractCacheBuilder;
@@ -28,7 +28,7 @@ class ArticleCacheBuilder extends AbstractCacheBuilder {
     $statement = WCF::getDB()->prepareStatement($sql);
     $statement->execute();
     while($row = $statement->fetchArray()) {
-      $data['articles'][$row['articleID']] = ViewableArticle::getViewableArticle($row['articleID']);
+      $data['articles'][$row['articleID']] = new Article($row['articleID']);
     }
 
     return $data;
