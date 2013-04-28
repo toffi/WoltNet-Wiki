@@ -13,10 +13,8 @@
 {include file='header' sidebarOrientation='right'}
 
 <header class="boxHeadline">
-	<div>
-		<h1>{PAGE_TITLE|language}</h1>
-		{hascontent}<h2>{content}{PAGE_DESCRIPTION|language}{/content}</h2>{/hascontent}
-	</div>
+	<h1>{PAGE_TITLE|language}</h1>
+	{hascontent}<h2>{content}{PAGE_DESCRIPTION|language}{/content}</h2>{/hascontent}
 </header>
 
 {hascontent}
@@ -52,8 +50,8 @@
 <div class="container marginTop shadow">
 	<ul class="containerList">
 		{if WIKI_INDEX_ENABLE_STATS}
-			<li class="box24">
-				<span class="icon icon24 icon-bar-chart"></span>
+			<li class="box32">
+				<span class="icon icon32 icon-bar-chart"></span>
 				<div>
 					<div class="containerHeadline">
 						<h1>{lang}wiki.global.statistics{/lang}</h1>

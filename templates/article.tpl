@@ -128,38 +128,34 @@
 {include file='header' sidebarOrientation='right'}
 
 <header class="boxHeadline">
-	<div>
-		<h1>
-			{$articleOverview->getTitle()}
-		</h1>
-		<h2>
-			{*<script type="text/javascript">
-				//<![CDATA[
-					$(function() {
-						var $languages = {
-							{implode from=$articleOverview->getAvailableLanguages() item=language}
-								'{@$language->languageID}': {
-									iconPath: '{@$language->getIconPath()}',
-									languageName: '{$language}'
-								}
-							{/implode}
-						};
-
-						new WCF.Language.Chooser('languageIDContainer', 'languageID', {@$articleOverview->languageID}, $languages);
-					});
-				//]]>
-			</script>
-			<noscript>
-				<span><img src="{@$__wcf->getLanguage()->getIconPath}" alt="{$__wcf->getLanguage()}" /></span>
-				<select name="languageID" id="languageID">
-					{foreach from=$articleOverview->getAvailableLanguages() item=language}
-						<option value="{@$language->languageID}"{if $language->languageID == $articleOverview->languageID} selected="selected"{/if}>{$language}</option>
-					{/foreach}
-				</select>
-			</noscript>*}
-		{lang}wiki.article.overview.author{/lang}
-		</h2>
-	</div>
+	<h1>{$articleOverview->getTitle()}</h1>
+	<h2>
+		{*<script type="text/javascript">
+			//<![CDATA[
+				$(function() {
+					var $languages = {
+						{implode from=$articleOverview->getAvailableLanguages() item=language}
+							'{@$language->languageID}': {
+								iconPath: '{@$language->getIconPath()}',
+								languageName: '{$language}'
+							}
+						{/implode}
+					};
+					
+					new WCF.Language.Chooser('languageIDContainer', 'languageID', {@$articleOverview->languageID}, $languages);
+				});
+			//]]>
+		</script>
+		<noscript>
+			<span><img src="{@$__wcf->getLanguage()->getIconPath}" alt="{$__wcf->getLanguage()}" /></span>
+			<select name="languageID" id="languageID">
+				{foreach from=$articleOverview->getAvailableLanguages() item=language}
+					<option value="{@$language->languageID}"{if $language->languageID == $articleOverview->languageID} selected="selected"{/if}>{$language}</option>
+				{/foreach}
+			</select>
+		</noscript>*}
+	{lang}wiki.article.overview.author{/lang}
+	</h2>
 </header>
 
 {if $showNotActive}
