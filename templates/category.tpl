@@ -50,10 +50,8 @@
 {include file='header' sidebarOrientation='right'}
 
 <header class="boxHeadline">
-	<div>
-		<h1>{$category->getTitle()}</h1>
-		{hascontent}<h2>{content}{$category->description|language}{/content}</h2>{/hascontent}
-	</div>
+	<h1>{$category->getTitle()}</h1>
+	{hascontent}<h2>{content}{$category->description|language}{/content}</h2>{/hascontent}
 </header>
 
 <div class="contentNavigation">

@@ -14,7 +14,7 @@
 		<item name="wiki.category.sortBy.username"><![CDATA[Autor]]></item>
 		<item name="wiki.category.categorySuggestionAdd"><![CDATA[Kategorievorschlag einreichen]]></item>
 		<item name="wiki.category.categorySuggestionAdd.data"><![CDATA[Daten]]></item>
-		<item name="wiki.category.categorySuggestionAdd.parentCategory"><![CDATA[übergeordnete Kategorie]]></item>
+		<item name="wiki.category.categorySuggestionAdd.parentCategory"><![CDATA[Übergeordnete Kategorie]]></item>
 		<item name="wiki.category.categorySuggestionAdd.parentCategory.none"><![CDATA[keine]]></item>
 		<item name="wiki.category.categorySuggestionAdd.title"><![CDATA[Titel der Kategorie]]></item>
 		<item name="wiki.category.categorySuggestionAdd.reason"><![CDATA[Begründung]]></item>
