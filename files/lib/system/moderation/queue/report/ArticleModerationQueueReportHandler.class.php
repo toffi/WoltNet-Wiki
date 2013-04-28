@@ -20,53 +20,63 @@ use wcf\system\WCF;
  * @category 	WoltNet - Wiki
  */
 class ArticleModerationQueueReportHandler extends AbstractArticleModerationQueueHandler implements IModerationQueueReportHandler {
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
-	 */
-	public function assignQueues(array $queues) {
-		$assignments = array();
-		foreach ($queues as $queue) {
-			$assignUser = 0;
-			if(ArticleCache::getInstance()->getArticle($queue->objectID)->getCategory()->getPermission('canModerateArticle')) {
-				$assignUser = 1;
-			}
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$definitionName
+     */
+    protected $definitionName = 'com.woltlab.wcf.moderation.report';
 
-			$assignments[$queue->queueID] = $assignUser;
-		}
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$objectType
+     */
+    protected $objectType = 'com.woltnet.wiki.article';
 
-		ModerationQueueManager::getInstance()->setAssignment($assignments);
-	}
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
+     */
+    public function assignQueues(array $queues) {
+        $assignments = array();
+        foreach ($queues as $queue) {
+            $assignUser = 0;
+            if(ArticleCache::getInstance()->getArticle($queue->objectID)->getCategory()->getPermission('canModerateArticle')) {
+                $assignUser = 1;
+            }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::canReport()
-	 */
-	public function canReport($objectID) {
-		if (!$this->isValid($objectID)) {
-			return false;
-		}
+            $assignments[$queue->queueID] = $assignUser;
+        }
 
-		return true;
-	}
+        ModerationQueueManager::getInstance()->setAssignment($assignments);
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedContent()
-	 */
-	public function getReportedContent(ViewableModerationQueue $queue) {
-		WCF::getTPL()->assign(array(
-			'article' => new ViewableArticle($queue->getAffectedObject())
-		));
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::canReport()
+     */
+    public function canReport($objectID) {
+        if (!$this->isValid($objectID)) {
+            return false;
+        }
 
-		return WCF::getTPL()->fetch('moderationArticle', 'wiki');
-	}
+        return true;
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedObject()
-	 */
-	public function getReportedObject($objectID) {
-		if ($this->isValid($objectID)) {
-			return $this->getArticle($objectID);
-		}
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedContent()
+     */
+    public function getReportedContent(ViewableModerationQueue $queue) {
+        WCF::getTPL()->assign(array(
+            'article' => new ViewableArticle($queue->getAffectedObject())
+        ));
 
-		return null;
-	}
+        return WCF::getTPL()->fetch('moderationArticle', 'wiki');
+    }
+
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedObject()
+     */
+    public function getReportedObject($objectID) {
+        if ($this->isValid($objectID)) {
+            return $this->getArticle($objectID);
+        }
+
+        return null;
+    }
 }

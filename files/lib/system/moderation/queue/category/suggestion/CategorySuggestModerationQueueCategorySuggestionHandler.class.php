@@ -8,6 +8,7 @@ use wcf\system\moderation\queue\category\suggestion\IModerationQueueCategorySugg
 use wcf\data\moderation\queue\ModerationQueue;
 use wcf\data\moderation\queue\ViewableModerationQueue;
 use wcf\system\moderation\queue\ModerationQueueManager;
+use wcf\system\moderation\queue\AbstractModerationQueueHandler;
 use wcf\system\WCF;
 
 /**
@@ -20,125 +21,135 @@ use wcf\system\WCF;
  * @subpackage	system.moderation.queue
  * @category	WoltNet Wiki
  */
-class CategorySuggestModerationQueueCategorySuggestionHandler implements IModerationQueueCategorySuggestionHandler {
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
-	 */
-	public function assignQueues(array $queues) {
-		$assignments = array();
-		foreach ($queues as $queue) {
-			$assignUser = 0;
-			if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
-				$assignUser = 1;
-			}
+class CategorySuggestModerationQueueCategorySuggestionHandler extends AbstractModerationQueueHandler implements IModerationQueueCategorySuggestionHandler {
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$definitionName
+     */
+    protected $definitionName = 'com.woltnet.wiki.core.moderation.category.suggestion';
 
-			$assignments[$queue->queueID] = $assignUser;
-		}
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$objectType
+     */
+    protected $objectType = 'com.woltnet.wiki.moderation.category.suggestion';
 
-		ModerationQueueManager::getInstance()->setAssignment($assignments);
-	}
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
+     */
+    public function assignQueues(array $queues) {
+        $assignments = array();
+        foreach ($queues as $queue) {
+            $assignUser = 0;
+            if (WCF::getSession()->getPermission('mod.wiki.category.canManageSuggestedCategories')) {
+                $assignUser = 1;
+            }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::acceptSuggestion()
-	 */
-	public function acceptSuggestion(ModerationQueue $queue) {
-		if ($this->isValid($queue->objectID)) {
-			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'accept');
-			$categorySuggestionAction->executeAction();
-		}
-	}
+            $assignments[$queue->queueID] = $assignUser;
+        }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::declineSuggestion()
-	 */
-	public function declineSuggestion(ModerationQueue $queue, $message='') {
-		if ($this->isValid($queue->objectID)) {
-			$categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'decline', array('message' => $message));
-			$categorySuggestionAction->executeAction();
-		}
-	}
+        ModerationQueueManager::getInstance()->setAssignment($assignments);
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::removeContent()
-	 */
-	public function removeContent(ModerationQueue $queue, $message) {
-		$this->declineSuggestion($queue, $message);
-	}
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::acceptSuggestion()
+     */
+    public function acceptSuggestion(ModerationQueue $queue) {
+        if ($this->isValid($queue->objectID)) {
+            $categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'accept');
+            $categorySuggestionAction->executeAction();
+        }
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::getContainerID()
-	 */
-	public function getContainerID($objectID) {
-		return 0;
-	}
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueCategorySuggestionHandler::declineSuggestion()
+     */
+    public function declineSuggestion(ModerationQueue $queue, $message='') {
+        if ($this->isValid($queue->objectID)) {
+            $categorySuggestionAction = new CategorySuggestionAction(array($this->getCategorySuggestion($queue->objectID)), 'decline', array('message' => $message));
+            $categorySuggestionAction->executeAction();
+        }
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedContent()
-	 */
-	public function getSuggestedContent(ViewableModerationQueue $queue) {
-		WCF::getTPL()->assign(array(
-				'categorySuggestion' => $queue->getAffectedObject()
-		));
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::removeContent()
+     */
+    public function removeContent(ModerationQueue $queue, $message) {
+        $this->declineSuggestion($queue, $message);
+    }
 
-		return WCF::getTPL()->fetch('wikiModerationCategorySuggestion', 'wiki');
-	}
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::getContainerID()
+     */
+    public function getContainerID($objectID) {
+        return 0;
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedObject()
-	 */
-	public function getSuggestedObject($objectID) {
-		if ($this->isValid($objectID)) {
-			return $this->getCategorySuggestion($objectID);
-		}
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedContent()
+     */
+    public function getSuggestedContent(ViewableModerationQueue $queue) {
+        WCF::getTPL()->assign(array(
+                'categorySuggestion' => $queue->getAffectedObject()
+        ));
 
-		return null;
-	}
+        return WCF::getTPL()->fetch('wikiModerationCategorySuggestion', 'wiki');
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::isValid()
-	 */
-	public function isValid($objectID) {
-		if ($this->getCategorySuggestion($objectID) === null) {
-			return false;
-		}
+    /**
+     * @see	wcf\system\moderation\queue\report\IModerationQueueReportHandler::getReportedObject()
+     */
+    public function getSuggestedObject($objectID) {
+        if ($this->isValid($objectID)) {
+            return $this->getCategorySuggestion($objectID);
+        }
 
-		return true;
-	}
+        return null;
+    }
 
-	/**
-	 * Returns a categorySuggestion object by suggestion id or null if suggestion id is invalid.
-	 *
-	 * @param	integer		$objectID
-	 * @return	wiki\data\category\suggestion\CategorySuggestion
-	 */
-	protected function getCategorySuggestion($objectID) {
-		$object = new CategorySuggestion($objectID);
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::isValid()
+     */
+    public function isValid($objectID) {
+        if ($this->getCategorySuggestion($objectID) === null) {
+            return false;
+        }
 
-		return $object;
-	}
+        return true;
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::populate()
-	 */
-	public function populate(array $queues) {
-		$objectIDs = array();
-		foreach ($queues as $object) {
-			$objectIDs[] = $object->objectID;
-		}
+    /**
+     * Returns a categorySuggestion object by suggestion id or null if suggestion id is invalid.
+     *
+     * @param	integer		$objectID
+     * @return	wiki\data\category\suggestion\CategorySuggestion
+     */
+    protected function getCategorySuggestion($objectID) {
+        $object = new CategorySuggestion($objectID);
 
-		// fetch articles
-		$categorySuggestionList = new CategorySuggestionList();
-		$categorySuggestionList->getConditionBuilder()->add("category_suggestion.suggestionID IN (?)", array($objectIDs));
-		$categorySuggestionList->sqlLimit = 0;
-		$categorySuggestionList->readObjects();
-		$categorySuggestions = $categorySuggestionList->getObjects();
+        return $object;
+    }
 
-		foreach ($queues as $object) {
-			if (isset($categorySuggestions[$object->objectID])) {
-				$categorySuggestion = $categorySuggestions[$object->objectID];
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::populate()
+     */
+    public function populate(array $queues) {
+        $objectIDs = array();
+        foreach ($queues as $object) {
+            $objectIDs[] = $object->objectID;
+        }
 
-				$object->setAffectedObject($categorySuggestion);
-			}
-		}
-	}
+        // fetch articles
+        $categorySuggestionList = new CategorySuggestionList();
+        $categorySuggestionList->getConditionBuilder()->add("category_suggestion.suggestionID IN (?)", array($objectIDs));
+        $categorySuggestionList->sqlLimit = 0;
+        $categorySuggestionList->readObjects();
+        $categorySuggestions = $categorySuggestionList->getObjects();
+
+        foreach ($queues as $object) {
+            if (isset($categorySuggestions[$object->objectID])) {
+                $categorySuggestion = $categorySuggestions[$object->objectID];
+
+                $object->setAffectedObject($categorySuggestion);
+            }
+        }
+    }
 }

@@ -20,45 +20,54 @@ use wcf\system\WCF;
  * @category 	WoltNet Wiki
  */
 class ArticleModerationQueueActivationHandler extends AbstractArticleModerationQueueHandler implements IModerationQueueActivationHandler {
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$definitionName
+     */
+    protected $definitionName = 'com.woltlab.wcf.moderation.activation';
 
-	/**
-	 * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
-	 */
-	public function assignQueues(array $queues) {
-		$assignments = array();
-		foreach ($queues as $queue) {
-			$assignUser = 0;
-			if (WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle')) {
-				$assignUser = 1;
-			}
+    /**
+     * @see	wcf\system\moderation\queue\AbstractModerationQueueHandler::$objectType
+     */
+    protected $objectType = 'com.woltnet.wiki.article';
 
-			$assignments[$queue->queueID] = $assignUser;
-		}
+    /**
+     * @see	wcf\system\moderation\queue\IModerationQueueHandler::assignQueues()
+     */
+    public function assignQueues(array $queues) {
+        $assignments = array();
+        foreach ($queues as $queue) {
+            $assignUser = 0;
+            if (WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle')) {
+                $assignUser = 1;
+            }
 
-		ModerationQueueManager::getInstance()->setAssignment($assignments);
-	}
+            $assignments[$queue->queueID] = $assignUser;
+        }
 
-	/**
-	 * @see	wcf\system\moderation\queue\activation\IModerationQueueActivationHandler::enableContent()
-	 */
-	public function enableContent(ModerationQueue $queue) {
-		if ($this->isValid($queue->objectID) && !$this->getArticle($queue->objectID)->isActive) {
-			//$articleAction = new ArticleAction(array($this->getArticle($queue->objectID)), 'setActive');
-			//$articleAction->executeAction();
-			$editor = $this->getArticle($queue->objectID)->getEditor();
-			$editor->setActive();
-			$editor->resetCache();
-		}
-	}
+        ModerationQueueManager::getInstance()->setAssignment($assignments);
+    }
 
-	/**
-	 * @see	wcf\system\moderation\queue\activation\IModerationQueueActivationHandler::getDisabledContent()
-	 */
-	public function getDisabledContent(ViewableModerationQueue $queue) {
-		WCF::getTPL()->assign(array(
-				'article' => new ViewableArticle($queue->getAffectedObject())
-		));
+    /**
+     * @see	wcf\system\moderation\queue\activation\IModerationQueueActivationHandler::enableContent()
+     */
+    public function enableContent(ModerationQueue $queue) {
+        if ($this->isValid($queue->objectID) && !$this->getArticle($queue->objectID)->isActive) {
+            //$articleAction = new ArticleAction(array($this->getArticle($queue->objectID)), 'setActive');
+            //$articleAction->executeAction();
+            $editor = $this->getArticle($queue->objectID)->getEditor();
+            $editor->setActive();
+            $editor->resetCache();
+        }
+    }
 
-		return WCF::getTPL()->fetch('moderationArticle', 'wiki');
-	}
+    /**
+     * @see	wcf\system\moderation\queue\activation\IModerationQueueActivationHandler::getDisabledContent()
+     */
+    public function getDisabledContent(ViewableModerationQueue $queue) {
+        WCF::getTPL()->assign(array(
+                'article' => new ViewableArticle($queue->getAffectedObject())
+        ));
+
+        return WCF::getTPL()->fetch('moderationArticle', 'wiki');
+    }
 }

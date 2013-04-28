@@ -2,7 +2,6 @@
 DROP TABLE IF EXISTS wiki1_article;
 CREATE TABLE wiki1_article (
 	articleID 	INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	versionID	INT DEFAULT 0,
 	categoryID 	INT(10),
 	userID		INT(10),
 	username	VARCHAR(255),

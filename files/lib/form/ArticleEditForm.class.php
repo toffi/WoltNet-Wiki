@@ -6,9 +6,12 @@ use wiki\system\article\ArticlePermissionHandler;
 
 use wcf\form\MessageForm;
 use wcf\system\WCF;
+use wcf\util\HeaderUtil;
+use wcf\system\request\LinkHandler;
 use wcf\system\acl\ACLHandler;
 use wcf\system\message\quote\MessageQuoteManager;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\moderation\queue\ModerationQueueActivationManager;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\UserInputException;
 use wcf\util\UserUtil;
@@ -202,6 +205,20 @@ class ArticleEditForm extends MessageForm {
 
 		$this->article = $resultValues['returnValues'];
 
+		if($this->activateArticle) {
+			$this->article->getEditor()->setActive();
+		}
+		else {
+			ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->articleID);
+		}
 
+		$this->saved();
+
+		MessageQuoteManager::getInstance()->saved();
+
+		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
+			'application' => 'wiki',
+			'object' => $this->article
+		)));
 	}
 }
