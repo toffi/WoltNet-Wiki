@@ -72,7 +72,7 @@
 		<item name="wiki.article.sidebar.language"><![CDATA[verfügbare Sprachen:]]></item>
 		<item name="wiki.article.sidebar.informations"><![CDATA[Artikelinformationen]]></item>
 		<item name="wiki.article.sidebar.articleName"><![CDATA[Titel]]></item>
-		<item name="wiki.article.sidebar.articleCategory"><![CDATA[zugehörige Kategorie]]></item>
+		<item name="wiki.article.sidebar.articleCategory"><![CDATA[Zugehörige Kategorie]]></item>
 		<item name="wiki.article.sidebar.lastEditedDate"><![CDATA[zuletzt bearbeitet]]></item>
 		<item name="wiki.article.sidebar.share"><![CDATA[verbreiten]]></item>
 		<item name="wiki.article.sidebar.share.description"><![CDATA[verlinken]]></item>
