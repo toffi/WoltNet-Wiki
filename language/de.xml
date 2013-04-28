@@ -77,7 +77,7 @@
 		<item name="wiki.article.sidebar.share"><![CDATA[verbreiten]]></item>
 		<item name="wiki.article.sidebar.share.description"><![CDATA[verlinken]]></item>
 		<item name="wiki.article.sidebar.share.bbcode.description"><![CDATA[Einbetten (benötigt BBCode-Unterstützung)]]></item>
-		<item name="wiki.article.articles"><![CDATA[verfügbare Artikel]]></item>
+		<item name="wiki.article.articles"><![CDATA[Verfügbare Artikel]]></item>
         <item name="wiki.article.category"><![CDATA[Kategorie]]></item>
 		<item name="wiki.article.overview.author"><![CDATA[Erstellt am {$articleOverview->time|plainTime} von {if $articleOverview->userID}<a href="{link controller="User" object=$articleOverview->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$articleOverview->getAuthor()->getDecoratedObject()->userID}">{/if}{$articleOverview->username}{if $articleOverview->userID}</a>{/if}]]></item>
 	</category>
