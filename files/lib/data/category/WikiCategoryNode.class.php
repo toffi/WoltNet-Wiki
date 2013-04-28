@@ -79,6 +79,14 @@ class WikiCategoryNode extends ViewableCategoryNode {
     public function getArticles() {
         if($this->articles === null) {
             $conditions = new PreparedStatementConditionBuilder();
+<<<<<<< HEAD
+=======
+            /*$sql = "SELECT COUNT(articleID) AS count
+                    FROM wiki".WCF_N."_article
+                    WHERE categoryID = ?
+                        AND isActive = ?
+                        AND isDeleted = ?";*/
+>>>>>>> branch 'master' of https://github.com/WoltNet/WoltNet-Wiki.git
             $conditions->add('article.categoryID = ?', array($this->categoryID));
             $conditions->add('article.isActive = ?', array(1));
             $conditions->add('article.isDeleted = ?', array(0));
