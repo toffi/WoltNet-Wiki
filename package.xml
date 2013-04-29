@@ -28,6 +28,7 @@
 		<requiredpackage file="requirements/com.woltlab.wcf.comment.tar">com.woltlab.wcf.comment</requiredpackage>
 		<requiredpackage file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
 		<requiredpackage file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
+        <requiredpacakge file="requirements/com.woltlab.wcf.tagging.tar">com.woltlab.wcf.tagging</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">

@@ -50,6 +50,13 @@
 			<definitionname>com.woltlab.wcf.searchableObjectType</definitionname>
 			<classname>wiki\system\search\ArticleSearch</classname>
 		</type>
+        
+        <!-- tagging -->
+		<type>
+			<name>com.woltnet.wiki.taggableArticle</name>
+			<definitionname>com.woltlab.wcf.tagging.taggableObject</definitionname>
+			<classname>wiki\system\tagging\TaggableArticle</classname>
+		</type>
 		
 		<!-- object watch -->
 		<type>
