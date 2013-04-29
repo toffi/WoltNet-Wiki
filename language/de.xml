@@ -215,4 +215,5 @@
     <category name="wcf.tagging">
         <item name="wcf.tagging.taggedObjects.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
         <item name="wcf.tagging.objectType.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
+    </category>
 </language>
