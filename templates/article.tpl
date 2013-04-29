@@ -105,15 +105,15 @@
 
 			<div class="container wikiArticleInfo">
 				<ul class="sidebarBoxList containerList">
-					<li class="sidebarBox box24">
-						<p><span onclick="document.getElementById('articleLink').select()" class="icon icon24 icon-link"></span></p>
+					<li class="sidebarBox box32" style="margin: 0;">
+						<p><span onclick="document.getElementById('articleLink').select()" class="icon icon32 icon-link"></span></p>
 						<div class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLink" readonly="readonly" onclick="this.select()" value="{link application='wiki' controller='Article' object=$article}{/link}" /></h1>
 							<h2 onclick="document.getElementById('articleLink').select()"><small>{lang}wiki.article.sidebar.share.description{/lang}</small></h2>
 						</div>
 					</li>
-					<li class="sidebarBox box24">
-						<p><span onclick="document.getElementById('articleLinkBBCode').select()" class="icon icon24 icon-share"></span></p>
+					<li class="sidebarBox box32" style="margin: 0;">
+						<p><span onclick="document.getElementById('articleLinkBBCode').select()" class="icon icon32 icon-share"></span></p>
 						<div class="sidebarBoxHeadline">
 							<h1><input type="text" class="long" id="articleLinkBBCode" readonly="readonly" onclick="this.select()" value="[url='{link application='wiki' controller='Article' object=$article}{/link}']{$article->getTitle()}[/url]" /></h1>
 							<h2 onclick="document.getElementById('articleLinkBBCode').select()"><small>{lang}wiki.article.sidebar.share.bbcode.description{/lang}</small></h2>
