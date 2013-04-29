@@ -1,6 +1,7 @@
 <?php
 namespace wiki\page;
 use wiki\data\article\ArticleAction;
+use wiki\data\article\ViewableArticle;
 
 use wcf\system\WCF;
 use wiki\data\article\ArticleCache;
@@ -71,7 +72,7 @@ class ArticlePage extends AbstractPage {
   public function readData() {
     parent::readData();
 
-    $this->article = ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion();
+    $this->article = new ViewableArticle(ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion());
 
     if(!$this->article->articleID || (!$this->article->canEnter())) {
       throw new IllegalLinkException();

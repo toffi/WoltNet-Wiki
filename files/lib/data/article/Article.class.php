@@ -180,7 +180,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
    * @return \wcf\data\user\UserProfile
    */
   public function getUserProfile() {
-  	return $this->getAuthor();
+      return $this->getAuthor();
   }
 
   /**
@@ -378,20 +378,20 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
   }
 
   public function getCommentList() {
-  	if($this->commentList === null) {
-  	  $objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
+      if($this->commentList === null) {
+        $objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
       $objectType = CommentHandler::getInstance()->getObjectType($objectTypeID);
-  	  $commentManager = $objectType->getProcessor();
+        $commentManager = $objectType->getProcessor();
 
-  	  $this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
-  	}
-  	return $this->commentList;
+        $this->commentList = CommentHandler::getInstance()->getCommentList($commentManager, $objectTypeID, $this->articleID);
+      }
+      return $this->commentList;
   }
 
   /**
    * @see wcf\data\IMessage::isVisible()
    */
   public function isVisible() {
-  	return $this->getPermission('canViewArticle');
+      return $this->getPermission('canViewArticle');
   }
 }

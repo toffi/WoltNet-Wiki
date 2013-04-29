@@ -43,6 +43,12 @@ class ViewableArticle extends DatabaseObjectDecorator {
    */
   protected $labels = array();
 
+  public function __toString() {
+      if($this->parentID !== null) {
+          return $this->parentID;
+      }
+      return $this->articleID;
+  }
 
   /**
    * Returns the user profile object.
@@ -62,7 +68,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    * @return \wcf\data\user\UserProfile
    */
   public function getUserProfile() {
-  	return $this->getAuthor();
+      return $this->getAuthor();
   }
 
   /**
