@@ -53,7 +53,7 @@
         
         <!-- tagging -->
 		<type>
-			<name>com.woltnet.wiki.taggableArticle</name>
+			<name>com.woltnet.wiki.article</name>
 			<definitionname>com.woltlab.wcf.tagging.taggableObject</definitionname>
 			<classname>wiki\system\tagging\TaggableArticle</classname>
 		</type>
