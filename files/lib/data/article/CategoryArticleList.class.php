@@ -33,7 +33,7 @@ class CategoryArticleList extends ViewableArticleList {
 	 * @var integer
 	 */
 	public $languageID = 0;
-	
+
 	/**
 	 * Creates a new CategoryProjectList object.
 	 *
@@ -50,7 +50,7 @@ class CategoryArticleList extends ViewableArticleList {
 
 		// add conditions
 		$this->getConditionBuilder()->add('article.categoryID IN (?)', array($this->categoryIDs));
-		
+
 		// filter by label id
 		if ($labelID) {
 			$this->getConditionBuilder()->add("article.articleID IN (
@@ -65,7 +65,7 @@ class CategoryArticleList extends ViewableArticleList {
 			$this->getConditionBuilder()->add('article.languageID = ?', array($this->languageID));
 		}
 		else if (count(LanguageFactory::getInstance()->getContentLanguages()) > 0 && count(WCF::getUser()->getLanguageIDs())) {
-			$this->getConditionBuilder()->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
+			$this->getConditionBuilder()->add('(article.languageID IN (?))', array(WCF::getUser()->getLanguageIDs()));
 		}
 	}
 }
