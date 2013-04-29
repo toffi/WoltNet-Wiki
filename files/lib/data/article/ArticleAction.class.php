@@ -5,7 +5,6 @@ use wiki\data\article\label\ArticleLabel;
 use wiki\util\KeywordUtil;
 
 use wcf\system\tagging\TagEngine;
-use wcf\system\language\LanguageFactory;
 use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\data\IMessageQuoteAction;
