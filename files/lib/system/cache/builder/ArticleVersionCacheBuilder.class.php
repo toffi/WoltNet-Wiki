@@ -28,7 +28,7 @@ class ArticleVersionCacheBuilder extends AbstractCacheBuilder {
     $statement = WCF::getDB()->prepareStatement($sql);
     $statement->execute();
     while($row = $statement->fetchArray()) {
-      $data['versions'][$row['versionsID']] = new ArticleVersion($row['versionID']);
+      $data['versions'][$row['versionID']] = new ArticleVersion($row['versionID']);
     }
 
     return $data;
