@@ -21,7 +21,7 @@
 		<item name="wiki.category.categorySuggestionAdd.success"><![CDATA[Ihr Vorschlag wurde erfolgreich im System eingetragen.<br />Bitte beachten Sie das Ihr Vorschlag durch einen Moderator geprüft werden muss.]]></item>
 	</category>
     <category name="wiki.sitemap">
-        <item name="wiki.sitemap.category"><![CDATA[verfügbare Kategorien]]></item>
+        <item name="wiki.sitemap.category"><![CDATA[Verfügbare Kategorien]]></item>
     </category>
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
