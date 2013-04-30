@@ -157,6 +157,12 @@
 		<item name="wcf.acp.group.option.user.wiki.article.read.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
 		<item name="wcf.acp.group.option.user.wiki.article.write.canAddArticle"><![CDATA[Kann Artikel schreiben]]></item>
 		<item name="wcf.acp.group.option.user.wiki.article.write.canEditOwnArticle"><![CDATA[Kann eigene Artikel bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canWriteComment"><![CDATA[Kann Kommentare schreiben]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canEditOwnComment"><![CDATA[Kann eigene Kommentare bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canDeleteOwnComment"><![CDATA[Kann eigene Kommentare löschen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canEditComment"><![CDATA[Kann Kommentare bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canDeleteComment"><![CDATA[Kann Kommentare löschen]]></item>
+		<item name="XXX"><![CDATA[XXX]]></item>
 		<item name="wcf.acp.group.option.category.user.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.group.option.user.wiki.category.read.canViewCategory"><![CDATA[Kann Kategorien sehen]]></item>
 		<item name="wcf.acp.group.option.user.wiki.category.read.canEnterCategory"><![CDATA[Kann Kategorien betreten]]></item>
