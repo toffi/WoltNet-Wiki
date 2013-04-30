@@ -2,10 +2,7 @@
 namespace wiki\data\article;
 use wiki\util\ArticleUtil;
 use wiki\data\article\label\ArticleLabel;
-use wiki\util\KeywordUtil;
 
-use wcf\system\tagging\TagEngine;
-use wcf\system\search\SearchIndexManager;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\data\IMessageQuoteAction;
 use wcf\system\visitTracker\VisitTracker;
@@ -49,14 +46,20 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
      * @see DatabaseObjectEditor::create()
      */
     public function create() {
-        if(!isset($this->parameters['translationID'])) $this->parameters['translationID'] = ArticleUtil::getNextTranslationID();
+        if(!isset($this->parameters['articleData']['translationID'])) $this->parameters['articleData']['translationID'] = ArticleUtil::getNextTranslationID();
 
-        $object = call_user_func(array($this->className, 'create'), $this->parameters);
+        $object = call_user_func(array($this->className, 'create'), $this->parameters['articleData']);
+        $this->parameters['versionData']['articleID'] = $object->articleID;
 
-        // update search index
-        SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);
+        $objectAction = new ArticleAction(array(), 'create', $this->parameters['versionData']);
+        $resultValues = $objectAction->executeAction();
 
-        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $object->languageID);
+        $versionObject = $resultValues['returnValues'];
+
+        $articleEditor = new ArticleEditor($object);
+        $articleEditor->update(array(
+        		'activeVersionID' => $versionObject->versionID
+        ));
 
         return $object;
     }

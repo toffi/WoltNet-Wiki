@@ -1,20 +1,20 @@
 <?php
-namespace wiki\data\article\label;
+namespace wiki\data\article\version;
 use wcf\data\DatabaseObjectEditor;
 
 /**
  * Represents a article label.
  *
  * @author	Rene Gessinger (NurPech)
- * @copyright	2012 WoltNet
+ * @copyright	2013 WoltNet
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltnet.wiki
- * @subpackage	data.article.label
+ * @subpackage	data.article.version
  * @category	WoltNet Wiki
  */
-class ArticleLabelEditor extends DatabaseObjectEditor {
+class ArticleVersionEditor extends DatabaseObjectEditor {
 	/**
 	 * @see	wcf\data\DatabaseObjectEditor::$baseClass
 	 */
-	protected static $baseClass = 'wiki\data\article\label\ArticleLabel';
+	protected static $baseClass = 'wiki\data\article\version\ArticleVersion';
 }
