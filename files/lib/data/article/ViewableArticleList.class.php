@@ -68,19 +68,11 @@ class ViewableArticleList extends ArticleList {
         $labels = $this->loadLabelAssignments();
 
         foreach ($this->objects as $articleID => $article) {
-            $this->objects[$articleID] = $article;
-
             if (isset($labels[$articleID])) {
                 foreach ($labels[$articleID] as $label) {
                     $this->objects[$articleID]->assignLabel($label);
                 }
             }
-        }
-
-        $this->objects = array_merge(array_unique($this->objects));
-        $this->indexToObject = array();
-        foreach($this->objects AS $objectID => $object) {
-            $this->indexToObject[] = $objectID;
         }
     }
 

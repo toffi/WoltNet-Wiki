@@ -40,7 +40,6 @@ class LatestArticlesDashboardBox extends AbstractContentDashboardBox {
     $this->latestArticleList = new ViewableArticleList();
     $this->latestArticleList->getConditionBuilder()->add('article.categoryID IN (?)', array($categoryIDs));
     $this->latestArticleList->getConditionBuilder()->add('article.isActive = ?', array('1'));
-    $this->latestArticleList->getConditionBuilder()->add('article.versionID = ?', array('0'));
     $this->latestArticleList->getConditionBuilder()->add('article.isDeleted = ?', array('0'));
     if (count(LanguageFactory::getInstance()->getContentLanguages())) {
       $this->latestArticleList->getConditionBuilder()->add('(article.languageID IN (?))', array(WCF::getUser()->getLanguageIDs()));

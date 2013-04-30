@@ -43,13 +43,6 @@ class ViewableArticle extends DatabaseObjectDecorator {
    */
   protected $labels = array();
 
-  public function __toString() {
-      if($this->parentID !== null) {
-          return $this->parentID;
-      }
-      return $this->articleID;
-  }
-
   /**
    * Returns the user profile object.
    *
@@ -57,7 +50,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    */
   public function getAuthor() {
     if ($this->userProfile === null) {
-      $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->data));
+      $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->getActiveVersion()->data));
     }
 
     return $this->userProfile;
@@ -113,7 +106,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    * @return boolean
    */
   public function isNew() {
-    if ($this->time > $this->getVisitTime()) {
+    if ($this->getDecoratedObject()->getActiveVersion()->time > $this->getVisitTime()) {
       return true;
     }
 

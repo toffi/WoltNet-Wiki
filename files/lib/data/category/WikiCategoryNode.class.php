@@ -80,8 +80,8 @@ class WikiCategoryNode extends ViewableCategoryNode {
         if($this->articles === null) {
             $conditions = new PreparedStatementConditionBuilder();
             $conditions->add('article.categoryID = ?', array($this->categoryID));
-            $conditions->add('article.isActive = ?', array(1));
-            $conditions->add('article.isDeleted = ?', array(0));
+            //$conditions->add('article.isActive = ?', array(1));
+            //$conditions->add('article.isDeleted = ?', array(0));
             if (count(LanguageFactory::getInstance()->getContentLanguages()) > 0 && count(WCF::getUser()->getLanguageIDs())) {
                 $conditions->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
             }

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS wiki1_article;
 CREATE TABLE wiki1_article (
 	articleID 	INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	categoryID 	INT(10) NOT NULL,
-	versionID       INT(10) NOT NULL,
+	activeVersionID       INT(10),
 	languageID   	INT(10) NOT NULL,
 	translationID	INT(10) NOT NULL,
 );
@@ -60,6 +60,7 @@ ALTER TABLE wiki1_article ADD FOREIGN KEY (categoryID) REFERENCES wcf1_category 
 ALTER TABLE wiki1_article ADD FOREIGN KEY (languageID) REFERENCES wcf1_language (languageID) ON DELETE CASCADE;
 ALTER TABLE wiki1_article_version ADD FOREIGN KEY (userID) REFERENCES wcf1_user (userID) ON DELETE SET NULL;
 ALTER TABLE wiki1_article_version ADD FOREIGN KEY (articleID) REFERENCES wiki1_article (articleID) ON DELETE CASCADE;
+ALTER TABLE wiki1_article ADD FOREIGN KEY (activeVersionID) REFERENCES wiki1_article_version (versionID) ON DELETE SET NULL;
 
 ALTER TABLE wiki1_article_label ADD FOREIGN KEY (categoryID) REFERENCES wcf1_category (categoryID) ON DELETE CASCADE;
 
