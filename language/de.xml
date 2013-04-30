@@ -198,6 +198,12 @@
 		<item name="wcf.dashboard.box.com.woltnet.wiki.updatedArticlesSidebar"><![CDATA[Zuletzt bearbeitete Artikel]]></item>
 	</category>
 	
+	<category name="wcf.user.objectWatch">
+		<item name="wcf.user.objectWatch.subscribe.com.woltnet.wiki.category"><![CDATA[Kategorie abonnieren]]></item>
+		<item name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.category"><![CDATA[Benachrichtigung über neue Artikel aktivieren]]></item>
+		<item name="wcf.user.objectWatch.unsubscribe.com.woltnet.wiki.category"><![CDATA[Kategorie nicht abonnieren]]></item>
+	</category>
+	
 	<category name="wcf.user.profile">
 		<item name="wcf.user.profile.menu.userArticles"><![CDATA[Artikel]]></item>
 		<item name="wcf.user.profile.userArticles.noneAvailable"><![CDATA[Der Benutzer hat noch keine für Sie sichtbaren Artikel veröffentlicht.]]></item>
