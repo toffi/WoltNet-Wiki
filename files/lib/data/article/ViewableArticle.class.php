@@ -106,7 +106,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    * @return boolean
    */
   public function isNew() {
-    if ($this->getDecoratedObject()->getActiveVersion()->getTime() > $this->getVisitTime()) {
+    if ($this->getActiveVersion()->time > $this->getVisitTime()) {
       return true;
     }
 
