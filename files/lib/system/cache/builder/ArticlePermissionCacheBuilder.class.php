@@ -29,7 +29,7 @@ class ArticlePermissionCacheBuilder extends AbstractCacheBuilder {
 			$conditionBuilder->add('acl_option.objectTypeID = ?', array(ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')));
 			$conditionBuilder->add('option_to_group.optionID = acl_option.optionID');
 			$conditionBuilder->add('option_to_group.groupID IN (?)', array($groupIDs));
-			$sql = "SELECT		option_to_group.groupID, option_to_group.objectID AS articleID, option_to_group.optionValue,
+			$sql = "SELECT		option_to_group.groupID, option_to_group.objectID AS versionID, option_to_group.optionValue,
 						acl_option.optionName AS permission
 				FROM		wcf".WCF_N."_acl_option acl_option,
 						wcf".WCF_N."_acl_option_to_group option_to_group
@@ -37,8 +37,8 @@ class ArticlePermissionCacheBuilder extends AbstractCacheBuilder {
 			$statement = WCF::getDB()->prepareStatement($sql);
 			$statement->execute($conditionBuilder->getParameters());
 			while ($row = $statement->fetchArray()) {
-				if (!isset($data[$row['articleID']][$row['permission']])) $data[$row['articleID']][$row['permission']] = $row['optionValue'];
-				else $data[$row['articleID']][$row['permission']] = $row['optionValue'] || $data[$row['articleID']][$row['permission']];
+				if (!isset($data[$row['versionID']][$row['permission']])) $data[$row['versionID']][$row['permission']] = $row['optionValue'];
+				else $data[$row['versionID']][$row['permission']] = $row['optionValue'] || $data[$row['versionID']][$row['permission']];
 			}
 		}
 
