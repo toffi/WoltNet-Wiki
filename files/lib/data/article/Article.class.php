@@ -2,7 +2,6 @@
 namespace wiki\data\article;
 use wiki\data\WIKIDatabaseObject;
 use wiki\data\category\WikiCategory;
-use wiki\system\article\ArticlePermissionHandler;
 use wiki\data\article\version\ArticleVersionList;
 
 use wcf\system\WCF;
@@ -10,14 +9,10 @@ use wcf\data\IUserContent;
 use wcf\data\IMessage;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\data\category\Category;
-use wcf\data\user\User;
-use wcf\data\user\UserProfile;
 use wcf\system\language\LanguageFactory;
 use wcf\system\request\IRouteController;
-use wcf\system\bbcode\MessageParser;
-use wcf\util\StringUtil;
-use wcf\system\exception\PermissionDeniedException;
 use wcf\system\request\LinkHandler;
+use wcf\data\ILinkableObject;
 use wcf\system\comment\CommentHandler;
 
 /**
@@ -28,7 +23,7 @@ use wcf\system\comment\CommentHandler;
  * @subpackage	data.article
  * @category 	WoltNet - Wiki
  */
-class Article extends WIKIDatabaseObject implements IRouteController, IUserContent, IMessage {
+class Article extends WIKIDatabaseObject implements IRouteController, ILinkableObject, IUserContent, IMessage {
   protected $category = null;
   protected $editor = null;
   protected $versionList = null;
@@ -67,25 +62,24 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
   }
 
   /**
-   * Returns the formatted Message of this object
+   * @see wcf\data\IMessage::getExcerpt()
    */
-  public function getFormattedMessage() {
-    MessageParser::getInstance()->setOutputType('text/html');
-    return MessageParser::getInstance()->parse($this->message, $this->enableSmilies, $this->enableHtml, $this->enableBBCodes);
+  public function getExcerpt($maxLength = 255, $highlight=false) {
+  	return $this->getActiveVersion($maxLength, $highlight);
   }
 
   /**
    * @see wcf\data\IMessage::getMessage()
    */
   public function getMessage() {
-    return $this->message;
+    return $this->getActiveVersion()->getMessage;
   }
 
   /**
    * @see	wcf\data\IMessage::__toString()
    */
   public function __toString() {
-    return $this->getFormattedMessage();
+    return $this->getActiveVersion()->getFormattedMessage();
   }
 
   public function getCategory() {
@@ -155,105 +149,26 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
     return $article->getActiveVersion();
   }
 
+  /**
+   * Gets the active Version of this article
+   *
+   * @return wiki\data\article\version\ArticleVersion
+   */
   public function getActiveVersion() {
     $versionList = array_merge($this->getVersions());
-	$count = count($versionList)-1;
-    if($count == 0) return $versionList[$count];
-    foreach($versionList AS $versionListItem) {
-      if($versionListItem->isActive && !$versionListItem->isDeleted) {
-        return $versionListItem;
-      }
-    }
-    return $versionList[$count];
-  }
-
-  public function getAuthor() {
-    if ($this->author === null) {
-      $this->author = new UserProfile(new User($this->userID));
-    }
-
-    return $this->author;
+	if(array_key_exists($this->activeVersionID, $versionList)) {
+		if($versionList[$this->activeVersionID]->isVisible())
+		return $versionList[$this->activeVersionID];
+	}
+	return null;
   }
 
   /**
-   * Alias for wiki\data\article\Article::getAuthor()
+   * Alias for wiki\data\article\version\ArticleVersion::getAuthor()
    * @return \wcf\data\user\UserProfile
    */
   public function getUserProfile() {
-      return $this->getAuthor();
-  }
-
-  /**
-   * Returns an excerpt of this article.
-   *
-   * @param	string		$maxLength
-   * @param	boolean		$highlight
-   * @return	string
-   */
-  public function getExcerpt($maxLength = 255, $highlight=false) {
-    if(!$highlight) MessageParser::getInstance()->setOutputType('text/plain');
-    $message = MessageParser::getInstance()->parse($this->message, false, false, true);
-    if(!$highlight) {
-      if (StringUtil::length($message) > $maxLength) {
-        $message = StringUtil::substring($message, 0, $maxLength).'&hellip;';
-      }
-    }
-    else {
-      if(StringUtil::length($message) > $maxLength) {
-        $message = StringUtil::substring($message, 0, $maxLength);
-      }
-    }
-
-    return $message;
-  }
-
-  /**
-   * Checks the given article permissions.
-   * Throws a PermissionDeniedException if the active user doesn't have one of the given permissions.
-   *
-   * @param	array<string>		$permissions
-   */
-  public function checkPermission(array $permissions = array('canViewArticle')) {
-    foreach ($permissions as $permission) {
-      if (!$this->getPermission($permission)) {
-        throw new PermissionDeniedException();
-      }
-    }
-  }
-
-  /**
-   * Checks whether the active user has the permission with the given name on this article.
-   *
-   * @param	string		$permission	name of the requested permission
-   * @return	boolean
-   */
-  public function getPermission($permission = 'canViewArticle') {
-    return ArticlePermissionHandler::getInstance()->getPermission($this->articleID, $permission);
-  }
-
-  /**
-   * Checks whether the active user has the moderator permission with the given name on this article.
-   *
-   * @param	string		$permission	name of the requested permission
-   * @return	boolean
-   */
-  public function getModeratorPermission($permission) {
-    return ArticlePermissionHandler::getInstance()->getModeratorPermission($this->articleID, $permission);
-  }
-
-  /**
-   * Returns true, if the active user has the permission to enter this article.
-   *
-   * @return boolean
-   */
-  public function canEnter() {
-    if($this->isActive == 0) {
-      return $this->getModeratorPermission('canReadDeactivatedArticle');
-    }
-    if($this->isDeleted == 1) {
-      return $this->getModeratorPermission('canReadTrashedArticle');
-    }
-    return ($this->getPermission('canViewArticle') && $this->getPermission('canReadArticle'));
+      return $this->getActiveVersion()->getAuthor();
   }
 
   /**
@@ -280,50 +195,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
     return false;
   }
 
-  /**
-   * Returns true, if the active user has the permission to edit this article.
-   *
-   * @return boolean
-   */
-  public function isEditable() {
-    $ownPermission = false;
-    $modPermission = false;
-    if(WCF::getUser()->userID == $this->userID) {
-      $ownPermission = $this->getPermission('canEditOwnArticle');
-    }
-    $modPermission = $this->getModeratorPermission('canEditArticle');
 
-    return ($ownPermission || $modPermission);
-  }
-
-  /**
-   * Returns true, if the active user has the permission to trash this article.
-   *
-   * @return boolean
-   */
-  public function isTrashable() {
-    if($this->isDeleted == 1) return false;
-    return $this->getModeratorPermission('canTrashArticle');
-  }
-
-  /**
-   * Returns true, if the active user has the permission to delete this article.
-   *
-   * @return boolean
-   */
-  public function isDeletable() {
-    return $this->getModeratorPermission('canDeleteArticle');
-  }
-
-  /**
-   * Returns true, if the active user has the permission to restore this article.
-   *
-   * @return boolean
-   */
-  public function isRestorable() {
-    if($this->isDeleted == 0) return false;
-    return $this->getModeratorPermission('canRestoreArticle');
-  }
 
   /**
    * @see	wcf\system\request\IRouteController::getID()
@@ -336,7 +208,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
    * @see	wcf\system\request\IRouteController::getTitle()
    */
   public function getTitle() {
-    return $this->subject;
+    return $this->getActiveVersion()->getTitle();
   }
 
   /**
@@ -350,14 +222,14 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
    * @see wcf\data\IUserContent::getUserID()
    */
   public function getUserID() {
-    return $this->userID;
+    return $this->getActiveVersion()->userID;
   }
 
   /**
    * @see wcf\data\IUserContent::getUsername()
    */
   public function getUsername() {
-    return $this->username;
+    return $this->getActiveVersion()->username;
   }
 
   /**
@@ -388,10 +260,23 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
       return $this->commentList;
   }
 
-  /**
-   * @see wcf\data\IMessage::isVisible()
-   */
-  public function isVisible() {
-      return $this->getPermission('canViewArticle');
-  }
+	/**
+	 * @see wcf\data\IMessage::isVisible()
+	 */
+	public function isVisible() {
+		if($this->isActive == 0) {
+			return $this->getActiveVersion()->getModeratorPermission('canReadDeactivatedArticle');
+		}
+		if($this->isDeleted == 1) {
+			return $this->getActiveVersion()->getModeratorPermission('canReadTrashedArticle');
+		}
+    	return $this->getActiveVersion()->getPermission('canViewArticle');
+	}
+
+	/**
+	 * @see wcf\data\IMessage::getFormattedMessage()
+     */
+	public function getFormattedMessage() {
+  		return $this->getActiveVersion()->getFormattedMessage();
+	}
 }
