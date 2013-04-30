@@ -65,7 +65,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @see wcf\data\IMessage::getExcerpt()
    */
   public function getExcerpt($maxLength = 255, $highlight=false) {
-  	return $this->getActiveVersion($maxLength, $highlight);
+      return $this->getActiveVersion($maxLength, $highlight);
   }
 
   /**
@@ -102,13 +102,15 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
   public function getVersions() {
     if($this->versionList === null) {
       $this->versionList = new ArticleVersionList;
-      $this->versionList->getConditionBuilder()->add("(article_version.articleID = ?)", $this->articleID);
+      $this->versionList->getConditionBuilder()->add("(article_version.articleID = ?)", array($this->articleID));
       $this->versionList->readObjectIDs();
       $this->versionList = $this->versionList->getObjectIDs();
 
+      $versionList = array();
       foreach($this->versionList AS $key=>$versionID) {
-        $this->versionList[$key] = ArticleCache::getInstance()->getArticleVersion($versionID);
+        $versionList[$versionID] = ArticleCache::getInstance()->getArticleVersion($versionID);
       }
+      $this->versionList = $versionList;
     }
 
     return $this->versionList;
@@ -155,12 +157,12 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @return wiki\data\article\version\ArticleVersion
    */
   public function getActiveVersion() {
-    $versionList = array_merge($this->getVersions());
-	if(array_key_exists($this->activeVersionID, $versionList)) {
-		if($versionList[$this->activeVersionID]->isVisible())
-		return $versionList[$this->activeVersionID];
-	}
-	return null;
+    $versionList = $this->getVersions();
+    if(array_key_exists($this->activeVersionID, $versionList)) {
+        if($versionList[$this->activeVersionID]->isVisible())
+        return $versionList[$this->activeVersionID];
+    }
+    return null;
   }
 
   /**
@@ -215,7 +217,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @see wcf\data\IUserContent::getTime()
    */
   public function getTime() {
-    return $this->time;
+    return $this->getActiveVersion()->time;
   }
 
   /**
@@ -260,23 +262,23 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
       return $this->commentList;
   }
 
-	/**
-	 * @see wcf\data\IMessage::isVisible()
-	 */
-	public function isVisible() {
-		if($this->isActive == 0) {
-			return $this->getActiveVersion()->getModeratorPermission('canReadDeactivatedArticle');
-		}
-		if($this->isDeleted == 1) {
-			return $this->getActiveVersion()->getModeratorPermission('canReadTrashedArticle');
-		}
-    	return $this->getActiveVersion()->getPermission('canViewArticle');
-	}
-
-	/**
-	 * @see wcf\data\IMessage::getFormattedMessage()
+    /**
+     * @see wcf\data\IMessage::isVisible()
      */
-	public function getFormattedMessage() {
-  		return $this->getActiveVersion()->getFormattedMessage();
-	}
+    public function isVisible() {
+        if($this->isActive == 0) {
+            return $this->getActiveVersion()->getModeratorPermission('canReadDeactivatedArticle');
+        }
+        if($this->isDeleted == 1) {
+            return $this->getActiveVersion()->getModeratorPermission('canReadTrashedArticle');
+        }
+        return $this->getActiveVersion()->getPermission('canViewArticle');
+    }
+
+    /**
+     * @see wcf\data\IMessage::getFormattedMessage()
+     */
+    public function getFormattedMessage() {
+          return $this->getActiveVersion()->getFormattedMessage();
+    }
 }

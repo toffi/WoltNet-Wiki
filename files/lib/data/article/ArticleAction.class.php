@@ -2,6 +2,9 @@
 namespace wiki\data\article;
 use wiki\util\ArticleUtil;
 use wiki\data\article\label\ArticleLabel;
+use wiki\data\article\version\ArticleVersionAction;
+use wiki\system\cache\builder\ArticleVersionCacheBuilder;
+use wiki\system\cache\builder\ArticleCacheBuilder;
 
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\data\IMessageQuoteAction;
@@ -51,15 +54,23 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
         $object = call_user_func(array($this->className, 'create'), $this->parameters['articleData']);
         $this->parameters['versionData']['articleID'] = $object->articleID;
 
-        $objectAction = new ArticleAction(array(), 'create', $this->parameters['versionData']);
+        ArticleCacheBuilder::getInstance()->reset();
+        ArticleVersionCacheBuilder::getInstance()->reset();
+
+        $objectAction = new ArticleVersionAction(array(), 'create', $this->parameters['versionData']);
         $resultValues = $objectAction->executeAction();
 
         $versionObject = $resultValues['returnValues'];
 
         $articleEditor = new ArticleEditor($object);
         $articleEditor->update(array(
-        		'activeVersionID' => $versionObject->versionID
+                'activeVersionID' => $versionObject->versionID
         ));
+
+        ArticleCacheBuilder::getInstance()->reset();
+        ArticleVersionCacheBuilder::getInstance()->reset();
+
+        $object = new Article($object->articleID);
 
         return $object;
     }

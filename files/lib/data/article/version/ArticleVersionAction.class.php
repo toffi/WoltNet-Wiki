@@ -18,22 +18,22 @@ use wcf\data\AbstractDatabaseObjectAction;
  * @category	WoltNet Wiki
  */
 class ArticleVersionAction extends AbstractDatabaseObjectAction {
-	/**
-	 * @see	wcf\data\AbstractDatabaseObjectAction::$className
-	 */
-	protected $className = 'wiki\data\article\version\ArticleVersionEditor';
+    /**
+     * @see	wcf\data\AbstractDatabaseObjectAction::$className
+     */
+    protected $className = 'wiki\data\article\version\ArticleVersionEditor';
 
-	/**
-	 * @see DatabaseObjectEditor::create()
-	 */
-	public function create() {
-		$object = call_user_func(array($this->className, 'create'), $this->parameters);
+    /**
+     * @see DatabaseObjectEditor::create()
+     */
+    public function create() {
+        $object = call_user_func(array($this->className, 'create'), $this->parameters);
 
-		// update search index
-		SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);
+        // update search index
+        SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);
 
-		TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $object->languageID);
+        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $object->getArticle()->languageID);
 
-		return $object;
-	}
+        return $object;
+    }
 }
