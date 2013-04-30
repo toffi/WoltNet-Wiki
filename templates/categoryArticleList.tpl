@@ -52,7 +52,7 @@
               </h1>
 
               <small>
-                <a href="{link controller='User' object=$article->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a>
+                <a href="{link controller='User' object=$article->getDecoratedObject()->getActiveVersion()->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->getDecoratedObject()->getActiveVersion()->getUserID}">{$article->getDecoratedObject()->getActiveVersion()->getUsername()}</a>
                 - {@$article->time|time}
                 - <a class="jsOnly jsArticleInlineEditor articleEditLink">{lang}wcf.global.button.edit{/lang}</a>
               </small>
