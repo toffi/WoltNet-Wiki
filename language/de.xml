@@ -46,7 +46,7 @@
 		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
 		<item name="wiki.article.articleAdd.data"><![CDATA[Artikeldaten]]></item>
 		<item name="wiki.article.articleAdd.username"><![CDATA[Benutzername]]></item>
-		<item name="wiki.article.articleAdd.category"><![CDATA[zugeordnete Kategorie]]></item>
+		<item name="wiki.article.articleAdd.category"><![CDATA[Zugeordnete Kategorie]]></item>
 		<item name="wiki.article.articleAdd.title"><![CDATA[Artikeltitel]]></item>
 		<item name="wiki.article.articleAdd.text"><![CDATA[Artikeltext]]></item>
 		<item name="wiki.article.articleAdd.activate"><![CDATA[Diesen Artikel aktivieren]]></item>
