@@ -1,7 +1,5 @@
 <?php
 namespace wiki\page;
-use wcf\system\tagging\TagEngine;
-
 use wiki\data\article\ArticleAction;
 use wiki\data\article\ViewableArticle;
 
@@ -16,6 +14,8 @@ use wcf\system\message\quote\MessageQuoteManager;
 use wcf\util\HeaderUtil;
 use wcf\system\exception\IllegalLinkException;
 use wcf\page\AbstractPage;
+use wcf\system\tagging\TagEngine;
+use wcf\system\visitTracker\VisitTracker;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -108,6 +108,8 @@ class ArticlePage extends AbstractPage {
     $activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
     $contentManager = $activeMenuItem->getContentManager();
     $this->articleContent = $contentManager->getContent($this->article->articleID);
+
+    VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.article', $this->article->articleID);
   }
 
   /**

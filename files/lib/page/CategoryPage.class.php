@@ -15,6 +15,7 @@ use wcf\system\dashboard\DashboardHandler;
 use wcf\system\request\LinkHandler;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
+use wcf\system\visitTracker\VisitTracker;
 
 /**
  * Displays category page
@@ -161,6 +162,7 @@ class CategoryPage extends SortablePage {
 					'object' => $categoryItem
 			))));
 		}
+		VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.category', $this->category->categoryID);
 	}
 
 	/**

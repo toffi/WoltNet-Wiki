@@ -259,6 +259,10 @@ class ArticleAddForm extends MessageForm {
 	public function save() {
 		parent::save();
 
+		if($this->languageID === null) {
+			$this->languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
+		}
+
 		// save article
 		$data = array(
 				'subject' 	=> $this->subject,
