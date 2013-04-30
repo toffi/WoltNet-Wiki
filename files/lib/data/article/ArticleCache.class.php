@@ -24,6 +24,12 @@ class ArticleCache extends SingletonFactory {
 	protected $cachedArticles = array();
 
 	/**
+	 * cached article versions
+	 * @var array<wiki\data\article\version\ArticleVersion>
+	 */
+	protected $cachedArticleVersions = array();
+
+	/**
 	 * @see wcf\system\SingletonFactory::init()
 	 */
 	protected function init() {
