@@ -1,6 +1,6 @@
 <?php
 namespace wiki\system\cache\builder;
-use wiki\data\article\ViewableArticle;
+use wiki\data\article\version\ArticleVersion;
 
 use wcf\system\WCF;
 use wcf\system\cache\builder\AbstractCacheBuilder;
@@ -12,23 +12,23 @@ use wcf\system\cache\builder\AbstractCacheBuilder;
  * @subpackage	system.cache.builder
  * @category 	WoltNet - Wiki
  */
-class ArticleCacheBuilder extends AbstractCacheBuilder {
+class ArticleVersionCacheBuilder extends AbstractCacheBuilder {
   /**
    * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
    */
   public function rebuild(array $parameters) {
     $data = array(
-      'articles' => array()
+      'versions' => array()
     );
 
     $sql = "SELECT
-        articleID
+        versionID
       FROM
-        wiki".WCF_N."_article";
+        wiki".WCF_N."_article_version";
     $statement = WCF::getDB()->prepareStatement($sql);
     $statement->execute();
     while($row = $statement->fetchArray()) {
-      $data['articles'][$row['articleID']] = ViewableArticle::getViewableArticle($row['articleID']);
+      $data['versions'][$row['versionsID']] = new ArticleVersion($row['versionID']);
     }
 
     return $data;

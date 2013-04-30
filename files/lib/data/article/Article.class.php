@@ -3,6 +3,7 @@ namespace wiki\data\article;
 use wiki\data\WIKIDatabaseObject;
 use wiki\data\category\WikiCategory;
 use wiki\system\article\ArticlePermissionHandler;
+use wiki\data\article\version\ArticleVersionList;
 
 use wcf\system\WCF;
 use wcf\data\IUserContent;
@@ -106,13 +107,13 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 
   public function getVersions() {
     if($this->versionList === null) {
-      $this->versionList = new ArticleList;
-      $this->versionList->getConditionBuilder()->add("((article.parentID = ?) OR (article.articleID = ?) OR (article.parentID = ?) OR (article.articleID = ?))", array($this->parentID, $this->parentID, $this->articleID, $this->articleID));
+      $this->versionList = new ArticleVersionList;
+      $this->versionList->getConditionBuilder()->add("(article_version.articleID = ?)", $this->articleID);
       $this->versionList->readObjectIDs();
       $this->versionList = $this->versionList->getObjectIDs();
 
-      foreach($this->versionList AS $key=>$value) {
-        $this->versionList[$key] = ArticleCache::getInstance()->getArticle($value);
+      foreach($this->versionList AS $key=>$versionID) {
+        $this->versionList[$key] = ArticleCache::getInstance()->getArticleVersion($versionID);
       }
     }
 

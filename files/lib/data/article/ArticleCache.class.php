@@ -1,6 +1,7 @@
 <?php
 namespace wiki\data\article;
 use wiki\system\cache\builder\ArticleCacheBuilder;
+use wiki\system\cache\builder\ArticleVersionCacheBuilder;
 
 use wcf\system\SingletonFactory;
 
@@ -28,6 +29,9 @@ class ArticleCache extends SingletonFactory {
 	protected function init() {
 		// get article cache
 		$this->cachedArticles = ArticleCacheBuilder::getInstance()->getData();
+
+		// get article version cache
+		$this->cachedArticleVersions = ArticleVersionCacheBuilder::getInstance()->getData();
 	}
 
 	/**
@@ -45,11 +49,34 @@ class ArticleCache extends SingletonFactory {
 	}
 
 	/**
+	 * Gets the article version with the given version id from cache.
+	 *
+	 * @param 	integer		$versionID
+	 * @return	wiki\data\article\version\ArticleVersion
+	 */
+	public function getArticleVersion($versionID) {
+		if (!isset($this->cachedArticleVersions['versions'][$versionID])) {
+			return null;
+		}
+
+		return $this->cachedArticleVersions['versions'][$versionID];
+	}
+
+	/**
 	 * Returns a list of all articles.
 	 *
-	 * @return	array<wiki\data\ViewableArticle>
+	 * @return	array<wiki\data\article\ViewableArticle>
 	 */
 	public function getArticles() {
 		return $this->cachedArticles['articles'];
+	}
+
+	/**
+	 * Returns a list of all articles.
+	 *
+	 * @return	array<wiki\data\artice\version\ArticleVersion>
+	 */
+	public function getArticleVersions() {
+		return $this->cachedArticleVersion['versions'];
 	}
 }
