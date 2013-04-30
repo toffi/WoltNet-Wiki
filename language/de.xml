@@ -21,7 +21,7 @@
 		<item name="wiki.category.categorySuggestionAdd.success"><![CDATA[Ihr Vorschlag wurde erfolgreich im System eingetragen.<br />Bitte beachten Sie das Ihr Vorschlag durch einen Moderator geprüft werden muss.]]></item>
 	</category>
     <category name="wiki.sitemap">
-        <item name="wiki.sitemap.category"><![CDATA[verfügbare Kategorien]]></item>
+        <item name="wiki.sitemap.category"><![CDATA[Verfügbare Kategorien]]></item>
     </category>
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
@@ -46,7 +46,7 @@
 		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
 		<item name="wiki.article.articleAdd.data"><![CDATA[Artikeldaten]]></item>
 		<item name="wiki.article.articleAdd.username"><![CDATA[Benutzername]]></item>
-		<item name="wiki.article.articleAdd.category"><![CDATA[zugeordnete Kategorie]]></item>
+		<item name="wiki.article.articleAdd.category"><![CDATA[Zugeordnete Kategorie]]></item>
 		<item name="wiki.article.articleAdd.title"><![CDATA[Artikeltitel]]></item>
 		<item name="wiki.article.articleAdd.text"><![CDATA[Artikeltext]]></item>
 		<item name="wiki.article.articleAdd.activate"><![CDATA[Diesen Artikel aktivieren]]></item>
@@ -157,6 +157,11 @@
 		<item name="wcf.acp.group.option.user.wiki.article.read.canReadArticle"><![CDATA[Kann Artikel lesen]]></item>
 		<item name="wcf.acp.group.option.user.wiki.article.write.canAddArticle"><![CDATA[Kann Artikel schreiben]]></item>
 		<item name="wcf.acp.group.option.user.wiki.article.write.canEditOwnArticle"><![CDATA[Kann eigene Artikel bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canWriteComment"><![CDATA[Kann Kommentare schreiben]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canEditOwnComment"><![CDATA[Kann eigene Kommentare bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.wiki.article.write.canDeleteOwnComment"><![CDATA[Kann eigene Kommentare löschen]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canEditComment"><![CDATA[Kann Kommentare bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.wiki.article.canDeleteComment"><![CDATA[Kann Kommentare löschen]]></item>
 		<item name="wcf.acp.group.option.category.user.wiki.category"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.group.option.user.wiki.category.read.canViewCategory"><![CDATA[Kann Kategorien sehen]]></item>
 		<item name="wcf.acp.group.option.user.wiki.category.read.canEnterCategory"><![CDATA[Kann Kategorien betreten]]></item>
@@ -190,6 +195,12 @@
 		<item name="wcf.dashboard.box.com.woltnet.wiki.latestArticles"><![CDATA[Letzte Artikel]]></item>
         <item name="wcf.dashboard.box.com.woltnet.wiki.latestArticlesSidebar"><![CDATA[Letzte Artikel]]></item>
 		<item name="wcf.dashboard.box.com.woltnet.wiki.updatedArticlesSidebar"><![CDATA[Zuletzt bearbeitete Artikel]]></item>
+	</category>
+	
+	<category name="wcf.user.objectWatch">
+		<item name="wcf.user.objectWatch.subscribe.com.woltnet.wiki.category"><![CDATA[Kategorie abonnieren]]></item>
+		<item name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.category"><![CDATA[Benachrichtigung über neue Artikel aktivieren]]></item>
+		<item name="wcf.user.objectWatch.unsubscribe.com.woltnet.wiki.category"><![CDATA[Kategorie nicht abonnieren]]></item>
 	</category>
 	
 	<category name="wcf.user.profile">
