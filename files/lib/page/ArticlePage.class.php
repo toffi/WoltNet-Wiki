@@ -1,5 +1,7 @@
 <?php
 namespace wiki\page;
+use wcf\system\tagging\TagEngine;
+
 use wiki\data\article\ArticleAction;
 use wiki\data\article\ViewableArticle;
 
@@ -124,7 +126,8 @@ class ArticlePage extends AbstractPage {
       'sidebarName' 					=> 'com.woltnet.wiki.article',
       'commentCount'					=> count($this->article->getCommentList()),
       'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
-      'contentLanguages'				=> WCF::getUser()->getLanguageIDs()
+      'contentLanguages'				=> WCF::getUser()->getLanguageIDs(),
+      'tags'							=> TagEngine::getInstance()->getObjectTags('com.woltnet.wiki.article', $this->article->articleID, array($this->article->languageID))
     ));
   }
 

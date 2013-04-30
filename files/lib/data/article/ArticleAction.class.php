@@ -56,7 +56,7 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
         // update search index
         SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);
 
-        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywors($object->message), $object->languageID);
+        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $object->languageID);
 
         return $object;
     }

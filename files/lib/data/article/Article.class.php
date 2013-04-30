@@ -156,8 +156,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, IUserConte
 
   public function getActiveVersion() {
     $versionList = array_merge($this->getVersions());
-
-    $count = count($versionList)-1;
+	$count = count($versionList)-1;
     if($count == 0) return $versionList[$count];
     foreach($versionList AS $versionListItem) {
       if($versionListItem->isActive && !$versionListItem->isDeleted) {
