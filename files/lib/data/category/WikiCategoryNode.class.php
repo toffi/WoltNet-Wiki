@@ -1,11 +1,9 @@
 <?php
 namespace wiki\data\category;
+use wiki\data\article\CategoryArticleList;
 
 use wcf\data\category\CategoryNode;
 use wcf\data\DatabaseObject;
-use wcf\system\language\LanguageFactory;
-use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\WCF;
 
 /**
  * Represents a wiki category node.
@@ -78,20 +76,9 @@ class WikiCategoryNode extends CategoryNode {
      */
     public function getArticles() {
         if($this->articles === null) {
-            $conditions = new PreparedStatementConditionBuilder();
-            $conditions->add('article.categoryID = ?', array($this->categoryID));
-            //$conditions->add('article.isActive = ?', array(1));
-            //$conditions->add('article.isDeleted = ?', array(0));
-            if (count(LanguageFactory::getInstance()->getContentLanguages()) > 0 && count(WCF::getUser()->getLanguageIDs())) {
-                $conditions->add('(article.languageID IN (?) OR article.languageID IS NULL)', array(WCF::getUser()->getLanguageIDs()));
-            }
-            $sql = "SELECT COUNT(articleID) AS count
-                    FROM wiki".WCF_N."_article AS article
-                    ".$conditions;
-            $statement = WCF::getDB()->prepareStatement($sql);
-            $statement->execute($conditions->getParameters());
-            $row = $statement->fetchArray();
-            $this->articles = $row['count'];
+			$articleList = new CategoryArticleList($this, $this->categoryID);
+			$articleList->readObjects();
+			$this->articles = $articleList->getObjects();
         }
         return $this->articles;
     }
@@ -100,6 +87,6 @@ class WikiCategoryNode extends CategoryNode {
      * Returns count of unread articles
      */
     public function getUnreadArticles() {
-        return 0;
+        return array();
     }
 }

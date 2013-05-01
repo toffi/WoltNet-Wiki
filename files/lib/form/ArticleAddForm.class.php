@@ -1,6 +1,6 @@
 <?php
 namespace wiki\form;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 use wiki\data\category\WikiCategory;
 use wiki\data\article\ArticleAction;
 use wiki\system\article\ArticlePermissionHandler;
@@ -61,7 +61,13 @@ class ArticleAddForm extends MessageForm {
 
     /**
      * category node list
-     * @var	wiki\data\category\WikiCategoryNodeList
+     * @var	wiki\data\category\WikiCategoryNodeTree
+     */
+    public $categoryNodeTree = null;
+
+    /**
+     * category node list
+     * @var	\Iterator
      */
     public $categoryNodeList = null;
 
@@ -160,7 +166,8 @@ class ArticleAddForm extends MessageForm {
         MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
 
         // read categories
-        $this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
+        $this->categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
+        $this->categoryNodeList = $this->categoryNodeTree->getIterator();
 
         if($this->categoryNodeList->count() == 0) {
             throw new NamedUserException(WCF::getLanguage()->get('wiki.articleAdd.noCategories'));
