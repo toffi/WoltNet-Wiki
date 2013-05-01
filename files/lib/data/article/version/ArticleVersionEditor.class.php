@@ -3,6 +3,7 @@ namespace wiki\data\article\version;
 use wiki\system\cache\builder\ArticleVersionCacheBuilder;
 use wiki\system\cache\builder\ArticleCacheBuilder;
 use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
+use wiki\data\article\ArticleEditor;
 
 use wcf\data\DatabaseObjectEditor;
 use wcf\data\conversation\ConversationAction;
@@ -29,23 +30,15 @@ class ArticleVersionEditor extends DatabaseObjectEditor implements IEditableCach
      * Activates given article.
      */
     public function setActive() {
-        $where = "";
-        if($this->parentID != 0) {
-            $where = "parentID = '".$this->parentID."' OR
-                    articleID = '".$this->parentID."'";
-        } else {
-            $where = "articleID = '".$this->articleID."' OR
-                    parentID = '".$this->articleID."'";
-        }
         $sql = "UPDATE ".self::getDatabaseTableName()." SET isActive = 0
-                WHERE ".$where;
-        $statement = WCF::getDB()->prepareStatement($sql);
-        $statement->execute();
-
-        $sql = "UPDATE ".self::getDatabaseTableName()." SET isActive = 1
                 WHERE articleID = ?";
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute(array($this->articleID));
+
+        $sql = "UPDATE ".self::getDatabaseTableName()." SET isActive = 1
+                WHERE versionID = ?";
+        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement->execute(array($this->versionID));
 
         if(MODULE_CONVERSATION && $this->userID != 0 && $this->userID != WCF::getUser()->userID) {
             $data = array(
@@ -71,6 +64,11 @@ class ArticleVersionEditor extends DatabaseObjectEditor implements IEditableCach
             $objectAction = new ConversationAction(array(), 'create', $conversationData);
             $objectAction->executeAction();
         }
+
+        $articleEditor = new ArticleEditor($this->articleID);
+        $articleEditor->update(array(
+                'activeVersionID' => $this->versionID
+        ));
     }
 
     /**

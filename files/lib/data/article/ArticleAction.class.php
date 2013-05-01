@@ -54,25 +54,14 @@ class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAc
         $object = call_user_func(array($this->className, 'create'), $this->parameters['articleData']);
         $this->parameters['versionData']['articleID'] = $object->articleID;
 
-        ArticleCacheBuilder::getInstance()->reset();
-        ArticleVersionCacheBuilder::getInstance()->reset();
+		$this->parameters['object'] = $object;
 
-        $objectAction = new ArticleVersionAction(array(), 'create', $this->parameters['versionData']);
+        $objectAction = new ArticleVersionAction(array(), 'create', $this->parameters);
         $resultValues = $objectAction->executeAction();
 
         $versionObject = $resultValues['returnValues'];
 
-        $articleEditor = new ArticleEditor($object);
-        $articleEditor->update(array(
-                'activeVersionID' => $versionObject->versionID
-        ));
-
-        ArticleCacheBuilder::getInstance()->reset();
-        ArticleVersionCacheBuilder::getInstance()->reset();
-
-        $object = new Article($object->articleID);
-
-        return $object;
+        return $versionObject;
     }
 
     /**

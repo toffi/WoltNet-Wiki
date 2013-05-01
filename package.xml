@@ -49,6 +49,7 @@
 		<instruction type="userProfileMenu">xml/userProfileMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
 		<instruction type="templateListener">xml/templateListener.xml</instruction>
+        <instruction type="eventListener">xml/eventListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
@@ -76,6 +77,7 @@
 		<instruction type="userProfileMenu">xml/userProfileMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
 		<instruction type="templateListener">xml/templateListener.xml</instruction>
+        <instruction type="eventListener">xml/eventListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
