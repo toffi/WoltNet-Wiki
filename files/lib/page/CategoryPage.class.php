@@ -1,6 +1,6 @@
 <?php
 namespace wiki\page;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 use wiki\data\category\WikiCategory;
 use wiki\data\article\CategoryArticleList;
 use wiki\data\article\label\ArticleLabel;
@@ -153,7 +153,8 @@ class CategoryPage extends SortablePage {
         parent::readData();
 
         // get node tree
-        $this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName, $this->category->categoryID);
+        $categoryTree = new WikiCategoryNodeTree($this->objectTypeName, $this->category->categoryID);
+        $this->categoryNodeList = $categoryTree->getIterator();
         $this->categoryNodeList->setMaxDepth(0);
 
         foreach($this->category->getParentCategories() AS $categoryItem) {

@@ -1,7 +1,7 @@
 <?php
 namespace wiki\data\category;
 
-use wcf\data\category\ViewableCategoryNode;
+use wcf\data\category\CategoryNode;
 use wcf\data\DatabaseObject;
 use wcf\system\language\LanguageFactory;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
@@ -17,7 +17,7 @@ use wcf\system\WCF;
  * @subpackage	data.category
  * @category	WoltNet Wiki
  */
-class WikiCategoryNode extends ViewableCategoryNode {
+class WikiCategoryNode extends CategoryNode {
     /**
      * child category nodelist
      *
@@ -62,11 +62,11 @@ class WikiCategoryNode extends ViewableCategoryNode {
     /**
      * Returns all children of this category
      *
-     * @return wiki\data\category\WikiCategorynodeList
+     * @return wiki\data\category\WikiCategoryNodeList
      */
     public function getChildCategories($depth = 0) {
         if($this->subCategories === null) {
-            $this->subCategories = new WikiCategorynodeList($this->objectTypeName, $this->categoryID);
+            $this->subCategories = new WikiCategoryNodeTree($this->objectTypeName, $this->categoryID);
             if($depth > 0) $this->subCategories->setMaxDepth($depth);
         }
 

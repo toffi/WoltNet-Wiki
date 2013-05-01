@@ -1,7 +1,7 @@
 <?php
 namespace wiki\data\category;
 
-use wcf\data\category\ViewableCategoryNodeList;
+use wcf\data\category\CategoryNodeTree;
 
 /**
  * Represents a list of wiki category nodes.
@@ -13,4 +13,10 @@ use wcf\data\category\ViewableCategoryNodeList;
  * @subpackage	data.category
  * @category	WoltNet Wiki
  */
-class WikiCategoryNodeList extends ViewableCategoryNodeList {}
+class WikiCategoryNodeTree extends CategoryNodeTree {
+    /**
+     * name of the category node class
+     * @var	string
+     */
+    protected $nodeClassName = 'wiki\data\category\WikiCategoryNode';
+}

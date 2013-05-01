@@ -1,6 +1,6 @@
 <?php
 namespace wiki\page;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 
 use wcf\page\AbstractPage;
 use wcf\system\dashboard\DashboardHandler;
@@ -44,8 +44,10 @@ class IndexPage extends AbstractPage {
   public function readData() {
     parent::readData();
 
-    $this->categoryList = new WikiCategoryNodeList($this->objectTypeName);
+    $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
+    $this->categoryList = $categoryTree->getIterator();
     $this->categoryList->setMaxDepth(0);
+    print_r($this->categoryList);
   }
 
   /**
