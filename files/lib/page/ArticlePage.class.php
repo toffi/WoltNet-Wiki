@@ -74,9 +74,9 @@ class ArticlePage extends AbstractPage {
   public function readData() {
     parent::readData();
 
-    $this->article = new ViewableArticle(ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion());
+    $this->article = ArticleCache::getInstance()->getArticle($this->articleID);
 
-    if(!$this->article->articleID || (!$this->article->canEnter())) {
+    if(!$this->article->articleID || (!$this->article->getActiveVersion()->canEnter())) {
       throw new IllegalLinkException();
     }
 
@@ -84,13 +84,7 @@ class ArticlePage extends AbstractPage {
 
     if(count($this->availableContentLanguages) > 0 && $this->languageID > 0 && $this->article->languageID != $this->languageID) HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array('application' => 'wiki', 'object' => $this->article->getArticleToLanguage($this->languageID), 'l' => $this->languageID)));
 
-    // update article visit
-    if ($this->article->time > $this->article->visitTime) {
-      $articleAction = new ArticleAction(array($this->article->getDecoratedObject()), 'markAsRead', array('visitTime' => $this->article->time));
-      $articleAction->executeAction();
-    }
-
-    if(!$this->article->isActive) {
+    if(!$this->article->getActiveVersion()->isActive) {
       $this->showNotActive = true;
     }
 
@@ -121,7 +115,7 @@ class ArticlePage extends AbstractPage {
     MessageQuoteManager::getInstance()->assignVariables();
 
     WCF::getTPL()->assign(array(
-      'articleOverview'					=> $this->article,
+      'articleOverview'					=> $this->article->getActiveVersion(),
       'showNotActive'					=> $this->showNotActive,
       'articleContent' 					=> $this->articleContent,
       'sidebarCollapsed' 				=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),

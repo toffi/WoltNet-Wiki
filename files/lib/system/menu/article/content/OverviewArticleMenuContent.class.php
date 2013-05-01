@@ -16,24 +16,24 @@ use wcf\system\WCF;
  * @category 	WoltNet - Wiki
  */
 class OverviewArticleMenuContent extends SingletonFactory implements IArticleMenuContent {
-	/**
-	 * @see	wcf\system\SingletonFactory::init()
-	 */
-	protected function init() {
-		EventHandler::getInstance()->fireAction($this, 'shouldInit');
+    /**
+     * @see	wcf\system\SingletonFactory::init()
+     */
+    protected function init() {
+        EventHandler::getInstance()->fireAction($this, 'shouldInit');
 
-		EventHandler::getInstance()->fireAction($this, 'didInit');
-	}
+        EventHandler::getInstance()->fireAction($this, 'didInit');
+    }
 
-	/**
-	 * @see	wiki\system\menu\article\content\IArticleMenuContent::getContent()
-	 */
-	public function getContent($articleID) {
-		$article = ArticleCache::getInstance()->getArticle($articleID);
+    /**
+     * @see	wiki\system\menu\article\content\IArticleMenuContent::getContent()
+     */
+    public function getContent($articleID) {
+        $article = ArticleCache::getInstance()->getArticle($articleID)->getActiveVersion();
 
-		WCF::getTPL()->assign(array(
-			'article' 	=> $article
-		));
-		return WCF::getTPL()->fetch('articleOverview', 'wiki');
-	}
+        WCF::getTPL()->assign(array(
+            'article' 	=> $article
+        ));
+        return WCF::getTPL()->fetch('articleOverview', 'wiki');
+    }
 }

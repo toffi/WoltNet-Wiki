@@ -7,8 +7,29 @@
 </head>
 
 <body id="tpl{$templateName|ucfirst}">
-
-{include file='sidebar'}
+{capture assign='sidebar'}
+	<aside class="sidebar" data-sidebar-name="com.woltlab.wcf.user.DashboardPage" data-is-open="true">
+		<div>
+			<fieldset class="lastArticleBox">
+			<legend>Last Articles</legend>
+				<div>
+					<ul class="sidebarBoxList">
+						<li class="box24">AAA</li>
+					</ul>
+				</div>
+			</fieldset>
+			
+			{*
+			<fieldset class="tagCloudBox">
+			<legend>XX</legend>
+				<div>
+					{include file='tagCloudBox'}
+				</div>
+			</fieldset>
+			*}
+		</div>
+	</aside>
+{/capture}
 
 {include file='header' sidebarOrientation='right'}
 
