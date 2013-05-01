@@ -49,11 +49,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    * @return	wcf\data\user\UserProfile
    */
   public function getAuthor() {
-    if ($this->userProfile === null) {
-      $this->userProfile = new UserProfile(new User(null, $this->getDecoratedObject()->getActiveVersion()->data));
-    }
-
-    return $this->userProfile;
+    return $this->getActiveVersion()->getAuthor();
   }
 
   /**
@@ -106,7 +102,7 @@ class ViewableArticle extends DatabaseObjectDecorator {
    * @return boolean
    */
   public function isNew() {
-    if ($this->getActiveVersion()->time > $this->getVisitTime()) {
+    if ($this->getActiveVersion()->getTime() > $this->getVisitTime()) {
       return true;
     }
 

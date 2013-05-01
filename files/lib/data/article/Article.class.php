@@ -48,7 +48,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
   public function __construct($id, $row = null, $object = null) {
     //we need to overload the constructor for active row
     if ($id !== null) {
-      $sql = "SELECT	*
+      $sql = "SELECT	*,
           FROM	".static::getDatabaseTableName()."
           WHERE	(".static::getDatabaseTableIndexName()." = ?)";
       $statement = WCF::getDB()->prepareStatement($sql);
@@ -160,7 +160,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
     $versionList = $this->getVersions();
     if(array_key_exists($this->activeVersionID, $versionList)) {
         if($versionList[$this->activeVersionID]->isVisible())
-        return $versionList[$this->activeVersionID];
+            return $versionList[$this->activeVersionID];
     }
     return null;
   }
@@ -210,14 +210,14 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @see	wcf\system\request\IRouteController::getTitle()
    */
   public function getTitle() {
-    return $this->getActiveVersion()->getTitle();
+    return $this->subject;
   }
 
   /**
    * @see wcf\data\IUserContent::getTime()
    */
   public function getTime() {
-    return $this->getActiveVersion()->time;
+      return $this->time;
   }
 
   /**
