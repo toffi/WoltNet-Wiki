@@ -42,7 +42,7 @@ class ArticleVersionActivateAction extends AbstractAction {
             throw new IllegalLinkException();
         }
 
-        if(!$this->article->getAtiveVersion()->getModeratorPermission()) {
+        if(!$this->article->getActiveVersion()->getModeratorPermission()) {
             throw new PermissionDeniedException();
         }
     }
