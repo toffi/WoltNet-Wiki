@@ -75,8 +75,8 @@ class WikiCategoryNode extends CategoryNode {
      * Returns count of articles
      */
     public function getArticles() {
-        if($this->articles === null) {
-			$articleList = new CategoryArticleList($this, $this->categoryID);
+		if($this->articles === null) {
+			$articleList = new CategoryArticleList($this->getDecoratedObject(), $this->categoryID);
 			$articleList->readObjects();
 			$this->articles = $articleList->getObjects();
         }
