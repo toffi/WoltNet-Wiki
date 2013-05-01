@@ -12,17 +12,17 @@ namespace wiki\system\event\listener;
 * @category WoltNet Wiki
 */
 class RouteHandlerListener implements \wcf\system\event\IEventListener {
-	/**
-	* @see \wcf\system\event\IEventListener::execute()
-	*/
-	public function execute($eventObj, $className, $eventName) {
-		$route = new \wcf\system\request\Route('chatAction');
-		$route->setSchema('/{controller}/{category}/{id}/{version}');
-		$route->setParameterOption('controller', null, 'Article');
-		$route->setParameterOption('category', null, null);
-		$route->setParameterOption('action', null, null);
-		$route->setParameterOption('id', null, '\d+');
-		$route->setParameterOption('version', null, '\d+', true);
-		$eventObj->addRoute($route);
-	}
+    /**
+    * @see \wcf\system\event\IEventListener::execute()
+    */
+    public function execute($eventObj, $className, $eventName) {
+        $route = new \wcf\system\request\Route('wikiArticle');
+        $route->setSchema('/{controller}/{categoryName}/{id}/{versionID}');
+        $route->setParameterOption('controller', null, 'Article');
+        $route->setParameterOption('categoryName', null, null);
+        $route->setParameterOption('action', null, null);
+        $route->setParameterOption('id', null, '\d+');
+        $route->setParameterOption('versionID', null, '\d+', true);
+        $eventObj->addRoute($route);
+    }
 }
