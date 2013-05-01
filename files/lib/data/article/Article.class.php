@@ -48,7 +48,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
   public function __construct($id, $row = null, $object = null) {
     //we need to overload the constructor for active row
     if ($id !== null) {
-      $sql = "SELECT	*,
+      $sql = "SELECT	*
           FROM	".static::getDatabaseTableName()."
           WHERE	(".static::getDatabaseTableIndexName()." = ?)";
       $statement = WCF::getDB()->prepareStatement($sql);
