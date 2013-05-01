@@ -76,7 +76,7 @@ class WikiCategoryNode extends CategoryNode {
      */
     public function getArticles() {
 		if($this->articles === null) {
-			$articleList = new CategoryArticleList($this->getDecoratedObject(), $this->categoryID);
+			$articleList = new CategoryArticleList(new WikiCategory($this->getDecoratedObject()), $this->categoryID);
 			$articleList->readObjects();
 			$this->articles = $articleList->getObjects();
         }
