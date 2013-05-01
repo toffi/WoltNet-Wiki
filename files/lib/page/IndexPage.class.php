@@ -47,7 +47,6 @@ class IndexPage extends AbstractPage {
     $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
     $this->categoryList = $categoryTree->getIterator();
     $this->categoryList->setMaxDepth(0);
-    print_r($this->categoryList);
   }
 
   /**
