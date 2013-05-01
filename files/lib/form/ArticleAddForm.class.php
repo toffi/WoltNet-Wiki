@@ -169,7 +169,7 @@ class ArticleAddForm extends MessageForm {
         $this->categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
         $this->categoryNodeList = $this->categoryNodeTree->getIterator();
 
-        if($this->categoryNodeList->count() == 0) {
+        if(!$this->categoryNodeList->hasChildren()) {
             throw new NamedUserException(WCF::getLanguage()->get('wiki.articleAdd.noCategories'));
         }
 
