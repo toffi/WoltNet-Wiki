@@ -49,5 +49,11 @@
             <eventname>headerLogo</eventname>
             <templatecode><![CDATA[{if $__wiki->isActiveApplication()}{if !$__wcf->getStyleHandler()->getStyle()->getPageLogo()}<img src="{@$__wcf->getPath('wiki')}images/wikiLogo.svg" width="256" height="64" alt="" />{/if}{/if}]]></templatecode>
         </templatelistener>
+        <templatelistener name="headerLogo">
+            <environment>admin</environment>
+            <templatename>header</templatename>
+            <eventname>headerLogo</eventname>
+            <templatecode><![CDATA[{if $__wiki->isActiveApplication()}<img src="{$__wcf->getPath('wiki')}images/wikiLogo.svg" style="width: 256px; height: 64px;" alt="" />{/if}]]></templatecode>
+        </templatelistener>
 	</import>
 </data>

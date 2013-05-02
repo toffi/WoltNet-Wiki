@@ -1,6 +1,6 @@
 <?php
 namespace wiki\system\sitemap;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 use wcf\system\sitemap\ISitemapProvider;
 use wcf\system\WCF;
 
@@ -15,11 +15,13 @@ use wcf\system\WCF;
  */
 class WikiSitemapProvider implements ISitemapProvider {
     public $categoryNodeList = null;
+    public $categoryNodeTree = null;
     /**
     * @see	wcf\system\sitemap\ISitemapProvider::getTemplate()
     */
     public function getTemplate() {
-        $this->categoryNodeList = new WikiCategoryNodeList('com.woltnet.wiki.category');
+        $this->categoryNodeTree = new WikiCategoryNodeTree('com.woltnet.wiki.category');
+        $this->categoryNodeList = $this->categoryNodeTree->getIterator();
         $this->categoryNodeList->setMaxDepth(0);
 
         WCF::getTPL()->assign(array(

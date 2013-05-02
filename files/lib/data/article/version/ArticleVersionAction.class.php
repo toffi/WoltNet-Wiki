@@ -27,7 +27,7 @@ class ArticleVersionAction extends AbstractDatabaseObjectAction {
      * @see DatabaseObjectEditor::create()
      */
     public function create() {
-        $object = call_user_func(array($this->className, 'create'), $this->parameters);
+        $object = call_user_func(array($this->className, 'create'), $this->parameters['versionData']);
 
         // update search index
         SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);

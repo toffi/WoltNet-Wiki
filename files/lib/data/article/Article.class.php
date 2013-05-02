@@ -165,8 +165,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
                 $this->activeArticle = $versionList[$this->activeVersionID];
         }
         if($this->activeArticle === null) {
-            $count = count($versionList) - 1;
-            $this->activeArticle = $versionList[$count];
+            $this->activeArticle = end($versionList);
         }
     }
     return $this->activeArticle;
@@ -225,28 +224,28 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @see	wcf\system\request\IRouteController::getTitle()
    */
   public function getTitle() {
-    return $this->subject;
+    return $this->getActiveVersion()->getTitle();
   }
 
   /**
    * @see wcf\data\IUserContent::getTime()
    */
   public function getTime() {
-      return $this->time;
+      return $this->getActiveVersion()->getTime();
   }
 
   /**
    * @see wcf\data\IUserContent::getUserID()
    */
   public function getUserID() {
-    return $this->getActiveVersion()->userID;
+    return $this->getActiveVersion()->getUserID();
   }
 
   /**
    * @see wcf\data\IUserContent::getUsername()
    */
   public function getUsername() {
-    return $this->getActiveVersion()->username;
+    return $this->getActiveVersion()->getUsername();
   }
 
   /**

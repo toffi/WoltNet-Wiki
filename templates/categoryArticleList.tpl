@@ -46,7 +46,7 @@
                                     </ul>
                                 {/hascontent}
 
-                                <a href="{link controller='Article' application='wiki' object=$article->getActiveVersion() categoryName=$article->getCategory()->title versionID='1'}{/link}" class="articleLink messageGroupLink framed" data-article-id="{@$article->articleID}">{$article->getActiveVersion()->getTitle()}</a>
+                                <a href="{link controller='Article' application='wiki' object=$article->getActiveVersion() categoryName=$article->getCategory()->getTitle() versionID='1'}{/link}" class="articleLink messageGroupLink framed" data-article-id="{@$article->articleID}">{$article->getActiveVersion()->getTitle()}</a>
                             </h1>
 
                             <small>

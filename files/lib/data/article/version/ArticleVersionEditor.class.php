@@ -65,7 +65,7 @@ class ArticleVersionEditor extends DatabaseObjectEditor implements IEditableCach
             $objectAction->executeAction();
         }
 
-        $articleEditor = new ArticleEditor($this->articleID);
+        $articleEditor = new ArticleEditor(new Article($this->articleID));
         $articleEditor->update(array(
                 'activeVersionID' => $this->versionID
         ));
