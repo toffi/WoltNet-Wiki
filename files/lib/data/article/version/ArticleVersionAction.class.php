@@ -32,7 +32,7 @@ class ArticleVersionAction extends AbstractDatabaseObjectAction {
         // update search index
         SearchIndexManager::getInstance()->add('com.woltnet.wiki.article', $object->articleID, $object->message, $object->subject, $object->time, $object->userID, $object->username, $object->languageID);
 
-        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $object->getArticle()->languageID);
+        TagEngine::getInstance()->addObjectTags('com.woltnet.wiki.article', $object->articleID, KeywordUtil::getKeywords($object->message), $this->parameters['object']->languageID);
 
         return $object;
     }

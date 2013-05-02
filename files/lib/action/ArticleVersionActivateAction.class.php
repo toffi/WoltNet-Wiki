@@ -1,7 +1,7 @@
 <?php
 namespace wiki\action;
-use wiki\data\article\ArticleEditor;
 use wiki\data\article\ArticleCache;
+use wiki\data\article\version\ArticleVersionEditor;
 
 use wcf\action\AbstractAction;
 use wcf\util\HeaderUtil;
@@ -30,19 +30,19 @@ class ArticleVersionActivateAction extends AbstractAction {
     public function readParameters() {
         parent::readParameters();
 
-        if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
+        if(isset($_GET['id'])) $this->articleVersionID = intval($_GET['versionID']);
 
         $this->readData();
     }
 
     public function readData() {
-        $this->article = ArticleCache::getInstance()->getArticle($this->articleID);
+        $this->articleVersion = ArticleCache::getInstance()->getArticleVersion($this->articleVersionID);
 
-        if(!$this->article->articleID) {
+        if(!$this->articleVersion->versionID) {
             throw new IllegalLinkException();
         }
 
-        if(!$this->article->getActiveVersion()->getModeratorPermission()) {
+        if(!$this->articleVersion->getModeratorPermission()) {
             throw new PermissionDeniedException();
         }
     }
@@ -52,14 +52,16 @@ class ArticleVersionActivateAction extends AbstractAction {
      */
     public function execute() {
         parent::execute();
-        $editor = $this->article->getEditor();
+        $editor = $this->articleVersion->getEditor();
         $editor->setActive();
-        ArticleEditor::resetCache();
+        ArticleVersionEditor::resetCache();
 
-        $moderationManager = ModerationQueueActivationManager::getInstance()->removeModeratedContent('com.woltnet.wiki.article', array($this->articleID));
+        $moderationManager = ModerationQueueActivationManager::getInstance()->removeModeratedContent('com.woltnet.wiki.article', array($this->articleVersionID));
         HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
                 'application' => 'wiki',
-                'object' => $this->article
+                'categoryName'	=> $this->articleVersion->getArticle()->getCategory()->getTitle(),
+                'object' => $this->articleVersion->getArticle(),
+                'versionID'	=> $this->articleVersionID
         )));
     }
 }

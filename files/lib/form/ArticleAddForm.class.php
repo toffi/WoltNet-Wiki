@@ -328,7 +328,7 @@ class ArticleAddForm extends MessageForm {
             $this->article->getEditor()->setActive();
         }
         else {
-            ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->articleID);
+            ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->versionID);
         }
 
         $this->saved();
@@ -337,7 +337,8 @@ class ArticleAddForm extends MessageForm {
 
         HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
                 'application' => 'wiki',
-                'object' => $this->article->getArticle,
+                'categoryName'	=> $this->article->getArticle()->getCategory()->getTitle(),
+                'object' => $this->article->getArticle(),
                 'versionID' => $this->article->versionID
         )));
         exit;

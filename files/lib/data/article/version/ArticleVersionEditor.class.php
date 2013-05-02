@@ -4,6 +4,7 @@ use wiki\system\cache\builder\ArticleVersionCacheBuilder;
 use wiki\system\cache\builder\ArticleCacheBuilder;
 use wiki\system\cache\builder\ArticlePermissionCacheBuilder;
 use wiki\data\article\ArticleEditor;
+use wiki\data\article\Article;
 
 use wcf\data\DatabaseObjectEditor;
 use wcf\data\conversation\ConversationAction;
