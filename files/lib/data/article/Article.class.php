@@ -27,6 +27,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
   protected $category = null;
   protected $editor = null;
   protected $versionList = null;
+  protected $activeArticle = null;
   protected $author = null;
   protected $cache = null;
   protected $language = null;
@@ -157,10 +158,24 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @return wiki\data\article\version\ArticleVersion
    */
   public function getActiveVersion() {
+    if($this->activeArticle === null) {
+        $versionList = $this->getVersions();
+        if(array_key_exists($this->activeVersionID, $versionList)) {
+            if($versionList[$this->activeVersionID]->isVisible())
+                $this->activeArticle = $versionList[$this->activeVersionID];
+        }
+        if($this->activeArticle === null) {
+            $count = count($versionList) - 1;
+            $this->activeArticle = $versionList[$count];
+        }
+    }
+    return $this->activeArticle;
+  }
+
+  public function getVersion($versionID) {
     $versionList = $this->getVersions();
-    if(array_key_exists($this->activeVersionID, $versionList)) {
-        if($versionList[$this->activeVersionID]->isVisible())
-            return $versionList[$this->activeVersionID];
+    if(array_key_exists($versionID, $versionList)) {
+        return $versionList[$versionID];
     }
     return null;
   }
