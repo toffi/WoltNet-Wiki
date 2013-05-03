@@ -39,12 +39,13 @@ class LatestArticlesSidebarDashboardBox extends AbstractSidebarDashboardBox {
     // read articles
     $this->latestArticleList = new ViewableArticleList();
     $this->latestArticleList->getConditionBuilder()->add('article.categoryID IN (?)', array($categoryIDs));
-    $this->latestArticleList->getConditionBuilder()->add('article.isActive = ?', array('1'));
-    $this->latestArticleList->getConditionBuilder()->add('article.versionID = ?', array('0'));
-    $this->latestArticleList->getConditionBuilder()->add('article.isDeleted = ?', array('0'));
+    $this->latestArticleList->getConditionBuilder()->add('article_version.isActive = ?', array('1'));
+    $this->latestArticleList->getConditionBuilder()->add('article_version.isDeleted = ?', array('0'));
+    $this->latestArticleList->getConditionBuilder()->add('article.activeVersionID != ?', array('null'));
     if (count(LanguageFactory::getInstance()->getContentLanguages())) {
       $this->latestArticleList->getConditionBuilder()->add('(article.languageID IN (?))', array(WCF::getUser()->getLanguageIDs()));
     }
+    $this->latestArticleList->sqlConditionJoins = 'LEFT JOIN wiki'.WCF_N.'_article_version AS article_version ON (article_version.versionID = article.activeVersionID)';
     $this->latestArticleList->sqlLimit = 5;
     $this->latestArticleList->sqlOrderBy = 'article.articleID DESC';
     $this->latestArticleList->readObjects();
