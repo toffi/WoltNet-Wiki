@@ -42,6 +42,10 @@
 		<item name="wiki.global.statistics"><![CDATA[Statistik]]></item>
 		<item name="wiki.global.options"><![CDATA[Optionen]]></item>
 	</category>
+	
+	<category name="wiki.articleAdd">
+		<item name="wiki.articleAdd.noCategories"><![CDATA[Aktuell ist keine Kategorie vorhanden um Artikel zu erstellen.]]></item>
+	</category>
 	<category name="wiki.article">
 		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
 		<item name="wiki.article.articleAdd.data"><![CDATA[Artikeldaten]]></item>
