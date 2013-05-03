@@ -24,11 +24,11 @@ class RouteHandlerListener implements \wcf\system\event\IEventListener {
         $route->setParameterOption('versionID', null, '\d+', true);
         $eventObj->addRoute($route);
 
-        $route = new \wcf\system\request\Route('wikiArticleVersionActivateAction');
-        $route->setSchema('/{controller}/{id}/{versionID}');
-        $route->setParameterOption('controller', null, 'ArticleVersionActivateAction');
+        $route = new \wcf\system\request\Route('wikiArticleVersionAction');
+        $route->setSchema('/{controller}/{action}/{id}');
+        $route->setParameterOption('controller', null, 'ArticleVersionAction');
+        $route->setParameterOption('action', null, null);
         $route->setParameterOption('id', null, '\d+');
-        $route->setParameterOption('versionID', null, '\d+', true);
         $eventObj->addRoute($route);
     }
 }
