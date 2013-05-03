@@ -40,9 +40,9 @@ $statement = WCF::getDB()->prepareStatement($sql);
 $statement->execute(array($package->packageID, "wcf".WCF_N."_user", $columnName));
 
 // dashboard
-DashboardHandler::setDefaultValues('com.woltlab.wcf.user.DashboardPage', array('com.wolnet.wiki.latestArticles' => 1));
-DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1, 'com.wolnet.wiki.updatedArticlesSidebar' => 2));
-DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1, 'com.wolnet.wiki.updatedArticlesSidebar' => 2));
+DashboardHandler::setDefaultValues('com.woltlab.wcf.user.DashboardPage', array('com.woltnet.wiki.latestArticles' => 1));
+DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1));
+DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryPage', array('com.wolnet.wiki.latestArticlesSidebar' => 1));
 
 // try to delete this file
 @unlink(__FILE__);
