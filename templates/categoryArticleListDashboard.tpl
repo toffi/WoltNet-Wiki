@@ -1,6 +1,6 @@
 <div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList articleList">
     <header>
-        <h1>{lang}wiki.article.articles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
+        <h1>{lang}com.woltnet.wiki.latestArticles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
     </header>
 
     <table class="table">
