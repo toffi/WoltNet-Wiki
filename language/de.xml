@@ -40,6 +40,7 @@
 		<item name="wiki.global.button.delete"><![CDATA[Löschen]]></item>
         <item name="wiki.global.button.quote"><![CDATA[Zitieren]]></item>
 		<item name="wiki.global.statistics"><![CDATA[Statistik]]></item>
+        <item name="wiki.global.statistics.description"><![CDATA[{$statistics['totalMember']} Mitglied{if $statistics['totalMember'] > 1}er{/if} - {$statistics['categories']} Kategorie{if $statistics['categories'] > 1}n{/if} - {$statistics['articles']} Artikel<br />Unser neuestes Mitglied heißt: <a href="{link controller='User' object=$statistics['newestMember']}{/link}" class="userLink" data-user-id="{$statistics['newestMember']->userID}">{$statistics['newestMember']->username}</a>.]]></item>
 		<item name="wiki.global.options"><![CDATA[Optionen]]></item>
 	</category>
 	

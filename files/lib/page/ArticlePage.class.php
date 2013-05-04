@@ -1,7 +1,5 @@
 <?php
 namespace wiki\page;
-use wiki\data\article\ArticleAction;
-use wiki\data\article\ViewableArticle;
 
 use wcf\system\WCF;
 use wiki\data\article\ArticleCache;
@@ -42,6 +40,10 @@ class ArticlePage extends AbstractPage {
 
   public $articleID = 0;
 
+  public $title = null;
+
+  public $categoryName = null;
+
   public $showNotActive = false;
 
   public $languageID = 0;
@@ -65,7 +67,8 @@ class ArticlePage extends AbstractPage {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-    if(isset($_GET['l'])) $this->languageID = intval($_GET['l']);
+    if(isset($_GET['categoryName'])) $this->categoryName = escapeString($_GET['categoryName']);
+    if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
   /**
@@ -74,9 +77,9 @@ class ArticlePage extends AbstractPage {
   public function readData() {
     parent::readData();
 
-    $this->article = ArticleCache::getInstance()->getArticle($this->articleID);
+    $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
-    if(!$this->article->articleID || (!$this->article->getActiveVersion()->canEnter())) {
+    if(!$this->article->articleID || (!$this->article->canEnter()) || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
       throw new IllegalLinkException();
     }
 
@@ -84,19 +87,19 @@ class ArticlePage extends AbstractPage {
 
     if(count($this->availableContentLanguages) > 0 && $this->languageID > 0 && $this->article->languageID != $this->languageID) HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array('application' => 'wiki', 'object' => $this->article->getArticleToLanguage($this->languageID), 'l' => $this->languageID)));
 
-    if(!$this->article->getActiveVersion()->isActive) {
+    if(!$this->article->isActive) {
       $this->showNotActive = true;
     }
 
-    foreach($this->article->getCategory()->getParentCategories() AS $categoryItem) {
+    foreach($this->article->getArticle()->getCategory()->getParentCategories() AS $categoryItem) {
       WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
           'application' => 'wiki',
           'object' => $categoryItem
       ))));
     }
-    WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
+    WCF::getBreadcrumbs()->add(new Breadcrumb($this->article->getArticle()->getCategory()->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
           'application' => 'wiki',
-          'object' => $this->article->getCategory()
+          'object' => $this->article->getArticle()->getCategory()
     ))));
 
     $activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
@@ -115,7 +118,7 @@ class ArticlePage extends AbstractPage {
     MessageQuoteManager::getInstance()->assignVariables();
 
     WCF::getTPL()->assign(array(
-      'articleOverview'					=> $this->article->getActiveVersion(),
+      'articleOverview'					=> $this->article,
       'showNotActive'					=> $this->showNotActive,
       'articleContent' 					=> $this->articleContent,
       'sidebarCollapsed' 				=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),

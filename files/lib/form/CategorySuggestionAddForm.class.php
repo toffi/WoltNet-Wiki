@@ -2,7 +2,7 @@
 namespace wiki\form;
 use wiki\data\category\suggestion\CategorySuggestionEditor;
 use wiki\data\category\suggestion\CategorySuggestionAction;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 use wiki\data\category\suggestion\CategorySuggestion;
 
 use wcf\system\exception\UserInputException;
@@ -38,8 +38,16 @@ class CategorySuggestionAddForm extends AbstractForm {
 	public $neededPermissions = array('user.wiki.category.write.canSuggestCategories');
 
 	/**
+	 * category node tree
+	 *
+	 * @var	wiki\data\category\WikiCategoryNodeTree
+	 */
+	public $categoryNodeTree = null;
+
+	/**
 	 * category node list
-	 * @var	wiki\data\category\WikiCategoryNodeList
+	 *
+	 * @var \RecursiveIterator
 	 */
 	public $categoryNodeList = null;
 
@@ -70,7 +78,8 @@ class CategorySuggestionAddForm extends AbstractForm {
 	 */
 	public function readData() {
 		// read categories
-		$this->categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
+		$this->categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
+		$this->categoryNodeList = $this->categoryNodeTree->getIterator();
 
 		// add userdata
 		$this->userID = WCF::getUser()->userID;

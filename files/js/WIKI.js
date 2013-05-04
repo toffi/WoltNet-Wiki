@@ -74,7 +74,7 @@ WIKI.Article.TabMenu = Class.extend({
 				success: $.proxy(this._success, this)
 			});
 
-			this._articleContent.bind('wcftabsselect', $.proxy(this._loadContent, this));
+			this._articleContent.bind('wcftabsbeforeactivate', $.proxy(this._loadContent, this));
 		}
 	},
 

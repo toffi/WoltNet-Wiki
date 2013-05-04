@@ -1,11 +1,14 @@
 <?php
 namespace wiki\page;
 use wiki\data\category\WikiCategoryNodeTree;
+use wiki\data\article\ArticleCache;
 
 use wcf\page\AbstractPage;
 use wcf\system\dashboard\DashboardHandler;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
+use wcf\system\category\CategoryHandler;
 use wcf\system\WCF;
+use wcf\data\user\UserList;
 
 /**
  * Displays index page
@@ -38,6 +41,8 @@ class IndexPage extends AbstractPage {
    */
   public $objectTypeName = 'com.woltnet.wiki.category';
 
+  public $statistics = array();
+
   /**
    * @see wcf\page\IPage::readData()
    */
@@ -47,6 +52,17 @@ class IndexPage extends AbstractPage {
     $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
     $this->categoryList = $categoryTree->getIterator();
     $this->categoryList->setMaxDepth(0);
+
+    $articles = ArticleCache::getInstance()->getArticles();
+    $this->statistics['articles'] = count($articles);
+    $this->statistics['categories'] = count(CategoryHandler::getInstance()->getCategories($this->objectTypeName));
+
+    $userList = new UserList();
+    $userList->sqlOrderBy = 'user_table.userID DESC';
+    $userList->sqlLimit = 1;
+    $userList->readObjects();
+    $this->statistics['newestMember'] = current($userList->getObjects());
+    $this->statistics['totalMember'] = $userList->countObjects();
   }
 
   /**
@@ -62,7 +78,8 @@ class IndexPage extends AbstractPage {
         'categoryList' 		=> $this->categoryList,
         'sidebarCollapsed'	=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.index'),
         'sidebarName' 		=> 'com.woltnet.wiki.index',
-        'wikiAnnouncement'	=> ''
+        'wikiAnnouncement'	=> '',
+        'statistics'			=> $this->statistics
     ));
   }
 }
