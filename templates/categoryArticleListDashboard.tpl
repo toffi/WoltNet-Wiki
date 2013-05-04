@@ -1,7 +1,7 @@
 <div class="marginTop tabularBox tabularBoxTitle shadow messageGroupList articleList">
-    <div>
+    <header>
         <h1>{lang}wiki.article.articles{/lang} <span class="badge badgeInverse">{#$objects|count}</span></h1>
-    </div>
+    </header>
 
     <table class="table">
         <thead>
