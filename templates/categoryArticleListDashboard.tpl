@@ -48,8 +48,8 @@
                         </h1>
 
                         <small>
-                            <a href="{link controller='User' object=$article->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a>
-                            - {@$article->time|time}
+                            <a href="{link controller='User' object=$article->getActiveVersion()->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->getActiveVersion()->userID}">{$article->getActiveVersion()->username}</a>
+                            - {@$article->getActiveVersion()->getTime()|time}
                         </small>
                     </td>
                     <td class="columnText columnCategory">
@@ -57,9 +57,9 @@
                             <a href="{link controller='Category' application='wiki' object=$article->getCategory()}{/link}">{$article->getCategory()->getTitle()}</a>
                         </p>
                     </td>
-                    <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' object=$article}#discuss{/link}">{#$article->getCommentList()|count}</a></p></td>
-                    <td class="columnDigits columnUsername"><p><a href="{link controller='User' object=$article->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->userID}">{$article->username}</a></p></td>
-                    <td class="columnText columnLastPost"><p>{@$article->time|time}</p></td>
+                    <td class="columnDigits columnComments"><p><a href="{link controller='Article' application='wiki' categoryName=$article->getCategory()->getTitle() object=$article->getActiveVersion()}#discuss{/link}">{#$article->getCommentList()|count}</a></p></td>
+                    <td class="columnDigits columnUsername"><p><a href="{link controller='User' object=$article->getActiveVersion()->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$article->getActiveVersion()->userID}">{$article->getActiveVersion()->username}</a></p></td>
+                    <td class="columnText columnLastPost"><p>{@$article->getActiveVersion()->getTime()|time}</p></td>
                 </tr>
             {/foreach}
         </tbody>
