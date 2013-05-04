@@ -65,7 +65,6 @@ class ArticlePage extends AbstractPage {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-    if(isset($_GET['categoryName'])) $this->categoryName = escapeString($_GET['categoryName']);
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
@@ -77,7 +76,7 @@ class ArticlePage extends AbstractPage {
 
     $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
-    if(!$this->article->articleID || (!$this->article->canEnter()) || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
+    if(!$this->article->articleID || (!$this->article->canEnter())) {
       throw new IllegalLinkException();
     }
 
@@ -121,7 +120,7 @@ class ArticlePage extends AbstractPage {
       'articleContent' 					=> $this->articleContent,
       'sidebarCollapsed' 				=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.article'),
       'sidebarName' 					=> 'com.woltnet.wiki.article',
-      'commentCount'					=> count($this->article->getCommentList()),
+      'commentCount'					=> count($this->article->getArticle()->getCommentList()),
       'availableContentLanguagesCount'	=> count($this->availableContentLanguages),
       'contentLanguages'				=> WCF::getUser()->getLanguageIDs(),
       'tags'							=> TagEngine::getInstance()->getObjectTags('com.woltnet.wiki.article', $this->article->articleID, array($this->article->languageID))

@@ -60,17 +60,17 @@
                                                 {/implode}
                                                 };
 
-                                                new WCF.Language.Chooser('languageIDContainer', 'languageID', {@$articleOverview->languageID}, $languages);
+                                                new WCF.Language.Chooser('languageIDContainer', 'languageID', {@$articleOverview->getArticle()->languageID}, $languages);
                                                 });
                                         //]]>
                                     </script>
                                     <noscript>
                                         <span>
-                                            <img src="{@$articleOverview->getArticle()->getLanguage()->getIconPath}" alt="{$articleOverview->getLanguage()}" />
+                                            <img src="{@$articleOverview->getArticle()->getLanguage()->getIconPath}" alt="{$articleOverview->getArticle()->getLanguage()}" />
                                         </span>
                                         <select name="languageID" id="languageID">
                                         {foreach from=$articleOverview->getArticle()->getAvailableLanguages($contentLanguages) item=language}
-                                            <option value="{@$language->languageID}"{if $language->languageID == $articleOverview->languageID} selected="selected"{/if}>{$language}</option>
+                                            <option value="{@$language->languageID}"{if $language->languageID == $articleOverview->getArticle()->languageID} selected="selected"{/if}>{$language}</option>
                                         {/foreach}
                                         </select>
                                     </noscript>
@@ -79,7 +79,7 @@
                         </>
                     </li>
                     {/if}
-                    <li class="box24" {if $availableContentLanguagesCount > 0 && $articleOverview->getLanguage() !== null}style="margin-top: 20px;"{/if}>
+                    <li class="box24" {if $availableContentLanguagesCount > 0 && $articleOverview->getArticle()->getLanguage() !== null}style="margin-top: 20px;"{/if}>
                         <div class="sidebarBoxHeadline">
                             <h1>{lang}wiki.article.sidebar.articleName{/lang}</h1>
                             <h2><small>{$articleOverview->getTitle()}</small></h2>
