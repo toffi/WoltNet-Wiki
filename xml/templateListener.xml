@@ -55,5 +55,10 @@
             <eventname>headerLogo</eventname>
             <templatecode><![CDATA[{if $__wiki->isActiveApplication()}<img src="{$__wcf->getPath('wiki')}images/wikiLogo.svg" style="width: 256px; height: 64px;" alt="" />{/if}]]></templatecode>
         </templatelistener>
+        <templatelistener name="plusSign">
+            <environment>admin</environment>
+            <templatename>categoryList</templatename>
+            <templatecode><![CDATA[{if $__wiki->isActiveApplication(<a href="{link controller='CategoryAdd' object=$category}{/link}><span class="icon icon16 icon-plus jsTooltip pointer" title="{lang}wiki.acp.menu.link.wiki.category.add{/lang}"></span></a>)}{/if}]]></templatecode>
+        </templatelistener>
 	</import>
 </data>
