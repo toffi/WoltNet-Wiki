@@ -70,7 +70,7 @@ class ArticleEditForm extends MessageForm {
         else {
             throw new IllegalLinkException();
         }
-        $this->article = ArticleCache::getInstance()->getArticle($this->articleID);
+        $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
         if($this->article === null) throw new IllegalLinkException();
 
@@ -134,7 +134,7 @@ class ArticleEditForm extends MessageForm {
     public function assignVariables() {
         parent::assignVariables();
 
-        if ($this->article->getCategory()->getPermission('canManagePermissions') && $this->aclObjectTypeID) {
+        if ($this->article->getArticle()->getCategory()->getPermission('canManagePermissions') && $this->aclObjectTypeID) {
             ACLHandler::getInstance()->assignVariables($this->aclObjectTypeID);
         }
 
@@ -144,7 +144,6 @@ class ArticleEditForm extends MessageForm {
                 'username'		=> $this->username,
                 'articleID'		=> $this->articleID,
                 'article'		=> $this->article,
-                'aclObjectTypeID'	=> $this->aclObjectTypeID,
                 'activateArticle'	=> $this->activateArticle
         ));
     }
@@ -188,19 +187,17 @@ class ArticleEditForm extends MessageForm {
         // save article
         $data = array(
                 'subject' 	=> $this->subject,
-                'categoryID' 	=> $this->article->categoryID,
                 'message' 	=> $this->text,
                 'userID' 	=> (WCF::getUser()->userID ?: null),
                 'username' 	=> (WCF::getUser()->userID ? WCF::getUser()->username : $this->username),
                 'time' 		=> TIME_NOW,
-                'languageID' 	=> $this->article->languageID,
                 'enableSmilies'	=> $this->enableSmilies,
                 'enableHtml'	=> $this->enableHtml,
                 'enableBBCodes'	=> $this->enableBBCodes,
                 'parentID'	=> $this->article->articleID,
-                'translationID'	=> $this->article->translationID
+        		'articleID'	=> $this->article->articleID
         );
-        $this->objectAction = new ArticleAction(array(), 'create', $data);
+        $this->objectAction = new ArticleVersionAction(array(), 'create', $data);
         $resultValues = $this->objectAction->executeAction();
 
         $this->article = $resultValues['returnValues'];
@@ -218,6 +215,7 @@ class ArticleEditForm extends MessageForm {
 
         HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
             'application' => 'wiki',
+            'categoryName'	=> $this->article->getArticle()->getCategory()->getTitle(),
             'object' => $this->article
         )));
     }
