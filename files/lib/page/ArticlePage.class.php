@@ -40,8 +40,6 @@ class ArticlePage extends AbstractPage {
 
   public $articleID = 0;
 
-  public $title = null;
-
   public $categoryName = null;
 
   public $showNotActive = false;
