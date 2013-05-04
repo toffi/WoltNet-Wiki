@@ -1,7 +1,5 @@
 <?php
 namespace wiki\page;
-use wiki\data\article\ArticleAction;
-use wiki\data\article\ViewableArticle;
 
 use wcf\system\WCF;
 use wiki\data\article\ArticleCache;
@@ -69,7 +67,6 @@ class ArticlePage extends AbstractPage {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-    if(isset($_GET['title'])) $this->title = escapeString($_GET['title']);
     if(isset($_GET['categoryName'])) $this->categoryName = escapeString($_GET['categoryName']);
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
@@ -82,7 +79,7 @@ class ArticlePage extends AbstractPage {
 
     $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
-    if(!$this->article->articleID || (!$this->article->canEnter()) || $this->title === null || $this->title != $this->article->getTitle() || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
+    if(!$this->article->articleID || (!$this->article->canEnter()) || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
       throw new IllegalLinkException();
     }
 
