@@ -35,8 +35,6 @@ class CategoryPage extends SortablePage {
      */
     public $categoryID = 0;
 
-    public $title = null;
-
     /**
      * WikiCategory-Object of the given category
      *
@@ -116,13 +114,12 @@ class CategoryPage extends SortablePage {
         parent::readParameters();
 
         if (isset($_REQUEST['id'])) $this->categoryID = intval($_REQUEST['id']);
-        if(isset($_GET['title'])) $this->title = escapeString($_GET['title']);
 
         $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
 
         if($category !== null) $this->category = new WikiCategory($category);
 
-        if($this->category === null || !$this->category->categoryID || $this->title === null || $this->title != $this->category->getTitle()) {
+        if($this->category === null || !$this->category->categoryID) {
             throw new IllegalLinkException();
         }
 
