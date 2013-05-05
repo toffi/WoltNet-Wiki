@@ -17,9 +17,18 @@ class RouteHandlerListener implements \wcf\system\event\IEventListener {
     */
     public function execute($eventObj, $className, $eventName) {
         $route = new \wcf\system\request\Route('wikiArticle');
-        $route->setSchema('/{controller}/{categoryName}/{id}');
+        $route->setSchema('/{controller}/{categoryName}/{id}-{title}/{languageID}');
         $route->setParameterOption('controller', null, 'Article');
         $route->setParameterOption('categoryName', null, null);
+        $route->setParameterOption('title', null, null);
+        $route->setParameterOption('id', null, '\d+');
+        $route->setParameterOption('languageID', null, '\d+', true);
+        $eventObj->addRoute($route);
+
+        $route = new \wcf\system\request\Route('wikiCategory');
+        $route->setSchema('/{controller}/{id}-{title}');
+        $route->setParameterOption('controller', null, 'Category');
+        $route->setParameterOption('title', null, null);
         $route->setParameterOption('id', null, '\d+');
         $eventObj->addRoute($route);
 

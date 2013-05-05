@@ -40,6 +40,8 @@ class ArticlePage extends AbstractPage {
 
   public $articleID = 0;
 
+  public $title = null;
+
   public $categoryName = null;
 
   public $showNotActive = false;
@@ -65,6 +67,8 @@ class ArticlePage extends AbstractPage {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
+    if(isset($_GET['title'])) $this->title = escapeString($_GET['title']);
+    if(isset($_GET['categoryName'])) $this->categoryName = escapeString($_GET['categoryName']);
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
@@ -76,7 +80,7 @@ class ArticlePage extends AbstractPage {
 
     $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
-    if(!$this->article->articleID || (!$this->article->canEnter())) {
+  if(!$this->article->articleID || (!$this->article->canEnter()) || $this->title === null || $this->title != $this->article->getTitle() || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
       throw new IllegalLinkException();
     }
 
