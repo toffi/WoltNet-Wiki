@@ -297,7 +297,7 @@ class ArticleAddForm extends MessageForm {
 
         // save acl
         if (WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
-            ACLHandler::getInstance()->save($resultValues['returnValues']->articleID, $this->aclObjectTypeID);
+            ACLHandler::getInstance()->save($resultValues['returnValues']->versionID, $this->aclObjectTypeID);
             ACLHandler::getInstance()->disableAssignVariables();
             ArticlePermissionHandler::getInstance()->resetCache();
 
