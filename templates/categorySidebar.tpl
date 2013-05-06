@@ -23,7 +23,7 @@
                 <li><a href="{link controller='Category' application='wiki' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}">{lang}wiki.article.label.disableFilter{/lang}</a></li>
             </ul>
         </div>
-        {if $__wcf->session->getPermission('mod.wiki.category.canManageLabels')}
+        {if @$__wcf->session->getPermission('mod.wiki.category.canManageLabels')}
         <button id="manageLabel" data-category-id="{@$category->categoryID}">{lang}wiki.article.label.management{/lang}</button>
         {/if}
     </fieldset>

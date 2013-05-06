@@ -27,7 +27,7 @@
 <body id="tpl{$templateName|ucfirst}">
 
 {capture assign='headerNavigation'}
-    {if $__wcf->user->userID}
+    {if @$__wcf->user->userID}
         {if $articleOverview->getArticle()->isWatched()}
             <li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.article" data-object-id="{@$articleOverview->articleID}" data-subscribed="1"><span class="icon icon16 icon-bookmark"></span> <span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
         {else}
@@ -147,7 +147,7 @@
             //]]>
         </script>
         <noscript>
-            <span><img src="{@$__wcf->getLanguage()->getIconPath}" alt="{$__wcf->getLanguage()}" /></span>
+            <span><img src="{@$__wcf->getLanguage()->getIconPath}" alt="{@$__wcf->getLanguage()}" /></span>
             <select name="languageID" id="languageID">
                 {foreach from=$articleOverview->getAvailableLanguages() item=language}
                     <option value="{@$language->languageID}"{if $language->languageID == $articleOverview->languageID} selected="selected"{/if}>{$language}</option>
@@ -162,18 +162,18 @@
     <p class="error">{lang}wiki.article.notActive{/lang}</p>
 {/if}
 
-<section id="articleContent" class="tabMenuContainer" data-active="{$__wcf->getArticleMenu()->getActiveMenuItem()->getIdentifier()}">
+<section id="articleContent" class="tabMenuContainer" data-active="{@$__wcf->getArticleMenu()->getActiveMenuItem()->getIdentifier()}">
     <nav class="tabMenu">
         <ul>
-            {foreach from=$__wcf->getArticleMenu()->getMenuItems() item=menuItem}
-            <li><a href="{$__wcf->getAnchor($menuItem->getIdentifier())}" title="{lang}{@$menuItem->menuItem}{/lang}">{lang}wiki.article.menu.{@$menuItem->menuItem}{/lang}</a></li>
+            {foreach from=@$__wcf->getArticleMenu()->getMenuItems() item=menuItem}
+            <li><a href="{@$__wcf->getAnchor($menuItem->getIdentifier())}" title="{lang}{@$menuItem->menuItem}{/lang}">{lang}wiki.article.menu.{@$menuItem->menuItem}{/lang}</a></li>
             {/foreach}
         </ul>
     </nav>
 
-    {foreach from=$__wcf->getArticleMenu()->getMenuItems() item=menuItem}
+    {foreach from=@$__wcf->getArticleMenu()->getMenuItems() item=menuItem}
         <div id="{$menuItem->getIdentifier()}" class="container containerPadding tabMenuContent shadow" data-menu-item="{$menuItem->menuItem}">
-            {if $menuItem === $__wcf->getArticleMenu()->getActiveMenuItem()}
+            {if $menuItem === @$__wcf->getArticleMenu()->getActiveMenuItem()}
                 {@$articleContent}
             {/if}
         </div>

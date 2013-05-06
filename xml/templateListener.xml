@@ -5,7 +5,7 @@
 			<environment>user</environment>
 			<templatename>footer</templatename>
 			<eventname>copyright</eventname>
-			<templatecode><![CDATA[{if $__wiki->isActiveApplication()}<address class="copyright marginTop"><a href="http://woltnet.com" title="">Software: <strong>Community Wiki {@PACKAGE_VERSION}</strong>, entwickelt von <strong>WoltNet.com</strong></a></address>{/if}]]></templatecode>
+			<templatecode><![CDATA[{if @$__wiki->isActiveApplication()}<address class="copyright marginTop"><a href="http://woltnet.com" title="">Software: <strong>Community Wiki {@PACKAGE_VERSION}</strong>, entwickelt von <strong>WoltNet.com</strong></a></address>{/if}]]></templatecode>
 		</templatelistener>
 		<templatelistener name="wikiJavascript">
 			<environment>user</environment>
@@ -23,7 +23,7 @@
 			<environment>user</environment>
 			<templatename>messageFormTabs</templatename>
 			<eventname>tabMenuTabs</eventname>
-			<templatecode><![CDATA[{if $templateName == 'articleAdd'&& $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}<li><a href="{@$__wcf->getAnchor('permissions')}" title="{lang}wiki.article.permissions{/lang}">{lang}wiki.article.permissions{/lang}</a></li>{/if}]]></templatecode>
+			<templatecode><![CDATA[{if $templateName == 'articleAdd'&& @$__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}<li><a href="{@$__wcf->getAnchor('permissions')}" title="{lang}wiki.article.permissions{/lang}">{lang}wiki.article.permissions{/lang}</a></li>{/if}]]></templatecode>
 		</templatelistener>
 		<templatelistener name="wikiArticlePermissionFields">
 			<environment>user</environment>
@@ -41,25 +41,25 @@
 			<environment>user</environment>
 			<templatename>header</templatename>
 			<eventname>navigationIcons</eventname>
-			<templatecode><![CDATA[{if $__wcf->session->getPermission('user.wiki.category.write.canSuggestCategories')}<li id="categorySuggest"><a id="categorySuggestLink" href="{link application='wiki' controller='CategorySuggestionAdd'}{/link}" title="{lang}wiki.category.categorySuggestionAdd{/lang}" class="jsTooltip"><span class="icon icon16 icon-folder-open"></span><span class="invisible">{lang}wiki.category.categorySuggestionAdd{/lang}</span></a></li>{/if}]]></templatecode>
+			<templatecode><![CDATA[{if @$__wcf->session->getPermission('user.wiki.category.write.canSuggestCategories')}<li id="categorySuggest"><a id="categorySuggestLink" href="{link application='wiki' controller='CategorySuggestionAdd'}{/link}" title="{lang}wiki.category.categorySuggestionAdd{/lang}" class="jsTooltip"><span class="icon icon16 icon-folder-open"></span><span class="invisible">{lang}wiki.category.categorySuggestionAdd{/lang}</span></a></li>{/if}]]></templatecode>
 		</templatelistener>
         <templatelistener name="wikiHeaderLogo">
             <environment>user</environment>
             <templatename>header</templatename>
             <eventname>headerLogo</eventname>
-            <templatecode><![CDATA[{if $__wiki->isActiveApplication()}{if !$__wcf->getStyleHandler()->getStyle()->getPageLogo()}<img src="{@$__wcf->getPath('wiki')}images/wikiLogo.svg" width="256" height="64" alt="" />{/if}{/if}]]></templatecode>
+            <templatecode><![CDATA[{if @$__wiki->isActiveApplication()}{if !$__wcf->getStyleHandler()->getStyle()->getPageLogo()}<img src="{@$__wcf->getPath('wiki')}images/wikiLogo.svg" width="256" height="64" alt="" />{/if}{/if}]]></templatecode>
         </templatelistener>
         <templatelistener name="headerLogo">
             <environment>admin</environment>
             <templatename>header</templatename>
             <eventname>headerLogo</eventname>
-            <templatecode><![CDATA[{if $__wiki->isActiveApplication()}<img src="{$__wcf->getPath('wiki')}images/wikiLogo.svg" style="width: 256px; height: 64px;" alt="" />{/if}]]></templatecode>
+            <templatecode><![CDATA[{if @$__wiki->isActiveApplication()}<img src="{@$__wcf->getPath('wiki')}images/wikiLogo.svg" style="width: 256px; height: 64px;" alt="" />{/if}]]></templatecode>
         </templatelistener>
         <templatelistener name="plusSign">
             <environment>admin</environment>
             <templatename>categoryList</templatename>
             <eventname>itemButtons</eventname>
-            <templatecode><![CDATA[{if $__wiki->isActiveApplication(<a href="{link controller='CategoryAdd' object=$category}{/link}><span class="icon icon16 icon-plus jsTooltip pointer" title="{lang}wiki.acp.menu.link.wiki.category.add{/lang}"></span></a>)}{/if}]]></templatecode>
+            <templatecode><![CDATA[{if @$__wiki->isActiveApplication(<a href="{link controller='CategoryAdd' object=$category}{/link}><span class="icon icon16 icon-plus jsTooltip pointer" title="{lang}wiki.acp.menu.link.wiki.category.add{/lang}"></span></a>)}{/if}]]></templatecode>
         </templatelistener>
 	</import>
 </data>

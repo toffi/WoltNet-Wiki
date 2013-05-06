@@ -1,4 +1,4 @@
-{if $__wcf->session->getPermission('mod.wiki.article.canManagePermissions') && $aclObjectTypeID}
+{if @$__wcf->session->getPermission('mod.wiki.article.canManagePermissions') && $aclObjectTypeID}
 		<fieldset id="permissions" class="permissionsContent tabMenuContent container containerPadding">
 				<legend>{lang}wcf.acl.permissions{/lang}</legend>
 

@@ -43,7 +43,7 @@
 	<nav>
 		<ul>
 		{content}
-			{if $categoryList|count > 0 && $__wcf->session->getPermission('user.wiki.article.write.canAddArticle')}
+			{if $categoryList|count > 0 && @$__wcf->session->getPermission('user.wiki.article.write.canAddArticle')}
 				<li><a href="{link application='wiki' controller='ArticleAdd'}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><span class="icon icon24 icon-asterisk"></span> <span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
 			{/if}
 			{event name='largeButtonsTop'}

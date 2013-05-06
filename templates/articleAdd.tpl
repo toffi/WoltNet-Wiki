@@ -5,7 +5,7 @@
 
   {include file='headInclude'}
 
-  {if $__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}
+  {if @$__wcf->session->getPermission('mod.wiki.article.canManagePermissions')}
     {include file='aclPermissions'}
 
     {if !$article|isset}
