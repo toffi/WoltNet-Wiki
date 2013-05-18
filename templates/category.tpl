@@ -36,7 +36,7 @@
 <body id="tpl{$templateName|ucfirst}">
 
 {capture assign='headerNavigation'}
-	{if @$__wcf->user->userID}
+	{if $__wcf->user->userID}
 		{if $category->isWatched()}
 			<li><a title="{lang}wcf.user.watchedObjects.unsubscribe{/lang}" class="jsSubscribeButton jsTooltip" data-object-type="com.woltnet.wiki.category" data-object-id="{@$category->categoryID}" data-subscribed="1"><span class="icon icon16 icon-bookmark"></span><span class="invisible">{lang}wcf.user.watchedObjects.unsubscribe{/lang}</span></a></li>
 		{else}

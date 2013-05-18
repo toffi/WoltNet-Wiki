@@ -2,6 +2,7 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
 	<category name="com.woltnet.wiki">
         <item name="com.woltnet.wiki.latestArticles"><![CDATA[Die letzten Artikel]]></item>
+        <item name="com.woltnet.wiki.credits"><![CDATA[WIKI Credits]]></item>
     </category>
     <category name="wiki.category">
 		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>
@@ -92,19 +93,6 @@
 		<item name="wiki.article.menu.version"><![CDATA[Versionen]]></item>
 	</category>
 	<category name="wiki.acp">
-		<item name="wiki.acp.index"><![CDATA[Startseite]]></item>
-		<item name="wiki.acp.index.system"><![CDATA[System]]></item>
-		<item name="wiki.acp.index.system.software"><![CDATA[Software]]></item>
-		<item name="wiki.acp.index.system.wiki.version"><![CDATA[Version]]></item>
-		<item name="wiki.acp.index.system.wiki.installationDate"><![CDATA[Installationsdatum]]></item>
-		<item name="wiki.acp.index.system.wcf.version"><![CDATA[WCF-Version]]></item>
-		<item name="wiki.acp.index.system.server"><![CDATA[Server]]></item>
-		<item name="wiki.acp.index.system.os"><![CDATA[Betriebssystem]]></item>
-		<item name="wiki.acp.index.system.webserver"><![CDATA[Webserver]]></item>
-		<item name="wiki.acp.index.system.php"><![CDATA[PHP-Version]]></item>
-		<item name="wiki.acp.index.system.sql.type"><![CDATA[Datenbank]]></item>
-		<item name="wiki.acp.index.system.sql.version"><![CDATA[Datenbankversion]]></item>
-		<item name="wiki.acp.index.credits"><![CDATA[Danksagungen]]></item>
 		<item name="wiki.acp.index.credits.developedBy"><![CDATA[Entwicklet von]]></item>
 		<item name="wiki.acp.index.credits.productManager"><![CDATA[Verantwortliche]]></item>
 		<item name="wiki.acp.index.credits.developer"><![CDATA[Programmierung]]></item>
