@@ -176,7 +176,8 @@ class ArticleAddForm extends MessageForm {
         if($this->categoryID != 0) {
             $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
             WCF::getBreadcrumbs()->add(new Breadcrumb($category->getTitle(), LinkHandler::getInstance()->getLink('Category', array(
-                    'object' 	=> $category
+                    'id' 	=> $category->categoryID,
+                    'title' => $category->title
             ))));
         }
     }

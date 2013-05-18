@@ -2,7 +2,6 @@
 namespace wiki\form;
 use wiki\data\article\ArticleCache;
 use wiki\data\article\ArticleVersionAction;
-use wiki\system\article\ArticlePermissionHandler;
 
 use wcf\form\MessageForm;
 use wcf\system\WCF;

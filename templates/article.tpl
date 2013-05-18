@@ -147,7 +147,7 @@
             //]]>
         </script>
         <noscript>
-            <span><img src="{@$__wcf->getLanguage()->getIconPath}" alt="{@$__wcf->getLanguage()}" /></span>
+            <span><img src="{$__wcf->getLanguage()->getIconPath}" alt="{$__wcf->getLanguage()}" /></span>
             <select name="languageID" id="languageID">
                 {foreach from=$articleOverview->getAvailableLanguages() item=language}
                     <option value="{@$language->languageID}"{if $language->languageID == $articleOverview->languageID} selected="selected"{/if}>{$language}</option>

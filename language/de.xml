@@ -94,7 +94,7 @@
 	</category>
 	<category name="wiki.acp">
 		<item name="wiki.acp.index.credits.developedBy"><![CDATA[Entwicklet von]]></item>
-		<item name="wiki.acp.index.credits.productManager"><![CDATA[Verantwortliche]]></item>
+		<item name="wiki.acp.index.credits.productManager"><![CDATA[Projektleitung]]></item>
 		<item name="wiki.acp.index.credits.developer"><![CDATA[Programmierung]]></item>
 		<item name="wiki.acp.index.credits.designer"><![CDATA[Design]]></item>
 		<item name="wiki.acp.index.credits.contributor"><![CDATA[Mitwirkende]]></item>

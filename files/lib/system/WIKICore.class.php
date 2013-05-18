@@ -25,7 +25,7 @@ class WIKICore extends AbstractApplication {
 			return;
 		}
 
-		PageMenu::getInstance()->setActiveMenuItem('wiki.pageMenu.index');
-		WCF::getBreadcrumbs()->add(new Breadcrumb(WCF::getLanguage()->get('wiki.breadCrumbs.index'), LinkHandler::getInstance()->getLink('Index', array('application' => 'wiki'))));
+		PageMenu::getInstance()->setActiveMenuItem('wiki.pageMenu.categoryList');
+		WCF::getBreadcrumbs()->add(new Breadcrumb(WCF::getLanguage()->get('wiki.breadCrumbs.categoryList'), LinkHandler::getInstance()->getLink('CategoryList', array('application' => 'wiki'))));
 	}
 }
