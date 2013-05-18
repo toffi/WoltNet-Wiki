@@ -20,7 +20,7 @@ use wcf\data\user\UserList;
  * @subpackage	page
  * @category 	WoltNet - Wiki
  */
-class IndexPage extends AbstractPage {
+class CategoryListPage extends AbstractPage {
   /**
    * @see wcf\page\AbstractPage::$enableTracking
    */
@@ -72,12 +72,12 @@ class IndexPage extends AbstractPage {
     parent::assignVariables();
 
     // load boxes
-    DashboardHandler::getInstance()->loadBoxes('com.woltnet.wiki.IndexPage', $this);
+    DashboardHandler::getInstance()->loadBoxes('com.woltnet.wiki.CategoryListPage', $this);
 
     WCF::getTPL()->assign(array(
         'categoryList' 		=> $this->categoryList,
-        'sidebarCollapsed'	=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.index'),
-        'sidebarName' 		=> 'com.woltnet.wiki.index',
+        'sidebarCollapsed'	=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.categoryList'),
+        'sidebarName' 		=> 'com.woltnet.wiki.categoryList',
         'wikiAnnouncement'	=> '',
         'statistics'			=> $this->statistics
     ));

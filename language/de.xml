@@ -25,13 +25,13 @@
         <item name="wiki.sitemap.category"><![CDATA[Verfügbare Kategorien]]></item>
     </category>
 	<category name="wiki.breadCrumbs">
-		<item name="wiki.breadCrumbs.index"><![CDATA[Startseite]]></item>
+		<item name="wiki.breadCrumbs.categoryList"><![CDATA[Startseite]]></item>
 	</category>
 	<category name="wiki.pageMenu">
-		<item name="wiki.pageMenu.index"><![CDATA[Wiki]]></item>
+		<item name="wiki.pageMenu.categoryList"><![CDATA[Wiki]]></item>
 	</category>
-	<category name="wiki.index">
-		<item name="wiki.index.title"><![CDATA[Startseite]]></item>
+	<category name="wiki.categoryList">
+		<item name="wiki.categoryList.title"><![CDATA[Wiki]]></item>
 	</category>
 	<category name="wiki.global">
 		<item name="wiki.global.button.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
@@ -180,7 +180,7 @@
 	</category>
 	
 	<category name="wcf.dashboard">
-		<item name="wcf.dashboard.objectType.com.woltnet.wiki.IndexPage"><![CDATA[Indexseite]]></item>
+		<item name="wcf.dashboard.objectType.com.woltnet.wiki.CategoryListPage"><![CDATA[WIKI-Startseite]]></item>
 		<item name="wcf.dashboard.objectType.com.woltnet.wiki.CategoryPage"><![CDATA[Kategorieseite]]></item>
 	</category>
 	

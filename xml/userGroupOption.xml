@@ -44,17 +44,17 @@
 			
 			<!-- Administration -->
             <category name="admin.wiki">
-				<parent>admin.content</parent>
+				<parent>admin.community</parent>
 				<showorder>1</showorder>
 			</category>
             
 			<category name="admin.wiki.category">
-				<parent>admin.content</parent>
+				<parent>admin.community</parent>
 				<showorder>1</showorder>
 			</category>
 			
 			<category name="admin.wiki.article">
-				<parent>admin.content</parent>
+				<parent>admin.community</parent>
 				<showorder>2</showorder>
 			</category>
 		</categories>

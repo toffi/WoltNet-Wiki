@@ -41,7 +41,7 @@ $statement->execute(array($package->packageID, "wcf".WCF_N."_user", $columnName)
 
 // dashboard
 DashboardHandler::setDefaultValues('com.woltlab.wcf.user.DashboardPage', array('com.woltnet.wiki.latestArticles' => 1));
-DashboardHandler::setDefaultValues('com.woltnet.wiki.IndexPage', array('com.woltnet.wiki.latestArticlesSidebar' => 1));
+DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryListPage', array('com.woltnet.wiki.latestArticlesSidebar' => 1));
 DashboardHandler::setDefaultValues('com.woltnet.wiki.CategoryPage', array('com.woltnet.wiki.latestArticlesSidebar' => 1));
 
 // try to delete this file

@@ -80,7 +80,7 @@
 		
 		<!-- dashboard container -->
 		<type>
-			<name>com.woltnet.wiki.IndexPage</name>
+			<name>com.woltnet.wiki.CategoryListPage</name>
 			<definitionname>com.woltlab.wcf.user.dashboardContainer</definitionname>
 			<allowcontent>1</allowcontent>
 			<allowsidebar>1</allowsidebar>
@@ -114,9 +114,9 @@
 		
 		<!-- user online locations -->
 		<type>
-			<name>com.woltnet.wiki.indexPage</name>
+			<name>com.woltnet.wiki.categoryListPage</name>
 			<definitionname>com.woltlab.wcf.user.online.location</definitionname>
-			<controller>wiki\page\IndexPage</controller>
+			<controller>wiki\page\CategoryListPage</controller>
 			<languagevariable>wcf.user.usersOnline.location.wikiIndexPage</languagevariable>
 		</type>
 		
