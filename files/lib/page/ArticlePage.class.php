@@ -1,8 +1,8 @@
 <?php
 namespace wiki\page;
+use wiki\data\article\ArticleCache;
 
 use wcf\system\WCF;
-use wiki\data\article\ArticleCache;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\breadcrumb\Breadcrumb;
 use wcf\system\request\LinkHandler;
@@ -13,6 +13,7 @@ use wcf\util\HeaderUtil;
 use wcf\system\exception\IllegalLinkException;
 use wcf\page\AbstractPage;
 use wcf\system\tagging\TagEngine;
+use wcf\system\Regex;
 use wcf\system\visitTracker\VisitTracker;
 
 /**
@@ -61,14 +62,20 @@ class ArticlePage extends AbstractPage {
   public $availableContentLanguages = array();
 
   /**
+   * regex object to filter title
+   * @var	wcf\system\RegEx
+   */
+  protected $titleRegex = null;
+
+  /**
    * @see wcf\page\AbstractPage::readParameters()
    */
   public function readParameters() {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-    if(isset($_GET['title'])) $this->title = escapeString($_GET['title']);
-    if(isset($_GET['categoryName'])) $this->categoryName = escapeString($_GET['categoryName']);
+    if(isset($_GET['title'])) $this->title = trim($this->titleRegex->replace($_GET['title']));
+    if(isset($_GET['categoryName'])) $this->categoryName = trim($this->titleRegex->replace($_GET['categoryName']));
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
