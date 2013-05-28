@@ -125,7 +125,7 @@ class CategoryPage extends SortablePage {
         $this->titleRegex = new Regex('[\x0-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+');
 
         if (isset($_REQUEST['id'])) $this->categoryID = intval($_REQUEST['id']);
-        if (isset($_REQUEST['title'])) $this->title = trim($this->titleRegex->replace($_REQUEST['title']));
+        if (isset($_REQUEST['title'])) $this->title = trim($this->titleRegex->replace($_REQUEST['title'], '-'));
 
         $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
 
