@@ -71,12 +71,6 @@
 			<classname>wiki\system\user\object\watch\CategoryUserObjectWatch</classname>
 		</type>
 		
-		<!-- clipboard -->
-		<type>
-			<name>com.woltnet.wiki.article</name>
-			<definitionname>com.woltlab.wcf.clipboardItem</definitionname>
-			<listclassname>wiki\data\article\ArticleList</listclassname>
-		</type>
 		
 		<!-- dashboard container -->
 		<type>
