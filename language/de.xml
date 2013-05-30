@@ -2,7 +2,7 @@
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
 	<category name="com.woltnet.wiki">
         <item name="com.woltnet.wiki.latestArticles"><![CDATA[Die letzten Artikel]]></item>
-        <item name="com.woltnet.wiki.credits"><![CDATA[WIKI Credits]]></item>
+        <item name="com.woltnet.wiki.credits"><![CDATA[Über WoltNet-Wiki]]></item>
     </category>
     <category name="wiki.category">
 		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>

@@ -75,7 +75,7 @@ class ArticlePage extends AbstractPage {
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
     if(isset($_GET['title'])) $this->title = trim($this->titleRegex->replace($_GET['title'], '-'));
-    if(isset($_GET['categoryName'])) $this->categoryName = trim($this->titleRegex->replace($_GET['categoryName'], '-'));
+    if(isset($_GET['categoryName'])) $this->categoryName = trim($this->titleRegex->replace($_GET['categoryName'], '-'), '-');
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
