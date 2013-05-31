@@ -73,6 +73,8 @@ class ArticlePage extends AbstractPage {
   public function readParameters() {
     parent::readParameters();
 
+    $this->titleRegex = new Regex('[\x0-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+');
+
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
     if(isset($_GET['title'])) $this->title = trim($this->titleRegex->replace($_GET['title'], '-'));
     if(isset($_GET['categoryName'])) $this->categoryName = trim($this->titleRegex->replace($_GET['categoryName'], '-'), '-');
