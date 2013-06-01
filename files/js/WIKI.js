@@ -85,7 +85,7 @@ WIKI.Article.TabMenu = Class.extend({
 	 * @param	object		ui
 	 */
 	_loadContent: function(event, ui) {
-		var $panel = $(ui.panel);
+		var $panel = $(ui.newPanel);
 		var $containerID = $panel.attr('id');
 
 		if (!this._hasContent[$containerID]) {

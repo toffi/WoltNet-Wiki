@@ -35,6 +35,11 @@ class ViewableArticleList extends ArticleList {
     public function __construct() {
         parent::__construct();
 
+        if(!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+        $this->sqlSelects .= 'article_version.time AS time';
+        $this->sqlJoins .= " LEFT JOIN wiki".WCF_N."_article_version article_version ON article_version.versionID = article.activeVersionID";
+
+
         if (WCF::getUser()->userID != 0) {
             // last visit time
             if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
@@ -44,10 +49,6 @@ class ViewableArticleList extends ArticleList {
             if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
             $this->sqlSelects .= 'tracked_category_visit.visitTime AS categoryVisitTime';
             $this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_tracked_visit tracked_category_visit ON (tracked_category_visit.objectTypeID = ".VisitTracker::getInstance()->getObjectTypeID('com.woltnet.wiki.category')." AND tracked_category_visit.objectID = article.categoryID AND tracked_category_visit.userID = ".WCF::getUser()->userID.")";
-
-            if(!empty($this->sqlSelects)) $this->sqlSelects .= ',';
-            $this->sqlSelects .= 'article_version.time AS time';
-            $this->sqlJoins .= " LEFT JOIN wiki".WCF_N."_article_version article_version ON article_version.versionID = article.activeVersionID";
 
             // subscriptions
             if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';

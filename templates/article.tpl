@@ -162,7 +162,7 @@
     <p class="error">{lang}wiki.article.notActive{/lang}</p>
 {/if}
 
-<section id="articleContent" class="tabMenuContainer" data-active="{$__wcf->getArticleMenu()->getActiveMenuItem()->getIdentifier()}">
+<section id="articleContent" class="marginTop tabMenuContainer" data-active="{$__wcf->getArticleMenu()->getActiveMenuItem()->getIdentifier()}">
     <nav class="tabMenu">
         <ul>
             {foreach from=$__wcf->getArticleMenu()->getMenuItems() item=menuItem}

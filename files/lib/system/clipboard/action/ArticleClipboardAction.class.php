@@ -1,5 +1,6 @@
 <?php
 namespace wiki\system\clipboard\action;
+use wcf\data\clipboard\action\ClipboardAction;
 use wcf\system\clipboard\ClipboardEditorItem;
 use wcf\system\clipboard\action\AbstractClipboardAction;
 use wcf\system\exception\SystemException;
@@ -50,7 +51,7 @@ class ArticleClipboardAction extends AbstractClipboardAction {
 	/**
 	 * @see	wcf\system\clipboard\action\IClipboardAction::execute()
 	 */
-	public function execute(array $objects, $actionName, array $typeData = array()) {
+	public function execute(array $objects, ClipboardAction $action) {
 		// check if no article was accessible
 		if (empty($this->articles)) {
 			$this->articles = $this->loadCategories($objects);
@@ -58,7 +59,7 @@ class ArticleClipboardAction extends AbstractClipboardAction {
 
 		$item = new ClipboardEditorItem();
 
-		switch ($actionName) {
+		switch ($action->actionName) {
 			case 'assignLabel':
 				$article = current($this->articles);
 				if(is_object($article)) {
@@ -131,7 +132,7 @@ class ArticleClipboardAction extends AbstractClipboardAction {
 			break;
 
 			default:
-				throw new SystemException("Unknown action '".$actionName."'");
+				throw new SystemException("Unknown action '".$action->actionName."'");
 			break;
 		}
 
