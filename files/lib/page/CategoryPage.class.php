@@ -15,7 +15,6 @@ use wcf\system\dashboard\DashboardHandler;
 use wcf\system\request\LinkHandler;
 use wcf\system\user\collapsible\content\UserCollapsibleContentHandler;
 use wcf\system\WCF;
-use wcf\system\Regex;
 use wcf\system\visitTracker\VisitTracker;
 
 /**
@@ -35,8 +34,6 @@ class CategoryPage extends SortablePage {
      * @var integer
      */
     public $categoryID = 0;
-
-    public $title = null;
 
     /**
      * WikiCategory-Object of the given category
@@ -111,27 +108,18 @@ class CategoryPage extends SortablePage {
     public $objectTypeName = 'com.woltnet.wiki.category';
 
     /**
-     * regex object to filter title
-     * @var	wcf\system\RegEx
-     */
-    protected $titleRegex = null;
-
-    /**
      * @see wcf\page\IPage::readParameters()
      */
     public function readParameters() {
         parent::readParameters();
 
-        $this->titleRegex = new Regex('[\x0-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+');
-
         if (isset($_REQUEST['id'])) $this->categoryID = intval($_REQUEST['id']);
-        if (isset($_REQUEST['title'])) $this->title = trim($this->titleRegex->replace($_REQUEST['title'], '-'), '-');
 
         $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
 
         if($category !== null) $this->category = new WikiCategory($category);
 
-        if($this->category === null || !$this->category->categoryID || $this->title === null || $this->title != $this->category->getTitle()) {
+        if($this->category === null || !$this->category->categoryID) {
             throw new IllegalLinkException();
         }
 

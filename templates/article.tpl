@@ -88,7 +88,7 @@
                     <li class="box24" style="margin-top: 20px;">
                         <div class="sidebarBoxHeadline">
                             <h1>{lang}wiki.article.sidebar.articleCategory{/lang}</h1>
-                            <h2><small><a title="{$articleOverview->getArticle()->getCategory()->getTitle()}" href="{link application='wiki' controller='Category' object=$articleOverview->getArticle()->getCategory()}{/link}">{$articleOverview->getArticle()->getCategory()->getTitle()}</a></small></h2>
+                            <h2><small><a title="{$articleOverview->getArticle()->getCategory()->getTitle()}" href="{link application='wiki' controller='Category' object=$articleOverview->getArticle()->getCategory()}{/link}" class="jsTooltip">{$articleOverview->getArticle()->getCategory()->getTitle()}</a></small></h2>
                         </div>
                     </li>
                     <li class="box24" style="margin-top: 20px;">
@@ -179,6 +179,32 @@
         </div>
     {/foreach}
 </section>
+
+{hascontent}
+    <div class="container marginTop">
+        <ul class="containerList infoBoxList">
+            {content}
+                {if $tags|count}
+                    <li class="box32 tagsInfoBox">
+                        <span class="icon icon32 icon-tags"></span>
+
+                        <div>
+                            <div class="containerHeadline">
+                                <h3>{lang}wcf.tagging.tags{/lang}</h3>
+                            </div>
+
+                            <ul class="tagList">
+                                {foreach from=$tags item=tag}
+                                    <li><a href="{link controller='Tagged' object=$tag}objectType=com.woltnet.wiki.article{/link}" class="badge tag jsTooltip" title="{lang}wcf.tagging.taggedObjects.com.woltnet.wiki.article{/lang}">{$tag->name}</a></li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </li>
+                {/if}
+            {/content}
+        </ul>
+    </div>
+{/hascontent}
 
 {include file='footer'}
 

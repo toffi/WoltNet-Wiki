@@ -13,7 +13,6 @@ use wcf\util\HeaderUtil;
 use wcf\system\exception\IllegalLinkException;
 use wcf\page\AbstractPage;
 use wcf\system\tagging\TagEngine;
-use wcf\system\Regex;
 use wcf\system\visitTracker\VisitTracker;
 
 /**
@@ -41,10 +40,6 @@ class ArticlePage extends AbstractPage {
 
   public $articleID = 0;
 
-  public $title = null;
-
-  public $categoryName = null;
-
   public $showNotActive = false;
 
   public $languageID = 0;
@@ -62,22 +57,12 @@ class ArticlePage extends AbstractPage {
   public $availableContentLanguages = array();
 
   /**
-   * regex object to filter title
-   * @var	wcf\system\RegEx
-   */
-  protected $titleRegex = null;
-
-  /**
    * @see wcf\page\AbstractPage::readParameters()
    */
   public function readParameters() {
     parent::readParameters();
 
-    $this->titleRegex = new Regex('[\x0-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+');
-
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
-    if(isset($_GET['title'])) $this->title = trim($this->titleRegex->replace($_GET['title'], '-'));
-    if(isset($_GET['categoryName'])) $this->categoryName = trim($this->titleRegex->replace($_GET['categoryName'], '-'), '-');
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
@@ -89,7 +74,7 @@ class ArticlePage extends AbstractPage {
 
     $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
 
-  if(!$this->article->articleID || (!$this->article->canEnter()) || $this->title === null || $this->title != $this->article->getTitle() || $this->categoryName === null || $this->categoryName != $this->article->getArticle()->getCategory()->getTitle()) {
+    if(!$this->article->articleID || (!$this->article->canEnter())) {
       throw new IllegalLinkException();
     }
 

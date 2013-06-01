@@ -214,8 +214,8 @@ class ArticleEditForm extends MessageForm {
 
         HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array(
             'application' => 'wiki',
-            'categoryName'	=> $this->article->getArticle()->getCategory()->getTitle(),
-            'object' => $this->article
+            'article'	  => 'Article',
+            'object' 	  => $this->article
         )));
     }
 }
