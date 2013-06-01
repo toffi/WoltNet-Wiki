@@ -142,6 +142,12 @@
 			<definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
 			<classname>wiki\system\user\activity\event\ArticleCommentResponseUserActivityEvent</classname>
 		</type>
+        
+        <type>
+			<name>com.woltnet.wiki.article.recentActivityEvent</name>
+			<definitionname>com.woltlab.wcf.user.recentActivityEvent</definitionname>
+			<classname>wiki\system\user\activity\event\ArticleUserActivityEvent</classname>
+		</type>
 		
 		<!-- quotes -->
 		<type>

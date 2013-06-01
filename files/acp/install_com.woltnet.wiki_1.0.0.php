@@ -23,7 +23,7 @@ $statement->execute(array(
 ));
 
 // add article column in user table
-$columnName = 'wiki'.$package->instanceNo.'Articles';
+$columnName = 'wikiArticles';
 $editor = WCF::getDB()->getEditor();
 $editor->addColumn("wcf".WCF_N."_user", $columnName, array(
   'type' => 'int',
