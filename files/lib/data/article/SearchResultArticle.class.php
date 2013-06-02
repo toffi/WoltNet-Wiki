@@ -45,7 +45,7 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
   * @see wcf\data\search\ISearchResultObject::getSubject()
   */
   public function getSubject() {
-    return $this->subject;
+    return $this->getActiveVersion()->subject;
   }
 
   /**
@@ -67,7 +67,7 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
    * @see wcf\data\search\ISearchResultObject::getTime()
    */
   public function getTime() {
-    return $this->time;
+    return $this->getActiveVersion()->time;
   }
 
   /**
@@ -95,6 +95,6 @@ class SearchResultArticle extends ViewableArticle implements ISearchResultObject
   }
 
   public function getUserProfile() {
-  	return $this->getArticle()->getAuthor();
+      return $this->getArticle()->getUserProfile();
   }
 }

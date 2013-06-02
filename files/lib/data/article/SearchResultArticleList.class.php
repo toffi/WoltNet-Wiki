@@ -27,9 +27,5 @@ class SearchResultArticleList extends ViewableArticleList {
         if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
         $this->sqlSelects .= 'category.categoryID, category.title';
         $this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_category category ON (category.categoryID = article.categoryID)";
-
-        if(!empty($this->sqlSelects)) $this->sqlSelects .= ',';
-        $this->sqlSelects .= 'article_version.time AS time';
-        $this->sqlJoins .= " LEFT JOIN wiki".WCF_N."_article_version article_version ON article_version.versionID = article.activeVersionID";
     }
 }

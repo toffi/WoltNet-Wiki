@@ -83,7 +83,7 @@ class ArticlePage extends AbstractPage {
 
 
 
-    if(!$this->article->articleID || (!$this->article->canEnter())) {
+    if(!is_object($this->article) || !$this->article->articleID || (!$this->article->canEnter())) {
       throw new IllegalLinkException();
     }
 

@@ -1,7 +1,7 @@
 <?php
 namespace wiki\system\search;
 use wiki\data\article\SearchResultArticleList;
-use wiki\data\category\WikiCategoryNodeList;
+use wiki\data\category\WikiCategoryNodeTree;
 
 use wcf\form\IForm;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
@@ -77,6 +77,13 @@ class ArticleSearch extends AbstractSearchableObjectType {
     }
 
     /**
+     * @see	wcf\system\search\ISearchableObjectType::getJoins()
+     */
+    public function getJoins() {
+        return 'LEFT JOIN wiki'.WCF_N.'_article_version article_version ON (article_version.versionID = '.$this->getTableName().'.activeVersionID)';
+    }
+
+    /**
      * @see	wcf\system\search\ISearchableObjectType::getObject()
      */
     public function getObject($objectID) {
@@ -106,6 +113,20 @@ class ArticleSearch extends AbstractSearchableObjectType {
     }
 
     /**
+     * @see	wcf\system\search\ISearchableObjectType::getUsernameFieldName()
+     */
+    public function getUsernameFieldName() {
+        return 'article_version.username';
+    }
+
+    /**
+     * @see	wcf\system\search\ISearchableObjectType::getTimeFieldName()
+     */
+    public function getTimeFieldName() {
+        return 'article_version.time';
+    }
+
+    /**
      * @see wcf\system\search\ISearchableObjectType::getTableName()
      */
     public function getTableName() {
@@ -116,7 +137,7 @@ class ArticleSearch extends AbstractSearchableObjectType {
      * @see wcf\system\search\ISearchableObjectType::getIDFieldName()
      */
     public function getIDFieldName() {
-        return 'articleID';
+        return $this->getTableName().'.articleID';
     }
 
     /**
@@ -134,7 +155,8 @@ class ArticleSearch extends AbstractSearchableObjectType {
      */
     public function show(IForm $form = null) {
         // get searchable categories
-        $categoryNodeList = new WikiCategoryNodeList($this->objectTypeName);
+        $categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
+        $categoryNodeList = $categoryNodeTree->getIterator();
 
         // get existing values
         if ($form !== null && isset($form->searchData['additionalData']['article'])) {
