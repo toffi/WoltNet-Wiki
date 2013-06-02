@@ -206,7 +206,7 @@
 	<category name="wcf.user">
 		<item name="wcf.user.usersOnline.location.wikiIndexPage"><![CDATA[Startseite]]></item>
 		<item name="wcf.user.usersOnline.location.wikiCategoryPage"><![CDATA[<a href="{link controller='Category' application='wiki' object=$category}{/link}" class="categoryLink" data-category-id="{$category->id}">Kategorie &bdquo;{$category->getTitle()}&ldquo;</a>]]></item>
-		<item name="wcf.user.usersOnline.location.wikiArticlePage"><![CDATA[<a href="{link controller='Article' application='article' object=$article}{/link}" class="articleLink" data-article-id="{$article->getID()}"">Artikel &bdquo;{$article->subject}&ldquo;</a>]]></item>
+		<item name="wcf.user.usersOnline.location.wikiArticlePage"><![CDATA[<a href="{link controller='Article' application='wiki' object=$article}{/link}" class="articleLink" data-article-id="{$article->getID()}"">Artikel &bdquo;{$article->getTitle()}&ldquo;</a>]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>

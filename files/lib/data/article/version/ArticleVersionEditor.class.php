@@ -9,6 +9,7 @@ use wiki\data\article\Article;
 use wcf\data\DatabaseObjectEditor;
 use wcf\data\conversation\ConversationAction;
 use wcf\system\WCF;
+use wcf\system\user\activity\event\UserActivityEventHandler;
 use wcf\data\IEditableCachedObject;
 
 /**
@@ -70,6 +71,10 @@ class ArticleVersionEditor extends DatabaseObjectEditor implements IEditableCach
         $articleEditor->update(array(
                 'activeVersionID' => $this->versionID
         ));
+
+        if($this->userID != 0) {
+            UserActivityEventHandler::getInstance()->fireEvent('com.woltnet.wiki.article.recentActivityEvent', $this->articleID, $this->getArticle()->languageID, $this->userID, $this->time);
+        }
     }
 
     /**
