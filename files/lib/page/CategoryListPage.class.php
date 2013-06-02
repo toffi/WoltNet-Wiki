@@ -21,65 +21,69 @@ use wcf\data\user\UserList;
  * @category 	WoltNet - Wiki
  */
 class CategoryListPage extends AbstractPage {
-  /**
-   * @see wcf\page\AbstractPage::$enableTracking
-   */
-  public $enableTracking = true;
+    /**
+     * @see	wcf\page\AbstractPage::$activeMenuItem
+     */
+    public $activeMenuItem = 'wiki.pageMenu.categoryList';
 
-  /**
-   * category list
-   *
-   * @var array<wiki\data\category\Category>
-   */
-  public $categoryList = null;
+      /**
+        * @see wcf\page\AbstractPage::$enableTracking
+        */
+      public $enableTracking = true;
 
+    /**
+     * category list
+     *
+     * @var array<wiki\data\category\Category>
+     */
+    public $categoryList = null;
 
-  /**
-   * objectTypeName for Wiki Categories
-   *
-   * @var string
-   */
-  public $objectTypeName = 'com.woltnet.wiki.category';
+    /**
+     * objectTypeName for Wiki Categories
+     *
+     * @var string
+     */
+    public $objectTypeName = 'com.woltnet.wiki.category';
 
-  public $statistics = array();
+    public $statistics = array();
 
-  /**
-   * @see wcf\page\IPage::readData()
-   */
-  public function readData() {
-    parent::readData();
+    /**
+     * @see wcf\page\IPage::readData()
+     */
+    public function readData() {
+        parent::readData();
 
-    $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
-    $this->categoryList = $categoryTree->getIterator();
-    $this->categoryList->setMaxDepth(0);
+        $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
+        $this->categoryList = $categoryTree->getIterator();
+        $this->categoryList->setMaxDepth(0);
 
-    $articles = ArticleCache::getInstance()->getArticles();
-    $this->statistics['articles'] = count($articles);
-    $this->statistics['categories'] = count(CategoryHandler::getInstance()->getCategories($this->objectTypeName));
+        $articles = ArticleCache::getInstance()->getArticles();
+        $this->statistics['articles'] = count($articles);
+        $this->statistics['categories'] = count(CategoryHandler::getInstance()->getCategories($this->objectTypeName));
 
-    $userList = new UserList();
-    $userList->sqlOrderBy = 'user_table.userID DESC';
-    $userList->sqlLimit = 1;
-    $userList->readObjects();
-    $this->statistics['newestMember'] = current($userList->getObjects());
-    $this->statistics['totalMember'] = $userList->countObjects();
-  }
+        $userList = new UserList();
+        $userList->sqlOrderBy = 'user_table.userID DESC';
+        $userList->sqlLimit = 1;
+        $userList->readObjects();
+        $this->statistics['newestMember'] = current($userList->getObjects());
+        $this->statistics['totalMember'] = $userList->countObjects();
+    }
 
-  /**
-   * @see wcf\page\IPage::assignVariables()
-   */
-  public function assignVariables() {
-    parent::assignVariables();
+    /**
+     * @see wcf\page\IPage::assignVariables()
+     */
+    public function assignVariables() {
+        parent::assignVariables();
 
-    // load boxes
-    DashboardHandler::getInstance()->loadBoxes('com.woltnet.wiki.CategoryListPage', $this);
+        // load boxes
+        DashboardHandler::getInstance()->loadBoxes('com.woltnet.wiki.CategoryListPage', $this);
 
-    WCF::getTPL()->assign(array(
-        'categoryList' 		=> $this->categoryList,
-        'sidebarCollapsed'	=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.categoryList'),
-        'sidebarName' 		=> 'com.woltnet.wiki.categoryList',
-        'wikiAnnouncement'	=> '',
-        'statistics'			=> $this->statistics
-    ));
-  }
+        WCF::getTPL()->assign(array(
+            'categoryList' 		=> $this->categoryList,
+            'sidebarCollapsed'	=> UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.categoryList'),
+            'sidebarName' 		=> 'com.woltnet.wiki.categoryList',
+            'wikiAnnouncement'	=> '',
+            'statistics'			=> $this->statistics
+        ));
+    }
 }

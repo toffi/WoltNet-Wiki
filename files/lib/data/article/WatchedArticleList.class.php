@@ -1,6 +1,9 @@
 <?php
 namespace wiki\data\article;
 
+use wcf\system\user\object\watch\UserObjectWatchHandler;
+use wcf\system\WCF;
+
 /**
  * Represents a list of watched articles.
  *
@@ -13,8 +16,18 @@ namespace wiki\data\article;
  */
 class WatchedArticleList extends ViewableArticleList {
 
-	/**
-	 * @see wiki\data\project\ViewableArticleList::$decoratorClassName
-	 */
-	public $decoratorClassName = 'wiki\data\article\WatchedArticle';
+    /**
+     * Creates a new WatchedIssueList object.
+     */
+    public function __construct() {
+        parent::__construct();
+
+        // add conditions
+        if(!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+        $this->sqlSelects .= 'article_version.time AS time';
+        $this->sqlConditionJoins .= "LEFT JOIN wiki".WCF_N."_article_version article_version ON article_version.versionID = article.activeVersionID";
+
+        $objectTypeIDArticle = UserObjectWatchHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article');
+        $objectTypeIDCategory = UserObjectWatchHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.category');
+    }
 }

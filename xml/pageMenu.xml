@@ -5,7 +5,7 @@
 			<controller><![CDATA[wiki\page\CategoryListPage]]></controller>
 			<position>header</position>
 		</pagemenuitem>
-        <pagemenuitem name="wiki.header.menu.categoryList.watchedArticles">
+        <pagemenuitem name="wiki.pageMenu.categoryList.watchedArticles">
 			<controller><![CDATA[wiki\page\WatchedArticleListPage]]></controller>
 			<position>header</position>
 			<parent>wiki.pageMenu.categoryList</parent>

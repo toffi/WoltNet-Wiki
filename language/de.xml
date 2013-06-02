@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagename="Deutsch" countrycode="de" languagecode="de">
-	<category name="com.woltnet.wiki">
+    <!-- com.woltnet.wiki -->
+    <category name="com.woltnet.wiki">
         <item name="com.woltnet.wiki.latestArticles"><![CDATA[Die letzten Artikel]]></item>
         <item name="com.woltnet.wiki.credits"><![CDATA[Über WoltNet-Wiki]]></item>
     </category>
+    
+    <!-- wiki.category -->
     <category name="wiki.category">
 		<item name="wiki.category.noneAvailable"><![CDATA[Es wurde noch keine Kategorie hinzugefügt.]]></item>
 		<item name="wiki.category.article.articleName"><![CDATA[Titel]]></item>
@@ -21,18 +24,29 @@
 		<item name="wiki.category.categorySuggestionAdd.reason"><![CDATA[Begründung]]></item>
 		<item name="wiki.category.categorySuggestionAdd.success"><![CDATA[Ihr Vorschlag wurde erfolgreich im System eingetragen.<br />Bitte beachten Sie das Ihr Vorschlag durch einen Moderator geprüft werden muss.]]></item>
 	</category>
+    
+    <!-- wiki.sitemap -->
     <category name="wiki.sitemap">
         <item name="wiki.sitemap.category"><![CDATA[Verfügbare Kategorien]]></item>
     </category>
+    
+    <!-- wiki.breadCrumbs -->
 	<category name="wiki.breadCrumbs">
 		<item name="wiki.breadCrumbs.categoryList"><![CDATA[Startseite]]></item>
 	</category>
+    
+    <!-- wiki.pageMenu -->
 	<category name="wiki.pageMenu">
 		<item name="wiki.pageMenu.categoryList"><![CDATA[Wiki]]></item>
+        <item name="wiki.pageMenu.categoryList.watchedArticles"><![CDATA[Abonnierte Artikel]]></item>
 	</category>
+    
+    <!-- wiki.categoryList -->
 	<category name="wiki.categoryList">
 		<item name="wiki.categoryList.title"><![CDATA[Wiki]]></item>
 	</category>
+    
+    <!-- wiki.global -->
 	<category name="wiki.global">
 		<item name="wiki.global.button.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
 		<item name="wiki.global.button.activate"><![CDATA[Aktivieren]]></item>
@@ -45,9 +59,12 @@
 		<item name="wiki.global.options"><![CDATA[Optionen]]></item>
 	</category>
 	
+    <!-- wiki.articleAdd -->
 	<category name="wiki.articleAdd">
 		<item name="wiki.articleAdd.noCategories"><![CDATA[Aktuell ist keine Kategorie vorhanden um Artikel zu erstellen.]]></item>
 	</category>
+    
+    <!-- wiki.article -->
 	<category name="wiki.article">
 		<item name="wiki.article.articleAdd"><![CDATA[Artikel hinzufügen]]></item>
 		<item name="wiki.article.articleAdd.data"><![CDATA[Artikeldaten]]></item>
@@ -87,11 +104,15 @@
         <item name="wiki.article.category"><![CDATA[Kategorie]]></item>
 		<item name="wiki.article.overview.author"><![CDATA[Erstellt am {$articleOverview->time|plainTime} von {if $articleOverview->userID}<a href="{link controller="User" object=$articleOverview->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$articleOverview->getAuthor()->getDecoratedObject()->userID}">{/if}{$articleOverview->username}{if $articleOverview->userID}</a>{/if}]]></item>
 	</category>
+    
+    <!-- wcf.article.menu -->
 	<category name="wiki.article.menu">
 		<item name="wiki.article.menu.overview"><![CDATA[Übersicht]]></item>
 		<item name="wiki.article.menu.discuss"><![CDATA[Diskussionen{if $commentCount > 0}<span class="badge badgeUpdate">{#$commentCount}</span>{/if}]]></item>
 		<item name="wiki.article.menu.version"><![CDATA[Versionen]]></item>
 	</category>
+    
+    <!-- wcf.acp -->
 	<category name="wiki.acp">
 		<item name="wiki.acp.index.credits.developedBy"><![CDATA[Entwicklet von]]></item>
 		<item name="wiki.acp.index.credits.productManager"><![CDATA[Projektleitung]]></item>
@@ -99,16 +120,21 @@
 		<item name="wiki.acp.index.credits.designer"><![CDATA[Design]]></item>
 		<item name="wiki.acp.index.credits.contributor"><![CDATA[Mitwirkende]]></item>
 	</category>
+    
+    <!-- wcf.acp.menu -->
 	<category name="wiki.acp.menu">
 		<item name="wiki.acp.menu.link.wiki.category"><![CDATA[Wiki Kategorien]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.list"><![CDATA[Kategorien auflisten]]></item>
 		<item name="wiki.acp.menu.link.wiki.category.add"><![CDATA[Kategorie hinzufügen]]></item>
 	</category>
+    
+    <!-- wcf.search -->
 	<category name="wiki.search">
 		<item name="wiki.search.categories"><![CDATA[Folgende Kategorien durchsuchen:]]></item>
 		<item name="wiki.search.categories.all"><![CDATA[Alle Kategorien durchsuchen]]></item>
 	</category>
 	
+    <!-- wcf.acp.option -->
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.category.wiki"><![CDATA[Wiki]]></item>
 		<item name="wcf.acp.option.category.wiki.article"><![CDATA[Artikel]]></item>
@@ -121,6 +147,8 @@
 		<item name="wcf.acp.option.category.wiki.index.categories"><![CDATA[Kategorien]]></item>
 		<item name="wcf.acp.option.wiki_category_list_depth"><![CDATA[Tiefe der Kategorienstruktur]]></item>
 	</category>
+    
+    <!-- wcf.acl.option -->
 	<category name="wcf.acl.option">
 		<item name="wcf.acl.option.fullAccess"><![CDATA[Vollzugriff]]></item>
 		<item name="wcf.acl.option.category.com.woltnet.wiki.user.article"><![CDATA[Allgemeine Rechte]]></item>
@@ -142,6 +170,8 @@
 		<item name="wcf.acl.option.com.woltnet.wiki.canModerateArticle"><![CDATA[Kann Artikel in der Moderation sehen]]></item>
 		<item name="wcf.acl.option.com.woltnet.wiki.canManagePermissions"><![CDATA[Kann Artikelrechte verwalten]]></item>
 	</category>
+    
+    <!-- wcf.acp.group -->
 	<category name="wcf.acp.group">
 		<item name="wcf.acp.group.option.category.user.wiki"><![CDATA[Wiki]]></item>
 		<item name="wcf.acp.group.option.category.mod.wiki"><![CDATA[Wiki]]></item>
@@ -179,43 +209,60 @@
 		<item name="wcf.acp.group.option.admin.wiki.category.canDeleteCategory"><![CDATA[Kann Kategorien löschen]]></item>
 	</category>
 	
+    <!-- wcf.dashboard -->
 	<category name="wcf.dashboard">
 		<item name="wcf.dashboard.objectType.com.woltnet.wiki.CategoryListPage"><![CDATA[WIKI-Startseite]]></item>
 		<item name="wcf.dashboard.objectType.com.woltnet.wiki.CategoryPage"><![CDATA[Kategorieseite]]></item>
 	</category>
 	
+    <!-- wcf.dashboard.box -->
 	<category name="wcf.dashboard.box">
 		<item name="wcf.dashboard.box.com.woltnet.wiki.latestArticles"><![CDATA[Letzte Artikel]]></item>
         <item name="wcf.dashboard.box.com.woltnet.wiki.latestArticlesSidebar"><![CDATA[Letzte Artikel]]></item>
 		<item name="wcf.dashboard.box.com.woltnet.wiki.updatedArticlesSidebar"><![CDATA[Zuletzt bearbeitete Artikel]]></item>
 	</category>
 	
+    <!-- wcf.user.objectWatch -->
 	<category name="wcf.user.objectWatch">
 		<item name="wcf.user.objectWatch.subscribe.com.woltnet.wiki.category"><![CDATA[Kategorie abonnieren]]></item>
 		<item name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.category"><![CDATA[Benachrichtigung über neue Artikel aktivieren]]></item>
 		<item name="wcf.user.objectWatch.unsubscribe.com.woltnet.wiki.category"><![CDATA[Kategorie nicht abonnieren]]></item>
 	</category>
 	
+    <!-- wcf.user.profile -->
 	<category name="wcf.user.profile">
 		<item name="wcf.user.profile.menu.userArticles"><![CDATA[Artikel]]></item>
 		<item name="wcf.user.profile.userArticles.noneAvailable"><![CDATA[Der Benutzer hat noch keine für Sie sichtbaren Artikel veröffentlicht.]]></item>
 		<item name="wcf.user.profile.userArticles.category"><![CDATA[Kategorie]]></item>
+		<item name="wcf.user.profile.recentActivity.article"><![CDATA[Hat den Artikel <a href="{link application='wiki' controller='Article' object=$article}{/link}" class="articleLink" data-article-id="{@$article->articleID}">{$article->getTitle()}</a> erstellt.]]></item>
 		<item name="wcf.user.profile.recentActivity.wikiArticleCommentResponse"><![CDATA[Hat auf einen Kommentar von <a href="{link controller='User' object=$commentAuthor}{/link}">{$commentAuthor->username}</a> im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geantwortet.]]></item>
 		<item name="wcf.user.profile.recentActivity.wikiArticleComment"><![CDATA[Hat ein Kommentar im Artikel <a href="{link controller='Article' object=$article}{/link}">{$article->getTitle()}</a> geschrieben.]]></item>
 	</category>
+    
+    <!-- wcf.user -->
 	<category name="wcf.user">
 		<item name="wcf.user.usersOnline.location.wikiIndexPage"><![CDATA[Startseite]]></item>
 		<item name="wcf.user.usersOnline.location.wikiCategoryPage"><![CDATA[<a href="{link controller='Category' application='wiki' object=$category}{/link}" class="categoryLink" data-category-id="{$category->id}">Kategorie &bdquo;{$category->getTitle()}&ldquo;</a>]]></item>
 		<item name="wcf.user.usersOnline.location.wikiArticlePage"><![CDATA[<a href="{link controller='Article' application='wiki' object=$article}{/link}" class="articleLink" data-article-id="{$article->getID()}"">Artikel &bdquo;{$article->getTitle()}&ldquo;</a>]]></item>
 	</category>
+    
+    <!-- wcf.user.recentActivity -->
+	<category name="wcf.user.recentActivity">
+		<item name="wcf.user.recentActivity.com.woltnet.wiki.article.recentActivityEvent"><![CDATA[Artikel]]></item>
+	</category>
+    
+    <!-- wcf.search -->
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
         <item name="wcf.search.object.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
 	</category>
+    
+    <!-- wcf.page -->
     <category name="wcf.page">
         <item name="wcf.page.sitemap.wiki"><![CDATA[Wiki]]></item>
     </category>
     
+    <!-- wcf.tagging -->
     <category name="wcf.tagging">
         <item name="wcf.tagging.taggedObjects.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
         <item name="wcf.tagging.objectType.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
