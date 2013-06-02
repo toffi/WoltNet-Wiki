@@ -30,6 +30,6 @@ class TaggableArticle implements ITaggable {
     }
 
     public function getTemplateName() {
-        return 'searchResultArticleList';
+        return 'taggedArticles';
     }
 }

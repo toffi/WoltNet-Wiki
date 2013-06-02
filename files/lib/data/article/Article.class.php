@@ -66,7 +66,7 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
    * @see wcf\data\IMessage::getExcerpt()
    */
   public function getExcerpt($maxLength = 255, $highlight=false) {
-      return $this->getActiveVersion($maxLength, $highlight);
+      return $this->getActiveVersion()->getExcerpt($maxLength, $highlight);
   }
 
   /**

@@ -23,6 +23,8 @@
 		<item name="wiki.category.categorySuggestionAdd.title"><![CDATA[Titel der Kategorie]]></item>
 		<item name="wiki.category.categorySuggestionAdd.reason"><![CDATA[Begründung]]></item>
 		<item name="wiki.category.categorySuggestionAdd.success"><![CDATA[Ihr Vorschlag wurde erfolgreich im System eingetragen.<br />Bitte beachten Sie das Ihr Vorschlag durch einen Moderator geprüft werden muss.]]></item>
+        <item name="wiki.category.searchAllCategories"><![CDATA[Alle Kategorien durchsuchen]]></item>
+        <item name="wiki.category.searchCategory"><![CDATA[{$category->getTitle()} durchsuchen]]></item>
 	</category>
     
     <!-- wiki.sitemap -->
@@ -104,6 +106,12 @@
         <item name="wiki.article.category"><![CDATA[Kategorie]]></item>
 		<item name="wiki.article.overview.author"><![CDATA[Erstellt am {$articleOverview->time|plainTime} von {if $articleOverview->userID}<a href="{link controller="User" object=$articleOverview->getAuthor()->getDecoratedObject()}{/link}" class="userLink" data-user-id="{@$articleOverview->getAuthor()->getDecoratedObject()->userID}">{/if}{$articleOverview->username}{if $articleOverview->userID}</a>{/if}]]></item>
 	</category>
+    
+    <!-- wiki.searchResult -->
+    <category name="wiki.searchResult">
+        <item name="wiki.searchResult.article"><![CDATA[Artikel]]></item>
+        <item name="wiki.searchResult.article.category"><![CDATA[Kategorie: ]]></item>
+    </category>
     
     <!-- wcf.article.menu -->
 	<category name="wiki.article.menu">

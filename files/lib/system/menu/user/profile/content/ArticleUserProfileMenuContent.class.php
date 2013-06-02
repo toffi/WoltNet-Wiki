@@ -34,6 +34,7 @@ class ArticleUserProfileMenuContent extends SingletonFactory implements IUserPro
             $userArticleList->getConditionBuilder()->add("article_version.isActive = '1'");
             $userArticleList->sqlConditionJoins = "LEFT JOIN wiki".WCF_N."_article_version AS article_version ON (article_version.articleID = article.articleID)";
             $userArticleList->sqlLimit = 0;
+            $userArticleList->sqlOrderBy = "article_version.time DESC";
             $userArticleList->readObjects();
             $userArticleList = $userArticleList->getObjects();
         }
