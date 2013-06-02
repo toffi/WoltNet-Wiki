@@ -1,11 +1,11 @@
 -- articles
 DROP TABLE IF EXISTS wiki1_article;
 CREATE TABLE wiki1_article (
-	articleID 	INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	categoryID 	INT(10) NOT NULL,
-	activeVersionID       INT(10),
-	languageID   	INT(10) NOT NULL,
-	translationID	INT(10) NOT NULL,
+    articleID 	INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    categoryID 	INT(10) NOT NULL,
+    activeVersionID       INT(10) NULL,
+    languageID   	INT(10) NOT NULL,
+    translationID	INT(10) NOT NULL,
 );
 
 DROP TABLE IF EXISTS wiki1_article_version;
@@ -30,29 +30,29 @@ CREATE TABLE wiki1_article_version (
 -- category suggestion
 DROP TABLE IF EXISTS wiki1_category_suggestion;
 CREATE TABLE wiki1_category_suggestion (
-	suggestionID		INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	title			VARCHAR(255) NOT NULL,
-	parentCategoryID	INT(10) NOT NULL,
-	reason	 		TEXT,
-	time 			INT(10)	NOT NULL,
-	userID			INT(10),
-	username		VARCHAR(255) NOT NULL
+    suggestionID		INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title			VARCHAR(255) NOT NULL,
+    parentCategoryID	INT(10) NOT NULL,
+    reason	 		TEXT,
+    time 			INT(10)	NOT NULL,
+    userID			INT(10),
+    username		VARCHAR(255) NOT NULL
 );
 
 -- labels
 DROP TABLE IF EXISTS wiki1_article_label;
 CREATE TABLE wiki1_article_label (
-	labelID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	categoryID INT(10),
-	label VARCHAR(80) NOT NULL DEFAULT '',
-	cssClassName VARCHAR(255) NOT NULL
+    labelID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    categoryID INT(10),
+    label VARCHAR(80) NOT NULL DEFAULT '',
+    cssClassName VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS wiki1_article_label_to_object;
 CREATE TABLE wiki1_article_label_to_object (
-	labelID INT(10) NOT NULL,
-	articleID INT(10) NOT NULL,
-	UNIQUE KEY (labelID, articleID)
+    labelID INT(10) NOT NULL,
+    articleID INT(10) NOT NULL,
+    UNIQUE KEY (labelID, articleID)
 );
 
 -- foreign keys

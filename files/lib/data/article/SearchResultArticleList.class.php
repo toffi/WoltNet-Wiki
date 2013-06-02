@@ -13,19 +13,23 @@ namespace wiki\data\article;
  */
 class SearchResultArticleList extends ViewableArticleList {
 
-	/**
-	 * @see wiki\data\article\ViewableArticleList::$decoratorClassName
-	 */
-	public $decoratorClassName = 'wiki\data\article\SearchResultArticle';
+    /**
+     * @see wiki\data\article\ViewableArticleList::$decoratorClassName
+     */
+    public $decoratorClassName = 'wiki\data\article\SearchResultArticle';
 
-	/**
-	 * Creates a new SearchResultArticleList object.
-	 */
-	public function __construct() {
-		parent::__construct();
+    /**
+     * Creates a new SearchResultArticleList object.
+     */
+    public function __construct() {
+        parent::__construct();
 
-		if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
-		$this->sqlSelects .= 'category.categoryID, category.title';
-		$this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_category category ON (category.categoryID = article.categoryID)";
-	}
+        if (!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+        $this->sqlSelects .= 'category.categoryID, category.title';
+        $this->sqlJoins .= " LEFT JOIN wcf".WCF_N."_category category ON (category.categoryID = article.categoryID)";
+
+        if(!empty($this->sqlSelects)) $this->sqlSelects .= ',';
+        $this->sqlSelects .= 'article_version.time AS time';
+        $this->sqlJoins .= " LEFT JOIN wiki".WCF_N."_article_version article_version ON article_version.versionID = article.activeVersionID";
+    }
 }
