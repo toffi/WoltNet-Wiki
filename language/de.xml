@@ -259,6 +259,12 @@
 		<item name="wcf.user.recentActivity.com.woltnet.wiki.article.recentActivityEvent"><![CDATA[Artikel]]></item>
 	</category>
     
+    <category name="wcf.user.objectWatch">
+        <item name="wcf.user.objectWatch.subscribe.com.woltnet.wiki.article"><![CDATA[Artikel abonnieren]]></item>
+        <item name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.article"><![CDATA[Benachrichtigung über neue Versionen aktivieren]]></item>
+        <item name="wcf.user.objectWatch.unsubscribe.com.woltnet.wiki.article"><![CDATA[Artikel nicht abonnieren]]></item>
+    </category>
+    
     <!-- wcf.search -->
 	<category name="wcf.search">
 		<item name="wcf.search.type.com.woltnet.wiki.article"><![CDATA[Artikel]]></item>
