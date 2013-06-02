@@ -40,6 +40,8 @@ class ArticlePage extends AbstractPage {
 
   public $articleID = 0;
 
+  public $versionID = 0;
+
   public $showNotActive = false;
 
   public $languageID = 0;
@@ -63,6 +65,7 @@ class ArticlePage extends AbstractPage {
     parent::readParameters();
 
     if(isset($_GET['id'])) $this->articleID = intval($_GET['id']);
+    if(isset($_GET['versionID'])) $this->versionID = intval($_GET['versionID']);
     if(isset($_GET['languageID'])) $this->languageID = intval($_GET['languageID']);
   }
 
@@ -72,7 +75,13 @@ class ArticlePage extends AbstractPage {
   public function readData() {
     parent::readData();
 
-    $this->article = ArticleCache::getInstance()->getArticleVersion($this->articleID);
+    if($this->versionID > 0) {
+        $this->article = ArticleCache::getInstance()->getArticleVersion($this->versionID);
+    } else {
+        $this->article = ArticleCache::getInstance()->getArticle($this->articleID)->getActiveVersion();
+    }
+
+
 
     if(!$this->article->articleID || (!$this->article->canEnter())) {
       throw new IllegalLinkException();
@@ -99,7 +108,7 @@ class ArticlePage extends AbstractPage {
 
     $activeMenuItem = ArticleMenu::getInstance()->getActiveMenuItem();
     $contentManager = $activeMenuItem->getContentManager();
-    $this->articleContent = $contentManager->getContent($this->article->articleID);
+    $this->articleContent = $contentManager->getContent($this->article->versionID);
 
     VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.article', $this->article->articleID);
   }

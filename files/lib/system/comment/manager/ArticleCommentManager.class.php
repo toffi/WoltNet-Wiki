@@ -1,6 +1,6 @@
 <?php
 namespace wiki\system\comment\manager;
-use wiki\data\article\Article;
+use wiki\data\article\version\ArticleVersion;
 
 use wcf\data\comment\response\CommentResponse;
 use wcf\data\comment\Comment;
@@ -26,103 +26,103 @@ class ArticleCommentManager extends AbstractCommentManager {
         }
 
         if($this->article === null) {
-        	$this->article = new Article($objectID);
+            $this->article = new ArticleVersion($objectID);
         }
 
         return $this->article->getPermission('canWriteComment');
     }
 
     /**
-	 * @see	wcf\system\comment\manager\ICommentManager::canEditComment()
-	 */
-	public function canEditComment(Comment $comment) {
-		// disallow guests
-		if (!WCF::getUser()->userID) {
-			return false;
-		}
+     * @see	wcf\system\comment\manager\ICommentManager::canEditComment()
+     */
+    public function canEditComment(Comment $comment) {
+        // disallow guests
+        if (!WCF::getUser()->userID) {
+            return false;
+        }
 
-		if(!$this->isAccessible($comment->objectID)) {
-			return false;
-		}
+        if(!$this->isAccessible($comment->objectID)) {
+            return false;
+        }
 
-		if($this->article === null) {
-			$this->article = new Article($comment->objectID);
-		}
+        if($this->article === null) {
+            $this->article = new ArticleVersion($comment->objectID);
+        }
 
-		if($comment->userID == WCF::getUser()->userID) {
-			return $this->article->getPermission('canEditOwnComment');
-		}
-		return $this->article->getPermission('canEditComment');
-	}
+        if($comment->userID == WCF::getUser()->userID) {
+            return $this->article->getPermission('canEditOwnComment');
+        }
+        return $this->article->getPermission('canEditComment');
+    }
 
-	/**
-	 * @see	wcf\system\comment\manager\ICommentManager::canEditCommentResponse()
-	 */
-	public function canEditCommentResponse(CommentResponse $response) {
-		// disallow guests
-		if (!WCF::getUser()->userID) {
-			return false;
-		}
+    /**
+     * @see	wcf\system\comment\manager\ICommentManager::canEditCommentResponse()
+     */
+    public function canEditCommentResponse(CommentResponse $response) {
+        // disallow guests
+        if (!WCF::getUser()->userID) {
+            return false;
+        }
 
-		if(!$this->isAccessible($response->getCommenct()->objectID)) {
-			return false;
-		}
+        if(!$this->isAccessible($response->getCommenct()->objectID)) {
+            return false;
+        }
 
-		if($this->article === null) {
-			$this->article = new Article($response->getCommenct()->objectID);
-		}
+        if($this->article === null) {
+            $this->article = new ArticleVersion($response->getCommenct()->objectID);
+        }
 
-		if($response->getCommenct()->userID == WCF::getUser()->userID) {
-			return $this->article->getPermission('canEditOwnComment');
-		}
-		return $this->article->getPermission('canEditComment');
-	}
+        if($response->getCommenct()->userID == WCF::getUser()->userID) {
+            return $this->article->getPermission('canEditOwnComment');
+        }
+        return $this->article->getPermission('canEditComment');
+    }
 
-	/**
-	 * @see	wcf\system\comment\manager\ICommentManager::canDeleteComment()
-	 */
-	public function canDeleteComment(Comment $comment) {
-		// disallow guests
-		if (!WCF::getUser()->userID) {
-			return false;
-		}
+    /**
+     * @see	wcf\system\comment\manager\ICommentManager::canDeleteComment()
+     */
+    public function canDeleteComment(Comment $comment) {
+        // disallow guests
+        if (!WCF::getUser()->userID) {
+            return false;
+        }
 
-		if(!$this->isAccessible($comment->objectID)) {
-			return false;
-		}
+        if(!$this->isAccessible($comment->objectID)) {
+            return false;
+        }
 
-		if($this->article === null) {
-			$this->article = new Article($comment->objectID);
-		}
+        if($this->article === null) {
+            $this->article = new ArticleVersion($comment->objectID);
+        }
 
-		if($comment->userID == WCF::getUser()->userID) {
-			return $this->article->getPermission('canDeleteOwnComment');
-		}
-		return $this->article->getModeratorPermission('canDeleteComment');
-	}
+        if($comment->userID == WCF::getUser()->userID) {
+            return $this->article->getPermission('canDeleteOwnComment');
+        }
+        return $this->article->getModeratorPermission('canDeleteComment');
+    }
 
-	/**
-	 * @see	wcf\system\comment\manager\ICommentManager::canDeleteCommentResponse()
-	 */
-	public function canDeleteCommentResponse(CommentResponse $response) {
-		// disallow guests
-		if (!WCF::getUser()->userID) {
-			return false;
-		}
+    /**
+     * @see	wcf\system\comment\manager\ICommentManager::canDeleteCommentResponse()
+     */
+    public function canDeleteCommentResponse(CommentResponse $response) {
+        // disallow guests
+        if (!WCF::getUser()->userID) {
+            return false;
+        }
 
-		if(!$this->isAccessible($response->getCommenct()->objectID)) {
-			return false;
-		}
+        if(!$this->isAccessible($response->getCommenct()->objectID)) {
+            return false;
+        }
 
-		if($this->article === null) {
-			$this->article = new Article($response->getCommenct()->objectID);
-		}
+        if($this->article === null) {
+            $this->article = new ArticleVersion($response->getCommenct()->objectID);
+        }
 
-		if($response->getCommenct()->userID == WCF::getUser()->userID) {
-			return $this->article->getPermission('canDeleteOwnComment');
-		}
-		return $this->article->getModeratorPermission('canDeleteComment');
-	}
+        if($response->getCommenct()->userID == WCF::getUser()->userID) {
+            return $this->article->getPermission('canDeleteOwnComment');
+        }
+        return $this->article->getModeratorPermission('canDeleteComment');
+    }
 
     /**
      * @see wcf\system\comment\manager\AbstractCommentManager::getLink()
@@ -142,15 +142,15 @@ class ArticleCommentManager extends AbstractCommentManager {
      * @see wcf\system\comment\manager\AbstractCommentManager::isAccessible()
      */
     public function isAccessible($objectID, $validateWritePermission = false) {
-    	if($this->article === null) {
-    		$this->article = new Article($objectID);
-    	}
+        if($this->article === null) {
+            $this->article = new ArticleVersion($objectID);
+        }
 
-    	if($validateWritePermission) {
-    		return $this->article->getPermission('canWriteComment');
-    	}
+        if($validateWritePermission) {
+            return $this->article->getPermission('canWriteComment');
+        }
 
-    	return $this->article->getPermission('canReadArticle');
+        return $this->article->getPermission('canReadArticle');
     }
 
     /**

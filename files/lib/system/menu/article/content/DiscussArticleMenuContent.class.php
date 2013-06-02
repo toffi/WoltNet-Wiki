@@ -20,6 +20,8 @@ class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenu
 
   public $articleID = 0;
 
+  public $articleVersionID = 0;
+
   /**
    * comment list object
    * @var	wcf\data\comment\StructuredCommentList
@@ -58,17 +60,20 @@ class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenu
   /**
    * @see	wiki\system\menu\article\content\IArticleMenuContent::getContent()
    */
-  public function getContent($articleID) {
-    $this->articleID = $articleID;
+  public function getContent($articleVersionID) {
+    $this->articleVersionID = $articleVersionID;
+    $articleVersion = ArticleCache::getInstance()->getArticleVersion($articleVersionID);
+
+    $this->articleID = $articleVersion->articleID;
+    $article = ArticleCache::getInstance()->getArticle($this->articleID);
 
     $this->readData();
 
-    $article = ArticleCache::getInstance()->getArticle($articleID);
     WCF::getTPL()->assign(array(
         'article'			=> $article,
         'commentList' 			=> $this->commentList,
         'commentObjectTypeID'		=> $this->objectTypeID,
-        'commentCanAdd' 		=> $this->commentManager->canAdd($this->articleID),
+        'commentCanAdd' 		=> $this->commentManager->canAdd($this->articleVersionID),
         'lastCommentTime' => $this->commentList->getMinCommentTime(),
         'commentsPerPage' 		=> $this->commentManager->getCommentsPerPage()
     ));
