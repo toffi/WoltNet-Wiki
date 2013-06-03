@@ -1,12 +1,9 @@
 <?php
 namespace wiki\data\article;
-use wiki\data\article\label\ArticleLabel;
 
 use wcf\system\WCF;
 use wcf\data\DatabaseObjectDecorator;
 use wcf\system\visitTracker\VisitTracker;
-use wcf\data\user\User;
-use wcf\data\user\UserProfile;
 
 /**
  * @author	Rene Gessinger (NurPech)
@@ -23,13 +20,6 @@ class ViewableArticle extends DatabaseObjectDecorator {
   protected static $baseClass = 'wiki\data\article\Article';
 
   /**
-   * user profile object
-   *
-   * @var	wcf\data\user\UserProfile
-   */
-  protected $userProfile = null;
-
-  /**
    * effective visit time
    *
    * @var integer
@@ -37,11 +27,11 @@ class ViewableArticle extends DatabaseObjectDecorator {
   protected $effectiveVisitTime = null;
 
   /**
-   * list of assigned labels
-   *
-   * @var	array<wiki\data\article\label\ArticleLabel>
-   */
-  protected $labels = array();
+    * list of assigned labels
+    *
+    * @var	array<wcf\data\label\Label>
+    */
+    protected $labels = array();
 
   /**
    * Returns the user profile object.
@@ -110,20 +100,29 @@ class ViewableArticle extends DatabaseObjectDecorator {
   }
 
   /**
-   * Assigns a label.
+   * Adds a label.
    *
-   * @param	wiki\data\article\label\ArticleLabel	$label
+   * @param	wcf\data\label\Label	$label
    */
-  public function assignLabel(ArticleLabel $label) {
-    $this->labels[$label->labelID] = $label;
+  public function addLabel(Label $label) {
+      $this->labels[$label->labelID] = $label;
   }
 
   /**
-   * Returns a list of assigned labels.
+   * Returns a list of labels.
    *
-   * @return	array<wiki\data\article\label\ArticleLabel>
+   * @return	array<wcf\data\label\Label>
    */
-  public function getAssignedLabels() {
-    return $this->labels;
+  public function getLabels() {
+      return $this->labels;
+  }
+
+  /**
+   * Returns true, if one or more labels are assigned to this issue.
+   *
+   * @return	boolean
+   */
+  public function hasLabels() {
+      return (count($this->labels)) ? true : false;
   }
 }

@@ -51,6 +51,18 @@
 			<classname>wiki\system\search\ArticleSearch</classname>
 		</type>
         
+        <!-- label -->
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.label.object</definitionname>
+			<classname>wiki\system\label\object\ArticleLabelObjectHandler</classname>
+		</type>
+		<type>
+			<name>com.woltnet.wiki.article</name>
+			<definitionname>com.woltlab.wcf.label.objectType</definitionname>
+			<classname>wiki\system\label\object\type\CategoryLabelObjectTypeHandler</classname>
+		</type>
+        
         <!-- tagging -->
 		<type>
 			<name>com.woltnet.wiki.article</name>

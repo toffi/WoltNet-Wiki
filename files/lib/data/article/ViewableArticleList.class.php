@@ -2,6 +2,7 @@
 namespace wiki\data\article;
 use wiki\data\article\label\ArticleLabel;
 use wiki\data\article\label\ArticleLabelList;
+use wiki\system\label\object\ArticleLabelObjectHandler;
 
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\visitTracker\VisitTracker;
@@ -70,12 +71,19 @@ class ViewableArticleList extends ArticleList {
         if ($this->objectIDs === null) $this->readObjectIDs();
         parent::readObjects();
 
-        $labels = $this->loadLabelAssignments();
+        // get assigned labels
+        $articleIDs = array();
+        foreach ($this->objects as $article) {
+            if ($article->hasLabels) {
+                $articleIDs[] = $article->articleID;
+            }
+        }
 
-        foreach ($this->objects as $articleID => $article) {
-            if (isset($labels[$articleID])) {
-                foreach ($labels[$articleID] as $label) {
-                    $this->objects[$articleID]->assignLabel($label);
+    if (! empty($articleIDs)) {
+            $assignedLabels = ArticleLabelObjectHandler::getInstance()->getAssignedLabels($articleIDs);
+            foreach ($assignedLabels as $articleID => $labels) {
+                foreach ($labels as $label) {
+                    $this->objects[$articleID]->addLabel($label);
                 }
             }
         }
