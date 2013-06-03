@@ -58,8 +58,9 @@
 			<definitionname>com.woltlab.wcf.label.object</definitionname>
 			<classname>wiki\system\label\object\ArticleLabelObjectHandler</classname>
 		</type>
+        
 		<type>
-			<name>com.woltnet.wiki.article</name>
+			<name>com.woltnet.wiki.category</name>
 			<definitionname>com.woltlab.wcf.label.objectType</definitionname>
 			<classname>wiki\system\label\object\type\CategoryLabelObjectTypeHandler</classname>
 		</type>

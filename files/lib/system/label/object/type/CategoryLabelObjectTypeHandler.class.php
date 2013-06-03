@@ -58,7 +58,7 @@ class CategoryLabelObjectTypeHandler extends AbstractLabelObjectTypeHandler {
         $this->container = new LabelObjectTypeContainer($this->objectTypeID);
 
         foreach($this->categoryList as $category) {
-            $objectType = new LabelObjectType($category->getTitle(), $category->catgoryID, $this->categoryList->getDepth());
+            $objectType = new LabelObjectType($category->getTitle(), $category->categoryID, $this->categoryList->getDepth());
             $this->container->add($objectType);
         }
     }

@@ -5,7 +5,7 @@ use wcf\data\category\AbstractDecoratedCategory;
 use wcf\system\category\CategoryPermissionHandler;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
-use wcf\system\database\util\PreparedStatementConditionBuilder;
+use wcf\data\label\group\LabelGroupList;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\WCF;
 
@@ -27,6 +27,13 @@ class WikiCategory extends AbstractDecoratedCategory {
      * @var string
      */
     public static $objectTypeName = 'com.woltnet.wiki.category';
+
+    /**
+     * List of available labelGroups
+     *
+     * @var \wcf\data\label\group\LabelGroupList
+     */
+    public $availableLabelGroups = null;
 
     /**
      * Checks the given category permissions.
@@ -85,12 +92,35 @@ class WikiCategory extends AbstractDecoratedCategory {
 
     /**
      * Returns true if the category is accessible for the given user.
-     * If no
-     * user is given, the active user is used.
+     * If no user is given, the active user is used.
      *
      * @return boolean
      */
     public function isAccessible() {
         return $this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory');
+    }
+
+    /**
+     * Returns an array of all available LabelGroups
+     */
+    public function getAvailableLabelGroups() {
+        if($this->availableLabelGroups === null) {
+            // get object type
+            $objectType = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.label.objectType', 'com.woltnet.wiki.category');
+            if ($objectType === null) {
+                return null;
+            }
+            $availableLabelGroups = new LabelGroupList();
+            $availableLabelGroups->sqlJoins .= "LEFT JOIN wcf".WCF_N."_label_group_to_object label_group_to_object";
+
+            $availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectTypeID = ?", $objectType->objectTypeID);
+            $availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectID = ?", $this->categoryID);
+
+            $availableLabelGroups->readObjects();
+
+            $this->availableLabelGroups = $availableLabelGroups->getObjects();
+        }
+
+        return $this->availableLabelGroups;
     }
 }
