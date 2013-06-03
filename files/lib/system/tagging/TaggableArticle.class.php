@@ -10,28 +10,30 @@ use wcf\data\tag\Tag;
  *
  * @author Jean-Marc Licht
  * @copyright 2012 woltnet
- * @license Woltnet License <http://www.woltnet.com/license.html>
- * @package com.woltnet.wdb
+ * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
+ * @package com.woltnet.wiki
  * @subpackage system.tagging
- * @category WoltNet Download Database
+ * @category WoltNet Wiki
  */
 class TaggableArticle implements ITaggable {
-	/**
-	 *
-	 * @see wcf\system\tagging\ITaggable::getObjectTypeID()
-	 */
-	public function getObjectList(Tag $tag) {
-		return new TaggedArticleList($tag);
-	}
-	
-	/**
-	 *
-	 * @see wcf\system\tagging\ITaggable::getApplication()
-	 */
-	public function getApplication() {
-		return 'wiki';
-	}
-	public function getTemplateName() {
-		return 'taggedArticles';
-	}
+
+    /**
+     *
+     * @see wcf\system\tagging\ITaggable::getObjectTypeID()
+     */
+    public function getObjectList(Tag $tag) {
+        return new TaggedArticleList($tag);
+    }
+
+    /**
+     *
+     * @see wcf\system\tagging\ITaggable::getApplication()
+     */
+    public function getApplication() {
+        return 'wiki';
+    }
+
+    public function getTemplateName() {
+        return 'taggedArticles';
+    }
 }

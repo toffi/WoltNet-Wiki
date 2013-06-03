@@ -11,60 +11,60 @@ use wcf\system\user\object\watch\IUserObjectWatch;
  *
  * @author Rene Gessinger (NurPech)
  * @copyright 2012 woltnet
- * @license GNU Lesser General Public License
- *          <http://opensource.org/licenses/lgpl-license.php>
+ * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package com.woltnet.wiki
  * @subpackage system.user.object.watch
  * @category WoltNet Wiki
  */
 class CategoryUserObjectWatch extends AbstractObjectTypeProcessor implements IUserObjectWatch {
-	/**
-	 *
-	 * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadCount()
-	 */
-	public function getUnreadCount($userID) {
-	}
-	
-	/**
-	 *
-	 * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadObjects()
-	 */
-	public function getUnreadObjects($userID, $limit = 5) {
-	}
-	
-	/**
-	 *
-	 * @see wcf\system\user\object\watch\IUserObjectWatch::getObjectIDs()
-	 */
-	public function getObjectIDs($userID) {
-	}
-	
-	/**
-	 *
-	 * @see wcf\system\user\object\watch\IUserObjectWatch::getObjects()
-	 */
-	public function getObjects(array $objectIDs) {
-	}
-	
-	/**
-	 *
-	 * @see \wcf\system\user\object\watch\IUserObjectWatch::resetUserStorage()
-	 */
-	public function resetUserStorage(array $userIDs) {
-	}
-	
-	/**
-	 *
-	 * @see wcf\system\user\object\watch\IUserObjectWatch::validateObjectID()
-	 */
-	public function validateObjectID($objectID) {
-		// get category
-		$category = new Category($objectID);
-		if(! $category->categoryID)
-			return false;
-		$category = new WikiCategory($category);
-		
-		// check permission
-		return $category->checkPermission();
-	}
+
+    /**
+     *
+     * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadCount()
+     */
+    public function getUnreadCount($userID) {
+    }
+
+    /**
+     *
+     * @see wcf\system\user\object\watch\IUserObjectWatch::getUnreadObjects()
+     */
+    public function getUnreadObjects($userID, $limit = 5) {
+    }
+
+    /**
+     *
+     * @see wcf\system\user\object\watch\IUserObjectWatch::getObjectIDs()
+     */
+    public function getObjectIDs($userID) {
+    }
+
+    /**
+     *
+     * @see wcf\system\user\object\watch\IUserObjectWatch::getObjects()
+     */
+    public function getObjects(array $objectIDs) {
+    }
+
+    /**
+     *
+     * @see \wcf\system\user\object\watch\IUserObjectWatch::resetUserStorage()
+     */
+    public function resetUserStorage(array $userIDs) {
+    }
+
+    /**
+     *
+     * @see wcf\system\user\object\watch\IUserObjectWatch::validateObjectID()
+     */
+    public function validateObjectID($objectID) {
+        // get category
+        $category = new Category($objectID);
+        if(! $category->categoryID)
+            return false;
+        $category = new WikiCategory($category);
+
+        // check permission
+        return $category->checkPermission();
+    }
 }

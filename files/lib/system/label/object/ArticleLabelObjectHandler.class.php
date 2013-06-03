@@ -8,16 +8,16 @@ use wcf\system\label\object\AbstractLabelObjectHandler;
  *
  * @author Jean-Marc Licht
  * @copyright 2012 woltnet
- * @license GNU Lesser General Public License
- *          <http://opensource.org/licenses/lgpl-license.php>
+ * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package com.woltnet.wiki
  * @subpackage system.label.object
  * @category Woltnet Wiki
  */
 class ArticleLabelObjectHandler extends AbstractLabelObjectHandler {
-	/**
-	 *
-	 * @see wcf\system\label\object\AbstractLabelObjectHandler::$objectType
-	 */
-	protected $objectType = 'com.woltnet.wiki.article';
+
+    /**
+     *
+     * @see wcf\system\label\object\AbstractLabelObjectHandler::$objectType
+     */
+    protected $objectType = 'com.woltnet.wiki.article';
 }

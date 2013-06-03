@@ -10,26 +10,30 @@ use wcf\system\WCF;
  *
  * @author Rene Gessinger (NurPech)
  * @copyright 2013 woltnet
+ * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package com.woltnet.wiki
  * @subpackage system.article
  * @category WoltNet Wiki
  */
 class WikiSitemapProvider implements ISitemapProvider {
-	public $categoryNodeList = null;
-	public $categoryNodeTree = null;
-	/**
-	 *
-	 * @see wcf\system\sitemap\ISitemapProvider::getTemplate()
-	 */
-	public function getTemplate() {
-		$this->categoryNodeTree = new WikiCategoryNodeTree('com.woltnet.wiki.category');
-		$this->categoryNodeList = $this->categoryNodeTree->getIterator();
-		$this->categoryNodeList->setMaxDepth(0);
-		
-		WCF::getTPL()->assign(array (
-				'categoryList' => $this->categoryNodeList 
-		));
-		
-		return WCF::getTPL()->fetch('sitemapWiki', 'wiki');
-	}
+
+    public $categoryNodeList = null;
+
+    public $categoryNodeTree = null;
+
+    /**
+     *
+     * @see wcf\system\sitemap\ISitemapProvider::getTemplate()
+     */
+    public function getTemplate() {
+        $this->categoryNodeTree = new WikiCategoryNodeTree('com.woltnet.wiki.category');
+        $this->categoryNodeList = $this->categoryNodeTree->getIterator();
+        $this->categoryNodeList->setMaxDepth(0);
+
+        WCF::getTPL()->assign(array (
+                'categoryList' => $this->categoryNodeList
+        ));
+
+        return WCF::getTPL()->fetch('sitemapWiki', 'wiki');
+    }
 }
