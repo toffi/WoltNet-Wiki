@@ -83,15 +83,6 @@
 		<item name="wiki.article.label"><![CDATA[Filter nach Label]]></item>
 		<item name="wiki.article.label.filter"><![CDATA[Label auswählen]]></item>
 		<item name="wiki.article.label.disableFilter"><![CDATA[Keine Filterung]]></item>
-		<item name="wiki.article.label.management"><![CDATA[Label verwalten]]></item>
-		<item name="wiki.article.label.management.addLabel"><![CDATA[Label hinzufügen]]></item>
-		<item name="wiki.article.label.labelName"><![CDATA[Labelbeschriftung]]></item>
-		<item name="wiki.article.label.cssClassName"><![CDATA[Aussehen]]></item>
-		<item name="wiki.article.label.placeholder"><![CDATA[Label]]></item>
-		<item name="wiki.article.label.management.existingLabels"><![CDATA[Vorhandene Labels]]></item>
-		<item name="wiki.article.label.management.edit.description"><![CDATA[Klicken Sie ein Label an, um dieses zu bearbeiten oder zu löschen.]]></item>
-		<item name="wiki.article.label.management.deleteLabel"><![CDATA[Label löschen]]></item>
-		<item name="wiki.article.label.management.deleteLabel.confirmMessage"><![CDATA[Wollen Sie das Label wirklich löschen?]]></item>
 		<item name="wiki.article.notActive"><![CDATA[Dieser Artikel ist noch nicht aktiviert]]></item>
 		<item name="wiki.article.versions"><![CDATA[Versionen]]></item>
 		<item name="wiki.article.author"><![CDATA[Autor]]></item>
@@ -284,6 +275,11 @@
 	<category name="wcf.page">
 		<item name="wcf.page.sitemap.wiki"><![CDATA[Wiki]]></item>
 	</category>
+    
+    <!-- wcf.acp.label -->
+    <category name="wcf.acp.label">
+        <item name="wcf.acp.label.container.com.woltnet.wiki.article"><![CDATA[Artikelkategorien]]></item>
+    </category>
 
 	<!-- wcf.tagging -->
 	<category name="wcf.tagging">

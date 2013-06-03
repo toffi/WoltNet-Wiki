@@ -25,7 +25,7 @@
 			<environment>admin</environment>
 			<templatename>categoryList</templatename>
 			<eventname>itemButtons</eventname>
-			<templatecode><![CDATA[{include file='__pkusSign' application='wiki'}]]></templatecode>
+			<templatecode><![CDATA[{include file='__plusSign' application='wiki'}]]></templatecode>
 		</templatelistener>
 
 		<!-- user -->

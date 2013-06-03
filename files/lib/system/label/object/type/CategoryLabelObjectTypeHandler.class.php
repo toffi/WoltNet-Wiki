@@ -1,5 +1,5 @@
 <?php
-namespace wpbt\system\label\object\type;
+namespace wiki\system\label\object\type;
 
 use wiki\data\category\WikiCategoryNodeTree;
 use wcf\system\label\object\type\AbstractLabelObjectTypeHandler;
@@ -31,11 +31,18 @@ class CategoryLabelObjectTypeHandler extends AbstractLabelObjectTypeHandler {
     public $objectTypeID = 0;
 
     /**
+     * object type name
+     *
+     * @var string
+     */
+    public $objectTypeName = 'com.woltnet.wiki.category';
+
+    /**
      *
      * @see wcf\system\SingletonFactory::init()
      */
     protected function init() {
-        // get product list
+        // get category list
         $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
         $this->categoryList = $categoryTree->getIterator();
     }
@@ -51,7 +58,7 @@ class CategoryLabelObjectTypeHandler extends AbstractLabelObjectTypeHandler {
         $this->container = new LabelObjectTypeContainer($this->objectTypeID);
 
         foreach($this->categoryList as $category) {
-            $objectType = new LabelObjectType($category->getTitle(), $category->catgoryID, ($category->getDepth() - 1));
+            $objectType = new LabelObjectType($category->getTitle(), $category->catgoryID, $this->categoryList->getDepth());
             $this->container->add($objectType);
         }
     }
