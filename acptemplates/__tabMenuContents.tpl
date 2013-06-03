@@ -1,7 +1,11 @@
-<fieldset id="wikiCredits" class="container containerPadding hidden tabMenuContent">
+<fieldset id="wikiCredits"
+	class="container containerPadding hidden tabMenuContent">
 	<dl>
 		<dt>{lang}wiki.acp.index.credits.developedBy{/lang}</dt>
-		<dd><a href="{@$__wcf->getPath()}acp/dereferrer.php?url={"http://www.woltnet.com"|rawurlencode}" class="externalURL">WoltNet</a></dd>
+		<dd>
+			<a href="{@$__wcf->getPath()}acp/dereferrer.php?url={"
+				http://www.woltnet.com"|rawurlencode}" class="externalURL">WoltNet</a>
+		</dd>
 	</dl>
 
 	<dl>

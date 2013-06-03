@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/aclOption.xsd">
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/aclOption.xsd">
 	<import>
 		<categories>
 			<category name="user.category">
@@ -15,7 +16,7 @@
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</category>
 		</categories>
-		
+
 		<options>
 			<!-- user.category (com.woltnet.wiki.category) -->
 			<option name="canViewCategory">
@@ -43,7 +44,7 @@
 				<objecttype>com.woltnet.wiki.category</objecttype>
 			</option>
 			<!-- /user.category (com.woltnet.wiki.category) -->
-			
+
 			<!-- mod.category (com.woltnet.wiki.category) -->
 			<option name="canReadDeactivatedArticle">
 				<categoryname>mod.category</categoryname>
@@ -82,7 +83,7 @@
 				<objecttype>com.woltnet.wiki.category</objecttype>
 			</option>
 			<!-- /mod.category (com.woltnet.wiki.category) -->
-			
+
 			<!-- user.article (com.woltnet.wiki.article) -->
 			<option name="canViewArticle">
 				<categoryname>user.article</categoryname>
@@ -96,15 +97,15 @@
 				<categoryname>user.article</categoryname>
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</option>
-            <option name="canWriteComment">
+			<option name="canWriteComment">
 				<categoryname>user.article</categoryname>
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</option>
-            <option name="canEditOwnComment">
+			<option name="canEditOwnComment">
 				<categoryname>user.article</categoryname>
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</option>
-            <option name="canDeleteOwnComment">
+			<option name="canDeleteOwnComment">
 				<categoryname>user.article</categoryname>
 				<objecttype>com.woltnet.wiki.article</objecttype>
 			</option>

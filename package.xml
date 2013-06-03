@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package name="com.woltnet.wiki" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
+<package name="com.woltnet.wiki" xmlns="http://www.woltlab.com"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
 	<packageinformation>
 		<packagename><![CDATA[WoltNet - Wiki]]></packagename>
 		<packagedescription><![CDATA[Wiki Version for WCF 2.0]]></packagedescription>
@@ -15,23 +17,25 @@
 	</authorinformation>
 
 	<requiredpackages>
-        <requiredpackage minversion="2.0.0 Alpha 1">com.woltlab.wcf</requiredpackage>
-		<requiredpackage minversion="2.0.0 Beta 1" file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
-		<requiredpackage minversion="2.0.0 Beta 1" file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
+		<requiredpackage minversion="2.0.0 Alpha 1">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="2.0.0 Beta 1"
+			file="requirements/com.woltlab.wcf.conversation.tar">com.woltlab.wcf.conversation</requiredpackage>
+		<requiredpackage minversion="2.0.0 Beta 1"
+			file="requirements/com.woltnet.wiki.core.tar">com.woltnet.wiki.core</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
 		<!-- languages -->
 		<instruction type="language">language/*.xml</instruction>
-		
+
 		<!-- files -->
 		<instruction type="file">files.tar</instruction>
 		<instruction type="template">templates.tar</instruction>
-        <instruction type="acpTemplate">acptemplates.tar</instruction>
-		
+		<instruction type="acpTemplate">acptemplates.tar</instruction>
+
 		<!-- sql -->
 		<instruction type="sql">sql/install.sql</instruction>
-		
+
 		<!-- config -->
 		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
@@ -39,28 +43,28 @@
 		<instruction type="userProfileMenu">xml/userProfileMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
 		<instruction type="templateListener">xml/templateListener.xml</instruction>
-        <instruction type="eventListener">xml/eventListener.xml</instruction>
+		<instruction type="eventListener">xml/eventListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="aclOption">xml/aclOption.xml</instruction>
 		<instruction type="dashboardBox">xml/dashboardBox.xml</instruction>
-        <instruction type="sitemap">xml/sitemap.xml</instruction>
+		<instruction type="sitemap">xml/sitemap.xml</instruction>
 		<instruction type="script">acp/install_com.woltnet.wiki_1.0.0.php</instruction>
 	</instructions>
 
 	<instructions type="update" fromversion="1.0.0 Alpha *">
 		<!-- languages -->
 		<instruction type="language">language/*.xml</instruction>
-		
+
 		<!-- files -->
 		<instruction type="file">files.tar</instruction>
 		<instruction type="template">templates.tar</instruction>
-        <instruction type="acpTemplate">acptemplates.tar</instruction>
-		
+		<instruction type="acpTemplate">acptemplates.tar</instruction>
+
 		<!-- sql -->
 		<instruction type="sql">sql/install.sql</instruction>
-		
+
 		<!-- config -->
 		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
 		<instruction type="articleMenu">xml/articleMenu.xml</instruction>
@@ -68,11 +72,11 @@
 		<instruction type="userProfileMenu">xml/userProfileMenu.xml</instruction>
 		<instruction type="clipboardAction">xml/clipboardAction.xml</instruction>
 		<instruction type="templateListener">xml/templateListener.xml</instruction>
-        <instruction type="eventListener">xml/eventListener.xml</instruction>
+		<instruction type="eventListener">xml/eventListener.xml</instruction>
 		<instruction type="option">xml/option.xml</instruction>
 		<instruction type="objectType">xml/objectType.xml</instruction>
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="aclOption">xml/aclOption.xml</instruction>
-        <instruction type="sitemap">xml/sitemap.xml</instruction>
+		<instruction type="sitemap">xml/sitemap.xml</instruction>
 	</instructions>
 </package>

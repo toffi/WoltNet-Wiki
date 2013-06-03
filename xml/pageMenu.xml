@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/pageMenu.xsd">
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/pageMenu.xsd">
 	<import>
 		<pagemenuitem name="wiki.pageMenu.categoryList">
 			<controller><![CDATA[wiki\page\CategoryListPage]]></controller>
 			<position>header</position>
 		</pagemenuitem>
-        <pagemenuitem name="wiki.pageMenu.categoryList.watchedArticles">
+		<pagemenuitem name="wiki.pageMenu.categoryList.watchedArticles">
 			<controller><![CDATA[wiki\page\WatchedArticleListPage]]></controller>
 			<position>header</position>
 			<parent>wiki.pageMenu.categoryList</parent>

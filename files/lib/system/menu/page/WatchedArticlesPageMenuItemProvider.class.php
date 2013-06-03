@@ -11,37 +11,41 @@ use wcf\system\WCF;
 /**
  * Shows the new article form.
  *
- * @author	Rene Gessinger (NurPech)
- * @copyright	2012 WoltNet
- * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
- * @package	com.woltnet.wiki
- * @subpackage	system.menu.page
- * @category	WoltNet Wiki
+ * @author Rene Gessinger (NurPech)
+ * @copyright 2012 WoltNet
+ * @license GNU Lesser General Public License
+ *          <http://opensource.org/licenses/lgpl-license.php>
+ * @package com.woltnet.wiki
+ * @subpackage system.menu.page
+ * @category WoltNet Wiki
  */
 class WatchedArticlesPageMenuItemProvider extends DefaultPageMenuItemProvider {
 	/**
 	 * number of unread watched bugs.
-	 * @var	integer
+	 *
+	 * @var integer
 	 */
 	protected $notifications = null;
-
+	
 	/**
-	 * @see	wcf\system\menu\page\IPageMenuItemProvider::isVisible()
+	 *
+	 * @see wcf\system\menu\page\IPageMenuItemProvider::isVisible()
 	 */
 	public function isVisible() {
 		return (WCF::getUser()->userID ? true : false);
 	}
-
+	
 	/**
-	 * @see	wcf\system\menu\page\IPageMenuItemProvider::getNotifications()
+	 *
+	 * @see wcf\system\menu\page\IPageMenuItemProvider::getNotifications()
 	 */
 	public function getNotifications() {
-		if ($this->notifications === null) {
+		if($this->notifications === null) {
 			$this->notifications = 0;
 			
-			if (WCF::getUser()->userID) {
+			if(WCF::getUser()->userID) {
 				// load storage data
-				UserStorageHandler::getInstance()->loadStorage(array(
+				UserStorageHandler::getInstance()->loadStorage(array (
 						WCF::getUser()->userID 
 				));
 			}

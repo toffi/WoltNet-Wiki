@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/options.xsd">
-	<import>	
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/options.xsd">
+	<import>
 		<categories>
 			<category name="wiki"></category>
-			
+
 			<category name="wiki.article">
 				<parent>wiki</parent>
 			</category>
@@ -17,7 +18,7 @@
 				<parent>wiki.index</parent>
 			</category>
 		</categories>
-		
+
 		<options>
 			<!-- general -->
 			<option name="wiki_install_date">
@@ -26,7 +27,7 @@
 				<hidden>1</hidden>
 			</option>
 			<!-- /general -->
-			
+
 			<!-- wiki.general -->
 			<option name="wiki_index_enable_stats">
 				<categoryname>wiki.index.general</categoryname>
@@ -34,15 +35,15 @@
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<!-- /wiki.general -->
-			
-			<!-- wiki.categories-->
+
+			<!-- wiki.categories -->
 			<option name="wiki_category_list_depth">
 				<categoryname>wiki.index.categories</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<!-- /wiki.categories -->
-			
+
 			<!-- wiki.articles -->
 			<option name="wiki_category_articles_per_page">
 				<categoryname>wiki.article</categoryname>

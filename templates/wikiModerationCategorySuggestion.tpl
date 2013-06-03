@@ -4,11 +4,14 @@
 			<div>
 				<header class="messageHeader">
 					<div class="messageCredits box32">
-						<a href="{link controller='User' object=$categorySuggestion->getUserProfile()->getDecoratedObject()}{/link}" class="framed">{@$categorySuggestion->getUserProfile()->getAvatar()->getImageTag(32)}</a>
+						<a
+							href="{link controller='User' object=$categorySuggestion->getUserProfile()->getDecoratedObject()}{/link}"
+							class="framed">{@$categorySuggestion->getUserProfile()->getAvatar()->getImageTag(32)}</a>
 						<div>
-							<p><a href="{link controller='User' object=$categorySuggestion->getUserProfile()->getDecoratedObject()}{/link}">{$categorySuggestion->getUsername()}</a><p>
-
-							{@$categorySuggestion->time|time}
+							<p>
+								<a
+									href="{link controller='User' object=$categorySuggestion->getUserProfile()->getDecoratedObject()}{/link}">{$categorySuggestion->getUsername()}</a>
+							<p>{@$categorySuggestion->time|time}
 						</div>
 					</div>
 
@@ -17,8 +20,7 @@
 
 				<div class="messageBody">
 					<div>
-						<div class="messageText">
-							{$categorySuggestion->getReason()}
+						<div class="messageText">{$categorySuggestion->getReason()}
 						</div>
 					</div>
 				</div>

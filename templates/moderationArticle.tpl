@@ -4,11 +4,14 @@
 			<div>
 				<header class="messageHeader">
 					<div class="messageCredits box32">
-						<a href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}" class="framed">{@$article->getUserProfile()->getAvatar()->getImageTag(32)}</a>
+						<a
+							href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}"
+							class="framed">{@$article->getUserProfile()->getAvatar()->getImageTag(32)}</a>
 						<div>
-							<p><a href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}">{$article->getUsername()}</a><p>
-
-							{@$article->time|time}
+							<p>
+								<a
+									href="{link controller='User' object=$article->getUserProfile()->getDecoratedObject()}{/link}">{$article->getUsername()}</a>
+							<p>{@$article->time|time}
 						</div>
 					</div>
 
@@ -17,8 +20,7 @@
 
 				<div class="messageBody">
 					<div>
-						<div class="messageText">
-							{@$article->getFormattedMessage()}
+						<div class="messageText">{@$article->getFormattedMessage()}
 						</div>
 					</div>
 				</div>

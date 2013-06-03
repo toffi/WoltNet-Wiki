@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/templatelistener.xsd">
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/templatelistener.xsd">
 	<import>
-        <!-- admin -->
-        <templatelistener name="tabMenuTabs">
+		<!-- admin -->
+		<templatelistener name="tabMenuTabs">
 			<environment>admin</environment>
 			<templatename>index</templatename>
 			<eventname>tabMenuTabs</eventname>
@@ -14,20 +15,20 @@
 			<eventname>tabMenuContents</eventname>
 			<templatecode><![CDATA[{include file='__tabMenuContents' application='wiki'}]]></templatecode>
 		</templatelistener>
-        <templatelistener name="headerLogo">
-            <environment>admin</environment>
-            <templatename>header</templatename>
-            <eventname>headerLogo</eventname>
-            <templatecode><![CDATA[{include file='__headerLogo' application='wiki'}]]></templatecode>
-        </templatelistener>
-        <templatelistener name="plusSign">
-            <environment>admin</environment>
-            <templatename>categoryList</templatename>
-            <eventname>itemButtons</eventname>
-            <templatecode><![CDATA[{include file='__pkusSign' application='wiki'}]]></templatecode>
-        </templatelistener>
-        
-        <!-- user -->
+		<templatelistener name="headerLogo">
+			<environment>admin</environment>
+			<templatename>header</templatename>
+			<eventname>headerLogo</eventname>
+			<templatecode><![CDATA[{include file='__headerLogo' application='wiki'}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="plusSign">
+			<environment>admin</environment>
+			<templatename>categoryList</templatename>
+			<eventname>itemButtons</eventname>
+			<templatecode><![CDATA[{include file='__pkusSign' application='wiki'}]]></templatecode>
+		</templatelistener>
+
+		<!-- user -->
 		<templatelistener name="wikiCopyright">
 			<environment>user</environment>
 			<templatename>footer</templatename>
@@ -40,7 +41,7 @@
 			<eventname>javascriptInclude</eventname>
 			<templatecode><![CDATA[{include file='__javascriptInclude' application='wiki'}]]></templatecode>
 		</templatelistener>
-        <templatelistener name="wikiJavascriptInit">
+		<templatelistener name="wikiJavascriptInit">
 			<environment>user</environment>
 			<templatename>headInclude</templatename>
 			<eventname>javascriptInit</eventname>
@@ -70,13 +71,13 @@
 			<eventname>navigationIcons</eventname>
 			<templatecode><![CDATA[{include file='__navigationIcons' application='wiki'}]]></templatecode>
 		</templatelistener>
-        <templatelistener name="wikiHeaderLogo">
-            <environment>user</environment>
-            <templatename>header</templatename>
-            <eventname>headerLogo</eventname>
-            <templatecode><![CDATA[{include file='__headerLogo' application='wiki'}]]></templatecode>
-        </templatelistener>
-        <templatelistener name="userInformationStatistics">
+		<templatelistener name="wikiHeaderLogo">
+			<environment>user</environment>
+			<templatename>header</templatename>
+			<eventname>headerLogo</eventname>
+			<templatecode><![CDATA[{include file='__headerLogo' application='wiki'}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="userInformationStatistics">
 			<environment>user</environment>
 			<templatename>userInformationStatistics</templatename>
 			<eventname>statistics</eventname>
@@ -88,7 +89,7 @@
 			<eventname>statistics</eventname>
 			<templatecode><![CDATA[{include file='__userInformationStatistics' application='wiki'}]]></templatecode>
 		</templatelistener>
-        <templatelistener name="searchAreaSettings">
+		<templatelistener name="searchAreaSettings">
 			<environment>user</environment>
 			<templatename>searchArea</templatename>
 			<eventname>settings</eventname>
