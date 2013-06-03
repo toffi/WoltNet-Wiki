@@ -39,30 +39,9 @@ CREATE TABLE wiki1_category_suggestion (
     username		VARCHAR(255) NOT NULL
 );
 
--- labels
-DROP TABLE IF EXISTS wiki1_article_label;
-CREATE TABLE wiki1_article_label (
-    labelID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    categoryID INT(10),
-    label VARCHAR(80) NOT NULL DEFAULT '',
-    cssClassName VARCHAR(255) NOT NULL
-);
-
-DROP TABLE IF EXISTS wiki1_article_label_to_object;
-CREATE TABLE wiki1_article_label_to_object (
-    labelID INT(10) NOT NULL,
-    articleID INT(10) NOT NULL,
-    UNIQUE KEY (labelID, articleID)
-);
-
 -- foreign keys
 ALTER TABLE wiki1_article ADD FOREIGN KEY (categoryID) REFERENCES wcf1_category (categoryID) ON DELETE CASCADE;
 ALTER TABLE wiki1_article ADD FOREIGN KEY (languageID) REFERENCES wcf1_language (languageID) ON DELETE CASCADE;
 ALTER TABLE wiki1_article_version ADD FOREIGN KEY (userID) REFERENCES wcf1_user (userID) ON DELETE SET NULL;
 ALTER TABLE wiki1_article_version ADD FOREIGN KEY (articleID) REFERENCES wiki1_article (articleID) ON DELETE CASCADE;
 ALTER TABLE wiki1_article ADD FOREIGN KEY (activeVersionID) REFERENCES wiki1_article_version (versionID) ON DELETE SET NULL;
-
-ALTER TABLE wiki1_article_label ADD FOREIGN KEY (categoryID) REFERENCES wcf1_category (categoryID) ON DELETE CASCADE;
-
-ALTER TABLE wiki1_article_label_to_object ADD FOREIGN KEY (labelID) REFERENCES wiki1_article_label (labelID) ON DELETE CASCADE;
-ALTER TABLE wiki1_article_label_to_object ADD FOREIGN KEY (articleID) REFERENCES wiki1_article (articleID) ON DELETE CASCADE;

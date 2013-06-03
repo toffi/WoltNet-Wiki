@@ -61,13 +61,7 @@ class CategoryArticleList extends ViewableArticleList {
 
         // filter by label id
         if($labelID) {
-            $this->getConditionBuilder()->add("article.articleID IN (
-                SELECT	articleID
-                FROM	wiki" . WCF_N . "_article_label_to_object
-                WHERE	labelID = ?
-            )", array (
-                    $labelID
-            ));
+
         }
 
         // article language

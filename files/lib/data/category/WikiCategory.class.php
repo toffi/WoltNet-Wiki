@@ -5,6 +5,7 @@ use wcf\data\category\AbstractDecoratedCategory;
 use wcf\system\category\CategoryPermissionHandler;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\PermissionDeniedException;
+use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\WCF;
 
@@ -91,31 +92,5 @@ class WikiCategory extends AbstractDecoratedCategory {
      */
     public function isAccessible() {
         return $this->getPermission('canViewCategory') && $this->getPermission('canEnterCategory');
-    }
-
-    /**
-     * Returns true, if the given User has subscribed this category
-     *
-     * @param integer $userID
-     * @return boolean
-     */
-    public function isWatched($userID = 0) {
-        $userID = ($userID > 0) ? $userID : WCF::getUser()->userID;
-
-        $sql = "SELECT COUNT(*) AS count
-                FROM wcf" . WCF_N . "_user_object_watch
-                WHERE objectID = ?
-                    AND objectTypeID = ?
-                    AND userID = ?";
-        $statement = WCF::getDB()->prepareStatement($sql);
-        $statement->execute(array (
-                $this->categoryID,
-                ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.category')->objectTypeID,
-                $userID
-        ));
-        $row = $statement->fetchArray();
-        if($row['count'] > 0)
-            return true;
-        return false;
     }
 }

@@ -137,7 +137,6 @@ class CategoryPage extends SortablePage {
             throw new IllegalLinkException();
         }
 
-        $this->labelList = ArticleLabel::getLabelsByCategory($this->categoryID);
         if(isset($_REQUEST['labelID'])) {
             $this->labelID = intval($_REQUEST['labelID']);
 
