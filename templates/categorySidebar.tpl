@@ -1,29 +1,51 @@
-{capture assign='sidebar'}
-<fieldset class="jsOnly">
-	<legend>{lang}wiki.article.label{/lang}</legend>
+{capture assign='sidebar'} {* labels *} {if $labelGroups|count}
+<fieldset>
+	<legend>{lang}wcf.label.label{/lang}</legend>
 
-	<div id="articleLabelFilter" class="dropdown">
-		<div class="dropdownToggle" data-toggle="articleLabelFilter">
-			{if $labelID} {foreach from=$labelList item=label} {if
-			$label->labelID == $labelID} <span
-				class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</span>
-			{/if} {/foreach} {else} <span class="badge">{lang}wiki.article.label.filter{/lang}</span>
-			{/if}
-		</div>
-
-		<ul class="dropdownMenu">
-			{foreach from=$labelList item=label}
-			<li><a
-				href="{link controller='Category' application='wiki' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}"><span
-					class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}"
-					data-css-class-name="{if $label->cssClassName}{@$label->cssClassName}{/if}"
-					data-label-id="{@$label->labelID}">{$label->label}</span></a></li>
-			{/foreach}
-			<li class="dropdownDivider"
-				{if !$labelList|count} style="display: none;"{/if}></li>
-			<li><a
-				href="{link controller='Category' application='wiki' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}{/link}">{lang}wiki.article.label.disableFilter{/lang}</a></li>
-		</ul>
-	</div>
+	<dl>
+		<dd>
+			<ul class="labelList jsOnly">
+				{foreach from=$labelGroups item=labelGroup} {if $labelGroup|count}
+				<li class="dropdown labelChooser"
+					id="labelGroup{@$labelGroup->groupID}"
+					data-group-id="{@$labelGroup->groupID}">
+					<div class="dropdownToggle"
+						data-toggle="labelGroup{@$labelGroup->groupID}">
+						<span class="badge label">{lang}wcf.label.all{/lang}</span>
+					</div>
+					<ul class="dropdownMenu">
+						{foreach from=$labelGroup item=label}
+						<li data-label-id="{@$label->labelID}"><span><span
+								class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{lang}{$label->label}{/lang}</span></span></li>
+						{/foreach}
+					</ul>
+				</li> {/if} {/foreach}
+			</ul>
+			<noscript>
+				{foreach from=$labelGroups item=labelGroup} {if $labelGroup|count} <select
+					name="labelIDs[{@$labelGroup->groupID}]">
+					<option value="0">{lang}wcf.label.all{/lang}</option>
+					<option value="-1">{lang}wcf.label.withoutSelection{/lang}</option>
+					{foreach from=$labelGroup item=label}
+					<option value="{@$label->labelID}" {if $labelIDs[$labelGroup->groupID]|isset
+						&& $labelIDs[$labelGroup->groupID] == $label->labelID}
+						selected="selected"{/if}>{lang}{$label->label}{/lang}</option> {/foreach}
+				</select> {/if} {/foreach}
+			</noscript>
+		</dd>
+	</dl>
 </fieldset>
-{/capture}
+<script type="text/javascript">
+                //<![CDATA[
+                $(function() {
+                    WCF.Language.addObject({
+                        'wcf.label.all': '{lang}wcf.label.all{/lang}',
+                        'wcf.label.none': '{lang}wcf.label.none{/lang}',
+                        'wcf.label.withoutSelection': '{lang}wcf.label.withoutSelection{/lang}'
+                    });
+
+                    new WCF.Label.Chooser({ {implode from=$labelIDs key=groupID item=labelID}{@$groupID}: {@$labelID}{/implode} }, '#sidebarContainer', undefined, true);
+                });
+                //]]>
+            </script>
+{/if} {/capture}
