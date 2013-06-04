@@ -19,70 +19,70 @@ use wcf\system\WCF;
  */
 class DiscussArticleMenuContent extends SingletonFactory implements IArticleMenuContent {
 
-    public $articleID = 0;
+	public $articleID = 0;
 
-    public $articleVersionID = 0;
+	public $articleVersionID = 0;
 
-    /**
-     * comment list object
-     *
-     * @var wcf\data\comment\StructuredCommentList
-     */
-    public $commentList = null;
+	/**
+	 * comment list object
+	 *
+	 * @var wcf\data\comment\StructuredCommentList
+	 */
+	public $commentList = null;
 
-    /**
-     * comment manager object
-     *
-     * @var wcf\system\comment\manager\ICommentManager
-     */
-    public $commentManager = null;
+	/**
+	 * comment manager object
+	 *
+	 * @var wcf\system\comment\manager\ICommentManager
+	 */
+	public $commentManager = null;
 
-    /**
-     * object type id
-     *
-     * @var integer
-     */
-    public $objectTypeID = 0;
+	/**
+	 * object type id
+	 *
+	 * @var integer
+	 */
+	public $objectTypeID = 0;
 
-    /**
-     *
-     * @see wcf\system\SingletonFactory::init()
-     */
-    protected function init() {
-        EventHandler::getInstance()->fireAction($this, 'shouldInit');
+	/**
+	 *
+	 * @see wcf\system\SingletonFactory::init()
+	 */
+	protected function init() {
+		EventHandler::getInstance()->fireAction($this, 'shouldInit');
+		
+		EventHandler::getInstance()->fireAction($this, 'didInit');
+	}
 
-        EventHandler::getInstance()->fireAction($this, 'didInit');
-    }
+	public function readData() {
+		$this->objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
+		$objectType = CommentHandler::getInstance()->getObjectType($this->objectTypeID);
+		$this->commentManager = $objectType->getProcessor();
+		
+		$this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->objectTypeID, $this->articleID);
+	}
 
-    public function readData() {
-        $this->objectTypeID = CommentHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.articleComment');
-        $objectType = CommentHandler::getInstance()->getObjectType($this->objectTypeID);
-        $this->commentManager = $objectType->getProcessor();
-
-        $this->commentList = CommentHandler::getInstance()->getCommentList($this->commentManager, $this->objectTypeID, $this->articleID);
-    }
-
-    /**
-     *
-     * @see wiki\system\menu\article\content\IArticleMenuContent::getContent()
-     */
-    public function getContent($articleVersionID) {
-        $this->articleVersionID = $articleVersionID;
-        $articleVersion = ArticleCache::getInstance()->getArticleVersion($articleVersionID);
-
-        $this->articleID = $articleVersion->articleID;
-        $article = ArticleCache::getInstance()->getArticle($this->articleID);
-
-        $this->readData();
-
-        WCF::getTPL()->assign(array (
-                'article' => $article,
-                'commentList' => $this->commentList,
-                'commentObjectTypeID' => $this->objectTypeID,
-                'commentCanAdd' => $this->commentManager->canAdd($this->articleVersionID),
-                'lastCommentTime' => $this->commentList->getMinCommentTime(),
-                'commentsPerPage' => $this->commentManager->getCommentsPerPage()
-        ));
-        return WCF::getTPL()->fetch('articleCommentList', 'wiki');
-    }
+	/**
+	 *
+	 * @see wiki\system\menu\article\content\IArticleMenuContent::getContent()
+	 */
+	public function getContent($articleVersionID) {
+		$this->articleVersionID = $articleVersionID;
+		$articleVersion = ArticleCache::getInstance()->getArticleVersion($articleVersionID);
+		
+		$this->articleID = $articleVersion->articleID;
+		$article = ArticleCache::getInstance()->getArticle($this->articleID);
+		
+		$this->readData();
+		
+		WCF::getTPL()->assign(array (
+				'article' => $article,
+				'commentList' => $this->commentList,
+				'commentObjectTypeID' => $this->objectTypeID,
+				'commentCanAdd' => $this->commentManager->canAdd($this->articleVersionID),
+				'lastCommentTime' => $this->commentList->getMinCommentTime(),
+				'commentsPerPage' => $this->commentManager->getCommentsPerPage() 
+		));
+		return WCF::getTPL()->fetch('articleCommentList', 'wiki');
+	}
 }

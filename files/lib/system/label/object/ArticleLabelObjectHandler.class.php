@@ -15,9 +15,9 @@ use wcf\system\label\object\AbstractLabelObjectHandler;
  */
 class ArticleLabelObjectHandler extends AbstractLabelObjectHandler {
 
-    /**
-     *
-     * @see wcf\system\label\object\AbstractLabelObjectHandler::$objectType
-     */
-    protected $objectType = 'com.woltnet.wiki.article';
+	/**
+	 *
+	 * @see wcf\system\label\object\AbstractLabelObjectHandler::$objectType
+	 */
+	protected $objectType = 'com.woltnet.wiki.article';
 }

@@ -4,7 +4,6 @@ namespace wiki\page;
 use wiki\data\category\WikiCategoryNodeTree;
 use wiki\data\category\WikiCategory;
 use wiki\data\article\CategoryArticleList;
-use wiki\data\article\label\ArticleLabel;
 use wcf\page\SortablePage;
 use wcf\system\category\CategoryHandler;
 use wcf\system\exception\IllegalLinkException;
@@ -79,18 +78,18 @@ class CategoryPage extends SortablePage {
     );
 
     /**
-     * label id
+     * label filter
      *
-     * @var integer
+     * @var array<integer>
      */
-    public $labelID = 0;
+    public $labelIDs = array ();
 
     /**
-     * label list object
+     * list of available label groups
      *
-     * @var wiki\data\article\label\ArticleLabelList
+     * @var array<wcf\data\label\group\ViewableLabelGroup>
      */
-    public $labelList = null;
+    public $labelGroups = array ();
 
     /**
      * list filter
@@ -137,19 +136,21 @@ class CategoryPage extends SortablePage {
             throw new IllegalLinkException();
         }
 
-        if(isset($_REQUEST['labelID'])) {
-            $this->labelID = intval($_REQUEST['labelID']);
+        if(isset($_REQUEST['labelIDs']) && is_array($_REQUEST['labelIDs'])) {
+            $this->labelIDs = $_REQUEST['labelIDs'];
 
             $validLabel = false;
-            foreach($this->labelList as $label) {
-                if($label->labelID == $this->labelID) {
-                    $validLabel = true;
-                    break;
+            foreach($this->labelIDs as $labelID) {
+                foreach($this->labelGroups as $labelGroup) {
+                    if($labelGroup->isValid($labelID)) {
+                        $validLabel = true;
+                        break;
+                    }
                 }
-            }
-
-            if(! $validLabel) {
-                throw new IllegalLinkException();
+                if(! $validLabel) {
+                    throw new IllegalLinkException();
+                }
+                $validLabel = false;
             }
         }
 
@@ -170,6 +171,8 @@ class CategoryPage extends SortablePage {
         $categoryTree = new WikiCategoryNodeTree($this->objectTypeName, $this->category->categoryID);
         $this->categoryNodeList = $categoryTree->getIterator();
         $this->categoryNodeList->setMaxDepth(0);
+
+        $this->labelGroups = $this->category->getAvailableLabelGroups();
 
         foreach($this->category->getParentCategories() as $categoryItem) {
             WCF::getBreadcrumbs()->add(new Breadcrumb($categoryItem->getTitle(), LinkHandler::getInstance()->getLink('Category', array (
@@ -197,8 +200,8 @@ class CategoryPage extends SortablePage {
                 'hasMarkedItems' => ClipboardHandler::getInstance()->hasMarkedItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')),
                 'sidebarCollapsed' => UserCollapsibleContentHandler::getInstance()->isCollapsed('com.woltlab.wcf.collapsibleSidebar', 'com.woltnet.wiki.category'),
                 'sidebarName' => 'com.woltnet.wiki.category',
-                'labelID' => $this->labelID,
-                'labelList' => $this->labelList
+                'labelGroups' => $this->labelGroups,
+                'labelIDs' => $this->labelIDs
         ));
     }
 
@@ -207,7 +210,7 @@ class CategoryPage extends SortablePage {
      * @see wcf\page\MultipleLinkPage::initObjectList()
      */
     protected function initObjectList() {
-        $this->objectList = new CategoryArticleList($this->category, $this->categoryID, $this->labelID);
+        $this->objectList = new CategoryArticleList($this->category, $this->categoryID, $this->labelIDs);
         $this->objectList->setLabelList($this->labelList);
     }
 

@@ -14,9 +14,9 @@ use wcf\data\DatabaseObjectList;
  */
 class CategorySuggestionList extends DatabaseObjectList {
 
-    /**
-     *
-     * @see wcf\data\DatabaseObjectList::$className
-     */
-    public $className = 'wiki\data\category\suggestion\CategorySuggestion';
+	/**
+	 *
+	 * @see wcf\data\DatabaseObjectList::$className
+	 */
+	public $className = 'wiki\data\category\suggestion\CategorySuggestion';
 }

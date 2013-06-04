@@ -17,23 +17,23 @@ use wcf\data\tag\Tag;
  */
 class TaggableArticle implements ITaggable {
 
-    /**
-     *
-     * @see wcf\system\tagging\ITaggable::getObjectTypeID()
-     */
-    public function getObjectList(Tag $tag) {
-        return new TaggedArticleList($tag);
-    }
+	/**
+	 *
+	 * @see wcf\system\tagging\ITaggable::getObjectTypeID()
+	 */
+	public function getObjectList(Tag $tag) {
+		return new TaggedArticleList($tag);
+	}
 
-    /**
-     *
-     * @see wcf\system\tagging\ITaggable::getApplication()
-     */
-    public function getApplication() {
-        return 'wiki';
-    }
+	/**
+	 *
+	 * @see wcf\system\tagging\ITaggable::getApplication()
+	 */
+	public function getApplication() {
+		return 'wiki';
+	}
 
-    public function getTemplateName() {
-        return 'taggedArticles';
-    }
+	public function getTemplateName() {
+		return 'taggedArticles';
+	}
 }

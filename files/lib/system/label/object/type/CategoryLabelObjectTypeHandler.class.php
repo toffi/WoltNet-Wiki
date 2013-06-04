@@ -18,55 +18,55 @@ use wcf\system\label\object\type\LabelObjectTypeContainer;
  */
 class CategoryLabelObjectTypeHandler extends AbstractLabelObjectTypeHandler {
 
-    /**
-     * category node list
-     */
-    public $categoryList = null;
+	/**
+	 * category node list
+	 */
+	public $categoryList = null;
 
-    /**
-     * object type id
-     *
-     * @var integer
-     */
-    public $objectTypeID = 0;
+	/**
+	 * object type id
+	 *
+	 * @var integer
+	 */
+	public $objectTypeID = 0;
 
-    /**
-     * object type name
-     *
-     * @var string
-     */
-    public $objectTypeName = 'com.woltnet.wiki.category';
+	/**
+	 * object type name
+	 *
+	 * @var string
+	 */
+	public $objectTypeName = 'com.woltnet.wiki.category';
 
-    /**
-     *
-     * @see wcf\system\SingletonFactory::init()
-     */
-    protected function init() {
-        // get category list
-        $categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
-        $this->categoryList = $categoryTree->getIterator();
-    }
+	/**
+	 *
+	 * @see wcf\system\SingletonFactory::init()
+	 */
+	protected function init() {
+		// get category list
+		$categoryTree = new WikiCategoryNodeTree($this->objectTypeName);
+		$this->categoryList = $categoryTree->getIterator();
+	}
 
-    /**
-     *
-     * @see wcf\system\label\object\type\AbstractLabelObjectTypeHandler::setObjectTypeID()
-     */
-    public function setObjectTypeID($objectTypeID) {
-        parent::setObjectTypeID($objectTypeID);
+	/**
+	 *
+	 * @see wcf\system\label\object\type\AbstractLabelObjectTypeHandler::setObjectTypeID()
+	 */
+	public function setObjectTypeID($objectTypeID) {
+		parent::setObjectTypeID($objectTypeID);
+		
+		// build label object type container
+		$this->container = new LabelObjectTypeContainer($this->objectTypeID);
+		
+		foreach($this->categoryList as $category) {
+			$objectType = new LabelObjectType($category->getTitle(), $category->categoryID, $this->categoryList->getDepth());
+			$this->container->add($objectType);
+		}
+	}
 
-        // build label object type container
-        $this->container = new LabelObjectTypeContainer($this->objectTypeID);
-
-        foreach($this->categoryList as $category) {
-            $objectType = new LabelObjectType($category->getTitle(), $category->categoryID, $this->categoryList->getDepth());
-            $this->container->add($objectType);
-        }
-    }
-
-    /**
-     *
-     * @see wcf\system\label\object\type\ILabelObjectTypeHandler::save()
-     */
-    public function save() {
-    }
+	/**
+	 *
+	 * @see wcf\system\label\object\type\ILabelObjectTypeHandler::save()
+	 */
+	public function save() {
+	}
 }

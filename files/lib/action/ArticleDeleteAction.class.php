@@ -21,60 +21,60 @@ use wcf\system\exception\PermissionDeniedException;
  */
 class ArticleDeleteAction extends AbstractAction {
 
-    public $articleID = 0;
+	public $articleID = 0;
 
-    public $article = null;
+	public $article = null;
 
-    /**
-     * database object action
-     *
-     * @var wcf\data\AbstractDatabaseObjectAction
-     */
-    public $objectAction = null;
+	/**
+	 * database object action
+	 *
+	 * @var wcf\data\AbstractDatabaseObjectAction
+	 */
+	public $objectAction = null;
 
-    /**
-     *
-     * @see wiki\action\AbstractWikiAction::readParameters()
-     */
-    public function readParameters() {
-        parent::readParameters();
+	/**
+	 *
+	 * @see wiki\action\AbstractWikiAction::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		if(isset($_GET['id']))
+			$this->articleID = intval($_GET['id']);
+		
+		$this->readData();
+	}
 
-        if(isset($_GET['id']))
-            $this->articleID = intval($_GET['id']);
+	/**
+	 *
+	 * @see wiki\action\AbstractWikiAction::readData()
+	 */
+	public function readData() {
+		$this->article = ArticleCache::getInstance()->getArticle($this->articleID);
+		
+		if($this->article === null || ! $this->article->articleID) {
+			throw new IllegalLinkException();
+		}
+		
+		if(! $this->article->isDeletable()) {
+			throw new PermissionDeniedException();
+		}
+	}
 
-        $this->readData();
-    }
-
-    /**
-     *
-     * @see wiki\action\AbstractWikiAction::readData()
-     */
-    public function readData() {
-        $this->article = ArticleCache::getInstance()->getArticle($this->articleID);
-
-        if($this->article === null || ! $this->article->articleID) {
-            throw new IllegalLinkException();
-        }
-
-        if(! $this->article->isDeletable()) {
-            throw new PermissionDeniedException();
-        }
-    }
-
-    /**
-     *
-     * @see wcf\action\AbstractAction::execute()
-     */
-    public function execute() {
-        $this->objectAction = new ArticleAction(array (
-                $this->article->articleID
-        ), 'delete');
-        $this->objectAction->validateAction();
-        $this->objectAction->executeAction();
-
-        HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Category', array (
-                'application' => 'wiki',
-                'object' => $this->article->getCategory()
-        )));
-    }
+	/**
+	 *
+	 * @see wcf\action\AbstractAction::execute()
+	 */
+	public function execute() {
+		$this->objectAction = new ArticleAction(array (
+				$this->article->articleID 
+		), 'delete');
+		$this->objectAction->validateAction();
+		$this->objectAction->executeAction();
+		
+		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Category', array (
+				'application' => 'wiki',
+				'object' => $this->article->getCategory() 
+		)));
+	}
 }

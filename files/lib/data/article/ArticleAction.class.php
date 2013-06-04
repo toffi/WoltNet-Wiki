@@ -28,382 +28,382 @@ use wcf\system\WCF;
  */
 class ArticleAction extends AbstractDatabaseObjectAction implements IClipboardAction, IMessageQuoteAction {
 
-    /**
-     *
-     * @see wcf\data\AbstractDatabaseObjectAction::$className
-     */
-    protected $className = 'wiki\data\article\ArticleEditor';
+	/**
+	 *
+	 * @see wcf\data\AbstractDatabaseObjectAction::$className
+	 */
+	protected $className = 'wiki\data\article\ArticleEditor';
 
-    /**
-     * list of active articles
-     *
-     * @var array<wiki\data\article\Article>
-     */
-    public $articles = array ();
+	/**
+	 * list of active articles
+	 *
+	 * @var array<wiki\data\article\Article>
+	 */
+	public $articles = array ();
 
-    /**
-     * article object
-     *
-     * @var wiki\data\article\Article
-     */
-    public $message = null;
+	/**
+	 * article object
+	 *
+	 * @var wiki\data\article\Article
+	 */
+	public $message = null;
 
-    /**
-     *
-     * @see DatabaseObjectEditor::create()
-     */
-    public function create() {
-        if(! isset($this->parameters['articleData']['translationID']))
-            $this->parameters['articleData']['translationID'] = ArticleUtil::getNextTranslationID();
+	/**
+	 *
+	 * @see DatabaseObjectEditor::create()
+	 */
+	public function create() {
+		if(! isset($this->parameters['articleData']['translationID']))
+			$this->parameters['articleData']['translationID'] = ArticleUtil::getNextTranslationID();
+		
+		$object = call_user_func(array (
+				$this->className,
+				'create' 
+		), $this->parameters['articleData']);
+		$this->parameters['versionData']['articleID'] = $object->articleID;
+		
+		$this->parameters['object'] = $object;
+		
+		$objectAction = new ArticleVersionAction(array (), 'create', $this->parameters);
+		$resultValues = $objectAction->executeAction();
+		
+		$versionObject = $resultValues['returnValues'];
+		
+		return $versionObject;
+	}
 
-        $object = call_user_func(array (
-                $this->className,
-                'create'
-        ), $this->parameters['articleData']);
-        $this->parameters['versionData']['articleID'] = $object->articleID;
+	/**
+	 * Validating parameters for trashing articles.
+	 */
+	public function validateTrash() {
+		$this->loadArticles();
+		
+		foreach($this->articles as $article) {
+			if($article->isDeleted) {
+				throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
+			}
+			
+			if(! $article->isTrashable()) {
+				throw new PermissionDeniedException();
+			}
+		}
+	}
 
-        $this->parameters['object'] = $object;
+	/**
+	 * Trashes given articles.
+	 *
+	 * @return array<array>
+	 */
+	public function trash() {
+		foreach($this->articles as $article) {
+			$articleEditor = new ArticleEditor($article);
+			$articleEditor->update(array (
+					'isDeleted' => 1,
+					'deleteTime' => TIME_NOW 
+			));
+		}
+		
+		$this->unmarkItems();
+	}
 
-        $objectAction = new ArticleVersionAction(array (), 'create', $this->parameters);
-        $resultValues = $objectAction->executeAction();
+	/**
+	 * Validating parameters for restoring articles.
+	 */
+	public function validateRestore() {
+		$this->loadArticles();
+		
+		foreach($this->articles as $article) {
+			if(! $article->isDeleted) {
+				throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
+			}
+			
+			if(! $article->isRestorable()) {
+				throw new PermissionDeniedException();
+			}
+		}
+	}
 
-        $versionObject = $resultValues['returnValues'];
+	/**
+	 * Restores given articles.
+	 *
+	 * @return array<array>
+	 */
+	public function restore() {
+		foreach($this->articles as $article) {
+			$articleEditor = new ArticleEditor($article);
+			$articleEditor->update(array (
+					'isDeleted' => 0,
+					'deleteTime' => 0 
+			));
+		}
+		
+		$this->unmarkItems();
+	}
 
-        return $versionObject;
-    }
+	public function validateDelete() {
+		// read objects
+		if(empty($this->objects)) {
+			$this->readObjects();
+			
+			if(empty($this->objects)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+		
+		foreach($this->objects as $object) {
+			if(! $object->isDeletable())
+				throw new PermissionDeniedException();
+		}
+	}
 
-    /**
-     * Validating parameters for trashing articles.
-     */
-    public function validateTrash() {
-        $this->loadArticles();
+	/**
+	 * Validating for enabling articles.
+	 */
+	public function validateEnable() {
+		$this->loadArticles();
+		
+		foreach($this->articles as $article) {
+			if(! $article->isActive) {
+				throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
+			}
+		}
+	}
 
-        foreach($this->articles as $article) {
-            if($article->isDeleted) {
-                throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
-            }
+	/**
+	 * Enables given articles.
+	 *
+	 * @return array<array>
+	 */
+	public function enable() {
+		foreach($this->articles as $article) {
+			$articleEditor = new ArticleEditor($article);
+			$articleEditor->setActive();
+		}
+		
+		$this->unmarkItems();
+	}
 
-            if(! $article->isTrashable()) {
-                throw new PermissionDeniedException();
-            }
-        }
-    }
+	/**
+	 * Validates user access for label management.
+	 */
+	public function validateGetLabelManagement() {
+		if(! WCF::getSession()->getPermission('mod.wiki.category.canManageLabels')) {
+			throw new PermissionDeniedException();
+		}
+		
+		$this->parameters['data']['categoryID'] = (isset($this->parameters['data']['categoryID'])) ? intval($this->parameters['data']['categoryID']) : 0;
+		if(empty($this->parameters['data']['categoryID'])) {
+			throw new UserInputException('categoryID');
+		}
+	}
 
-    /**
-     * Trashes given articles.
-     *
-     * @return array<array>
-     */
-    public function trash() {
-        foreach($this->articles as $article) {
-            $articleEditor = new ArticleEditor($article);
-            $articleEditor->update(array (
-                    'isDeleted' => 1,
-                    'deleteTime' => TIME_NOW
-            ));
-        }
+	/**
+	 * Returns the article label management.
+	 *
+	 * @return array
+	 */
+	public function getLabelManagement() {
+		WCF::getTPL()->assign(array (
+				'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
+				'labelList' => ArticleLabel::getLabelsByCategory($this->parameters['data']['categoryID']),
+				'categoryID' => $this->parameters['data']['categoryID'] 
+		));
+		
+		return array (
+				'actionName' => 'getLabelManagement',
+				'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki') 
+		);
+	}
 
-        $this->unmarkItems();
-    }
+	/**
+	 * Loads articles for given object ids.
+	 */
+	protected function loadArticles() {
+		if(empty($this->objectIDs)) {
+			throw new UserInputException("objectIDs");
+		}
+		
+		// load articles
+		$articleList = new ArticleList();
+		$articleList->getConditionBuilder()->add("article.articleID IN (?)", array (
+				$this->objectIDs 
+		));
+		$articleList->sqlLimit = 0;
+		$articleList->readObjects();
+		
+		foreach($articleList as $article) {
+			$this->articles[$article->articleID] = $article;
+		}
+		
+		if(empty($this->articles)) {
+			throw new UserInputException("objectIDs");
+		}
+	}
 
-    /**
-     * Validating parameters for restoring articles.
-     */
-    public function validateRestore() {
-        $this->loadArticles();
+	/**
+	 * Marks articles as read.
+	 */
+	public function markAsRead() {
+		if(empty($this->parameters['visitTime'])) {
+			$this->parameters['visitTime'] = TIME_NOW;
+		}
+		
+		if(! count($this->articles)) {
+			$this->loadArticles();
+		}
+		
+		foreach($this->articles as $article) {
+			VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.article', $article->articleID, $this->parameters['visitTime']);
+		}
+		
+		// reset storage
+		if(WCF::getUser()->userID) {
+			UserStorageHandler::getInstance()->reset(array (
+					WCF::getUser()->userID 
+			), 'unreadArticles', PACKAGE_ID);
+		}
+	}
 
-        foreach($this->articles as $article) {
-            if(! $article->isDeleted) {
-                throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
-            }
+	/**
+	 *
+	 * @see wcf\data\IClipboardAction::validateUnmarkAll()
+	 */
+	public function validateUnmarkAll() {
+		// does nothing
+	}
 
-            if(! $article->isRestorable()) {
-                throw new PermissionDeniedException();
-            }
-        }
-    }
+	/**
+	 *
+	 * @see wcf\data\IClipboardAction::unmarkAll()
+	 */
+	public function unmarkAll() {
+		ClipboardHandler::getInstance()->removeItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
+	}
 
-    /**
-     * Restores given articles.
-     *
-     * @return array<array>
-     */
-    public function restore() {
-        foreach($this->articles as $article) {
-            $articleEditor = new ArticleEditor($article);
-            $articleEditor->update(array (
-                    'isDeleted' => 0,
-                    'deleteTime' => 0
-            ));
-        }
+	/**
+	 * Unmarks articles.
+	 */
+	protected function unmarkItems() {
+		ClipboardHandler::getInstance()->unmark(array_keys($this->articles), ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
+	}
 
-        $this->unmarkItems();
-    }
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::validateSaveFullQUote()
+	 */
+	public function validateSaveFullQuote() {
+		if(empty($this->articles)) {
+			$this->loadArticles();
+			
+			if(empty($this->articles)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+		
+		// validate permissions
+		$this->article = current($this->articles);
+	}
 
-    public function validateDelete() {
-        // read objects
-        if(empty($this->objects)) {
-            $this->readObjects();
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::saveFullQuote()
+	 */
+	public function saveFullQuote() {
+		if(! MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage())) {
+			$quoteID = MessageQuoteManager::getInstance()->getQuoteID('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage());
+			MessageQuoteManager::getInstance()->removeQuote($quoteID);
+		}
+		
+		return array (
+				'count' => MessageQuoteManager::getInstance()->countQuotes(),
+				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array (
+						'com.woltnet.wiki.article' 
+				)) 
+		);
+	}
 
-            if(empty($this->objects)) {
-                throw new UserInputException('objectIDs');
-            }
-        }
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::validateSaveQuote()
+	 */
+	public function validateSaveQuote() {
+		$this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';
+		if(empty($this->parameters['message'])) {
+			throw new UserInputException('message');
+		}
+		
+		$this->objects = ArticleCache::getInstance()->getArticles();
+		if(empty($this->objects)) {
+			$this->readObjects();
+			
+			if(empty($this->objects)) {
+				throw new UserInputException('objectIDs');
+			}
+		}
+		
+		$this->article = current($this->objects);
+	}
 
-        foreach($this->objects as $object) {
-            if(! $object->isDeletable())
-                throw new PermissionDeniedException();
-        }
-    }
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::saveQuote()
+	 */
+	public function saveQuote() {
+		MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->parameters['message']);
+		
+		return array (
+				'count' => MessageQuoteManager::getInstance()->countQuotes(),
+				'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array (
+						'com.woltnet.wiki.article' 
+				)) 
+		);
+	}
 
-    /**
-     * Validating for enabling articles.
-     */
-    public function validateEnable() {
-        $this->loadArticles();
+	/**
+	 * Validates user profile preview.
+	 */
+	public function validateGetArticles() {
+		if(count($this->objectIDs) != 1) {
+			throw new UserInputException('articleIDs');
+		}
+	}
 
-        foreach($this->articles as $article) {
-            if(! $article->isActive) {
-                throw new ValidateActionException("Action is not applicable for article " . $article->articleID);
-            }
-        }
-    }
+	/**
+	 * Returns article preview.
+	 *
+	 * @return array
+	 */
+	public function getArticles() {
+		$articleID = reset($this->objectIDs);
+		
+		$articleList = new ViewableArticleList();
+		$articleList->getConditionBuilder()->add("article.articleID = ?", array (
+				$articleID 
+		));
+		$articleList->readObjects();
+		$articles = $articleList->getObjects();
+		
+		WCF::getTPL()->assign(array (
+				'article' => reset($articles) 
+		));
+		
+		return array (
+				'template' => WCF::getTPL()->fetch('articlePreview', 'wiki'),
+				'articleID' => $articleID 
+		);
+	}
 
-    /**
-     * Enables given articles.
-     *
-     * @return array<array>
-     */
-    public function enable() {
-        foreach($this->articles as $article) {
-            $articleEditor = new ArticleEditor($article);
-            $articleEditor->setActive();
-        }
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::validateGetRenderedQuote()
+	 */
+	public function validateGetRenderedQuotes() {
+	}
 
-        $this->unmarkItems();
-    }
-
-    /**
-     * Validates user access for label management.
-     */
-    public function validateGetLabelManagement() {
-        if(! WCF::getSession()->getPermission('mod.wiki.category.canManageLabels')) {
-            throw new PermissionDeniedException();
-        }
-
-        $this->parameters['data']['categoryID'] = (isset($this->parameters['data']['categoryID'])) ? intval($this->parameters['data']['categoryID']) : 0;
-        if(empty($this->parameters['data']['categoryID'])) {
-            throw new UserInputException('categoryID');
-        }
-    }
-
-    /**
-     * Returns the article label management.
-     *
-     * @return array
-     */
-    public function getLabelManagement() {
-        WCF::getTPL()->assign(array (
-                'cssClassNames' => ArticleLabel::getLabelCssClassNames(),
-                'labelList' => ArticleLabel::getLabelsByCategory($this->parameters['data']['categoryID']),
-                'categoryID' => $this->parameters['data']['categoryID']
-        ));
-
-        return array (
-                'actionName' => 'getLabelManagement',
-                'template' => WCF::getTPL()->fetch('articleLabelManagement', 'wiki')
-        );
-    }
-
-    /**
-     * Loads articles for given object ids.
-     */
-    protected function loadArticles() {
-        if(empty($this->objectIDs)) {
-            throw new UserInputException("objectIDs");
-        }
-
-        // load articles
-        $articleList = new ArticleList();
-        $articleList->getConditionBuilder()->add("article.articleID IN (?)", array (
-                $this->objectIDs
-        ));
-        $articleList->sqlLimit = 0;
-        $articleList->readObjects();
-
-        foreach($articleList as $article) {
-            $this->articles[$article->articleID] = $article;
-        }
-
-        if(empty($this->articles)) {
-            throw new UserInputException("objectIDs");
-        }
-    }
-
-    /**
-     * Marks articles as read.
-     */
-    public function markAsRead() {
-        if(empty($this->parameters['visitTime'])) {
-            $this->parameters['visitTime'] = TIME_NOW;
-        }
-
-        if(! count($this->articles)) {
-            $this->loadArticles();
-        }
-
-        foreach($this->articles as $article) {
-            VisitTracker::getInstance()->trackObjectVisit('com.woltnet.wiki.article', $article->articleID, $this->parameters['visitTime']);
-        }
-
-        // reset storage
-        if(WCF::getUser()->userID) {
-            UserStorageHandler::getInstance()->reset(array (
-                    WCF::getUser()->userID
-            ), 'unreadArticles', PACKAGE_ID);
-        }
-    }
-
-    /**
-     *
-     * @see wcf\data\IClipboardAction::validateUnmarkAll()
-     */
-    public function validateUnmarkAll() {
-        // does nothing
-    }
-
-    /**
-     *
-     * @see wcf\data\IClipboardAction::unmarkAll()
-     */
-    public function unmarkAll() {
-        ClipboardHandler::getInstance()->removeItems(ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
-    }
-
-    /**
-     * Unmarks articles.
-     */
-    protected function unmarkItems() {
-        ClipboardHandler::getInstance()->unmark(array_keys($this->articles), ClipboardHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article'));
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::validateSaveFullQUote()
-     */
-    public function validateSaveFullQuote() {
-        if(empty($this->articles)) {
-            $this->loadArticles();
-
-            if(empty($this->articles)) {
-                throw new UserInputException('objectIDs');
-            }
-        }
-
-        // validate permissions
-        $this->article = current($this->articles);
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::saveFullQuote()
-     */
-    public function saveFullQuote() {
-        if(! MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage())) {
-            $quoteID = MessageQuoteManager::getInstance()->getQuoteID('com.woltnet.wiki.article', $this->article->articleID, $this->article->getExcerpt(), $this->article->getMessage());
-            MessageQuoteManager::getInstance()->removeQuote($quoteID);
-        }
-
-        return array (
-                'count' => MessageQuoteManager::getInstance()->countQuotes(),
-                'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array (
-                        'com.woltnet.wiki.article'
-                ))
-        );
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::validateSaveQuote()
-     */
-    public function validateSaveQuote() {
-        $this->parameters['message'] = (isset($this->parameters['message'])) ? StringUtil::trim($this->parameters['message']) : '';
-        if(empty($this->parameters['message'])) {
-            throw new UserInputException('message');
-        }
-
-        $this->objects = ArticleCache::getInstance()->getArticles();
-        if(empty($this->objects)) {
-            $this->readObjects();
-
-            if(empty($this->objects)) {
-                throw new UserInputException('objectIDs');
-            }
-        }
-
-        $this->article = current($this->objects);
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::saveQuote()
-     */
-    public function saveQuote() {
-        MessageQuoteManager::getInstance()->addQuote('com.woltnet.wiki.article', $this->article->articleID, $this->parameters['message']);
-
-        return array (
-                'count' => MessageQuoteManager::getInstance()->countQuotes(),
-                'fullQuoteMessageIDs' => MessageQuoteManager::getInstance()->getFullQuoteObjectIDs(array (
-                        'com.woltnet.wiki.article'
-                ))
-        );
-    }
-
-    /**
-     * Validates user profile preview.
-     */
-    public function validateGetArticles() {
-        if(count($this->objectIDs) != 1) {
-            throw new UserInputException('articleIDs');
-        }
-    }
-
-    /**
-     * Returns article preview.
-     *
-     * @return array
-     */
-    public function getArticles() {
-        $articleID = reset($this->objectIDs);
-
-        $articleList = new ViewableArticleList();
-        $articleList->getConditionBuilder()->add("article.articleID = ?", array (
-                $articleID
-        ));
-        $articleList->readObjects();
-        $articles = $articleList->getObjects();
-
-        WCF::getTPL()->assign(array (
-                'article' => reset($articles)
-        ));
-
-        return array (
-                'template' => WCF::getTPL()->fetch('articlePreview', 'wiki'),
-                'articleID' => $articleID
-        );
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::validateGetRenderedQuote()
-     */
-    public function validateGetRenderedQuotes() {
-    }
-
-    /**
-     *
-     * @see wcf\data\IMessageQuoteAction::getRenderedQuote()
-     */
-    public function getRenderedQuotes() {
-    }
+	/**
+	 *
+	 * @see wcf\data\IMessageQuoteAction::getRenderedQuote()
+	 */
+	public function getRenderedQuotes() {
+	}
 }

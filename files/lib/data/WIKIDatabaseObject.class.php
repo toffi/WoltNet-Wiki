@@ -14,11 +14,11 @@ use wcf\data\DatabaseObject;
  */
 abstract class WIKIDatabaseObject extends DatabaseObject {
 
-    /**
-     *
-     * @see wcf\data\IStorableObject::getDatabaseTableName()
-     */
-    public static function getDatabaseTableName() {
-        return 'wiki' . WCF_N . '_' . static::$databaseTableName;
-    }
+	/**
+	 *
+	 * @see wcf\data\IStorableObject::getDatabaseTableName()
+	 */
+	public static function getDatabaseTableName() {
+		return 'wiki' . WCF_N . '_' . static::$databaseTableName;
+	}
 }

@@ -1,8 +1,8 @@
 {include file='documentHeader'}
 
 <head>
-<title>{$category->getTitle()} - {PAGE_TITLE|language}</title>
-{include file='headInclude'}
+<title>{$category->getTitle()} - {PAGE_TITLE|language}</title> {include
+file='headInclude'}
 <script type="text/javascript">
         //<![CDATA[
         $(function() {
@@ -28,47 +28,46 @@
 
 <body id="tpl{$templateName|ucfirst}">
 
-    {include file='categorySidebar' application='wiki'} {include
-    file='header' sidebarOrientation='right'}
+	{include file='categorySidebar' application='wiki'} {include
+	file='header' sidebarOrientation='right'}
 
-    <header class="boxHeadline">
-        <h1>{$category->getTitle()}</h1>
-        {hascontent}
-        <h2>{content}{$category->description|language}{/content}</h2>
-        {/hascontent}
-    </header>
+	<header class="boxHeadline">
+		<h1>{$category->getTitle()}</h1>
+		{hascontent}
+		<h2>{content}{$category->description|language}{/content}</h2>
+		{/hascontent}
+	</header>
 
-    <div class="contentNavigation">
-        {pages print=true assign=pagesLinks controller='Category' object=$category link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder"}
+	<div class="contentNavigation">
+		{pages print=true assign=pagesLinks controller='Category'
+		object=$category
+		link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder"}
 
-        <nav>
-            <ul>
-                {if $category->getPermission('canAddArticle')}
-                <li><a
-                    href="{link application='wiki' controller='ArticleAdd' object=$category}{/link}" title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><span class="icon icon24 icon-asterisk"></span><span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
-                {/if} {event name='largeButtonsTop'}
-            </ul>
-        </nav>
-    </div>
+		<nav>
+			<ul>
+				{if $category->getPermission('canAddArticle')}
+				<li><a
+					href="{link application='wiki' controller='ArticleAdd' object=$category}{/link}"
+					title="{lang}wiki.global.button.articleAdd{/lang}" class="button"><span
+						class="icon icon24 icon-asterisk"></span><span>{lang}wiki.global.button.articleAdd{/lang}</span></a></li>
+				{/if} {event name='largeButtonsTop'}
+			</ul>
+		</nav>
+	</div>
 
-    {hascontent}
-    <div class="wikiCategoryListIndex marginTop">
-    {content}
-    {include file='categoryNodeList' application='wiki'}
-    {/content}
-    </div>
-    {/hascontent}
+	{hascontent}
+	<div class="wikiCategoryListIndex marginTop">{content} {include
+		file='categoryNodeList' application='wiki'} {/content}</div>
+	{/hascontent} {include file='categoryArticleList' application='wiki'}
 
-    {include file='categoryArticleList' application='wiki'}
+	<div class="contentNavigation">
+		{@$pagesLinks}
 
-    <div class="contentNavigation">
-        {@$pagesLinks}
+		<div class="jsClipboardEditor"
+			data-types="[ 'com.woltnet.wiki.article' ]"></div>
+	</div>
 
-        <div class="jsClipboardEditor"
-            data-types="[ 'com.woltnet.wiki.article' ]"></div>
-    </div>
-
-    {include file='footer'}
+	{include file='footer'}
 
 </body>
 </html>

@@ -17,23 +17,23 @@ use wcf\system\WCF;
  */
 class WikiSitemapProvider implements ISitemapProvider {
 
-    public $categoryNodeList = null;
+	public $categoryNodeList = null;
 
-    public $categoryNodeTree = null;
+	public $categoryNodeTree = null;
 
-    /**
-     *
-     * @see wcf\system\sitemap\ISitemapProvider::getTemplate()
-     */
-    public function getTemplate() {
-        $this->categoryNodeTree = new WikiCategoryNodeTree('com.woltnet.wiki.category');
-        $this->categoryNodeList = $this->categoryNodeTree->getIterator();
-        $this->categoryNodeList->setMaxDepth(0);
-
-        WCF::getTPL()->assign(array (
-                'categoryList' => $this->categoryNodeList
-        ));
-
-        return WCF::getTPL()->fetch('sitemapWiki', 'wiki');
-    }
+	/**
+	 *
+	 * @see wcf\system\sitemap\ISitemapProvider::getTemplate()
+	 */
+	public function getTemplate() {
+		$this->categoryNodeTree = new WikiCategoryNodeTree('com.woltnet.wiki.category');
+		$this->categoryNodeList = $this->categoryNodeTree->getIterator();
+		$this->categoryNodeList->setMaxDepth(0);
+		
+		WCF::getTPL()->assign(array (
+				'categoryList' => $this->categoryNodeList 
+		));
+		
+		return WCF::getTPL()->fetch('sitemapWiki', 'wiki');
+	}
 }

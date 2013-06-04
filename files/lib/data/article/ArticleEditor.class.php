@@ -18,19 +18,19 @@ use wcf\data\IEditableCachedObject;
  */
 class ArticleEditor extends DatabaseObjectEditor implements IEditableCachedObject {
 
-    /**
-     *
-     * @see wcf\data\DatabaseObjectDecorator::$baseClass
-     */
-    protected static $baseClass = 'wiki\data\article\Article';
+	/**
+	 *
+	 * @see wcf\data\DatabaseObjectDecorator::$baseClass
+	 */
+	protected static $baseClass = 'wiki\data\article\Article';
 
-    /**
-     *
-     * @see wcf\data\IEditableCachedObject::resetCache()
-     */
-    public static function resetCache() {
-        ArticleCacheBuilder::getInstance()->reset();
-        ArticleVersionCacheBuilder::getInstance()->reset();
-        ArticlePermissionCacheBuilder::getInstance()->reset();
-    }
+	/**
+	 *
+	 * @see wcf\data\IEditableCachedObject::resetCache()
+	 */
+	public static function resetCache() {
+		ArticleCacheBuilder::getInstance()->reset();
+		ArticleVersionCacheBuilder::getInstance()->reset();
+		ArticlePermissionCacheBuilder::getInstance()->reset();
+	}
 }

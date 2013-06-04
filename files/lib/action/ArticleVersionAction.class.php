@@ -22,96 +22,96 @@ use wcf\system\moderation\queue\ModerationQueueActivationManager;
  */
 class ArticleVersionAction extends AbstractAction {
 
-    public $articleVersionID = 0;
+	public $articleVersionID = 0;
 
-    public $articleVersion = null;
+	public $articleVersion = null;
 
-    public $action = null;
+	public $action = null;
 
-    /**
-     *
-     * @see wiki\action\AbstractAction::readParameters()
-     */
-    public function readParameters() {
-        parent::readParameters();
+	/**
+	 *
+	 * @see wiki\action\AbstractAction::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		if(isset($_GET['id']))
+			$this->articleVersionID = intval($_GET['id']);
+		if(isset($_GET['action']))
+			$this->action = escapeString($_GET['action']);
+		
+		$this->readData();
+	}
 
-        if(isset($_GET['id']))
-            $this->articleVersionID = intval($_GET['id']);
-        if(isset($_GET['action']))
-            $this->action = escapeString($_GET['action']);
+	public function readData() {
+		$this->articleVersion = ArticleCache::getInstance()->getArticleVersion($this->articleVersionID);
+		
+		if(! $this->articleVersion->versionID) {
+			throw new IllegalLinkException();
+		}
+		
+		if(! $this->articleVersion->getModeratorPermission()) {
+			throw new PermissionDeniedException();
+		}
+	}
 
-        $this->readData();
-    }
+	public function activate() {
+		$editor = $this->articleVersion->getEditor();
+		$editor->setActive();
+		ArticleVersionEditor::resetCache();
+		
+		$moderationManager = ModerationQueueActivationManager::getInstance()->removeModeratedContent('com.woltnet.wiki.article', array (
+				$this->articleVersionID 
+		));
+		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array (
+				'application' => 'wiki',
+				'categoryName' => $this->articleVersion->getArticle()->getCategory()->getTitle(),
+				'object' => $this->articleVersion->getArticle(),
+				'versionID' => $this->articleVersionID 
+		)));
+	}
 
-    public function readData() {
-        $this->articleVersion = ArticleCache::getInstance()->getArticleVersion($this->articleVersionID);
+	public function trash() {
+		$this->objectAction = new ArticleVersionAction(array (
+				$this->article->articleID 
+		), 'trash');
+		$this->objectAction->validateAction();
+		$this->objectAction->executeAction();
+		
+		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Category', array (
+				'application' => 'wiki',
+				'object' => $this->article->getCategory() 
+		)));
+	}
 
-        if(! $this->articleVersion->versionID) {
-            throw new IllegalLinkException();
-        }
+	public function restore() {
+	}
 
-        if(! $this->articleVersion->getModeratorPermission()) {
-            throw new PermissionDeniedException();
-        }
-    }
+	public function delete() {
+	}
 
-    public function activate() {
-        $editor = $this->articleVersion->getEditor();
-        $editor->setActive();
-        ArticleVersionEditor::resetCache();
-
-        $moderationManager = ModerationQueueActivationManager::getInstance()->removeModeratedContent('com.woltnet.wiki.article', array (
-                $this->articleVersionID
-        ));
-        HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array (
-                'application' => 'wiki',
-                'categoryName' => $this->articleVersion->getArticle()->getCategory()->getTitle(),
-                'object' => $this->articleVersion->getArticle(),
-                'versionID' => $this->articleVersionID
-        )));
-    }
-
-    public function trash() {
-        $this->objectAction = new ArticleVersionAction(array (
-                $this->article->articleID
-        ), 'trash');
-        $this->objectAction->validateAction();
-        $this->objectAction->executeAction();
-
-        HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Category', array (
-                'application' => 'wiki',
-                'object' => $this->article->getCategory()
-        )));
-    }
-
-    public function restore() {
-    }
-
-    public function delete() {
-    }
-
-    /**
-     *
-     * @see wcf\action\AbstractAction::execute()
-     */
-    public function execute() {
-        parent::execute();
-
-        switch($this->action) {
-            case 'avtivate' :
-                $this->activate();
-                break;
-            case 'trash' :
-                $this->trash();
-                break;
-            case 'restore' :
-                $this->restore();
-                break;
-            case 'delete' :
-                $this->delete();
-                break;
-            default :
-                break;
-        }
-    }
+	/**
+	 *
+	 * @see wcf\action\AbstractAction::execute()
+	 */
+	public function execute() {
+		parent::execute();
+		
+		switch($this->action) {
+			case 'avtivate' :
+				$this->activate();
+				break;
+			case 'trash' :
+				$this->trash();
+				break;
+			case 'restore' :
+				$this->restore();
+				break;
+			case 'delete' :
+				$this->delete();
+				break;
+			default :
+				break;
+		}
+	}
 }

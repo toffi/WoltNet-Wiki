@@ -20,37 +20,37 @@ use wcf\system\WCF;
  */
 class WatchedArticlesPageMenuItemProvider extends DefaultPageMenuItemProvider {
 
-    /**
-     * number of unread watched bugs.
-     *
-     * @var integer
-     */
-    protected $notifications = null;
+	/**
+	 * number of unread watched bugs.
+	 *
+	 * @var integer
+	 */
+	protected $notifications = null;
 
-    /**
-     *
-     * @see wcf\system\menu\page\IPageMenuItemProvider::isVisible()
-     */
-    public function isVisible() {
-        return (WCF::getUser()->userID ? true : false);
-    }
+	/**
+	 *
+	 * @see wcf\system\menu\page\IPageMenuItemProvider::isVisible()
+	 */
+	public function isVisible() {
+		return (WCF::getUser()->userID ? true : false);
+	}
 
-    /**
-     *
-     * @see wcf\system\menu\page\IPageMenuItemProvider::getNotifications()
-     */
-    public function getNotifications() {
-        if($this->notifications === null) {
-            $this->notifications = 0;
-
-            if(WCF::getUser()->userID) {
-                // load storage data
-                UserStorageHandler::getInstance()->loadStorage(array (
-                        WCF::getUser()->userID
-                ));
-            }
-        }
-
-        return $this->notifications;
-    }
+	/**
+	 *
+	 * @see wcf\system\menu\page\IPageMenuItemProvider::getNotifications()
+	 */
+	public function getNotifications() {
+		if($this->notifications === null) {
+			$this->notifications = 0;
+			
+			if(WCF::getUser()->userID) {
+				// load storage data
+				UserStorageHandler::getInstance()->loadStorage(array (
+						WCF::getUser()->userID 
+				));
+			}
+		}
+		
+		return $this->notifications;
+	}
 }

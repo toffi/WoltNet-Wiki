@@ -15,10 +15,10 @@ use wcf\data\category\CategoryNodeTree;
  */
 class WikiCategoryNodeTree extends CategoryNodeTree {
 
-    /**
-     * name of the category node class
-     *
-     * @var string
-     */
-    protected $nodeClassName = 'wiki\data\category\WikiCategoryNode';
+	/**
+	 * name of the category node class
+	 *
+	 * @var string
+	 */
+	protected $nodeClassName = 'wiki\data\category\WikiCategoryNode';
 }

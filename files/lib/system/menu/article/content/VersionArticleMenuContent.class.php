@@ -18,25 +18,25 @@ use wcf\system\WCF;
  */
 class VersionArticleMenuContent extends SingletonFactory implements IArticleMenuContent {
 
-    /**
-     *
-     * @see wcf\system\SingletonFactory::init()
-     */
-    protected function init() {
-        EventHandler::getInstance()->fireAction($this, 'shouldInit');
+	/**
+	 *
+	 * @see wcf\system\SingletonFactory::init()
+	 */
+	protected function init() {
+		EventHandler::getInstance()->fireAction($this, 'shouldInit');
+		
+		EventHandler::getInstance()->fireAction($this, 'didInit');
+	}
 
-        EventHandler::getInstance()->fireAction($this, 'didInit');
-    }
-
-    /**
-     *
-     * @see wiki\system\menu\article\content\IArticleMenuContent::getContent()
-     */
-    public function getContent($articleID) {
-        $article = ArticleCache::getInstance()->getArticle($articleID);
-        WCF::getTPL()->assign(array (
-                'article' => $article
-        ));
-        return WCF::getTPL()->fetch('articleVersionList', 'wiki');
-    }
+	/**
+	 *
+	 * @see wiki\system\menu\article\content\IArticleMenuContent::getContent()
+	 */
+	public function getContent($articleID) {
+		$article = ArticleCache::getInstance()->getArticle($articleID);
+		WCF::getTPL()->assign(array (
+				'article' => $article 
+		));
+		return WCF::getTPL()->fetch('articleVersionList', 'wiki');
+	}
 }

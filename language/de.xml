@@ -230,7 +230,8 @@
 	<!-- wcf.user.objectWatch -->
 	<category name="wcf.user.objectWatch">
 		<item name="wcf.user.objectWatch.subscribe.com.woltnet.wiki.category"><![CDATA[Kategorie abonnieren]]></item>
-		<item name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.category"><![CDATA[Benachrichtigung über neue Artikel aktivieren]]></item>
+		<item
+			name="wcf.user.objectWatch.enableNotification.com.woltnet.wiki.category"><![CDATA[Benachrichtigung über neue Artikel aktivieren]]></item>
 		<item name="wcf.user.objectWatch.unsubscribe.com.woltnet.wiki.category"><![CDATA[Kategorie nicht abonnieren]]></item>
 	</category>
 
@@ -274,11 +275,11 @@
 	<category name="wcf.page">
 		<item name="wcf.page.sitemap.wiki"><![CDATA[Wiki]]></item>
 	</category>
-    
-    <!-- wcf.acp.label -->
-    <category name="wcf.acp.label">
-        <item name="wcf.acp.label.container.com.woltnet.wiki.category"><![CDATA[Artikelkategorien]]></item>
-    </category>
+
+	<!-- wcf.acp.label -->
+	<category name="wcf.acp.label">
+		<item name="wcf.acp.label.container.com.woltnet.wiki.category"><![CDATA[Artikelkategorien]]></item>
+	</category>
 
 	<!-- wcf.tagging -->
 	<category name="wcf.tagging">

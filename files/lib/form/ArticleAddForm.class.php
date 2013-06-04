@@ -35,347 +35,347 @@ use wcf\system\exception\IllegalLinkException;
  */
 class ArticleAddForm extends MessageForm {
 
-    /**
-     *
-     * @see wcf\page\AbstractPage::$templateName
-     */
-    public $action = 'add';
+	/**
+	 *
+	 * @see wcf\page\AbstractPage::$templateName
+	 */
+	public $action = 'add';
 
-    public $templatename = 'articleAdd';
+	public $templatename = 'articleAdd';
 
-    public $username = null;
+	public $username = null;
 
-    /**
-     * id of the category
-     *
-     * @var integer
-     */
-    public $categoryID = 0;
+	/**
+	 * id of the category
+	 *
+	 * @var integer
+	 */
+	public $categoryID = 0;
 
-    /**
-     * category object for the given categoryID
-     *
-     * @var wiki\data\catagory\Category
-     */
-    public $category = null;
+	/**
+	 * category object for the given categoryID
+	 *
+	 * @var wiki\data\catagory\Category
+	 */
+	public $category = null;
 
-    /**
-     * id of the category acl object type
-     *
-     * @var integer
-     */
-    public $aclObjectTypeID = 0;
+	/**
+	 * id of the category acl object type
+	 *
+	 * @var integer
+	 */
+	public $aclObjectTypeID = 0;
 
-    /**
-     * category node list
-     *
-     * @var wiki\data\category\WikiCategoryNodeTree
-     */
-    public $categoryNodeTree = null;
+	/**
+	 * category node list
+	 *
+	 * @var wiki\data\category\WikiCategoryNodeTree
+	 */
+	public $categoryNodeTree = null;
 
-    /**
-     * category node list
-     *
-     * @var \Iterator
-     */
-    public $categoryNodeList = null;
+	/**
+	 * category node list
+	 *
+	 * @var \Iterator
+	 */
+	public $categoryNodeList = null;
 
-    /**
-     *
-     * @see wcf\form\MessageForm::$enableMultilingualism
-     */
-    public $enableMultilingualism = true;
+	/**
+	 *
+	 * @see wcf\form\MessageForm::$enableMultilingualism
+	 */
+	public $enableMultilingualism = true;
 
-    /**
-     *
-     * @see wcf\form\MessageForm::$showSignatureSetting
-     */
-    public $showSignatureSetting = 0;
+	/**
+	 *
+	 * @see wcf\form\MessageForm::$showSignatureSetting
+	 */
+	public $showSignatureSetting = 0;
 
-    public $activateArticle = 0;
+	public $activateArticle = 0;
 
-    protected $article = null;
+	protected $article = null;
 
-    /**
-     * objectTypeName for Wiki Categoires
-     *
-     * @var string
-     */
-    public $objectTypeName = 'com.woltnet.wiki.category';
+	/**
+	 * objectTypeName for Wiki Categoires
+	 *
+	 * @var string
+	 */
+	public $objectTypeName = 'com.woltnet.wiki.category';
 
-    /**
-     *
-     * @see wcf\page\IPage::readParameters()
-     */
-    public function readParameters() {
-        parent::readParameters();
+	/**
+	 *
+	 * @see wcf\page\IPage::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		if(isset($_GET['id'])) {
+			$this->categoryID = intval($_GET['id']);
+			$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
+			
+			if($category !== null)
+				$this->category = new WikiCategory($category);
+			
+			if($this->category === null || ! $this->category->categoryID) {
+				throw new IllegalLinkException();
+			}
+			
+			// check permissions
+			$this->category->checkPermission(array (
+					'canViewCategory',
+					'canEnterCategory',
+					'canAddArticle' 
+			));
+		}
+		
+		// quotes
+		MessageQuoteManager::getInstance()->readParameters();
+	}
 
-        if(isset($_GET['id'])) {
-            $this->categoryID = intval($_GET['id']);
-            $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
-
-            if($category !== null)
-                $this->category = new WikiCategory($category);
-
-            if($this->category === null || ! $this->category->categoryID) {
-                throw new IllegalLinkException();
-            }
-
-            // check permissions
-            $this->category->checkPermission(array (
-                    'canViewCategory',
-                    'canEnterCategory',
-                    'canAddArticle'
-            ));
-        }
-
-        // quotes
-        MessageQuoteManager::getInstance()->readParameters();
-    }
-
-    /**
-     *
-     * @see wcf\page\IPage::readData()
-     */
-    public function readData() {
-        parent::readData();
-
-        if($this->categoryID == 0) {
-            WCF::getSession()->checkPermissions(array (
-                    'user.wiki.article.write.canAddArticle'
-            ));
-        }
-        // get acl object type id
-        $aclObjectTypeName = 'com.woltnet.wiki.article';
-        if($aclObjectTypeName) {
-            $this->aclObjectTypeID = ACLHandler::getInstance()->getObjectTypeID($aclObjectTypeName);
-        }
-
-        // default values
-        if(! count($_POST)) {
-            $this->username = WCF::getSession()->getVar('username');
-
-            // multilingualism
-            if(! empty($this->availableContentLanguages)) {
-                if(! $this->languageID) {
-                    $language = LanguageFactory::getInstance()->getUserLanguage();
-                    $this->languageID = $language->languageID;
-                }
-
-                if(! isset($this->availableContentLanguages[$this->languageID])) {
-                    $languageIDs = array_keys($this->availableContentLanguages);
-                    $this->languageID = array_shift($languageIDs);
-                }
-            }
-
-            // get all message ids from current conversation
-            $sql = "SELECT	articleID
+	/**
+	 *
+	 * @see wcf\page\IPage::readData()
+	 */
+	public function readData() {
+		parent::readData();
+		
+		if($this->categoryID == 0) {
+			WCF::getSession()->checkPermissions(array (
+					'user.wiki.article.write.canAddArticle' 
+			));
+		}
+		// get acl object type id
+		$aclObjectTypeName = 'com.woltnet.wiki.article';
+		if($aclObjectTypeName) {
+			$this->aclObjectTypeID = ACLHandler::getInstance()->getObjectTypeID($aclObjectTypeName);
+		}
+		
+		// default values
+		if(! count($_POST)) {
+			$this->username = WCF::getSession()->getVar('username');
+			
+			// multilingualism
+			if(! empty($this->availableContentLanguages)) {
+				if(! $this->languageID) {
+					$language = LanguageFactory::getInstance()->getUserLanguage();
+					$this->languageID = $language->languageID;
+				}
+				
+				if(! isset($this->availableContentLanguages[$this->languageID])) {
+					$languageIDs = array_keys($this->availableContentLanguages);
+					$this->languageID = array_shift($languageIDs);
+				}
+			}
+			
+			// get all message ids from current conversation
+			$sql = "SELECT	articleID
             FROM	wiki" . WCF_N . "_article";
-            $statement = WCF::getDB()->prepareStatement($sql);
-            $statement->execute();
-            $articleIDs = array ();
-            while($row = $statement->fetchArray()) {
-                $articleIDs[] = $row['articleID'];
-            }
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute();
+			$articleIDs = array ();
+			while($row = $statement->fetchArray()) {
+				$articleIDs[] = $row['articleID'];
+			}
+			
+			if(WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle'))
+				$this->activateArticle = 1;
+		}
+		
+		// manage quotes
+		MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
+		
+		// read categories
+		$this->categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
+		$this->categoryNodeList = $this->categoryNodeTree->getIterator();
+		
+		if(! $this->categoryNodeList->hasChildren()) {
+			throw new NamedUserException(WCF::getLanguage()->get('wiki.articleAdd.noCategories'));
+		}
+		
+		if($this->categoryID != 0) {
+			$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
+			WCF::getBreadcrumbs()->add(new Breadcrumb($category->getTitle(), LinkHandler::getInstance()->getLink('Category', array (
+					'id' => $category->categoryID,
+					'title' => $category->title 
+			))));
+		}
+	}
 
-            if(WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle'))
-                $this->activateArticle = 1;
-        }
+	/**
+	 *
+	 * @see wcf\form\IForm::readFormParameters()
+	 */
+	public function readFormParameters() {
+		parent::readFormParameters();
+		
+		if(isset($_POST['username']))
+			$this->username = StringUtil::trim($_POST['username']);
+		if(isset($_POST['category']))
+			$this->categoryID = intval($_POST['category']);
+		if(isset($_POST['activateArticle']) && WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle'))
+			$this->activateArticle = intval($_POST['activateArticle']);
+			
+			// quotes
+		MessageQuoteManager::getInstance()->readFormParameters();
+	}
 
-        // manage quotes
-        MessageQuoteManager::getInstance()->initObjects('com.woltnet.wiki.article', $articleIDs);
+	/**
+	 *
+	 * @see wcf\page\IPage::assignVariables()
+	 */
+	public function assignVariables() {
+		parent::assignVariables();
+		
+		if(WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
+			ACLHandler::getInstance()->assignVariables($this->aclObjectTypeID);
+		}
+		
+		MessageQuoteManager::getInstance()->assignVariables();
+		
+		WCF::getTPL()->assign(array (
+				'categoryNodeList' => $this->categoryNodeList,
+				'categoryID' => $this->categoryID,
+				'username' => $this->username,
+				'aclObjectTypeID' => $this->aclObjectTypeID,
+				'activateArticle' => $this->activateArticle 
+		));
+	}
 
-        // read categories
-        $this->categoryNodeTree = new WikiCategoryNodeTree($this->objectTypeName);
-        $this->categoryNodeList = $this->categoryNodeTree->getIterator();
+	/**
+	 *
+	 * @see wcf\form\IForm::save()
+	 */
+	public function validate() {
+		parent::validate();
+		
+		// username
+		$this->validateUsername();
+		
+		// category
+		$this->validateCategory();
+	}
 
-        if(! $this->categoryNodeList->hasChildren()) {
-            throw new NamedUserException(WCF::getLanguage()->get('wiki.articleAdd.noCategories'));
-        }
+	/**
+	 * Validates the username.
+	 */
+	protected function validateUsername() {
+		// only for guests
+		if(WCF::getUser()->userID == 0) {
+			if(empty($this->username)) {
+				throw new UserInputException('username');
+			}
+			if(! UserUtil::isValidUsername($this->username)) {
+				throw new UserInputException('username', 'notValid');
+			}
+			if(! UserUtil::isAvailableUsername($this->username)) {
+				throw new UserInputException('username', 'notAvailable');
+			}
+			
+			WCF::getSession()->register('username', $this->username);
+		}
+	}
 
-        if($this->categoryID != 0) {
-            $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
-            WCF::getBreadcrumbs()->add(new Breadcrumb($category->getTitle(), LinkHandler::getInstance()->getLink('Category', array (
-                    'id' => $category->categoryID,
-                    'title' => $category->title
-            ))));
-        }
-    }
+	/**
+	 * Validates the selected CategoryID
+	 */
+	protected function validateCategory() {
+		$category = CategoryHandler::getInstance()->getCategory($this->categoryID);
+		
+		if($category !== null)
+			$category = new WikiCategory($category);
+		
+		$category->checkPermission(array (
+				'canAddArticle' 
+		));
+	}
 
-    /**
-     *
-     * @see wcf\form\IForm::readFormParameters()
-     */
-    public function readFormParameters() {
-        parent::readFormParameters();
-
-        if(isset($_POST['username']))
-            $this->username = StringUtil::trim($_POST['username']);
-        if(isset($_POST['category']))
-            $this->categoryID = intval($_POST['category']);
-        if(isset($_POST['activateArticle']) && WCF::getSession()->getPermission('mod.wiki.article.canActivateArticle'))
-            $this->activateArticle = intval($_POST['activateArticle']);
-
-            // quotes
-        MessageQuoteManager::getInstance()->readFormParameters();
-    }
-
-    /**
-     *
-     * @see wcf\page\IPage::assignVariables()
-     */
-    public function assignVariables() {
-        parent::assignVariables();
-
-        if(WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
-            ACLHandler::getInstance()->assignVariables($this->aclObjectTypeID);
-        }
-
-        MessageQuoteManager::getInstance()->assignVariables();
-
-        WCF::getTPL()->assign(array (
-                'categoryNodeList' => $this->categoryNodeList,
-                'categoryID' => $this->categoryID,
-                'username' => $this->username,
-                'aclObjectTypeID' => $this->aclObjectTypeID,
-                'activateArticle' => $this->activateArticle
-        ));
-    }
-
-    /**
-     *
-     * @see wcf\form\IForm::save()
-     */
-    public function validate() {
-        parent::validate();
-
-        // username
-        $this->validateUsername();
-
-        // category
-        $this->validateCategory();
-    }
-
-    /**
-     * Validates the username.
-     */
-    protected function validateUsername() {
-        // only for guests
-        if(WCF::getUser()->userID == 0) {
-            if(empty($this->username)) {
-                throw new UserInputException('username');
-            }
-            if(! UserUtil::isValidUsername($this->username)) {
-                throw new UserInputException('username', 'notValid');
-            }
-            if(! UserUtil::isAvailableUsername($this->username)) {
-                throw new UserInputException('username', 'notAvailable');
-            }
-
-            WCF::getSession()->register('username', $this->username);
-        }
-    }
-
-    /**
-     * Validates the selected CategoryID
-     */
-    protected function validateCategory() {
-        $category = CategoryHandler::getInstance()->getCategory($this->categoryID);
-
-        if($category !== null)
-            $category = new WikiCategory($category);
-
-        $category->checkPermission(array (
-                'canAddArticle'
-        ));
-    }
-
-    /**
-     *
-     * @see wcf\form\IForm::save()
-     */
-    public function save() {
-        parent::save();
-
-        if($this->languageID === null) {
-            $this->languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
-        }
-
-        // save article
-        $data = array ();
-
-        $data = array (
-                'articleData' => array (
-                        'categoryID' => $this->categoryID,
-                        'languageID' => $this->languageID
-                ),
-                'versionData' => array (
-                        'subject' => $this->subject,
-                        'message' => $this->text,
-                        'userID' => (WCF::getUser()->userID ?  : null),
-                        'username' => (WCF::getUser()->userID ? WCF::getUser()->username : $this->username),
-                        'time' => TIME_NOW,
-                        'enableSmilies' => $this->enableSmilies,
-                        'enableHtml' => $this->enableHtml,
-                        'enableBBCodes' => $this->enableBBCodes
-                )
-        );
-        $this->objectAction = new ArticleAction(array (), 'create', $data);
-        $resultValues = $this->objectAction->executeAction();
-
-        $this->article = $resultValues['returnValues'];
-
-        // save acl
-        if(WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
-            ACLHandler::getInstance()->save($resultValues['returnValues']->versionID, $this->aclObjectTypeID);
-            ACLHandler::getInstance()->disableAssignVariables();
-            ArticlePermissionHandler::getInstance()->resetCache();
-
-            // update user storage
-            $userPermissions = array ();
-
-            $conditionBuilder = new PreparedStatementConditionBuilder();
-            $conditionBuilder->add('acl_option.packageID IN (?)', array (
-                    PACKAGE_ID
-            ));
-            $conditionBuilder->add('acl_option.objectTypeID = ?', array (
-                    ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article')
-            ));
-            $conditionBuilder->add('option_to_user.optionID = acl_option.optionID');
-            $conditionBuilder->add('option_to_user.userID = ?', array (
-                    WCF::getUser()->userID
-            ));
-            $sql = "SELECT		option_to_user.objectID AS articleID, option_to_user.optionValue,
+	/**
+	 *
+	 * @see wcf\form\IForm::save()
+	 */
+	public function save() {
+		parent::save();
+		
+		if($this->languageID === null) {
+			$this->languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
+		}
+		
+		// save article
+		$data = array ();
+		
+		$data = array (
+				'articleData' => array (
+						'categoryID' => $this->categoryID,
+						'languageID' => $this->languageID 
+				),
+				'versionData' => array (
+						'subject' => $this->subject,
+						'message' => $this->text,
+						'userID' => (WCF::getUser()->userID ?  : null),
+						'username' => (WCF::getUser()->userID ? WCF::getUser()->username : $this->username),
+						'time' => TIME_NOW,
+						'enableSmilies' => $this->enableSmilies,
+						'enableHtml' => $this->enableHtml,
+						'enableBBCodes' => $this->enableBBCodes 
+				) 
+		);
+		$this->objectAction = new ArticleAction(array (), 'create', $data);
+		$resultValues = $this->objectAction->executeAction();
+		
+		$this->article = $resultValues['returnValues'];
+		
+		// save acl
+		if(WCF::getSession()->getPermission('mod.wiki.article.canManagePermissions') && $this->aclObjectTypeID) {
+			ACLHandler::getInstance()->save($resultValues['returnValues']->versionID, $this->aclObjectTypeID);
+			ACLHandler::getInstance()->disableAssignVariables();
+			ArticlePermissionHandler::getInstance()->resetCache();
+			
+			// update user storage
+			$userPermissions = array ();
+			
+			$conditionBuilder = new PreparedStatementConditionBuilder();
+			$conditionBuilder->add('acl_option.packageID IN (?)', array (
+					PACKAGE_ID 
+			));
+			$conditionBuilder->add('acl_option.objectTypeID = ?', array (
+					ACLHandler::getInstance()->getObjectTypeID('com.woltnet.wiki.article') 
+			));
+			$conditionBuilder->add('option_to_user.optionID = acl_option.optionID');
+			$conditionBuilder->add('option_to_user.userID = ?', array (
+					WCF::getUser()->userID 
+			));
+			$sql = "SELECT		option_to_user.objectID AS articleID, option_to_user.optionValue,
             acl_option.optionName AS permission
             FROM		wcf" . WCF_N . "_acl_option acl_option,
             wcf" . WCF_N . "_acl_option_to_user option_to_user
             " . $conditionBuilder;
-            $statement = WCF::getDB()->prepareStatement($sql);
-            $statement->execute($conditionBuilder->getParameters());
-            while($row = $statement->fetchArray()) {
-                $userPermissions[$row['articleID']][$row['permission']] = $row['optionValue'];
-            }
-
-            // update storage data
-            UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'articleUserPermissions', serialize($userPermissions));
-        }
-
-        if($this->activateArticle) {
-            $this->article->getEditor()->setActive();
-        } else {
-            ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->versionID);
-        }
-
-        $this->saved();
-
-        MessageQuoteManager::getInstance()->saved();
-
-        HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array (
-                'application' => 'wiki',
-                'controller' => 'Article',
-                'object' => $this->article->getArticle(),
-                'versionID' => $this->article->versionID
-        )));
-        exit();
-    }
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute($conditionBuilder->getParameters());
+			while($row = $statement->fetchArray()) {
+				$userPermissions[$row['articleID']][$row['permission']] = $row['optionValue'];
+			}
+			
+			// update storage data
+			UserStorageHandler::getInstance()->update(WCF::getUser()->userID, 'articleUserPermissions', serialize($userPermissions));
+		}
+		
+		if($this->activateArticle) {
+			$this->article->getEditor()->setActive();
+		} else {
+			ModerationQueueActivationManager::getInstance()->addModeratedContent('com.woltnet.wiki.article', $this->article->versionID);
+		}
+		
+		$this->saved();
+		
+		MessageQuoteManager::getInstance()->saved();
+		
+		HeaderUtil::redirect(LinkHandler::getInstance()->getLink('Article', array (
+				'application' => 'wiki',
+				'controller' => 'Article',
+				'object' => $this->article->getArticle(),
+				'versionID' => $this->article->versionID 
+		)));
+		exit();
+	}
 }

@@ -15,9 +15,9 @@ use wcf\data\DatabaseObjectList;
  */
 class ArticleList extends DatabaseObjectList {
 
-    /**
-     *
-     * @see wcf\data\DatabaseObjectList::$className
-     */
-    public $className = 'wiki\data\article\Article';
+	/**
+	 *
+	 * @see wcf\data\DatabaseObjectList::$className
+	 */
+	public $className = 'wiki\data\article\Article';
 }

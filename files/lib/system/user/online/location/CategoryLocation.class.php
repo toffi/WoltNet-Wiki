@@ -19,27 +19,27 @@ use wcf\system\WCF;
  */
 class CategoryLocation implements IUserOnlineLocation {
 
-    /**
-     *
-     * @see wcf\system\user\online\location\IUserOnlineLocation::cache()
-     */
-    public function cache(UserOnline $user) {
-    }
+	/**
+	 *
+	 * @see wcf\system\user\online\location\IUserOnlineLocation::cache()
+	 */
+	public function cache(UserOnline $user) {
+	}
 
-    /**
-     *
-     * @see wcf\system\user\online\location\IUserOnlineLocation::get()
-     */
-    public function get(UserOnline $user, $languageVariable = '') {
-        if($category = CategoryHandler::getInstance()->getCategory($user->objectID)) {
-            $category = new WikiCategory($category);
-            if($category->getPermission()) {
-                return WCF::getLanguage()->getDynamicVariable($languageVariable, array (
-                        'category' => $category
-                ));
-            }
-        }
-
-        return '';
-    }
+	/**
+	 *
+	 * @see wcf\system\user\online\location\IUserOnlineLocation::get()
+	 */
+	public function get(UserOnline $user, $languageVariable = '') {
+		if($category = CategoryHandler::getInstance()->getCategory($user->objectID)) {
+			$category = new WikiCategory($category);
+			if($category->getPermission()) {
+				return WCF::getLanguage()->getDynamicVariable($languageVariable, array (
+						'category' => $category 
+				));
+			}
+		}
+		
+		return '';
+	}
 }

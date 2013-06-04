@@ -14,9 +14,9 @@ use wcf\data\DatabaseObjectList;
  */
 class ArticleVersionList extends DatabaseObjectList {
 
-    /**
-     *
-     * @see wcf\data\DatabaseObjectList::$className
-     */
-    public $className = 'wiki\data\article\version\ArticleVersion';
+	/**
+	 *
+	 * @see wcf\data\DatabaseObjectList::$className
+	 */
+	public $className = 'wiki\data\article\version\ArticleVersion';
 }

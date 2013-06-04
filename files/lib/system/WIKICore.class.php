@@ -18,20 +18,20 @@ use wcf\system\WCF;
  */
 class WIKICore extends AbstractApplication {
 
-    /**
-     *
-     * @see AbstractApplication::$abbreviation
-     */
-    protected $abbreviation = 'wiki';
+	/**
+	 *
+	 * @see AbstractApplication::$abbreviation
+	 */
+	protected $abbreviation = 'wiki';
 
-    public function __run() {
-        if(! $this->isActiveApplication()) {
-            return;
-        }
-
-        PageMenu::getInstance()->setActiveMenuItem('wiki.pageMenu.categoryList');
-        WCF::getBreadcrumbs()->add(new Breadcrumb(WCF::getLanguage()->get('wiki.breadCrumbs.categoryList'), LinkHandler::getInstance()->getLink('CategoryList', array (
-                'application' => 'wiki'
-        ))));
-    }
+	public function __run() {
+		if(! $this->isActiveApplication()) {
+			return;
+		}
+		
+		PageMenu::getInstance()->setActiveMenuItem('wiki.pageMenu.categoryList');
+		WCF::getBreadcrumbs()->add(new Breadcrumb(WCF::getLanguage()->get('wiki.breadCrumbs.categoryList'), LinkHandler::getInstance()->getLink('CategoryList', array (
+				'application' => 'wiki' 
+		))));
+	}
 }
