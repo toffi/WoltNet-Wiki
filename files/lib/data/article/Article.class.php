@@ -222,17 +222,13 @@ class Article extends WIKIDatabaseObject implements IRouteController, ILinkableO
 		
 		$sql = "SELECT COUNT(*) AS count
         FROM wcf" . WCF_N . "_user_object_watch
-        WHERE ((objectID = ?
+        WHERE (objectID = ?
           AND objectTypeID = ?)
-            OR (objectID = ?
-          AND objectTypeID = ?))
           AND userID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array (
 				$this->articleID,
 				ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.article')->objectTypeID,
-				$this->categoryID,
-				ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.user.objectWatch', 'com.woltnet.wiki.category')->objectTypeID,
 				$userID 
 		));
 		$row = $statement->fetchArray();

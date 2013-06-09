@@ -23,7 +23,7 @@
 			<tr class="article{if $article->isNew()} new{/if}"
 				data-article-id="{@$article->articleID}"
 				data-category-id="{@$article->categoryID}"
-				data-label-ids="[ {implode from=$article->getAssignedLabels() item=label}{@$label->labelID}{/implode} ]">
+				data-label-ids="[ {implode from=$article->getLabels() item=label}{@$label->labelID}{/implode} ]">
 				<td class="columnIcon columnAvatar">
 					<div>
 						<p class="framed">
@@ -43,7 +43,7 @@
 					<h1>
 						{hascontent}
 						<ul class="labelList">
-							{content} {foreach from=$article->getAssignedLabels() item=label}
+							{content} {foreach from=$article->getLabels() item=label}
 							<li><a
 								href="{link controller='Category' application='wiki' object=$category}{if $filter}filter={@$filter}{/if}&sortField={$sortField}&sortOrder={$sortOrder}&pageNo={@$pageNo}&labelID={@$label->labelID}{/link}"
 								class="badge label{if $label->cssClassName} {@$label->cssClassName}{/if}">{$label->label}</a></li>
