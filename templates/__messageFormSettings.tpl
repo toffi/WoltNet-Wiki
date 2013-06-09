@@ -1,2 +1,3 @@
-{if $templateName == 'articleAdd'}{include file='wikiArticleAddSettings'
-application='wiki'}{/if}
+{if $templateName == 'articleAdd'}
+    {include file='wikiArticleAddSettings' application='wiki'}
+{/if}
