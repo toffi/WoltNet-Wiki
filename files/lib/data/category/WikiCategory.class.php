@@ -113,8 +113,12 @@ class WikiCategory extends AbstractDecoratedCategory {
 			$availableLabelGroups = new LabelGroupList();
 			$availableLabelGroups->sqlJoins .= "LEFT JOIN wcf" . WCF_N . "_label_group_to_object label_group_to_object";
 			
-			$availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectTypeID = ?", $objectType->objectTypeID);
-			$availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectID = ?", $this->categoryID);
+			$availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectTypeID = ?", array (
+					$objectType->objectTypeID 
+			));
+			$availableLabelGroups->getConditionBuilder()->add("label_group_to_object.objectID = ?", array (
+					$this->categoryID 
+			));
 			
 			$availableLabelGroups->readObjects();
 			

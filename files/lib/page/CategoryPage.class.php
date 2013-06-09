@@ -211,7 +211,6 @@ class CategoryPage extends SortablePage {
 	 */
 	protected function initObjectList() {
 		$this->objectList = new CategoryArticleList($this->category, $this->categoryID, $this->labelIDs);
-		$this->objectList->setLabelList($this->labelList);
 	}
 
 	/**
